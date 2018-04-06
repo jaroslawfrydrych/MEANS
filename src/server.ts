@@ -1,21 +1,23 @@
 'use strict';
 
-import express from 'express';
-import path from 'path';
-import bodyParser from 'body-parser';
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import * as path from 'path';
 
 class Server {
+    public app: express.Application;
+
     constructor() {
         this.app = express();
         this.config();
         this.routes();
-    }
+        }
 
-    static bootstrap() {
+    static bootstrap(): Server {
         return new Server();
     }
 
-    config() {
+    config(): void {
         this.app.set('views', path.join(__dirname, 'views'));
         this.app.set('view engine', 'jade');
         this.app.use(bodyParser.json());
@@ -29,7 +31,7 @@ class Server {
         });
     }
 
-    routes() {
+    routes(): void {
         const router = express.Router();
         router.get('*', (req, res) => {
             res.send('Hello world!');
