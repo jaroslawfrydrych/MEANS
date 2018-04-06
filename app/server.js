@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
+var indexRoute = require("./routes");
 var Server = (function () {
     function Server() {
         this.app = express();
@@ -14,7 +15,7 @@ var Server = (function () {
     };
     Server.prototype.config = function () {
         this.app.set('views', path.join(__dirname, 'views'));
-        this.app.set('view engine', 'jade');
+        this.app.set('view engine', 'ejs');
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(express.static(path.join(__dirname, 'public')));
@@ -27,9 +28,8 @@ var Server = (function () {
     };
     Server.prototype.routes = function () {
         var router = express.Router();
-        router.get('*', function (req, res) {
-            res.send('Hello world!');
-        });
+        var index = new indexRoute.Index();
+        router.get('/', index.index.bind(index.index));
         this.app.use(router);
     };
     return Server;
