@@ -24,7 +24,6 @@ class Server {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(express.static(path.join(__dirname, 'public')));
-        this.app.use(express.static(path.join(__dirname, 'bower_components')));
         this.app.use(function (err, req, res, next) {
             const error = new Error('Not Found');
             err.status = 404;
