@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('./server');
+const app = require('./core/server');
 const http = require('http');
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);

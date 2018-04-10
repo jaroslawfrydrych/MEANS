@@ -3,9 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
-var indexRoute = require("./routes");
+var indexRoute = require("../routes/index");
+var app_routes_1 = require("../app/app.routes");
 var Server = (function () {
     function Server() {
+        this.router = express.Router();
         this.app = express();
         this.config();
         this.routes();
@@ -14,7 +16,7 @@ var Server = (function () {
         return new Server();
     };
     Server.prototype.config = function () {
-        this.app.set('views', path.join(__dirname, 'views'));
+        this.app.set('views', path.join(__dirname, '../views'));
         this.app.set('view engine', 'ejs');
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,10 +28,14 @@ var Server = (function () {
         });
     };
     Server.prototype.routes = function () {
-        var router = express.Router();
         var index = new indexRoute.Index();
-        router.get('/', index.index.bind(index.index));
-        this.app.use(router);
+        this.router.get('/', index.index.bind(index.index));
+        this.userRoutes();
+        this.app.use(this.router);
+    };
+    Server.prototype.userRoutes = function () {
+        var appRoutes = new app_routes_1.AppRoutes(this.app, this.router);
+        appRoutes.routes();
     };
     return Server;
 }());
