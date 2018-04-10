@@ -1,3 +1,4 @@
 {
-  "title": "App title!"
+  "title": "App title!",
+  "basePath": "/api"
 }

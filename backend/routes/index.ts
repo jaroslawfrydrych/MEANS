@@ -1,11 +1,11 @@
 import * as express from 'express';
-import * as APP_CONFIG from '../../config/config.json';
+const APP_CONFIG = require('../../config/config.json');
 
 module Route {
     export class Index {
         public index(req: express.Request, res: express.Response, next: express.NextFunction) {
             res.render('index', {
-                title: APP_CONFIG.title ? APP_CONFIG.title : ''
+                title: APP_CONFIG['title'] ? APP_CONFIG['title'] : ''
             })
         }
     }

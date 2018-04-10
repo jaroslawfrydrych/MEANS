@@ -4,7 +4,8 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
 var indexRoute = require("../routes/index");
-var app_routes_1 = require("../app/app.routes");
+var app_module_1 = require("../app/app.module");
+var session = require("cookie-session");
 var Server = (function () {
     function Server() {
         this.router = express.Router();
@@ -32,10 +33,19 @@ var Server = (function () {
         this.router.get('/', index.index.bind(index.index));
         this.userRoutes();
         this.app.use(this.router);
+        this.app.use(session({
+            name: 'session',
+            keys: ['key1', 'key2'],
+            cookie: {
+                secure: true,
+                httpOnly: true,
+                domain: 'localhost',
+                path: 'foo/bar'
+            }
+        }));
     };
     Server.prototype.userRoutes = function () {
-        var appRoutes = new app_routes_1.AppRoutes(this.app, this.router);
-        appRoutes.routes();
+        app_module_1.default(this.app);
     };
     return Server;
 }());

@@ -4,8 +4,8 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
 import * as indexRoute from '../routes/index';
-import {AppRoutes} from '../app/app.routes';
-import {App} from '../app/app.controler';
+import appModule from '../app/app.module';
+import * as session from 'cookie-session';
 
 class Server {
     public app: express.Application;
@@ -39,11 +39,20 @@ class Server {
         this.router.get('/', index.index.bind(index.index));
         this.userRoutes();
         this.app.use(this.router);
+        this.app.use(session({
+            name: 'session',
+            keys: ['key1', 'key2'],
+            cookie: {
+                secure: true,
+                httpOnly: true,
+                domain: 'localhost',
+                path: 'foo/bar'
+            }
+        }))
     }
 
     userRoutes(): void {
-        const appRoutes: AppRoutes = new AppRoutes(this.app, this.router);
-        appRoutes.routes();
+        appModule(this.app);
     }
 }
 

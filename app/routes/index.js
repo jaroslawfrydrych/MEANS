@@ -1,5 +1,5 @@
 "use strict";
-var APP_CONFIG = require("../../config/config.json");
+var APP_CONFIG = require('../../config/config.json');
 var Route;
 (function (Route) {
     var Index = (function () {
@@ -7,7 +7,7 @@ var Route;
         }
         Index.prototype.index = function (req, res, next) {
             res.render('index', {
-                title: APP_CONFIG.title ? APP_CONFIG.title : ''
+                title: APP_CONFIG['title'] ? APP_CONFIG['title'] : ''
             });
         };
         return Index;

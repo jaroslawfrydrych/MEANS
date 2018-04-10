@@ -10,23 +10,23 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_controler_1 = require("./app.controler");
-var routes_controler_1 = require("../core/routes.controler");
-var AppRoutes = (function (_super) {
-    __extends(AppRoutes, _super);
-    function AppRoutes(app, router) {
+var routes_controler_1 = require("../../core/routes.controler");
+var security_controler_1 = require("./security.controler");
+var SecurityRoutes = (function (_super) {
+    __extends(SecurityRoutes, _super);
+    function SecurityRoutes(app, router) {
         var _this = _super.call(this, app, router) || this;
         _this.app = app;
         _this.router = router;
-        _this.appCtrl = new app_controler_1.AppControler();
+        _this.securityCtrl = new security_controler_1.SecurityControler();
         return _this;
     }
-    AppRoutes.bootstrap = function (app, router) {
-        return new AppRoutes(app, router);
+    SecurityRoutes.bootstrap = function (app, router) {
+        return new SecurityRoutes(app, router);
     };
-    AppRoutes.prototype.routes = function () {
-        this.router.get('/asd/:value', this.appCtrl.index.bind(this.appCtrl.index));
+    SecurityRoutes.prototype.routes = function () {
+        this.router.post('/login', this.securityCtrl.login.bind(this.securityCtrl.login));
     };
-    return AppRoutes;
+    return SecurityRoutes;
 }(routes_controler_1.RoutesControler));
-exports.AppRoutes = AppRoutes;
+exports.SecurityRoutes = SecurityRoutes;
