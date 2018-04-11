@@ -8,7 +8,7 @@
     "backend:build": "gulp build",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --output-hashing none --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -22,7 +22,7 @@ var Server = (function () {
         this.app.set('view engine', 'ejs');
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
-        this.app.use(express.static(path.join(__dirname, 'public')));
+        this.app.use(express.static('public'));
         passport_config_1.default(passport);
         this.app.use(passport.initialize());
     };
