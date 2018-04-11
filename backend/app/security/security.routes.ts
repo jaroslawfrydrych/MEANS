@@ -1,10 +1,10 @@
 import {RoutesInterface} from '../../core/routes.interface';
-import {RoutesControler} from '../../core/routes.controler';
+import {RoutesController} from '../../core/routes.controller';
 import * as express from 'express';
-import {SecurityControler} from './security.controler';
+import {SecurityController} from './security.controller';
 
-export class SecurityRoutes extends RoutesControler implements RoutesInterface {
-    protected securityCtrl: SecurityControler = new SecurityControler();
+export class SecurityRoutes extends RoutesController implements RoutesInterface {
+    protected securityCtrl: SecurityController = new SecurityController();
 
     constructor(protected app: express.Application,
                 protected router: express.Router) {

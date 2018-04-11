@@ -3,9 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
-var indexRoute = require("../routes/index");
+var passport = require("passport");
+var app_config_1 = require("./app.config");
 var app_module_1 = require("../app/app.module");
-var session = require("cookie-session");
+var passport_config_1 = require("./passport.config");
 var Server = (function () {
     function Server() {
         this.router = express.Router();
@@ -22,27 +23,20 @@ var Server = (function () {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(express.static(path.join(__dirname, 'public')));
-        this.app.use(function (err, req, res, next) {
-            var error = new Error('Not Found');
-            err.status = 404;
-            next(err);
-        });
+        passport_config_1.default(passport);
+        this.app.use(passport.initialize());
     };
     Server.prototype.routes = function () {
-        var index = new indexRoute.Index();
-        this.router.get('/', index.index.bind(index.index));
+        this.homeRoute();
         this.userRoutes();
         this.app.use(this.router);
-        this.app.use(session({
-            name: 'session',
-            keys: ['key1', 'key2'],
-            cookie: {
-                secure: true,
-                httpOnly: true,
-                domain: 'localhost',
-                path: 'foo/bar'
-            }
-        }));
+    };
+    Server.prototype.homeRoute = function () {
+        this.router.get('/', function (req, res) {
+            res.render('index', {
+                title: app_config_1.AppConfig.TITLE ? app_config_1.AppConfig.TITLE : ''
+            });
+        });
     };
     Server.prototype.userRoutes = function () {
         app_module_1.default(this.app);

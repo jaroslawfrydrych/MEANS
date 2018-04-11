@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-export class RoutesControler {
+export class RoutesController {
     constructor(protected app: express.Application,
                 protected router: express.Router) {
     }

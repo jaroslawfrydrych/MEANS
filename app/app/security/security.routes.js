@@ -10,15 +10,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var routes_controler_1 = require("../../core/routes.controler");
-var security_controler_1 = require("./security.controler");
+var routes_controller_1 = require("../../core/routes.controller");
+var security_controller_1 = require("./security.controller");
 var SecurityRoutes = (function (_super) {
     __extends(SecurityRoutes, _super);
     function SecurityRoutes(app, router) {
         var _this = _super.call(this, app, router) || this;
         _this.app = app;
         _this.router = router;
-        _this.securityCtrl = new security_controler_1.SecurityControler();
+        _this.securityCtrl = new security_controller_1.SecurityController();
         return _this;
     }
     SecurityRoutes.bootstrap = function (app, router) {
@@ -28,5 +28,5 @@ var SecurityRoutes = (function (_super) {
         this.router.post('/login', this.securityCtrl.login.bind(this.securityCtrl.login));
     };
     return SecurityRoutes;
-}(routes_controler_1.RoutesControler));
+}(routes_controller_1.RoutesController));
 exports.SecurityRoutes = SecurityRoutes;

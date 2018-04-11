@@ -1,8 +1,11 @@
 import * as express from 'express';
+import {Login} from './model/login';
 
-export class SecurityControler {
+export class SecurityController {
     public login(req: express.Request, res: express.Response, next: express.NextFunction) {
-        if (req.body.username === 'username' && req.body.password === 'password') {
+        const body: Login = req.body;
+
+        if (body.username === 'username' && body.password === 'password') {
             res.json({
                 status: 'OK'
             });

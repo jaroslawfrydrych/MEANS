@@ -3,9 +3,10 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
-import * as indexRoute from '../routes/index';
+import * as passport from 'passport';
+import {AppConfig} from './app.config';
 import appModule from '../app/app.module';
-import * as session from 'cookie-session';
+import passportConfig from './passport.config';
 
 class Server {
     public app: express.Application;
@@ -17,41 +18,35 @@ class Server {
         this.routes();
     }
 
-    static bootstrap(): Server {
+    public static bootstrap(): Server {
         return new Server();
     }
 
-    config(): void {
+    private config(): void {
         this.app.set('views', path.join(__dirname, '../views'));
         this.app.set('view engine', 'ejs');
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(express.static(path.join(__dirname, 'public')));
-        this.app.use(function (err, req, res, next) {
-            const error = new Error('Not Found');
-            err.status = 404;
-            next(err);
+        passportConfig(passport);
+        this.app.use(passport.initialize());
+    }
+
+    private routes(): void {
+        this.homeRoute();
+        this.userRoutes();
+        this.app.use(this.router);
+    }
+
+    private homeRoute() {
+        this.router.get('/', (req, res) => {
+            res.render('index', {
+                title: AppConfig.TITLE ? AppConfig.TITLE : ''
+            });
         });
     }
 
-    routes(): void {
-        const index: indexRoute.Index = new indexRoute.Index();
-        this.router.get('/', index.index.bind(index.index));
-        this.userRoutes();
-        this.app.use(this.router);
-        this.app.use(session({
-            name: 'session',
-            keys: ['key1', 'key2'],
-            cookie: {
-                secure: true,
-                httpOnly: true,
-                domain: 'localhost',
-                path: 'foo/bar'
-            }
-        }))
-    }
-
-    userRoutes(): void {
+    private userRoutes(): void {
         appModule(this.app);
     }
 }

@@ -10,15 +10,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_controler_1 = require("./app.controler");
-var routes_controler_1 = require("../core/routes.controler");
+var app_controller_1 = require("./app.controller");
+var routes_controller_1 = require("../core/routes.controller");
 var AppRoutes = (function (_super) {
     __extends(AppRoutes, _super);
     function AppRoutes(app, router) {
         var _this = _super.call(this, app, router) || this;
         _this.app = app;
         _this.router = router;
-        _this.appCtrl = new app_controler_1.AppControler();
+        _this.appCtrl = new app_controller_1.AppController();
         return _this;
     }
     AppRoutes.bootstrap = function (app, router) {
@@ -28,5 +28,5 @@ var AppRoutes = (function (_super) {
         this.router.get('/asd/:value', this.appCtrl.index.bind(this.appCtrl.index));
     };
     return AppRoutes;
-}(routes_controler_1.RoutesControler));
+}(routes_controller_1.RoutesController));
 exports.AppRoutes = AppRoutes;

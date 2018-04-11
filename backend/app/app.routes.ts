@@ -1,10 +1,10 @@
 import * as express from 'express';
-import {AppControler} from './app.controler'
+import {AppController} from './app.controller'
 import {RoutesInterface} from '../core/routes.interface';
-import {RoutesControler} from '../core/routes.controler';
+import {RoutesController} from '../core/routes.controller';
 
-export class AppRoutes extends RoutesControler implements RoutesInterface {
-    private appCtrl: AppControler = new AppControler();
+export class AppRoutes extends RoutesController implements RoutesInterface {
+    private appCtrl: AppController = new AppController();
 
     constructor(protected app: express.Application,
                 protected router: express.Router) {
