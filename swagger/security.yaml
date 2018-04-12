@@ -1,0 +1,59 @@
+---
+swagger: "2.0"
+info:
+  description: "Api dla MEAN3"
+  version: "1.0.0"
+  title: "MEAN3"
+  contact:
+    email: "jarek.frydrych@gmail.com"
+basePath: "/api"
+tags:
+- name: "Security"
+  description: "Endpointy dla modułu Security"
+schemes:
+- "http"
+- "https"
+paths:
+  /security/login:
+    post:
+      tags:
+      - "Security"
+      summary: "Logowanie do aplikacji"
+      operationId: "LoginHandler"
+      parameters:
+      - in: "body"
+        name: "content"
+        description: "Dane logowania użytkownika"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginParameters"
+      responses:
+        200:
+          description: "Zalogowano poprwanie"
+        403:
+          description: "Niepoprawne dane logowania"
+      x-swagger-router-controller: "SecurityService"
+  /asd:
+    get:
+      tags:
+      - "Security"
+      summary: "Asd"
+      operationId: "AsdHandler"
+      parameters: []
+      responses:
+        200:
+          description: "Asd response"
+      x-swagger-router-controller: "SecurityService"
+definitions:
+  LoginParameters:
+    properties:
+      username:
+        type: "string"
+        title: "Nazwa użytkownika"
+      password:
+        type: "string"
+        title: "Hasło użytkownika"
+    title: "LoginParameters"
+    example:
+      password: "password"
+      username: "username"

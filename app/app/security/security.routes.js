@@ -25,7 +25,7 @@ var SecurityRoutes = (function (_super) {
         return new SecurityRoutes(app, router);
     };
     SecurityRoutes.prototype.routes = function () {
-        this.router.post('/login', this.securityCtrl.login.bind(this.securityCtrl.login));
+        this.router.post('/security/login', this.securityCtrl.login.bind(this.securityCtrl.login));
     };
     return SecurityRoutes;
 }(routes_controller_1.RoutesController));

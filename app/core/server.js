@@ -4,6 +4,9 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
 var passport = require("passport");
+var swaggerTools = require("swagger-tools");
+var jsyaml = require("js-yaml");
+var fs = require("fs");
 var app_config_1 = require("./app.config");
 var app_module_1 = require("../app/app.module");
 var passport_config_1 = require("./passport.config");
@@ -13,6 +16,7 @@ var Server = (function () {
         this.app = express();
         this.config();
         this.routes();
+        this.swagger();
     }
     Server.bootstrap = function () {
         return new Server();
@@ -28,7 +32,6 @@ var Server = (function () {
     };
     Server.prototype.routes = function () {
         this.homeRoute();
-        this.userRoutes();
         this.app.use(this.router);
     };
     Server.prototype.homeRoute = function () {
@@ -40,6 +43,22 @@ var Server = (function () {
     };
     Server.prototype.userRoutes = function () {
         app_module_1.default(this.app);
+    };
+    Server.prototype.swagger = function () {
+        var _this = this;
+        var spec = fs.readFileSync(path.join(__dirname, '../../swagger/security.yaml'), 'utf8');
+        var swaggerDoc = jsyaml.safeLoad(spec);
+        var options = {
+            swaggerUi: path.join(__dirname, '/swagger.json'),
+            controllers: path.join(__dirname, '../controllers'),
+            useStubs: process.env.NODE_ENV === 'development'
+        };
+        swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
+            _this.app.use(middleware.swaggerMetadata());
+            _this.app.use(middleware.swaggerValidator());
+            _this.app.use(middleware.swaggerRouter(options));
+            _this.app.use(middleware.swaggerUi());
+        });
     };
     return Server;
 }());

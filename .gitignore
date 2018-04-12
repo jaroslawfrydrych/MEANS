@@ -100,3 +100,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/frontend/proxy.config.json.dist

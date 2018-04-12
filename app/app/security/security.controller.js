@@ -11,7 +11,7 @@ var SecurityController = (function () {
             });
         }
         else {
-            res.status(401)
+            res.status(403)
                 .send('Niepoprawne dane logowania');
         }
     };

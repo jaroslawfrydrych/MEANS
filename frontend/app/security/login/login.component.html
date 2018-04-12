@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup" (submit)="onFormSubmit($event)">
+  <div>
+    <input type="text" placeholder="użytkownik" formControlName="username">
+  </div>
+  <div>
+    <input type="password" placeholder="hasło" formControlName="password">
+  </div>
+  <div>
+    <button type="submit">Zaloguj</button>
+  </div>
+</form>
