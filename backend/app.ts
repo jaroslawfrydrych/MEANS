@@ -1,7 +1,9 @@
 'use strict';
 
-const app = require('./core/server');
-const http = require('http');
+import * as express from 'express';
+import * as http from 'http';
+
+const app: express.Application = require('./core/server');
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);
 

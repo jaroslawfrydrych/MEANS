@@ -1,6 +1,7 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
+var http = require("http");
 var app = require('./core/server');
-var http = require('http');
 var port = process.env.PORT || 8080;
 var server = http.createServer(app);
 app.set('port', port);

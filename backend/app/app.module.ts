@@ -1,6 +1,6 @@
 import {AppRoutes} from './app.routes';
 import * as express from 'express';
-import {SecurityRoutes} from './security/security.routes';
+import swagger from '../core/swagger';
 
 export default (app) => {
     const router: express.Router = express.Router();
@@ -11,7 +11,8 @@ export default (app) => {
     });
 
     AppRoutes.bootstrap(app, router).routes();
-    SecurityRoutes.bootstrap(app, router).routes();
+
+    swagger(app);
 
     app.use('/api', router);
 }
