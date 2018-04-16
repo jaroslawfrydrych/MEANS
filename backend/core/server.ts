@@ -4,9 +4,11 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
 import * as passport from 'passport';
+import * as mongoose from 'mongoose';
 import {AppConfig} from './app.config';
-import appModule from '../app/app.module';
 import passportConfig from './passport.config';
+import swagger from './swagger';
+import mongooseConfig from './mongoose.config';
 
 class Server {
     public app: express.Application;
@@ -16,6 +18,8 @@ class Server {
         this.app = express();
         this.config();
         this.routes();
+        this.swagger();
+        this.mongoose();
     }
 
     public static bootstrap(): Server {
@@ -34,7 +38,12 @@ class Server {
 
     private routes(): void {
         this.homeRoute();
-        this.userRoutes();
+
+        this.router.use((req, res, next) => {
+            console.log(`I sense a disturbance in the force on url ${req.url}...`); // DEBUG
+            next();
+        });
+
         this.app.use(this.router);
     }
 
@@ -45,9 +54,12 @@ class Server {
             });
         });
     }
+    private swagger() {
+        swagger(this.app);
+    }
 
-    private userRoutes(): void {
-        appModule(this.app);
+    private mongoose() {
+        mongooseConfig(mongoose);
     }
 }
 

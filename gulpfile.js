@@ -23,8 +23,10 @@ gulp.task('compile', ['views'], () => {
 gulp.task('default', () => {
     return runSequence('clean', 'compile', () => {
         return nodemon({
-            script : 'app/app.js',
-            watch: 'backend/*',
+            script: 'app/app.js',
+            watch: [
+                'backend/*',
+                'swagger/*'],
             ext: '*',
             tasks: ['compile']
         });

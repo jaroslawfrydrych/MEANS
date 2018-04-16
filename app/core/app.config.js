@@ -8,6 +8,7 @@ var AppConfig = (function () {
     AppConfig.TITLE = APP_CONFIG['title'] ? APP_CONFIG['title'] : '';
     AppConfig.BASE_PATH = APP_CONFIG['basePath'] ? APP_CONFIG['basePath'] : '';
     AppConfig.SWAGGER_CONTROLLERS = APP_CONFIG['swaggerControllers'] ? APP_CONFIG['swaggerControllers'] : '';
+    AppConfig.MONGO = APP_CONFIG['mongo'] ? APP_CONFIG['mongo'] : null;
     return AppConfig;
 }());
 exports.AppConfig = AppConfig;

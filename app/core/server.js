@@ -4,15 +4,19 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");
 var passport = require("passport");
+var mongoose = require("mongoose");
 var app_config_1 = require("./app.config");
-var app_module_1 = require("../app/app.module");
 var passport_config_1 = require("./passport.config");
+var swagger_1 = require("./swagger");
+var mongoose_config_1 = require("./mongoose.config");
 var Server = (function () {
     function Server() {
         this.router = express.Router();
         this.app = express();
         this.config();
         this.routes();
+        this.swagger();
+        this.mongoose();
     }
     Server.bootstrap = function () {
         return new Server();
@@ -28,7 +32,10 @@ var Server = (function () {
     };
     Server.prototype.routes = function () {
         this.homeRoute();
-        this.userRoutes();
+        this.router.use(function (req, res, next) {
+            console.log("I sense a disturbance in the force on url " + req.url + "...");
+            next();
+        });
         this.app.use(this.router);
     };
     Server.prototype.homeRoute = function () {
@@ -38,8 +45,11 @@ var Server = (function () {
             });
         });
     };
-    Server.prototype.userRoutes = function () {
-        app_module_1.default(this.app);
+    Server.prototype.swagger = function () {
+        swagger_1.default(this.app);
+    };
+    Server.prototype.mongoose = function () {
+        mongoose_config_1.default(mongoose);
     };
     return Server;
 }());
