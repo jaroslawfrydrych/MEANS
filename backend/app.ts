@@ -2,9 +2,10 @@
 
 import * as express from 'express';
 import * as http from 'http';
+import {AppConfig} from './core/app.config';
 
 const app: express.Application = require('./core/server');
-const port = process.env.PORT || 8080;
+const port = AppConfig.PORT;
 const server = http.createServer(app);
 
 app.set('port', port);

@@ -16,7 +16,7 @@ schemes:
   - https
 paths:
   /security/login:
-    x-swagger-router-controller: Security
+    x-swagger-router-controller: security
     post:
       summary: Logowanie do aplikacji
       operationId: loginHandler
@@ -35,7 +35,7 @@ paths:
         403:
           description: Niepoprawne dane logowania
   /asd:
-    x-swagger-router-controller: Core
+    x-swagger-router-controller: core
     get:
       summary: Asd
       operationId: asdHandler
