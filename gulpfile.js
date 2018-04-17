@@ -3,6 +3,7 @@ const ts = require('gulp-typescript');
 const nodemon = require('gulp-nodemon');
 const clean = require('gulp-clean');
 const runSequence = require('run-sequence');
+const del = require('del');
 
 gulp.task('compile', ['views'], () => {
     const project = ts.createProject({
@@ -48,4 +49,13 @@ gulp.task('build', () => {
     return runSequence('clean', 'compile', () => {
         console.log('App has been built!');
     })
+});
+
+gulp.task('dist-to-public', () => {
+    gulp.src(['dist/*', '!dist/index.html'])
+        .pipe(gulp.dest('public'));
+});
+
+gulp.task('clean-dist', () => {
+    return del('dist');
 });

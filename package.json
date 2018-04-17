@@ -8,7 +8,8 @@
     "backend:build": "gulp build",
     "ng": "ng",
     "start": "ng serve --proxy-config frontend/proxy.conf.js",
-    "build": "ng build --output-hashing none --prod",
+    "frontend:build": "ng build --output-hashing none --prod",
+    "build": "npm run backend:build & npm run frontend:build && gulp dist-to-public && gulp clean-dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -46,6 +47,7 @@
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
     "codelyzer": "^4.0.1",
+    "del": "^3.0.0",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
     "gulp": "^3.9.1",
