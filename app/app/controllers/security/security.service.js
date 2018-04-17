@@ -1,22 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_model_1 = require("./user.model");
+var fromPromise_1 = require("rxjs/observable/fromPromise");
 var bcrypt = require("bcrypt-nodejs");
 require("rxjs/add/observable/of");
-var fromPromise_1 = require("rxjs/observable/fromPromise");
-var ReplaySubject_1 = require("rxjs/ReplaySubject");
+require("rxjs/add/operator/map");
 var SecurityService = (function () {
     function SecurityService() {
     }
     SecurityService.prototype.login = function (_a) {
         var username = _a.username, password = _a.password;
-        var subject = new ReplaySubject_1.ReplaySubject();
-        this.getUser(username)
-            .subscribe(function (user) {
-            var validation = SecurityService.validPassword(password, user.password);
-            subject.next(validation);
+        return this.getUser(username)
+            .map(function (user) {
+            if (user) {
+                return SecurityService.validPassword(password, user.password);
+            }
+            else {
+                return false;
+            }
         });
-        return subject;
     };
     SecurityService.prototype.getUser = function (username) {
         return fromPromise_1.fromPromise(user_model_1.UserSchema.findOne({

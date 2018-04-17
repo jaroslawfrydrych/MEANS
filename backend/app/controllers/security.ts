@@ -8,6 +8,13 @@ export function loginHandler(req, res, next) {
 
     securityService.login(content)
         .subscribe((result) => {
-            res.json(result);
+            if(result) {
+                return res.status(200).send();
+            }
+
+            return res.status(403).send();
+        }, err => {
+            // TODO error handler
+            console.error(err);
         });
 }

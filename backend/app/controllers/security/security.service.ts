@@ -1,10 +1,10 @@
 import {LoginParameters} from '../../models';
 import {Observable} from 'rxjs/Observable';
 import {User, UserSchema} from './user.model';
+import {fromPromise} from 'rxjs/observable/fromPromise';
 import * as  bcrypt from 'bcrypt-nodejs';
 import 'rxjs/add/observable/of';
-import {fromPromise} from 'rxjs/observable/fromPromise';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/map'
 
 export class SecurityService {
     constructor() {
@@ -12,14 +12,14 @@ export class SecurityService {
     }
 
     public login({username, password}: LoginParameters): Observable<boolean> {
-        const subject: ReplaySubject<boolean> = new ReplaySubject<boolean>();
-        this.getUser(username)
-            .subscribe(user => {
-                const validation = SecurityService.validPassword(password, user.password);
-                subject.next(validation);
+        return this.getUser(username)
+            .map(user => {
+                if(user) {
+                    return SecurityService.validPassword(password, user.password);
+                } else {
+                    return false;
+                }
             });
-
-        return subject;
     }
 
     public getUser(username: string): Observable<User> {

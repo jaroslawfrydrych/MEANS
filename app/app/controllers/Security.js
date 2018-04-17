@@ -6,7 +6,12 @@ function loginHandler(req, res, next) {
     var content = req.swagger.params['content'].value;
     securityService.login(content)
         .subscribe(function (result) {
-        res.json(result);
+        if (result) {
+            return res.status(200).send();
+        }
+        return res.status(403).send();
+    }, function (err) {
+        console.error(err);
     });
 }
 exports.loginHandler = loginHandler;
