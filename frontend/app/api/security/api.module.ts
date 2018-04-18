@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Configuration } from './configuration';
 
+import { CoreService } from './api/core.service';
 import { SecurityService } from './api/security.service';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { SecurityService } from './api/security.service';
   declarations: [],
   exports:      [],
   providers: [
+    CoreService,
     SecurityService ]
 })
 export class ApiModule {

@@ -1,17 +1,17 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-var http = require("http");
-var app_config_1 = require("./core/app.config");
-var app = require('./core/server');
-var port = app_config_1.AppConfig.PORT;
-var server = http.createServer(app);
+const http = require("http");
+const app_config_1 = require("./core/app.config");
+const app = require('./core/server');
+const port = app_config_1.AppConfig.PORT;
+const server = http.createServer(app);
 app.set('port', port);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === "string"
+    const addr = server.address();
+    const bind = typeof addr === "string"
         ? "pipe " + addr
         : "port " + addr.port;
     console.log("Listening on " + bind);
@@ -20,7 +20,7 @@ function onError(error) {
     if (error.syscall !== "listen") {
         throw error;
     }
-    var bind = typeof port === "string"
+    const bind = typeof port === "string"
         ? "Pipe " + port
         : "Port " + port;
     switch (error.code) {

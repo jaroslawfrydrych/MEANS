@@ -10,7 +10,8 @@ export default (mongoose) => {
         });
     };
 
-    // mongoose.Promise = Promise;
+    mongoose.Promise = Promise;
+
     mongoose.connection.on("connected", () => {
         console.log(`Successfully connected to ${AppConfig.ENV}` +
             ` database on startup `);

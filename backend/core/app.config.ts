@@ -15,4 +15,5 @@ export class AppConfig {
     public static BASE_PATH = APP_CONFIG['basePath'] || '';
     public static SWAGGER_CONTROLLERS = APP_CONFIG['swaggerControllers'] || '';
     public static MONGO: MongoConfig = APP_CONFIG['mongo'] || null;
+    public static SECRET: string = APP_CONFIG['secret'] || '';
 }

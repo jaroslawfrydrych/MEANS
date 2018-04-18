@@ -34,6 +34,23 @@ paths:
           description: Zalogowano poprwanie
         403:
           description: Niepoprawne dane logowania
+  /security/user:
+    x-swagger-router-controller: security
+    post:
+      summary: Tworzenie usera
+      operationId: userNewHandler
+      tags:
+        - Security
+      parameters:
+        - name: content
+          description: Dane usera
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserNew'
+      responses:
+        200:
+          description: Utworzono użytkownika
   /asd:
     x-swagger-router-controller: core
     get:
@@ -47,6 +64,15 @@ paths:
 definitions:
   LoginParameters:
     title: LoginParameters
+    properties:
+      username:
+        title: Nazwa użytkownika
+        type: string
+      password:
+        title: Hasło użytkownika
+        type: string
+  UserNew:
+    title: UserNew
     properties:
       username:
         title: Nazwa użytkownika

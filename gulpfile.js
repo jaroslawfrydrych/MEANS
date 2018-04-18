@@ -7,7 +7,7 @@ const del = require('del');
 
 gulp.task('compile', ['views'], () => {
     const project = ts.createProject({
-        'target': 'ES5',
+        'target': 'ES6',
         'module': 'commonjs',
         'moduleResolution': 'node',
         'sourceMap': true,

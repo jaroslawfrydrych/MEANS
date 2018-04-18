@@ -3,12 +3,12 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
-import * as passport from 'passport';
 import * as mongoose from 'mongoose';
+import * as cookieParser from 'cookie-parser';
 import {AppConfig} from './app.config';
-import passportConfig from './passport.config';
 import swagger from './swagger';
 import mongooseConfig from './mongoose.config';
+import jwtMiddleware from '../app/middleware/jwt.middleware';
 
 class Server {
     public app: express.Application;
@@ -31,9 +31,8 @@ class Server {
         this.app.set('view engine', 'ejs');
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(cookieParser());
         this.app.use(express.static('public'));
-        passportConfig(passport);
-        this.app.use(passport.initialize());
     }
 
     private routes(): void {
@@ -42,7 +41,7 @@ class Server {
         this.router.use((req, res, next) => {
             console.log(`I sense a disturbance in the force on url ${req.url}...`); // DEBUG
             next();
-        });
+        }, jwtMiddleware);
 
         this.app.use(this.router);
     }
@@ -54,6 +53,7 @@ class Server {
             });
         });
     }
+
     private swagger() {
         swagger(this.app);
     }
