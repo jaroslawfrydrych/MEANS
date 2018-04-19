@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: MEAN3
+  title: MEANS
   description: Api dla MEAN3
   contact:
     email: jarek.frydrych@gmail.com
@@ -17,6 +17,7 @@ schemes:
 paths:
   /security/login:
     x-swagger-router-controller: security
+    x-swagger-router-no-firewall: true
     post:
       summary: Logowanie do aplikacji
       operationId: loginHandler

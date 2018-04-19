@@ -10,7 +10,7 @@ export function loginHandler(req, res, next) {
     securityService.login(content)
         .subscribe(result => {
             if (result) {
-                securityService.setCookie(res);
+                SecurityService.setCookie(res);
                 return res.status(200).send();
             }
 

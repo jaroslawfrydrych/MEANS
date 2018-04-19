@@ -10,4 +10,5 @@ AppConfig.BASE_PATH = APP_CONFIG['basePath'] || '';
 AppConfig.SWAGGER_CONTROLLERS = APP_CONFIG['swaggerControllers'] || '';
 AppConfig.MONGO = APP_CONFIG['mongo'] || null;
 AppConfig.SECRET = APP_CONFIG['secret'] || '';
+AppConfig.NO_FIREWALL_PATH_PARAMETER_NAME = APP_CONFIG['noFirewallPathParameterName'] || 'x-swagger-router-no-firewall';
 exports.AppConfig = AppConfig;

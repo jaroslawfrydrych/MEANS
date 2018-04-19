@@ -2,9 +2,18 @@ import {LoginParameters, UserNew} from '../../models/models';
 import {Observable} from 'rxjs/Observable';
 import {User, UserModel} from './user.model';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 export class SecurityService {
+
+    public static setCookie(res): void {
+        res.cookie('BEARER', this.generateToken(), {expires: new Date(Date.now() + 900000), httpOnly: true, secure: false});
+    }
+
+    private static generateToken(): string {
+        return 'eyJhbGciOiJIUzI1NiJ9.e30.LGeuoyBj5ZeiZC0dYrYCHJs1-4WHGiFeyqXN3hBTRPI';
+    }
+
     constructor() {
     }
 
@@ -21,10 +30,6 @@ export class SecurityService {
 
     public createUser(content: UserNew): Observable<{}> {
         const user = new UserModel(content);
-        return user.createUser()
-    }
-
-    public setCookie(res): void {
-        res.cookie('BEARER', 'token', {expires: new Date(Date.now() + 900000), httpOnly: true, secure: true});
+        return user.createUser();
     }
 }

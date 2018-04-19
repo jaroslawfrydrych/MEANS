@@ -1,13 +1,8 @@
-import * as path from "path";
-import * as fs from "fs";
+import * as path from 'path';
 import * as swaggerTools from 'swagger-tools';
-import * as jsyaml from 'js-yaml';
 import {AppConfig} from './app.config';
 
-export default (app) => {
-    const spec = fs.readFileSync(path.join(__dirname,'../../swagger/swagger.yaml'), 'utf8');
-    const swaggerDoc = jsyaml.safeLoad(spec);
-
+export default (app, swaggerDoc) => {
     const options = {
         swaggerUi: path.join(__dirname, '/swagger.json'),
         controllers: path.join(__dirname, AppConfig.SWAGGER_CONTROLLERS),

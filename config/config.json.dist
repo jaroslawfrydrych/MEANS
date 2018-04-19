@@ -1,4 +1,16 @@
 {
+  "env": "development",
+  "port": 8080,
   "title": "App title!",
-  "basePath": "/api"
+  "basePath": "/",
+  "swaggerControllers": "../app/modules",
+  "mongo": {
+    "host": "localhost",
+    "port": "27017",
+    "database": "test",
+    "username": "",
+    "password": ""
+  },
+  "secret": "s3cr3t",
+  "noFirewallPathParameterName": "x-swagger-router-no-firewall"
 }

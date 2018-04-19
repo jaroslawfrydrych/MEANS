@@ -8,7 +8,7 @@ function loginHandler(req, res, next) {
     securityService.login(content)
         .subscribe(result => {
         if (result) {
-            securityService.setCookie(res);
+            security_service_1.SecurityService.setCookie(res);
             return res.status(200).send();
         }
         return res.status(403).send();

@@ -7,7 +7,7 @@
     "backend": "gulp",
     "backend:build": "gulp build",
     "ng": "ng",
-    "start": "ng serve --proxy-config frontend/proxy.conf.js",
+    "frontend": "ng serve --proxy-config frontend/proxy.conf.js",
     "frontend:build": "ng build --output-hashing none --prod",
     "build": "npm run backend:build & npm run frontend:build && gulp dist-to-public && gulp clean-dist",
     "test": "ng test",
@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
+    "express-jwt": "^5.3.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

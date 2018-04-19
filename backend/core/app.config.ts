@@ -16,4 +16,5 @@ export class AppConfig {
     public static SWAGGER_CONTROLLERS = APP_CONFIG['swaggerControllers'] || '';
     public static MONGO: MongoConfig = APP_CONFIG['mongo'] || null;
     public static SECRET: string = APP_CONFIG['secret'] || '';
+    public static NO_FIREWALL_PATH_PARAMETER_NAME = APP_CONFIG['noFirewallPathParameterName'] || 'x-swagger-router-no-firewall';
 }
