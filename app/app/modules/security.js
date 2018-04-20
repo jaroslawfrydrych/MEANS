@@ -5,9 +5,9 @@ const core_controller_1 = require("../../core/core.controller");
 const securityService = new security_service_1.SecurityService();
 function loginHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
-    securityService.login(content)
-        .subscribe(result => {
-        if (result) {
+    securityService.validateUser(content)
+        .subscribe(isValidUser => {
+        if (isValidUser) {
             security_service_1.SecurityService.setCookie(res);
             return res.status(200).send();
         }

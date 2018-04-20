@@ -1,6 +1,7 @@
 import {LoginParameters, UserNew} from '../../models/models';
 import {Observable} from 'rxjs/Observable';
 import {User, UserModel} from './user.model';
+import {fromPromise} from 'rxjs/observable/fromPromise';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
@@ -30,6 +31,6 @@ export class SecurityService {
 
     public createUser(content: UserNew): Observable<{}> {
         const user = new UserModel(content);
-        return user.createUser();
+        return fromPromise(user.save());
     }
 }

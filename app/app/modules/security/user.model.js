@@ -11,13 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typegoose_1 = require("typegoose");
 const fromPromise_1 = require("rxjs/observable/fromPromise");
-const Observable_1 = require("rxjs/Observable");
 const bcrypt = require("bcrypt-nodejs");
-class User extends typegoose_1.Typegoose {
-    createUser() {
-        this.password = User.hashPassword(this.password);
-        return fromPromise_1.fromPromise(this.save());
-    }
+let User = User_1 = class User extends typegoose_1.Typegoose {
     static findByUsername(username) {
         return fromPromise_1.fromPromise(exports.UserModel.findOne({
             username
@@ -29,7 +24,7 @@ class User extends typegoose_1.Typegoose {
     static validPassword(password, hash) {
         return bcrypt.compareSync(password, hash);
     }
-}
+};
 __decorate([
     typegoose_1.prop({ required: true, unique: true }),
     __metadata("design:type", String)
@@ -46,11 +41,12 @@ __decorate([
     typegoose_1.prop(),
     __metadata("design:type", Date)
 ], User.prototype, "modifiedAt", void 0);
-__decorate([
-    typegoose_1.instanceMethod,
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Observable_1.Observable)
-], User.prototype, "createUser", null);
+User = User_1 = __decorate([
+    typegoose_1.pre('save', function (next) {
+        this.password = User_1.hashPassword(this.password);
+        next();
+    })
+], User);
 exports.User = User;
 exports.UserModel = new User().getModelForClass(User);
+var User_1;
