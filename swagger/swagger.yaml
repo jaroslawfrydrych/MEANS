@@ -35,6 +35,18 @@ paths:
           description: Zalogowano poprwanie
         403:
           description: Niepoprawne dane logowania
+  /security/current:
+    x-swagger-router-controller: security
+    get:
+      summary: Pobieranie danych zalogowanego użytkownika
+      operationId: currentUserQuery
+      tags:
+        - Security
+      responses:
+        200:
+          description: Dane zalogowanego użytkownika
+          schema:
+            $ref: '#/definitions/CurrentUserView'
   /security/user:
     x-swagger-router-controller: security
     post:
@@ -80,4 +92,10 @@ definitions:
         type: string
       password:
         title: Hasło użytkownika
+        type: string
+  CurrentUserView:
+    title: CurrentUserView
+    properties:
+      username:
+        title: Nazwa użytkownika
         type: string

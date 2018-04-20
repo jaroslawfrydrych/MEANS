@@ -1,6 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function asdHandler(req, res, next) {
-    res.send(req.auth);
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-exports.asdHandler = asdHandler;
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(require("./core/core.controller"));
