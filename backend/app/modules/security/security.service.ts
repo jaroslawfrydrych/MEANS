@@ -17,14 +17,14 @@ export class SecurityService {
     constructor() {
     }
 
-    public login({username, password}: LoginParameters): Observable<boolean> {
+    public validateUser({username, password}: LoginParameters): Observable<boolean> {
         return User.findByUsername(username)
             .map(user => {
                 if (user) {
                     return User.validPassword(password, user.password);
-                } else {
-                    return false;
                 }
+
+                return false;
             });
     }
 
