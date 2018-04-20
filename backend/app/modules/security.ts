@@ -8,9 +8,9 @@ export function loginHandler(req, res, next) {
     const content: LoginParameters = req.swagger.params['content'].value;
 
     securityService.validateUser(content)
-        .subscribe(isValidUser => {
-            if (isValidUser) {
-                SecurityService.setCookie(res);
+        .subscribe(userId => {
+            if (userId) {
+                SecurityService.setCookie(res, userId);
                 return res.status(200).send();
             }
 

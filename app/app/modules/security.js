@@ -6,9 +6,9 @@ const securityService = new security_service_1.SecurityService();
 function loginHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
     securityService.validateUser(content)
-        .subscribe(isValidUser => {
-        if (isValidUser) {
-            security_service_1.SecurityService.setCookie(res);
+        .subscribe(userId => {
+        if (userId) {
+            security_service_1.SecurityService.setCookie(res, userId);
             return res.status(200).send();
         }
         return res.status(403).send();

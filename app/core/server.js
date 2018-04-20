@@ -7,11 +7,10 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const jsyaml = require("js-yaml");
-const jwt = require("express-jwt");
 const app_config_1 = require("./app.config");
 const swagger_1 = require("./swagger");
 const mongoose_config_1 = require("./mongoose.config");
-const util_1 = require("util");
+const jwt_1 = require("./jwt");
 class Server {
     constructor() {
         this.router = express.Router();
@@ -21,7 +20,8 @@ class Server {
         this.config();
         this.routes();
         this.swagger();
-        this.mongoose();
+        this.mongooseConfig();
+        this.jwtConfig();
     }
     static bootstrap() {
         return new Server();
@@ -35,7 +35,6 @@ class Server {
         this.app.use(express.static('public'));
     }
     routes() {
-        this.jwtGuard();
         this.homeRoute();
         this.router.use((req, res, next) => {
             console.log(`I sense a disturbance in the force on url ${req.url}...`);
@@ -54,32 +53,11 @@ class Server {
     swagger() {
         swagger_1.default(this.app, this.swaggerDoc);
     }
-    mongoose() {
+    mongooseConfig() {
         mongoose_config_1.default(mongoose);
     }
-    jwtGuard() {
-        const unprotected = this.getUnprotectedRoutes();
-        this.app.use(jwt({
-            secret: app_config_1.AppConfig.SECRET,
-            getToken: (req) => this.getToken(req)
-        }).unless({ path: ['/', ...unprotected] }));
-    }
-    getUnprotectedRoutes() {
-        const basePath = this.swaggerDoc.basePath;
-        const paths = [];
-        for (const pat in this.swaggerDoc.paths) {
-            const pathParams = this.swaggerDoc.paths[pat];
-            if (pathParams[app_config_1.AppConfig.NO_FIREWALL_PATH_PARAMETER_NAME]) {
-                paths.push(basePath + pat);
-            }
-        }
-        return paths;
-    }
-    getToken(req) {
-        if (!util_1.isNullOrUndefined(req.cookies.BEARER)) {
-            return req.cookies.BEARER;
-        }
-        return null;
+    jwtConfig() {
+        jwt_1.Jwt.jwtConfig(this.app, this.swaggerDoc);
     }
 }
 const server = Server.bootstrap();
