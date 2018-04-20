@@ -4,6 +4,20 @@ import {Observable} from 'rxjs/Observable';
 import * as  bcrypt from 'bcrypt-nodejs';
 
 export class User extends Typegoose {
+    public static findByUsername(username: string): Observable<User> {
+        return fromPromise(UserModel.findOne({
+            username
+        }));
+    }
+
+    public static hashPassword(password: string): string {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    }
+
+    public static validPassword(password: string, hash: string): boolean {
+        return bcrypt.compareSync(password, hash);
+    }
+
     @prop({required: true, unique: true})
     username?: string;
 
@@ -20,20 +34,6 @@ export class User extends Typegoose {
     createUser(this: InstanceType<User>): Observable<{}> {
         this.password = User.hashPassword(this.password);
         return fromPromise(this.save());
-    }
-
-    public static findByUsername(username: string): Observable<User> {
-        return fromPromise(UserModel.findOne({
-            username
-        }))
-    }
-
-    public static hashPassword(password: string): string {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    }
-
-    public static validPassword(password: string, hash: string): boolean {
-        return bcrypt.compareSync(password, hash);
     }
 }
 
