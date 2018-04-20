@@ -10,7 +10,8 @@ export function loginHandler(req, res, next) {
     securityService.validateUser(content)
         .subscribe(userId => {
             if (userId) {
-                SecurityService.setCookie(res, userId);
+                SecurityService.setAccessTokenCookie(res, userId);
+                SecurityService.setRefreshTokenCookie(res, userId);
                 return res.status(200).send();
             }
 
@@ -27,5 +28,8 @@ export function userNewHandler(req, res, next) {
 }
 
 export function currentUserQuery(req, res, next) {
-    res.send('user!');
+    const {username} = req.user;
+    return res.json({
+        username
+    });
 }

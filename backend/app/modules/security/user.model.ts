@@ -2,6 +2,7 @@ import {prop, Typegoose, pre} from 'typegoose';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {Observable} from 'rxjs/Observable';
 import * as  bcrypt from 'bcrypt-nodejs';
+import {CurrentUserView} from '../../models/currentUserView';
 
 @pre<User>('save', function(next) {
     this.password = User.hashPassword(this.password);
@@ -13,6 +14,10 @@ export class User extends Typegoose {
         return fromPromise(UserModel.findOne({
             username
         }));
+    }
+
+    public static findById(id: string): Observable<User> {
+        return fromPromise(UserModel.findById(id));
     }
 
     public static hashPassword(password: string): string {

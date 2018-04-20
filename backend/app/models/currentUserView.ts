@@ -11,7 +11,6 @@
  */
 
 
-export interface LoginParameters {
+export interface CurrentUserView {
     username?: string;
-    password?: string;
 }

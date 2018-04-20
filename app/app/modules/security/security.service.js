@@ -6,12 +6,11 @@ const jwt_1 = require("../../../core/jwt");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/map");
 class SecurityService {
-    static setCookie(res, id) {
-        res.cookie('BEARER', jwt_1.Jwt.generateToken({ id }), {
-            expires: new Date(Date.now() + 900000),
-            httpOnly: true,
-            secure: false
-        });
+    static setAccessTokenCookie(res, id) {
+        return jwt_1.Jwt.setAccessTokenCookie(res, id);
+    }
+    static setRefreshTokenCookie(res, id) {
+        return jwt_1.Jwt.setRefreshTokenCookie(res, id);
     }
     constructor() {
     }
@@ -27,6 +26,12 @@ class SecurityService {
     createUser(content) {
         const user = new user_model_1.UserModel(content);
         return fromPromise_1.fromPromise(user.save());
+    }
+    getCurrentUser(userId) {
+        return user_model_1.User.findById(userId)
+            .map(user => {
+            return { username: user.username };
+        });
     }
 }
 exports.SecurityService = SecurityService;

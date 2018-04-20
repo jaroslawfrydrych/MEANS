@@ -12,28 +12,88 @@ class Jwt {
         this.swaggerDoc = swaggerDoc;
         this.jwtGuard();
     }
-    static getToken(req) {
+    static getAccessToken(req) {
         if (!util_1.isNullOrUndefined(req.cookies.BEARER)) {
             return req.cookies.BEARER;
         }
         return null;
     }
-    static generateToken(data) {
-        return jwt.sign(data, app_config_1.AppConfig.SECRET);
+    static getRefreshToken(req) {
+        if (!util_1.isNullOrUndefined(req.cookies.REFRESH)) {
+            return req.cookies.REFRESH;
+        }
+        return null;
+    }
+    static generateAccessToken(data, exp) {
+        if (exp) {
+            data.exp = Math.floor(new Date(Date.now() + exp).getTime() / 1000);
+        }
+        return jwt.sign(data, app_config_1.AppConfig.ACCESS_TOKEN_SECRET);
+    }
+    static generateRefreshToken(data, exp) {
+        if (exp) {
+            data.exp = Math.floor(new Date(Date.now() + exp).getTime() / 1000);
+        }
+        return jwt.sign(data, app_config_1.AppConfig.REFRESH_TOKEN_SECRET);
+    }
+    static setCookie(res, type, token, exp) {
+        res.cookie(type, token, {
+            expires: new Date(Date.now() + exp),
+            httpOnly: true,
+            secure: false
+        });
+    }
+    static setAccessTokenCookie(res, id) {
+        const exp = app_config_1.AppConfig.ACCESS_TOKEN_LIFETIME_MINUTES * 1000 * 60;
+        const token = Jwt.generateAccessToken({ id }, exp);
+        Jwt.setCookie(res, 'BEARER', token, exp);
+        return token;
+    }
+    static setRefreshTokenCookie(res, id) {
+        const exp = app_config_1.AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600;
+        const token = Jwt.generateRefreshToken({ id }, exp);
+        Jwt.setCookie(res, 'REFRESH', token, exp);
+        return token;
+    }
+    static handleTokenAndRefresh(req, res, next, unprotected) {
+        if (unprotected.indexOf(req.url) !== -1) {
+            return next();
+        }
+        const token = Jwt.getAccessToken(req);
+        jwt.verify(token, app_config_1.AppConfig.ACCESS_TOKEN_SECRET, (err => {
+            if (!err) {
+                return next();
+            }
+            this.handleRefreshToken(res, req, next);
+        }));
+    }
+    static handleRefreshToken(res, req, next) {
+        const refreshToken = Jwt.getRefreshToken(req);
+        jwt.verify(refreshToken, app_config_1.AppConfig.REFRESH_TOKEN_SECRET, (err, decoded) => {
+            if (err) {
+                return Jwt.authError(res);
+            }
+            req.cookies.BEARER = this.setAccessTokenCookie(res, decoded.id);
+            req.cookies.REFRESH = this.setRefreshTokenCookie(res, decoded.id);
+            next();
+        });
+    }
+    static authError(res) {
+        res.status(401).send('Brak autoryzacji');
     }
     static jwtConfig(app, router, swaggerDoc) {
         return new Jwt(app, router, swaggerDoc);
     }
     jwtGuard() {
-        const unprotected = this.getUnprotectedRoutes();
-        this.app.use(expressJwt({
-            secret: app_config_1.AppConfig.SECRET,
+        const unprotected = ['/', ...this.getUnprotectedRoutes()];
+        this.app.use((req, res, next) => Jwt.handleTokenAndRefresh(req, res, next, unprotected), expressJwt({
+            secret: app_config_1.AppConfig.ACCESS_TOKEN_SECRET,
             requestProperty: 'auth',
-            getToken: (req) => Jwt.getToken(req)
-        }).unless({ path: ['/', ...unprotected] }), auth_middleware_1.default);
+            getToken: (req) => Jwt.getAccessToken(req)
+        }).unless({ path: unprotected }), (req, res, next) => auth_middleware_1.default(req, res, next, unprotected));
         this.app.use((err, req, res, next) => {
             if (err.name === 'UnauthorizedError') {
-                res.status(401).send('Brak autoryzacji');
+                Jwt.authError(res);
             }
         });
     }

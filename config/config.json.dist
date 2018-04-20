@@ -11,6 +11,9 @@
     "username": "",
     "password": ""
   },
-  "secret": "s3cr3t",
-  "noFirewallPathParameterName": "x-swagger-router-no-firewall"
+  "accessTokenSecret": "s3cr3t",
+  "refreshTokenSecret": "s3cr3t",
+  "noFirewallPathParameterName": "x-swagger-router-no-firewall",
+  "accessTokenLifetimeMinutes": 15,
+  "refreshTokenLifetimeDays": 7
 }

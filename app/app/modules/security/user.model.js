@@ -18,6 +18,9 @@ let User = User_1 = class User extends typegoose_1.Typegoose {
             username
         }));
     }
+    static findById(id) {
+        return fromPromise_1.fromPromise(exports.UserModel.findById(id));
+    }
     static hashPassword(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
     }

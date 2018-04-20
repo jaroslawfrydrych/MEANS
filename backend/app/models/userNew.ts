@@ -1,5 +1,5 @@
 /**
- * MEAN3
+ * MEANS
  * Api dla MEAN3
  *
  * OpenAPI spec version: 1.0.0

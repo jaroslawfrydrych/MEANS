@@ -6,7 +6,7 @@ import {isNullOrUndefined} from 'util';
 import authMiddleware from './../app/middleware/auth.middleware';
 
 export class Jwt {
-    private static getToken(req) {
+    private static getAccessToken(req) {
         if (!isNullOrUndefined(req.cookies.BEARER)) {
             return req.cookies.BEARER;
         }
@@ -14,8 +14,88 @@ export class Jwt {
         return null;
     }
 
-    public static generateToken(data: {}): string {
-        return jwt.sign(data, AppConfig.SECRET);
+    private static getRefreshToken(req) {
+        if (!isNullOrUndefined(req.cookies.REFRESH)) {
+            return req.cookies.REFRESH;
+        }
+
+        return null;
+    }
+
+    public static generateAccessToken(data: any, exp?: number): string {
+        if (exp) {
+            data.exp = Math.floor(new Date(Date.now() + exp).getTime() / 1000);
+        }
+        return jwt.sign(data, AppConfig.ACCESS_TOKEN_SECRET);
+    }
+
+    public static generateRefreshToken(data: any, exp?: number): string {
+        if (exp) {
+            data.exp = Math.floor(new Date(Date.now() + exp).getTime() / 1000);
+        }
+        return jwt.sign(data, AppConfig.REFRESH_TOKEN_SECRET);
+    }
+
+    public static setCookie(res, type: string, token: string, exp: number): void {
+        res.cookie(
+            type,
+            token,
+            {
+                expires: new Date(Date.now() + exp),
+                httpOnly: true,
+                secure: false
+            });
+    }
+
+    public static setAccessTokenCookie(res, id: string): string {
+        const exp: number = AppConfig.ACCESS_TOKEN_LIFETIME_MINUTES * 1000 * 60;
+        const token = Jwt.generateAccessToken({id}, exp);
+        Jwt.setCookie(res, 'BEARER', token, exp);
+        return token;
+    }
+
+    public static setRefreshTokenCookie(res, id: string): string {
+        const exp: number = AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600;
+        const token = Jwt.generateRefreshToken({id}, exp);
+        Jwt.setCookie(res, 'REFRESH', token, exp);
+        return token;
+    }
+
+    private static handleTokenAndRefresh(req, res, next, unprotected) {
+        if (unprotected.indexOf(req.url) !== -1) {
+            return next();
+        }
+
+        const token = Jwt.getAccessToken(req);
+
+        jwt.verify(token, AppConfig.ACCESS_TOKEN_SECRET, (err => {
+            if (!err) {
+                return next();
+            }
+
+            this.handleRefreshToken(res, req, next);
+        }));
+    }
+
+    private static handleRefreshToken(res, req, next) {
+        // TODO check db, blacklist tokens, etc
+
+        const refreshToken = Jwt.getRefreshToken(req);
+
+        jwt.verify(refreshToken, AppConfig.REFRESH_TOKEN_SECRET, (err, decoded) => {
+            if (err) {
+                return Jwt.authError(res);
+            }
+
+            req.cookies.BEARER = this.setAccessTokenCookie(res, decoded.id);
+            req.cookies.REFRESH = this.setRefreshTokenCookie(res, decoded.id);
+
+            next();
+        });
+    }
+
+    private static authError(res) {
+        res.status(401).send('Brak autoryzacji');
     }
 
     constructor(private app: express.Application,
@@ -29,16 +109,18 @@ export class Jwt {
     }
 
     public jwtGuard(): void {
-        const unprotected = this.getUnprotectedRoutes();
-        this.app.use(expressJwt({
-            secret: AppConfig.SECRET,
-            requestProperty: 'auth',
-            getToken: (req) => Jwt.getToken(req)
-        }).unless({path: ['/', ...unprotected]}), authMiddleware);
+        const unprotected = ['/', ...this.getUnprotectedRoutes()];
+        this.app.use((req, res, next) => Jwt.handleTokenAndRefresh(req, res, next, unprotected),
+            expressJwt({
+                secret: AppConfig.ACCESS_TOKEN_SECRET,
+                requestProperty: 'auth',
+                getToken: (req) => Jwt.getAccessToken(req)
+            }).unless({path: unprotected}),
+            (req, res, next) => authMiddleware(req, res, next, unprotected));
 
         this.app.use((err, req, res, next) => {
             if (err.name === 'UnauthorizedError') {
-                res.status(401).send('Brak autoryzacji');
+                Jwt.authError(res);
             }
         });
     }
