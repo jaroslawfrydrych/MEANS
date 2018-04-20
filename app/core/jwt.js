@@ -4,9 +4,11 @@ const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const app_config_1 = require("./app.config");
 const util_1 = require("util");
+const auth_middleware_1 = require("./../app/middleware/auth.middleware");
 class Jwt {
-    constructor(app, swaggerDoc) {
+    constructor(app, router, swaggerDoc) {
         this.app = app;
+        this.router = router;
         this.swaggerDoc = swaggerDoc;
         this.jwtGuard();
     }
@@ -19,15 +21,16 @@ class Jwt {
     static generateToken(data) {
         return jwt.sign(data, app_config_1.AppConfig.SECRET);
     }
-    static jwtConfig(app, swaggerDoc) {
-        return new Jwt(app, swaggerDoc);
+    static jwtConfig(app, router, swaggerDoc) {
+        return new Jwt(app, router, swaggerDoc);
     }
     jwtGuard() {
         const unprotected = this.getUnprotectedRoutes();
         this.app.use(expressJwt({
             secret: app_config_1.AppConfig.SECRET,
+            requestProperty: 'auth',
             getToken: (req) => Jwt.getToken(req)
-        }).unless({ path: ['/', ...unprotected] }));
+        }).unless({ path: ['/', ...unprotected] }), auth_middleware_1.default);
         this.app.use((err, req, res, next) => {
             if (err.name === 'UnauthorizedError') {
                 res.status(401).send('Brak autoryzacji');

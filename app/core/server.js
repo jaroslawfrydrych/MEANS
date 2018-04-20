@@ -57,7 +57,7 @@ class Server {
         mongoose_config_1.default(mongoose);
     }
     jwtConfig() {
-        jwt_1.Jwt.jwtConfig(this.app, this.swaggerDoc);
+        jwt_1.Jwt.jwtConfig(this.app, this.router, this.swaggerDoc);
     }
 }
 const server = Server.bootstrap();

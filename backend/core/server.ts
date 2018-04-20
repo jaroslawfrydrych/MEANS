@@ -68,7 +68,7 @@ class Server {
     }
 
     private jwtConfig(): void {
-        Jwt.jwtConfig(this.app, this.swaggerDoc);
+        Jwt.jwtConfig(this.app, this.router, this.swaggerDoc);
     }
 }
 
