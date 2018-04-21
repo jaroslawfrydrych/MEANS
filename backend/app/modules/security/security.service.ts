@@ -4,6 +4,7 @@ import {User} from './user.model';
 import {Jwt} from '../../../core/jwt';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import {InvalidTokenModel} from './invalid-token.model';
 
 export class SecurityService {
 
@@ -17,6 +18,10 @@ export class SecurityService {
 
     public static clearTokenCookies(res): void {
         Jwt.clearTokenCookies(res);
+    }
+
+    public static createRefreshToken() {
+        // TODO save in db refresh token
     }
 
     constructor() {
@@ -33,8 +38,17 @@ export class SecurityService {
             });
     }
 
-    public logout(res, tokens): Observable<{}> {
+    public async logout(res, {access, refresh}): Promise<{}> {
+        // TODO db blaclist token
+        const invalidAccessToken = new InvalidTokenModel({token: access, type: 'access'});
+        await invalidAccessToken.save();
+
+        if (refresh) {
+            const invalidRefreshToken = new InvalidTokenModel({token: refresh, type: 'refresh'});
+            await invalidRefreshToken.save();
+        }
+
         SecurityService.clearTokenCookies(res);
-        return Observable.of({});
+        return {};
     }
 }

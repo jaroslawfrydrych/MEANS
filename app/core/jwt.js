@@ -51,13 +51,13 @@ class Jwt {
     static setAccessTokenCookie(res, id) {
         const exp = app_config_1.AppConfig.ACCESS_TOKEN_LIFETIME_MINUTES * 1000 * 60;
         const token = Jwt.generateAccessToken({ id }, exp);
-        Jwt.setCookie(res, tokenType.bearer, token, exp);
+        this.setCookie(res, tokenType.bearer, token, exp);
         return token;
     }
     static setRefreshTokenCookie(res, id) {
         const exp = app_config_1.AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600 * 24;
         const token = Jwt.generateRefreshToken({ id }, exp);
-        Jwt.setCookie(res, tokenType.refresh, token, exp);
+        this.setCookie(res, tokenType.refresh, token, exp);
         return token;
     }
     static clearTokenCookies(res) {

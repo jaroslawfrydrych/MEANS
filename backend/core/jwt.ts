@@ -55,14 +55,14 @@ export class Jwt {
     public static setAccessTokenCookie(res, id: string): string {
         const exp: number = AppConfig.ACCESS_TOKEN_LIFETIME_MINUTES * 1000 * 60;
         const token = Jwt.generateAccessToken({id}, exp);
-        Jwt.setCookie(res, tokenType.bearer, token, exp);
+        this.setCookie(res, tokenType.bearer, token, exp);
         return token;
     }
 
     public static setRefreshTokenCookie(res, id: string): string {
         const exp: number = AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600 * 24;
         const token = Jwt.generateRefreshToken({id}, exp);
-        Jwt.setCookie(res, tokenType.refresh, token, exp);
+        this.setCookie(res, tokenType.refresh, token, exp);
         return token;
     }
 

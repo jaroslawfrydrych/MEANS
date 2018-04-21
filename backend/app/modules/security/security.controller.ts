@@ -27,7 +27,7 @@ export function logoutHandler(req, res, next) {
     };
 
     securityService.logout(res, tokens)
-        .subscribe(() => {
+        .then(() => {
             res.send();
         }, err => errorHandler(res, err));
 }

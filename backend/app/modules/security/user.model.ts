@@ -35,16 +35,16 @@ export class User extends Typegoose {
     }
 
     @prop({required: true, unique: true})
-    username?: string;
+    public username?: string;
 
     @prop({required: true})
-    password?: string;
+    public password?: string;
 
     @prop({required: true, default: Date.now()})
-    createdAt?: Date;
+    public createdAt?: Date;
 
     @prop()
-    modifiedAt?: Date;
+    public modifiedAt?: Date;
 }
 
 export const UserModel = new User().getModelForClass(User);

@@ -23,7 +23,7 @@ function logoutHandler(req, res, next) {
         access: req.cookies.BEARER || null
     };
     securityService.logout(res, tokens)
-        .subscribe(() => {
+        .then(() => {
         res.send();
     }, err => core_controller_1.errorHandler(res, err));
 }
