@@ -3,6 +3,7 @@ import {fromPromise} from 'rxjs/observable/fromPromise';
 import {Observable} from 'rxjs/Observable';
 import * as  bcrypt from 'bcrypt-nodejs';
 import {CurrentUserView} from '../../models/currentUserView';
+import {UserNew} from '../../models/models';
 
 @pre<User>('save', function(next) {
     this.password = User.hashPassword(this.password);
@@ -26,6 +27,11 @@ export class User extends Typegoose {
 
     public static validPassword(password: string, hash: string): boolean {
         return bcrypt.compareSync(password, hash);
+    }
+
+    public static createUser(content: UserNew): Observable<{}> {
+        const user = new UserModel(content);
+        return fromPromise(user.save());
     }
 
     @prop({required: true, unique: true})

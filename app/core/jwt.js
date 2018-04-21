@@ -5,6 +5,11 @@ const jwt = require("jsonwebtoken");
 const app_config_1 = require("./app.config");
 const util_1 = require("util");
 const auth_middleware_1 = require("./../app/middleware/auth.middleware");
+var tokenType;
+(function (tokenType) {
+    tokenType["bearer"] = "BEARER";
+    tokenType["refresh"] = "REFRESH";
+})(tokenType || (tokenType = {}));
 class Jwt {
     constructor(app, router, swaggerDoc) {
         this.app = app;
@@ -46,14 +51,18 @@ class Jwt {
     static setAccessTokenCookie(res, id) {
         const exp = app_config_1.AppConfig.ACCESS_TOKEN_LIFETIME_MINUTES * 1000 * 60;
         const token = Jwt.generateAccessToken({ id }, exp);
-        Jwt.setCookie(res, 'BEARER', token, exp);
+        Jwt.setCookie(res, tokenType.bearer, token, exp);
         return token;
     }
     static setRefreshTokenCookie(res, id) {
-        const exp = app_config_1.AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600;
+        const exp = app_config_1.AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600 * 24;
         const token = Jwt.generateRefreshToken({ id }, exp);
-        Jwt.setCookie(res, 'REFRESH', token, exp);
+        Jwt.setCookie(res, tokenType.refresh, token, exp);
         return token;
+    }
+    static clearTokenCookies(res) {
+        res.clearCookie(tokenType.bearer);
+        res.clearCookie(tokenType.refresh);
     }
     static handleTokenAndRefresh(req, res, next, unprotected) {
         if (unprotected.indexOf(req.url) !== -1) {

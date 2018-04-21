@@ -1,11 +1,9 @@
-import {LoginParameters, UserNew} from '../../models/models';
+import {LoginParameters} from '../../models/models';
 import {Observable} from 'rxjs/Observable';
-import {User, UserModel} from './user.model';
-import {fromPromise} from 'rxjs/observable/fromPromise';
+import {User} from './user.model';
 import {Jwt} from '../../../core/jwt';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import {CurrentUserView} from '../../models/currentUserView';
 
 export class SecurityService {
 
@@ -15,6 +13,10 @@ export class SecurityService {
 
     public static setRefreshTokenCookie(res, id: string): string {
         return Jwt.setRefreshTokenCookie(res, id);
+    }
+
+    public static clearTokenCookies(res): void {
+        Jwt.clearTokenCookies(res);
     }
 
     constructor() {
@@ -31,15 +33,8 @@ export class SecurityService {
             });
     }
 
-    public createUser(content: UserNew): Observable<{}> {
-        const user = new UserModel(content);
-        return fromPromise(user.save());
-    }
-
-    public getCurrentUser(userId: string): Observable<CurrentUserView> {
-        return User.findById(userId)
-            .map(user => {
-                return {username: user.username};
-            });
+    public logout(res, tokens): Observable<{}> {
+        SecurityService.clearTokenCookies(res);
+        return Observable.of({});
     }
 }

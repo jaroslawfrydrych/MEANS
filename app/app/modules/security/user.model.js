@@ -27,6 +27,10 @@ let User = User_1 = class User extends typegoose_1.Typegoose {
     static validPassword(password, hash) {
         return bcrypt.compareSync(password, hash);
     }
+    static createUser(content) {
+        const user = new exports.UserModel(content);
+        return fromPromise_1.fromPromise(user.save());
+    }
 };
 __decorate([
     typegoose_1.prop({ required: true, unique: true }),

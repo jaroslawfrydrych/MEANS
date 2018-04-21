@@ -35,6 +35,16 @@ paths:
           description: Zalogowano poprwanie
         403:
           description: Niepoprawne dane logowania
+  /security/logout:
+    x-swagger-router-controller: security
+    get:
+      summary: Wylogowanie z aplikacji
+      operationId: logoutHandler
+      tags:
+        - Security
+      responses:
+        200:
+          description: Poprawnie wylogowano użytkownika
   /security/current:
     x-swagger-router-controller: security
     get:

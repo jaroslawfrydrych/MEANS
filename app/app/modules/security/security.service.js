@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Observable_1 = require("rxjs/Observable");
 const user_model_1 = require("./user.model");
-const fromPromise_1 = require("rxjs/observable/fromPromise");
 const jwt_1 = require("../../../core/jwt");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/map");
@@ -11,6 +11,9 @@ class SecurityService {
     }
     static setRefreshTokenCookie(res, id) {
         return jwt_1.Jwt.setRefreshTokenCookie(res, id);
+    }
+    static clearTokenCookies(res) {
+        jwt_1.Jwt.clearTokenCookies(res);
     }
     constructor() {
     }
@@ -23,15 +26,9 @@ class SecurityService {
             return null;
         });
     }
-    createUser(content) {
-        const user = new user_model_1.UserModel(content);
-        return fromPromise_1.fromPromise(user.save());
-    }
-    getCurrentUser(userId) {
-        return user_model_1.User.findById(userId)
-            .map(user => {
-            return { username: user.username };
-        });
+    logout(res, tokens) {
+        SecurityService.clearTokenCookies(res);
+        return Observable_1.Observable.of({});
     }
 }
 exports.SecurityService = SecurityService;
