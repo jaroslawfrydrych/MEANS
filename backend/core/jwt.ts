@@ -4,6 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import {AppConfig} from './app.config';
 import {isNullOrUndefined} from 'util';
 import authMiddleware from './../app/middleware/auth.middleware';
+import {RefreshToken, RefreshTokenModel} from '../app/modules/security/refresh-token.model';
+import {InvalidToken} from '../app/modules/security/invalid-token.model';
 
 enum tokenType {
     bearer = 'BEARER',
@@ -11,7 +13,7 @@ enum tokenType {
 }
 
 export class Jwt {
-    private static getAccessToken(req) {
+    private static getAccessToken(req): string | null {
         if (!isNullOrUndefined(req.cookies.BEARER)) {
             return req.cookies.BEARER;
         }
@@ -19,7 +21,7 @@ export class Jwt {
         return null;
     }
 
-    private static getRefreshToken(req) {
+    private static getRefreshToken(req): string | null {
         if (!isNullOrUndefined(req.cookies.REFRESH)) {
             return req.cookies.REFRESH;
         }
@@ -34,11 +36,23 @@ export class Jwt {
         return jwt.sign(data, AppConfig.ACCESS_TOKEN_SECRET);
     }
 
-    public static generateRefreshToken(data: any, exp?: number): string {
+    public static async generateRefreshToken(data: any, exp?: number): Promise<string> {
         if (exp) {
             data.exp = Math.floor(new Date(Date.now() + exp).getTime() / 1000);
         }
-        return jwt.sign(data, AppConfig.REFRESH_TOKEN_SECRET);
+
+        const token: string = jwt.sign(data, AppConfig.REFRESH_TOKEN_SECRET);
+        const tokenModel = new RefreshTokenModel({
+            token
+        });
+
+        try {
+            await tokenModel.save();
+        } catch (error) {
+            throw new Error(error);
+        }
+
+        return token;
     }
 
     public static setCookie(res, type: string, token: string, exp: number): void {
@@ -59,14 +73,14 @@ export class Jwt {
         return token;
     }
 
-    public static setRefreshTokenCookie(res, id: string): string {
-        const exp: number = AppConfig.REFRESH_TOKEN_LIFETIME_DAYS * 1000 * 3600 * 24;
-        const token = Jwt.generateRefreshToken({id}, exp);
+    public static async setRefreshTokenCookie(res, id: string): Promise<string> {
+        const exp: number = AppConfig.REFRESH_TOKEN_LIFETIME_HOURS * 1000 * 3600;
+        const token = await Jwt.generateRefreshToken({id}, exp);
         this.setCookie(res, tokenType.refresh, token, exp);
         return token;
     }
 
-    public static clearTokenCookies(res) {
+    public static clearTokenCookies(res): void {
         res.clearCookie(tokenType.bearer);
         res.clearCookie(tokenType.refresh);
     }
@@ -78,33 +92,61 @@ export class Jwt {
 
         const token = Jwt.getAccessToken(req);
 
-        jwt.verify(token, AppConfig.ACCESS_TOKEN_SECRET, (err => {
-            if (!err) {
-                return next();
-            }
+        InvalidToken.checkToken(token)
+            .then(checkToken => {
+                if (checkToken) {
+                    return Jwt.authError(res);
+                }
 
-            this.handleRefreshToken(res, req, next);
-        }));
+                Jwt.verifyToken(token, AppConfig.ACCESS_TOKEN_SECRET)
+                    .then(() => {
+                        return next();
+                    })
+                    .catch(() => {
+                        this.handleRefreshToken(res, req)
+                            .then(() => {
+                                    next();
+                                },
+                                () => Jwt.authError(res));
+                    });
+            })
+            .catch(() => Jwt.authError(res));
     }
 
-    private static handleRefreshToken(res, req, next) {
-        // TODO check db, blacklist tokens, etc
-
+    private static async handleRefreshToken(res, req) {
         const refreshToken = Jwt.getRefreshToken(req);
+        const decoded: any = await this.verifyToken(refreshToken, AppConfig.REFRESH_TOKEN_SECRET);
+        const checkRefresh: boolean = await RefreshToken.checkToken(refreshToken);
 
-        jwt.verify(refreshToken, AppConfig.REFRESH_TOKEN_SECRET, (err, decoded) => {
-            if (err) {
-                return Jwt.authError(res);
+        if (checkRefresh) {
+            req.cookies.BEARER = this.setAccessTokenCookie(res, decoded.id);
+            const generatedToken = await this.setRefreshTokenCookie(res, decoded.id);
+            await RefreshToken.removeToken(refreshToken);
+            return req.cookies.REFRESH = generatedToken;
+        }
+    }
+
+    public static decodeToken(token): any {
+        return jwt.decode(token);
+    }
+
+    public static verifyToken(token, secret): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!token) {
+                return reject();
             }
 
-            req.cookies.BEARER = this.setAccessTokenCookie(res, decoded.id);
-            req.cookies.REFRESH = this.setRefreshTokenCookie(res, decoded.id);
+            jwt.verify(token, secret, (err, decoded) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            next();
+                return resolve(decoded);
+            });
         });
     }
 
-    private static authError(res) {
+    private static authError(res): void {
         res.status(401).send('Brak autoryzacji');
     }
 
@@ -120,13 +162,15 @@ export class Jwt {
 
     public jwtGuard(): void {
         const unprotected = ['/', ...this.getUnprotectedRoutes()];
-        this.app.use((req, res, next) => Jwt.handleTokenAndRefresh(req, res, next, unprotected),
+        this.app.use((req, res, next) =>
+                Jwt.handleTokenAndRefresh(req, res, next, unprotected),
             expressJwt({
                 secret: AppConfig.ACCESS_TOKEN_SECRET,
                 requestProperty: 'auth',
                 getToken: (req) => Jwt.getAccessToken(req)
             }).unless({path: unprotected}),
-            (req, res, next) => authMiddleware(req, res, next, unprotected));
+            (req, res, next) =>
+                authMiddleware(req, res, next, unprotected));
 
         this.app.use((err, req, res, next) => {
             if (err.name === 'UnauthorizedError') {

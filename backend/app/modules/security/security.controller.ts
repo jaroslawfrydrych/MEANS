@@ -3,17 +3,17 @@ import {LoginParameters} from '../../models/models';
 import {errorHandler} from '../../../core/core.controller';
 import {User} from './user.model';
 
-const securityService: SecurityService = new SecurityService();
-
 export function loginHandler(req, res, next) {
     const content: LoginParameters = req.swagger.params['content'].value;
 
-    securityService.validateUser(content)
+    SecurityService.validateUser(content)
         .subscribe(userId => {
             if (userId) {
                 SecurityService.setAccessTokenCookie(res, userId);
-                SecurityService.setRefreshTokenCookie(res, userId);
-                return res.status(200).send();
+                return SecurityService.setRefreshTokenCookie(res, userId)
+                    .subscribe(() => {
+                        return res.status(200).send();
+                    }, err => errorHandler(res, err));
             }
 
             return res.status(403).send();
@@ -26,7 +26,7 @@ export function logoutHandler(req, res, next) {
         access: req.cookies.BEARER || null
     };
 
-    securityService.logout(res, tokens)
+    SecurityService.logout(res, tokens)
         .then(() => {
             res.send();
         }, err => errorHandler(res, err));

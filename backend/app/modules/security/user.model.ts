@@ -2,7 +2,6 @@ import {prop, Typegoose, pre} from 'typegoose';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {Observable} from 'rxjs/Observable';
 import * as  bcrypt from 'bcrypt-nodejs';
-import {CurrentUserView} from '../../models/currentUserView';
 import {UserNew} from '../../models/models';
 
 @pre<User>('save', function(next) {

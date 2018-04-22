@@ -19,5 +19,5 @@ export class AppConfig {
     public static REFRESH_TOKEN_SECRET: string = APP_CONFIG['refreshTokenSecret'] || '';
     public static NO_FIREWALL_PATH_PARAMETER_NAME = APP_CONFIG['noFirewallPathParameterName'] || 'x-swagger-router-no-firewall';
     public static ACCESS_TOKEN_LIFETIME_MINUTES = APP_CONFIG['accessTokenLifetimeMinutes'] || 15;
-    public static REFRESH_TOKEN_LIFETIME_DAYS = APP_CONFIG['refreshTokenLifetimeDays'] || 5;
+    public static REFRESH_TOKEN_LIFETIME_HOURS = APP_CONFIG['refreshTokenLifetimeHours'] || 12;
 }

@@ -3,15 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const security_service_1 = require("./security.service");
 const core_controller_1 = require("../../../core/core.controller");
 const user_model_1 = require("./user.model");
-const securityService = new security_service_1.SecurityService();
 function loginHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
-    securityService.validateUser(content)
+    security_service_1.SecurityService.validateUser(content)
         .subscribe(userId => {
         if (userId) {
             security_service_1.SecurityService.setAccessTokenCookie(res, userId);
-            security_service_1.SecurityService.setRefreshTokenCookie(res, userId);
-            return res.status(200).send();
+            return security_service_1.SecurityService.setRefreshTokenCookie(res, userId)
+                .subscribe(() => {
+                return res.status(200).send();
+            }, err => core_controller_1.errorHandler(res, err));
         }
         return res.status(403).send();
     }, err => core_controller_1.errorHandler(res, err));
@@ -22,7 +23,7 @@ function logoutHandler(req, res, next) {
         refresh: req.cookies.REFRESH || null,
         access: req.cookies.BEARER || null
     };
-    securityService.logout(res, tokens)
+    security_service_1.SecurityService.logout(res, tokens)
         .then(() => {
         res.send();
     }, err => core_controller_1.errorHandler(res, err));

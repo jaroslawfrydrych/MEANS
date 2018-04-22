@@ -10,24 +10,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = require("./user.model");
 const jwt_1 = require("../../../core/jwt");
+const invalid_token_model_1 = require("./invalid-token.model");
+const fromPromise_1 = require("rxjs/observable/fromPromise");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/map");
-const invalid_token_model_1 = require("./invalid-token.model");
+const refresh_token_model_1 = require("./refresh-token.model");
 class SecurityService {
     static setAccessTokenCookie(res, id) {
         return jwt_1.Jwt.setAccessTokenCookie(res, id);
     }
     static setRefreshTokenCookie(res, id) {
-        return jwt_1.Jwt.setRefreshTokenCookie(res, id);
+        return fromPromise_1.fromPromise(jwt_1.Jwt.setRefreshTokenCookie(res, id));
     }
     static clearTokenCookies(res) {
         jwt_1.Jwt.clearTokenCookies(res);
     }
-    static createRefreshToken() {
+    static logout(res, { access, refresh }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield invalid_token_model_1.InvalidToken.addToken(access);
+            if (refresh) {
+                yield refresh_token_model_1.RefreshToken.removeToken(refresh);
+            }
+            SecurityService.clearTokenCookies(res);
+            return {};
+        });
     }
-    constructor() {
-    }
-    validateUser({ username, password }) {
+    static validateUser({ username, password }) {
         return user_model_1.User.findByUsername(username)
             .map(user => {
             if (user && user_model_1.User.validPassword(password, user.password)) {
@@ -36,17 +44,7 @@ class SecurityService {
             return null;
         });
     }
-    logout(res, { access, refresh }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const invalidAccessToken = new invalid_token_model_1.InvalidTokenModel({ token: access, type: 'access' });
-            yield invalidAccessToken.save();
-            if (refresh) {
-                const invalidRefreshToken = new invalid_token_model_1.InvalidTokenModel({ token: refresh, type: 'refresh' });
-                yield invalidRefreshToken.save();
-            }
-            SecurityService.clearTokenCookies(res);
-            return {};
-        });
+    constructor() {
     }
 }
 exports.SecurityService = SecurityService;
