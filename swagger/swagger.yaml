@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: MEANS
-  description: Api dla MEAN3
+  description: Api dla MEANS
   contact:
     email: jarek.frydrych@gmail.com
 basePath: /api
