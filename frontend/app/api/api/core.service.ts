@@ -1,6 +1,6 @@
 /**
- * MEAN3
- * Api dla MEAN3
+ * MEANS
+ * Api dla MEANS
  *
  * OpenAPI spec version: 1.0.0
  * Contact: jarek.frydrych@gmail.com
@@ -80,7 +80,7 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/asd123`,
+        return this.httpClient.get<any>(`${this.basePath}/asd`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

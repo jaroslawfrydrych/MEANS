@@ -1,7 +1,7 @@
-import {Configuration} from './security';
+import {Configuration} from './configuration';
 
 export function apiConfiguration(): Configuration {
-    let conf = new Configuration();
+    const conf = new Configuration();
     conf.withCredentials = true;
     conf.basePath = generateBasePath();
     return conf;

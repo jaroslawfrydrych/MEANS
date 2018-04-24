@@ -1,6 +1,6 @@
 /**
- * MEAN3
- * Api dla MEAN3
+ * MEANS
+ * Api dla MEANS
  *
  * OpenAPI spec version: 1.0.0
  * Contact: jarek.frydrych@gmail.com
@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { CurrentUserView } from '../model/currentUserView';
 import { LoginParameters } from '../model/loginParameters';
 import { UserNew } from '../model/userNew';
 
@@ -58,6 +59,41 @@ export class SecurityService {
 
 
     /**
+     * Pobieranie danych zalogowanego użytkownika
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public currentUserQuery(observe?: 'body', reportProgress?: boolean): Observable<CurrentUserView>;
+    public currentUserQuery(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CurrentUserView>>;
+    public currentUserQuery(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CurrentUserView>>;
+    public currentUserQuery(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<CurrentUserView>(`${this.basePath}/security/current`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Logowanie do aplikacji
      * 
      * @param content Dane logowania użytkownika
@@ -92,6 +128,41 @@ export class SecurityService {
 
         return this.httpClient.post<any>(`${this.basePath}/security/login`,
             content,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Wylogowanie z aplikacji
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public logoutHandler(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public logoutHandler(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public logoutHandler(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public logoutHandler(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<any>(`${this.basePath}/security/logout`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
