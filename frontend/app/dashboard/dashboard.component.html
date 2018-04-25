@@ -1,3 +1,13 @@
+<app-menu>
+    <app-menu-item path="/dashboard">Dashboard</app-menu-item>
+    <app-menu-item path="/stuff">
+        Stuff1
+        <app-menu-item path="/stuff">stuff3</app-menu-item>
+        <app-menu-item path="/stuff">stuff3</app-menu-item>
+        <app-menu-item path="/stuff">stuff3</app-menu-item>
+    </app-menu-item>
+    <app-menu-item path="/stuff2">Stuff2</app-menu-item>
+</app-menu>
 <router-outlet></router-outlet>
 
 {{currentUser.username}}

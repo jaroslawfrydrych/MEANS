@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
 import {SecurityService} from '../security.service';
+import {CoreService} from '../../core/core.service';
 
 @Component({
     selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private securityService: SecurityService,
                 private userService: UserService,
-                private router: Router) {
+                private router: Router,
+                private coreService: CoreService) {
     }
 
     ngOnInit() {
@@ -30,9 +32,11 @@ export class LoginComponent implements OnInit {
         event.preventDefault();
         this.securityService.loginHandler(this.formGroup.getRawValue())
             .subscribe(() => {
-                this.userService.currentUser
-                    .subscribe(() => {
-                        this.router.navigate(['dashboard/home']);
+                this.userService.checkCurrentUser()
+                    .subscribe(value => {
+                        if (value) {
+                            this.router.navigate([this.coreService.homePage]);
+                        }
                     });
             });
     }

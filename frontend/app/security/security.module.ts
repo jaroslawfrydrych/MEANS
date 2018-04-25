@@ -9,6 +9,7 @@ import {SecurityRoutes} from './security.routes';
 import {SecurityComponent} from './security.component';
 import {UserService} from './user/user.service';
 import {SecurityService} from './security.service';
+import {LoginGuard} from './login.guard';
 
 const COMPONENTS = [
     LoginComponent,
@@ -29,7 +30,8 @@ const COMPONENTS = [
     providers: [
         SecurityApiService,
         UserService,
-        SecurityService
+        SecurityService,
+        LoginGuard
     ]
 })
 export class SecurityModule {

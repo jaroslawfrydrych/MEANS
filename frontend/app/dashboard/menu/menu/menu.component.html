@@ -1,0 +1,5 @@
+<ul>
+    <ng-container *ngFor="let menuItem of menuItems">
+        <ng-container [ngTemplateOutlet]="menuItem.menuItemContent"></ng-container>
+    </ng-container>
+</ul>

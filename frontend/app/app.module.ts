@@ -5,6 +5,8 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {SecurityModule} from './security/security.module';
 import {DashboardModule} from './dashboard/dashboard.module';
+import {AuthGuard} from './security/auth.guard';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
     declarations: [
@@ -13,10 +15,13 @@ import {DashboardModule} from './dashboard/dashboard.module';
     imports: [
         BrowserModule,
         RouterModule,
-        SecurityModule,
-        DashboardModule
+        CoreModule,
+        DashboardModule,
+        SecurityModule
     ],
-    providers: [],
+    providers: [
+        AuthGuard
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
