@@ -1,12 +1,14 @@
 <app-menu>
-    <app-menu-item path="/dashboard">Dashboard</app-menu-item>
-    <app-menu-item path="/stuff">
-        Stuff1
-        <app-menu-item path="/stuff">stuff3</app-menu-item>
-        <app-menu-item path="/stuff">stuff3</app-menu-item>
-        <app-menu-item path="/stuff">stuff3</app-menu-item>
+    <app-menu-item path="/dashboard" label="Dashboard"></app-menu-item>
+    <app-menu-item path="/stuff-main" label="Suff main">
+        <app-menu-item path="/stuff-1" label="stuff1"></app-menu-item>
+        <app-menu-item path="/stuff-2" label="stuff2"></app-menu-item>
+        <app-menu-item path="/stuff-3" label="stuff3">
+            <app-menu-item path="/stuff-4" label="stuff4"></app-menu-item>
+            <app-menu-item path="/stuff-5" label="stuff5"></app-menu-item>
+        </app-menu-item>
     </app-menu-item>
-    <app-menu-item path="/stuff2">Stuff2</app-menu-item>
+    <app-menu-item path="/stuff-last" label="Stuff last"></app-menu-item>
 </app-menu>
 <router-outlet></router-outlet>
 

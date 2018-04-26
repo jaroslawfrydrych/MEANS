@@ -1,5 +1,5 @@
 <ul>
-    <ng-container *ngFor="let menuItem of menuItems">
-        <ng-container [ngTemplateOutlet]="menuItem.menuItemContent"></ng-container>
-    </ng-container>
+    <li *ngFor="let menuItem of menuItems">
+        <a [routerLink]="menuItem.path">{{menuItem.label}}</a>
+    </li>
 </ul>
