@@ -1,3 +1,4 @@
+<app-top-bar></app-top-bar>
 <app-menu>
     <app-menu-item path="/dashboard" label="Dashboard"></app-menu-item>
     <app-menu-item path="/stuff-main" label="Suff main">
@@ -10,8 +11,7 @@
     </app-menu-item>
     <app-menu-item path="/stuff-last" label="Stuff last"></app-menu-item>
 </app-menu>
-<router-outlet></router-outlet>
+<div id="content">
+    <router-outlet></router-outlet>
+</div>
 
-{{currentUser.username}}
-
-<button (click)="logout()">Wyloguj</button>

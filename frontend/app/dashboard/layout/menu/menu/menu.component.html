@@ -1,0 +1,23 @@
+<ul>
+    <li *ngFor="let menuItem of menuItems">
+        <a [routerLink]="menuItem.path">{{menuItem.label}}</a>
+
+        <ul *ngIf="menuItem.menuItems.length">
+            <li *ngFor="let subItem of menuItem.menuItems">
+                <a [routerLink]="subItem.path">{{subItem.label}}</a>
+
+                <ul *ngIf="subItem.menuItems.length">
+                    <li *ngFor="let subSubItem of subItem.menuItems">
+                        <a [routerLink]="subSubItem.path">{{subSubItem.label}}</a>
+
+                        <ul *ngIf="subSubItem.menuItems.length">
+                            <li *ngFor="let subSubSubItem of subSubItem.menuItems">
+                                <a [routerLink]="subSubSubItem.path">{{subSubSubItem.label}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>

@@ -5,20 +5,17 @@ import {DashboardRoutes} from './dashboard.routes';
 import {HomeComponent} from './home/home.component';
 import {DashboardComponent} from './dashboard.component';
 import {UserService} from '../security/user/user.service';
-import {MenuModule} from './menu/menu.module';
+import {LayoutModule} from './layout/layout.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forRoot(DashboardRoutes),
-        MenuModule
+        LayoutModule
     ],
     declarations: [
         HomeComponent,
         DashboardComponent
-    ],
-    providers: [
-        UserService
     ]
 })
 export class DashboardModule {

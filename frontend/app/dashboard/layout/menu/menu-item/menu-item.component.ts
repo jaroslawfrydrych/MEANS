@@ -24,8 +24,5 @@ export class MenuItemComponent implements OnInit, AfterContentInit {
         this.menuItems = this.menuItemsContent.filter((item, index) => {
             return index > 0;
         });
-
-        console.log(this.menuItems);
     }
-
 }

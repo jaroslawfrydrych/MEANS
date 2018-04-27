@@ -11,27 +11,11 @@ import {CoreService} from '../core/core.service';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    public currentUser: CurrentUserView;
 
-    constructor(private userService: UserService,
-                private securityService: SecurityService,
-                private router: Router,
-                private coreService: CoreService) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.coreService.homePage;
-        this.userService.currentUser
-            .subscribe(user => {
-                this.currentUser = user;
-            });
-    }
-
-    public logout() {
-        this.securityService.logoutHandler()
-            .subscribe(() => {
-                this.router.navigate(['/']);
-            });
     }
 
 }

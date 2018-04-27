@@ -1,0 +1,11 @@
+@import "../../../../../styles/variables";
+
+:host {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: $menuWidth;
+    padding-top: $topBarHeight;
+    z-index: 98;
+}
