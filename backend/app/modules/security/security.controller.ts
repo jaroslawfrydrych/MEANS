@@ -7,7 +7,7 @@ export function loginHandler(req, res, next) {
     const content: LoginParameters = req.swagger.params['content'].value;
 
     SecurityService.validateUser(content)
-        .subscribe(userId => {
+        .then(userId => {
             if (userId) {
                 SecurityService.setAccessTokenCookie(res, userId);
                 return SecurityService.setRefreshTokenCookie(res, userId)
@@ -17,7 +17,7 @@ export function loginHandler(req, res, next) {
             }
 
             return res.status(403).send();
-        }, err => errorHandler(res, err));
+        }).catch(err => errorHandler(res, err));
 }
 
 export function logoutHandler(req, res, next) {
@@ -35,9 +35,10 @@ export function logoutHandler(req, res, next) {
 export function userNewHandler(req, res, next) {
     const content: any = req.swagger.params['content'].value;
     User.createUser(content)
-        .subscribe(() => {
+        .then(() => {
             return res.status(200).send();
-        }, err => errorHandler(res, err));
+        })
+        .catch(err => errorHandler(res, err));
 }
 
 export function currentUserQuery(req, res, next) {

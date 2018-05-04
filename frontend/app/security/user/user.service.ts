@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CurrentUserView, SecurityService as SecurityApiService} from '../../api';
-import {Observable} from 'rxjs/Observable';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable, ReplaySubject, of} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -15,7 +11,7 @@ export class UserService {
 
     get currentUser(): Observable<CurrentUserView | null> {
         if (this.currentUserValue) {
-            return Observable.of(this.currentUserValue);
+            return of(this.currentUserValue);
         }
 
         return this.getUserData();

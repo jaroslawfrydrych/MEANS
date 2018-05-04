@@ -1,6 +1,7 @@
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./security/security.controller"));
+var security_controller_1 = require("./security/security.controller");
+exports.loginHandler = security_controller_1.loginHandler;
+exports.logoutHandler = security_controller_1.logoutHandler;
+exports.userNewHandler = security_controller_1.userNewHandler;
+exports.currentUserQuery = security_controller_1.currentUserQuery;

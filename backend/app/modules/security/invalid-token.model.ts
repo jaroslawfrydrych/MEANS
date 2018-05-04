@@ -10,7 +10,7 @@ import {Jwt} from '../../../core/jwt';
 export class InvalidToken extends Typegoose {
     public static async checkToken(token): Promise<boolean> {
         try {
-            const tokenModel = await InvalidTokenModel.find({
+            const tokenModel = await InvalidTokenModel.find(<any>{
                 token
             });
 
@@ -29,10 +29,10 @@ export class InvalidToken extends Typegoose {
         }
     }
 
-    @prop({required: true, unique: true})
+    @prop(<any>{required: true, unique: true})
     public token: string;
 
-    @prop({default: Date.now, expires: 0})
+    @prop(<any>{default: Date.now, expires: 0})
     public expiresAt: Date;
 }
 

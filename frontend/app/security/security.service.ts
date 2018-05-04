@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {LoginParameters, SecurityService as SecurityApiService} from '../api';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {UserService} from './user/user.service';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class SecurityService {
@@ -17,9 +18,9 @@ export class SecurityService {
 
     public logoutHandler(): Observable<any> {
         return this.securityApiService.logoutHandler()
-            .map(logout => {
+            .pipe(map(logout => {
                 this.userService.clearUser();
                 return logout;
-            });
+            }));
     }
 }

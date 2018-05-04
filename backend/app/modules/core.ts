@@ -1,1 +1,1 @@
-export * from './core/core.controller';
+export {asdHandler} from './core/core.controller';

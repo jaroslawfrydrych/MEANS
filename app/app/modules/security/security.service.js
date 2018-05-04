@@ -11,10 +11,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = require("./user.model");
 const jwt_1 = require("../../../core/jwt");
 const invalid_token_model_1 = require("./invalid-token.model");
-const fromPromise_1 = require("rxjs/observable/fromPromise");
-require("rxjs/add/observable/of");
-require("rxjs/add/operator/map");
 const refresh_token_model_1 = require("./refresh-token.model");
+const fromPromise_1 = require("rxjs/internal/observable/fromPromise");
 class SecurityService {
     static setAccessTokenCookie(res, id) {
         return jwt_1.Jwt.setAccessTokenCookie(res, id);
@@ -36,12 +34,17 @@ class SecurityService {
         });
     }
     static validateUser({ username, password }) {
-        return user_model_1.User.findByUsername(username)
-            .map(user => {
-            if (user && user_model_1.User.validPassword(password, user.password)) {
-                return user['_id'];
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield user_model_1.User.findByUsername(username);
+                if (user && user_model_1.User.validPassword(password, user.password)) {
+                    return user['_id'];
+                }
+                return null;
             }
-            return null;
+            catch (error) {
+                throw new Error(error);
+            }
         });
     }
     constructor() {

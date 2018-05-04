@@ -10,16 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typegoose_1 = require("typegoose");
-const fromPromise_1 = require("rxjs/observable/fromPromise");
-const bcrypt = require("bcrypt-nodejs");
+const bcrypt = require('bcrypt');
 let User = User_1 = class User extends typegoose_1.Typegoose {
     static findByUsername(username) {
-        return fromPromise_1.fromPromise(exports.UserModel.findOne({
+        return exports.UserModel.findOne({
             username
-        }));
+        });
     }
     static findById(id) {
-        return fromPromise_1.fromPromise(exports.UserModel.findById(id));
+        return exports.UserModel.findById(id);
     }
     static hashPassword(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
@@ -29,7 +28,7 @@ let User = User_1 = class User extends typegoose_1.Typegoose {
     }
     static createUser(content) {
         const user = new exports.UserModel(content);
-        return fromPromise_1.fromPromise(user.save());
+        return user.save();
     }
 };
 __decorate([

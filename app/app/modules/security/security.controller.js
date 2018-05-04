@@ -6,7 +6,7 @@ const user_model_1 = require("./user.model");
 function loginHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
     security_service_1.SecurityService.validateUser(content)
-        .subscribe(userId => {
+        .then(userId => {
         if (userId) {
             security_service_1.SecurityService.setAccessTokenCookie(res, userId);
             return security_service_1.SecurityService.setRefreshTokenCookie(res, userId)
@@ -15,7 +15,7 @@ function loginHandler(req, res, next) {
             }, err => core_controller_1.errorHandler(res, err));
         }
         return res.status(403).send();
-    }, err => core_controller_1.errorHandler(res, err));
+    }).catch(err => core_controller_1.errorHandler(res, err));
 }
 exports.loginHandler = loginHandler;
 function logoutHandler(req, res, next) {
@@ -32,9 +32,10 @@ exports.logoutHandler = logoutHandler;
 function userNewHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
     user_model_1.User.createUser(content)
-        .subscribe(() => {
+        .then(() => {
         return res.status(200).send();
-    }, err => core_controller_1.errorHandler(res, err));
+    })
+        .catch(err => core_controller_1.errorHandler(res, err));
 }
 exports.userNewHandler = userNewHandler;
 function currentUserQuery(req, res, next) {

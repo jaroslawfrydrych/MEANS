@@ -1,12 +1,12 @@
 import {LoginParameters} from '../../models/models';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {User} from './user.model';
 import {Jwt} from '../../../core/jwt';
 import {InvalidToken} from './invalid-token.model';
-import {fromPromise} from 'rxjs/observable/fromPromise';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import {RefreshToken} from './refresh-token.model';
+import {RefreshToken, RefreshTokenModel} from './refresh-token.model';
+import {fromPromise} from 'rxjs/internal/observable/fromPromise';
+import {map} from 'rxjs/operators';
+import {reject} from 'q';
 
 export class SecurityService {
 
@@ -33,15 +33,19 @@ export class SecurityService {
         return {};
     }
 
-    public static validateUser({username, password}: LoginParameters): Observable<string | null> {
-        return User.findByUsername(username)
-            .map(user => {
-                if (user && User.validPassword(password, user.password)) {
-                    return user['_id'];
-                }
+    public static async validateUser({username, password}: LoginParameters): Promise<string | null> {
+        try {
+            const user = await User.findByUsername(username);
 
-                return null;
-            });
+            if (user && User.validPassword(password, user.password)) {
+                return user['_id'];
+            }
+
+            return null;
+
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     constructor() {

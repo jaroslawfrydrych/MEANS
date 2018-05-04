@@ -6,7 +6,7 @@ export default (req, res, next, unprotected: Array<string>) => {
     }
 
     User.findById(req.auth.id)
-        .subscribe(({username}) => {
+        .then(({username}) => {
             if (username) {
                 req.user = {
                     username
@@ -14,7 +14,8 @@ export default (req, res, next, unprotected: Array<string>) => {
                 return next();
             }
             res.status(500).send('Nie znaleziono użytkownika');
-        }, err => {
+        })
+        .catch(err => {
             res.status(500).send('Wystąpił bład autoryzacji');
         });
 

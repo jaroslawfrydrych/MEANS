@@ -20,9 +20,9 @@ export class RefreshToken extends Typegoose {
         }
     }
 
-    public static async checkToken(token): Promise<boolean> {
+    public static async checkToken(token: string): Promise<boolean> {
         try {
-            const tokenModel = await RefreshTokenModel.find({
+            const tokenModel = await RefreshTokenModel.find(<any>{
                 token
             });
 
@@ -32,10 +32,10 @@ export class RefreshToken extends Typegoose {
         }
     }
 
-    @prop({required: true, unique: true})
+    @prop(<any>{required: true, unique: true})
     public token: string;
 
-    @prop({default: Date.now, expires: 0})
+    @prop(<any>{default: Date.now, expires: 0})
     public expiresAt: Date;
 
 }

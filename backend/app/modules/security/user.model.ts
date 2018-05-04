@@ -1,23 +1,23 @@
 import {prop, Typegoose, pre} from 'typegoose';
-import {fromPromise} from 'rxjs/observable/fromPromise';
-import {Observable} from 'rxjs/Observable';
-import * as  bcrypt from 'bcrypt-nodejs';
 import {UserNew} from '../../models/models';
+import {DocumentQuery} from 'mongoose';
 
-@pre<User>('save', function(next) {
+const bcrypt = require('bcrypt');
+
+@pre<User>('save', function (next) {
     this.password = User.hashPassword(this.password);
     next();
 })
 
 export class User extends Typegoose {
-    public static findByUsername(username: string): Observable<User> {
-        return fromPromise(UserModel.findOne({
+    public static findByUsername(username: string): DocumentQuery<User> {
+        return UserModel.findOne({
             username
-        }));
+        });
     }
 
-    public static findById(id: string): Observable<User> {
-        return fromPromise(UserModel.findById(id));
+    public static findById(id: string): DocumentQuery<User> {
+        return UserModel.findById(id);
     }
 
     public static hashPassword(password: string): string {
@@ -28,18 +28,18 @@ export class User extends Typegoose {
         return bcrypt.compareSync(password, hash);
     }
 
-    public static createUser(content: UserNew): Observable<{}> {
+    public static createUser(content: UserNew): Promise<{}> {
         const user = new UserModel(content);
-        return fromPromise(user.save());
+        return user.save();
     }
 
-    @prop({required: true, unique: true})
+    @prop(<any>{required: true, unique: true})
     public username?: string;
 
-    @prop({required: true})
+    @prop(<any>{required: true})
     public password?: string;
 
-    @prop({required: true, default: Date.now()})
+    @prop(<any>{required: true, default: Date.now()})
     public createdAt?: Date;
 
     @prop()

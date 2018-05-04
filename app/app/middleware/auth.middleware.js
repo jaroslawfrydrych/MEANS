@@ -6,7 +6,7 @@ exports.default = (req, res, next, unprotected) => {
         return next();
     }
     user_model_1.User.findById(req.auth.id)
-        .subscribe(({ username }) => {
+        .then(({ username }) => {
         if (username) {
             req.user = {
                 username
@@ -14,7 +14,8 @@ exports.default = (req, res, next, unprotected) => {
             return next();
         }
         res.status(500).send('Nie znaleziono użytkownika');
-    }, err => {
+    })
+        .catch(err => {
         res.status(500).send('Wystąpił bład autoryzacji');
     });
 };

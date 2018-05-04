@@ -6,7 +6,7 @@ Overview
 
 Starter pack
 
-**MongoDB + Express on TypeScript + Angular 5 + Node server + Swagger**
+**MongoDB + Express on TypeScript + Angular 6 + Node server + Swagger**
 
 Quick start
 -----------
