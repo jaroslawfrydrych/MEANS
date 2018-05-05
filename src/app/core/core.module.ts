@@ -1,18 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CardComponent} from './card/card.component';
 import {FormModule} from './form/form.module';
 import {ToastModule} from './toast/toast.module';
 import {ButtonsModule} from './buttons/buttons.module';
-
-const COMPONENTS = [
-    CardComponent
-];
+import {CardModule} from './card/card.module';
 
 const MODULES = [
     FormModule,
     ToastModule,
-    ButtonsModule
+    ButtonsModule,
+    CardModule
 ];
 
 @NgModule({
@@ -21,10 +18,8 @@ const MODULES = [
         ...MODULES
     ],
     declarations: [
-        ...COMPONENTS
     ],
     exports: [
-        ...COMPONENTS,
         ...MODULES
     ]
 })

@@ -1,0 +1,14 @@
+@import "../../../../styles/variables";
+
+:host {
+    .cardContainer {
+        background-color: $colorBackgroundPrimary;
+        padding: 10px 30px 25px;
+        border: {
+            style: solid;
+            width: 1px;
+            color: $colorBorder;
+            radius: 3px;
+        }
+    }
+}

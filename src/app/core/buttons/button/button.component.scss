@@ -28,18 +28,6 @@
         width: 9.75em;
         transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1);
 
-        .overlay {
-            position: absolute;
-            top: -999px;
-            right: -999px;
-            bottom: -999px;
-            left: -999px;
-            margin: auto;
-            display: block;
-            opacity: .5;
-            border-radius: 50%;
-            background-color: $colorBackgroundPrimary;
-        }
 
         &:disabled {
             &, &:hover {

@@ -8,7 +8,8 @@ import {AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, 
 export class MenuItemComponent implements OnInit, AfterContentInit {
 
     @Input() public path: string = '';
-    @Input() public label: String = '';
+    @Input() public label: string = '';
+    @Input() public icon: string = '';
     @ViewChild('menuItemContent') menuItemContent: ElementRef;
     @ViewChild('subMenuItemsContent') subMenuItemsContent: ElementRef;
     @ContentChildren(MenuItemComponent) menuItemsContent: QueryList<MenuItemComponent>;

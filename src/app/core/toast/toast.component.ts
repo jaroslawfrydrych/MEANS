@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {Observable, ReplaySubject, Subscription, timer} from 'rxjs';
 import {ToastTypes} from './toast-types.enum';
 
@@ -10,6 +10,7 @@ import {ToastTypes} from './toast-types.enum';
 export class ToastComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription = new Subscription();
     private closeToastSubject: ReplaySubject<null> = new ReplaySubject<null>(1);
+    private lifeTimeTimerSub: Subscription;
     public closeToast$: Observable<null> = this.closeToastSubject.asObservable();
     public message: string = null;
     public type: ToastTypes = ToastTypes.Info;
@@ -22,18 +23,17 @@ export class ToastComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        const lifeTimeTimer = timer(this.lifeTimeSeconds * 1000)
+        this.lifeTimeTimerSub = timer(this.lifeTimeSeconds * 1000)
             .subscribe(() => {
                 this.closeToast();
             });
 
-        this.subscriptions.add(lifeTimeTimer);
+        this.subscriptions.add(this.lifeTimeTimerSub);
     }
 
     public closeToast() {
         this.animationOut = true;
 
-        // TODO better handle animation out
         const closeToastAnimationTimer = timer(1000)
             .subscribe(() => {
                 this.closeToastSubject.next(null);

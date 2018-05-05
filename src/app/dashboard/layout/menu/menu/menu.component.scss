@@ -1,83 +1,107 @@
 @import "../../../../../styles/variables";
 
 :host {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: $menuWidth;
-    padding-top: $topBarHeight;
-    background-color: $colorBackgroundPrimary;
-    z-index: 99;
-    border: {
-        right: {
-            style: solid;
-            width: 1px;
-            color: $colorBorder;
-        }
-    }
-
-    .logo {
-        position: absolute;
+    #menu {
+        position: fixed;
         top: 0;
-        right: -1px;
+        bottom: 0;
         left: 0;
-        height: $topBarHeight;
-        background-color: $colorPrimary;
-        color: $colorBackgroundPrimary;
-        font: {
-            weight: 500;
-            size: 1.5rem;
-        }
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        span {
-            font-weight: 700;
-        }
-    }
-
-    nav {
-        display: block;
-        position: relative;
-
-        .marker {
-            position: absolute;
-            top: 0;
-            right: 0;
-            height: 2rem;
-            width: 4px;
-            background-color: $colorPrimary;
-            opacity: 0;
-
-            &.markerActive {
-                transition: all 250ms ease;
-                opacity: 1;
+        width: $menuWidth;
+        padding-top: $topBarHeight;
+        background-color: $colorBackgroundPrimary;
+        z-index: 99;
+        overflow: hidden;
+        transition: width 500ms ease;
+        border: {
+            right: {
+                style: solid;
+                width: 1px;
+                color: $colorBorder;
             }
         }
 
-        ul {
+        &.closed {
+            width: $menuWidthClosed;
+        }
+
+        .logo {
+            position: absolute;
+            top: 0;
+            right: -1px;
+            left: 0;
+            height: $topBarHeight;
+            background-color: $colorPrimary;
+            color: $colorBackgroundPrimary;
+            font: {
+                weight: 500;
+                size: 1.5rem;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+                font-weight: 700;
+            }
+        }
+
+        nav {
             display: block;
-            list-style: none;
-            padding-top: 10px;
+            position: relative;
 
-            li {
+            .marker {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 2rem;
+                width: 4px;
+                background-color: $colorPrimary;
+                opacity: 0;
+
+                &.markerActive {
+                    transition: all 250ms ease;
+                    opacity: 1;
+                }
+            }
+
+            ul {
                 display: block;
-                padding: 0;
-                margin: 0;
-                line-height: 50px;
-                font-weight: 500;
-
-                &.active {
-                    a {
-                        color: $colorPrimary;
-                    }
+                list-style: none;
+                padding: {
+                    top: 10px;
+                    left: 0;
                 }
 
-                a {
-                    &:hover {
-                        color: $colorPrimary;
+                li {
+                    display: block;
+                    padding: 0;
+                    margin: 0;
+                    line-height: 50px;
+                    font-weight: 500;
+
+                    &.active {
+                        a {
+                            color: $colorPrimary;
+                        }
+                    }
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        padding-left: 30px;
+                        transition: all 250ms ease;
+
+                        .material-icons {
+                            width: 25px;
+                            margin: {
+                                top: -5px;
+                                right: 15px;
+                            }
+                        }
+
+                        &:hover {
+                            color: $colorPrimary;
+                        }
                     }
                 }
             }

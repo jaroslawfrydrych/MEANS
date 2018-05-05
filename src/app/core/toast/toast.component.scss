@@ -30,7 +30,7 @@
         overflow: hidden;
         border: {
             radius: 3px;
-            style: solid;
+            style: none;
             color: $colorPrimary;
             width: 1px;
 
@@ -42,7 +42,8 @@
         }
 
         &.success {
-
+            background-color: $colorSuccess;
+            border-color: $colorSuccess;
         }
     }
 }

@@ -6,10 +6,23 @@ import {Router} from '@angular/router';
 })
 export class CoreService {
 
+    private homeRoute: string = '';
+
     constructor(private router: Router) {
     }
 
     public get homePage(): string {
-        return this.router.config[0].path;
+        if (!this.homeRoute) {
+            this.checkRoutesForHomeRoute(this.router.config);
+        }
+        return this.homeRoute;
+    }
+
+    private checkRoutesForHomeRoute(routes): void {
+        this.homeRoute += '/' + routes[0].path;
+
+        if (routes[0].children && routes[0].children.length) {
+            this.checkRoutesForHomeRoute(routes[0].children);
+        }
     }
 }

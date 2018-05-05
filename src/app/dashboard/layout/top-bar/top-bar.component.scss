@@ -1,23 +1,139 @@
 @import "../../../../styles/variables";
 
 :host {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: $topBarHeight;
-    z-index: 98;
-    padding-left: $menuWidth;
-    background-color: $colorBackgroundPrimary;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 2rem;
-    border: {
-        bottom: {
-            style: solid;
-            width: 1px;
-            color: $colorBorder;
-        };
+    #top-bar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $topBarHeight;
+        z-index: 98;
+        padding-left: $menuWidth;
+        background-color: $colorBackgroundPrimary;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 50px;
+        transition: padding 500ms ease;
+        border: {
+            bottom: {
+                style: solid;
+                width: 1px;
+                color: $colorBorder;
+            }
+        }
+
+        &.menu-closed {
+            padding-left: $menuWidthClosed;
+
+            .menu-toggle {
+                transform: scale(-1, 1);
+            }
+        }
+
+        .menu-toggle {
+            margin-right: auto;
+            margin-left: 10px;
+            transition: all 250ms ease;
+
+            /deep/ {
+                button {
+                    color: $colorText;
+                }
+            }
+        }
+
+        .user-profile-button {
+            background: none;
+            display: flex;
+            align-items: center;
+            border-style: none;
+            cursor: pointer;
+            margin-right: -30px;
+
+            .initials {
+                width: $buttonHeight;
+                height: $buttonHeight;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                position: relative;
+                background-color: $colorPrimary;
+                color: $colorBackgroundPrimary;
+                border: {
+                    style: solid;
+                    radius: 50%;
+                    width: 1px;
+                    color: $colorPrimary;
+                }
+                outline: none;
+                box-shadow: none;
+                overflow: hidden;
+                font: {
+                    weight: 500;
+                    size: 1em;
+                }
+                user-select: none;
+                transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+            }
+
+            .material-icons {
+                color: $colorText;
+                font-size: 1.3em;
+                width: 30px;
+                display: flex;
+                justify-content: flex-end;;
+            }
+
+            &:hover {
+                .initials {
+                    background-color: lighten($colorPrimary, 5);
+                    border-color: lighten($colorPrimary, 5);
+                }
+            }
+        }
+
+        .user-profile-dropdown {
+            position: absolute;
+            top: $topBarHeight - 10px;
+            box-shadow: 0 20px 80px -25px rgba(0, 0, 0, 0.75);
+            right: 30px;
+            width: 300px;
+            padding: 30px;
+            background-color: $colorBackgroundPrimary;
+            display: flex;
+            justify-content: flex-end;
+            animation-duration: 500ms;
+            border: {
+                color: $colorBorder;
+                width: 1px;
+                style: solid;
+                radius: 3px;
+            }
+
+            &:before, &:after {
+                position: absolute;
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-color: transparent transparent $colorBackgroundPrimary transparent;
+            }
+
+            &:before {
+                border-color: transparent transparent $colorBorder transparent;
+                border-width: 10px;
+                right: 37px;
+                top: -20px;
+            }
+
+            &:after {
+                border-color: transparent transparent $colorBackgroundPrimary transparent;
+                border-width: 11px;
+                right: 36px;
+                top: -20px;
+            }
+        }
     }
 }

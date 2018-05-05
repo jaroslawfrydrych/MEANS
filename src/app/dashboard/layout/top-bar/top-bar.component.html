@@ -1,4 +1,17 @@
-<app-button-circle (click)="logout()">
-    {{initials}}
-</app-button-circle>
+<div id="top-bar" [class.menu-closed]="menuService.menuOpen$ | async">
+    <app-button-icon class="menu-toggle" (click)="menuToggle()">arrow_back</app-button-icon>
+
+    <button class="user-profile-button" (click)="userProfileDropdownToggle()" #userProfileButton>
+        <span class="initials">
+            {{initials}}
+        </span>
+        <i class="material-icons">keyboard_arrow_down</i>
+    </button>
+
+    <div class="user-profile-dropdown animated fadeIn" *ngIf="userProfileDropdownVisible" #userProfileDropdown>
+        <app-button (click)="logout()">
+            Logout
+        </app-button>
+    </div>
+</div>
 

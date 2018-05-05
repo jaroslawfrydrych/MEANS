@@ -4,10 +4,20 @@
     #content {
         height: 100%;
         min-height: 100%;
-        background-color: $colorBackgroundSecondary;
+        transition: padding 500ms ease;
         padding: {
             top: $topBarHeight;
             left: $menuWidth;
+        }
+
+        &.menu-closed {
+            padding-left: $menuWidthClosed;
+        }
+
+        .contentContainer {
+            background-color: $colorBackgroundSecondary;
+            padding: 25px 50px;
+            min-height: 100%;
         }
     }
 }

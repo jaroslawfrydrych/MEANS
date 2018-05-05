@@ -6,10 +6,10 @@
     <form [formGroup]="formGroup" [ngClass]="{'animated shake': wrongCredentials}">
         <h2>Hello!</h2>
         <div>
-            <app-input placeholder="użytkownik" formControlName="username"></app-input>
+            <app-input placeholder="username" formControlName="username"></app-input>
         </div>
         <div>
-            <app-input type="password" placeholder="hasło" formControlName="password"></app-input>
+            <app-input type="password" placeholder="password" formControlName="password"></app-input>
         </div>
         <div>
             <app-button type="submit" (click)="onFormSubmit($event)" [disabled]="!formGroup.valid">Sign In</app-button>

@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SecurityService} from '../../../security/security.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../security/user/user.service';
 import {CurrentUserView} from '../../../api';
 import {Subscription} from 'rxjs/index';
+import {MenuService} from '../menu/menu/menu.service';
 
 @Component({
     selector: 'app-top-bar',
@@ -14,10 +15,25 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
     public initials: string = null;
     private subscriptions: Subscription = new Subscription();
+    public userProfileDropdownVisible: boolean = false;
+
+    @ViewChild('userProfileDropdown') private userProfileDropdown: ElementRef;
+    @ViewChild('userProfileButton') private userProfileButton: ElementRef;
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event) {
+        if (!this.userProfileDropdownVisible || this.userProfileButton.nativeElement.contains(event.target)) {
+            return;
+        }
+
+        if (!this.userProfileDropdown.nativeElement.contains(event.target)) {
+            this.userProfileDropdownHide();
+        }
+    }
 
     constructor(private securityService: SecurityService,
                 private userService: UserService,
-                private router: Router) {
+                private router: Router,
+                public menuService: MenuService) {
     }
 
     ngOnInit() {
@@ -30,6 +46,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
+        this.userProfileDropdownHide();
         const logoutHandlerSub = this.securityService.logoutHandler()
             .subscribe(() => {
                 this.router.navigate(['/']);
@@ -44,6 +61,18 @@ export class TopBarComponent implements OnInit, OnDestroy {
         } else {
             this.initials = user.username.substring(0, 2);
         }
+    }
+
+    public menuToggle() {
+        this.menuService.toggleMenu();
+    }
+
+    public userProfileDropdownToggle() {
+        this.userProfileDropdownVisible = !this.userProfileDropdownVisible;
+    }
+
+    private userProfileDropdownHide() {
+        this.userProfileDropdownVisible = false;
     }
 
     ngOnDestroy() {

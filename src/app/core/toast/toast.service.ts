@@ -1,5 +1,5 @@
 import {
-    ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable,
+    ApplicationRef, ComponentFactoryResolver, ElementRef, EmbeddedViewRef, Injectable,
     Injector
 } from '@angular/core';
 import {ToastComponent} from './toast.component';
@@ -14,7 +14,7 @@ export class ToastService {
                 private injector: Injector) {
     }
 
-    public showToast(message: string, type?: ToastTypes) {
+    public showToast(message: string, type?: ToastTypes): ToastComponent {
         const componentRef = this.componentFactoryResolver
             .resolveComponentFactory(ToastComponent)
             .create(this.injector);
@@ -34,5 +34,7 @@ export class ToastService {
                 componentRef.destroy();
                 closeToastSub.unsubscribe();
             });
+
+        return componentRef.instance;
     }
 }

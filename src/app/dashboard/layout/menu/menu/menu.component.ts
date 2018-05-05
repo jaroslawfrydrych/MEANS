@@ -5,6 +5,7 @@ import {
 import {MenuItemComponent} from '../menu-item/menu-item.component';
 import {NavigationCancel, NavigationEnd, NavigationError, Router} from '@angular/router';
 import {Subscription} from 'rxjs/index';
+import {MenuService} from './menu.service';
 
 @Component({
     selector: 'app-menu',
@@ -19,7 +20,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public markerActive: boolean = false;
     private routerEventSubscription: Subscription = new Subscription();
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                public menuService: MenuService) {
     }
 
     ngOnInit() {
@@ -42,18 +44,20 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private handleActiveElement() {
-        let activeElement: ElementRef = this.linkElements
-            .find((element: ElementRef | any) => {
-                return element.nativeElement.classList.contains('active');
-            });
-
-        if (!activeElement) {
-            activeElement = this.linkElements.first;
-        }
-
-        this.markerOffset = this.getMarkerOffset(activeElement.nativeElement);
         setTimeout(() => {
-            this.markerActive = true;
+            let activeElement: ElementRef = this.linkElements
+                .find((element: ElementRef | any) => {
+                    return element.nativeElement.classList.contains('active');
+                });
+
+            if (!activeElement) {
+                activeElement = this.linkElements.first;
+            }
+
+            this.markerOffset = this.getMarkerOffset(activeElement.nativeElement);
+            setTimeout(() => {
+                this.markerActive = true;
+            });
         });
     }
 
@@ -62,7 +66,7 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.routerEventSubscription) {
+        if (this.routerEventSubscription) {
             this.routerEventSubscription.unsubscribe();
         }
     }

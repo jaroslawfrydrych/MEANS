@@ -1,4 +1,4 @@
-<div class="toastContainer" [ngClass]="type">
+<div class="toastContainer" [ngClass]="type" (mouseover)="onMouseOver()">
     <p>
         {{message}}
     </p>
