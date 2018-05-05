@@ -6,10 +6,12 @@ exports.default = (req, res, next, unprotected) => {
         return next();
     }
     user_model_1.User.findById(req.auth.id)
-        .then(({ username }) => {
+        .then(({ username, firstname, surname }) => {
         if (username) {
             req.user = {
-                username
+                username,
+                firstname,
+                surname
             };
             return next();
         }

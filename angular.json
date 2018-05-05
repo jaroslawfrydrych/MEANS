@@ -24,7 +24,9 @@
             ],
             "styles": [
               "node_modules/normalize.css/normalize.css",
-              "src/styles/styles.scss"
+              "node_modules/animate.css/animate.css",
+              "src/styles/styles.scss",
+              "src/styles/fonts.scss"
             ],
             "scripts": []
           },

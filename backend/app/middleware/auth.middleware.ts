@@ -6,10 +6,12 @@ export default (req, res, next, unprotected: Array<string>) => {
     }
 
     User.findById(req.auth.id)
-        .then(({username}) => {
+        .then(({username, firstname, surname}) => {
             if (username) {
                 req.user = {
-                    username
+                    username,
+                    firstname,
+                    surname
                 };
                 return next();
             }

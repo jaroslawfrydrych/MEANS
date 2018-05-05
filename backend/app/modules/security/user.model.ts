@@ -10,13 +10,13 @@ const bcrypt = require('bcrypt');
 })
 
 export class User extends Typegoose {
-    public static findByUsername(username: string): DocumentQuery<User> {
+    public static findByUsername(username: string): DocumentQuery<User, any> {
         return UserModel.findOne({
             username
         });
     }
 
-    public static findById(id: string): DocumentQuery<User> {
+    public static findById(id: string): DocumentQuery<User, any> {
         return UserModel.findById(id);
     }
 
@@ -38,6 +38,12 @@ export class User extends Typegoose {
 
     @prop(<any>{required: true})
     public password?: string;
+
+    @prop(<any>{required: false})
+    public firstname?: string;
+
+    @prop(<any>{required: false})
+    public surname?: string;
 
     @prop(<any>{required: true, default: Date.now()})
     public createdAt?: Date;

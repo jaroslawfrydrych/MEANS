@@ -3,9 +3,13 @@ import {CommonModule} from '@angular/common';
 import {CoreService} from './core.service';
 import {CardComponent} from './card/card.component';
 import {FormModule} from './form/form.module';
+import { ButtonComponent } from './button/button.component';
+import { ButtonCircleComponent } from './button-circle/button-circle.component';
 
 const COMPONENTS = [
-    CardComponent
+    CardComponent,
+    ButtonComponent,
+    ButtonCircleComponent
 ];
 
 @NgModule({

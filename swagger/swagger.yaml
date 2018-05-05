@@ -109,3 +109,9 @@ definitions:
       username:
         title: Nazwa użytkownika
         type: string
+      firstname:
+        title: Imię użytkownika
+        type: string
+      surname:
+        title: Nazwisko użytkownika
+        type: string

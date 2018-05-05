@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MenuModule} from './menu/menu.module';
 import {TopBarComponent} from './top-bar/top-bar.component';
 import {UserService} from '../../security/user/user.service';
+import {CoreModule} from '../../core/core.module';
 
 const COMPONENTS = [
     TopBarComponent
@@ -11,7 +12,8 @@ const COMPONENTS = [
 @NgModule({
     imports: [
         CommonModule,
-        MenuModule
+        MenuModule,
+        CoreModule
     ],
     declarations: [
         ...COMPONENTS

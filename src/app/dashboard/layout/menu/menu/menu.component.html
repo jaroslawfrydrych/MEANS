@@ -1,23 +1,29 @@
-<ul>
-    <li *ngFor="let menuItem of menuItems">
-        <a [routerLink]="menuItem.path">{{menuItem.label}}</a>
+<div class="logo">
+    <span>DD</span>Managment
+</div>
+<nav>
+    <div class="marker" [ngStyle]="{'transform': 'translate3d(0, ' + markerOffset + 'px, 0)'}" #marker></div>
+    <ul>
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
+            <a [routerLink]="menuItem.path" (mouseover)="onMouseOver($event)">{{menuItem.label}}</a>
 
-        <ul *ngIf="menuItem.menuItems.length">
-            <li *ngFor="let subItem of menuItem.menuItems">
-                <a [routerLink]="subItem.path">{{subItem.label}}</a>
+            <ul *ngIf="menuItem.menuItems.length">
+                <li *ngFor="let subItem of menuItem.menuItems">
+                    <a [routerLink]="subItem.path">{{subItem.label}}</a>
 
-                <ul *ngIf="subItem.menuItems.length">
-                    <li *ngFor="let subSubItem of subItem.menuItems">
-                        <a [routerLink]="subSubItem.path">{{subSubItem.label}}</a>
+                    <ul *ngIf="subItem.menuItems.length">
+                        <li *ngFor="let subSubItem of subItem.menuItems">
+                            <a [routerLink]="subSubItem.path">{{subSubItem.label}}</a>
 
-                        <ul *ngIf="subSubItem.menuItems.length">
-                            <li *ngFor="let subSubSubItem of subSubItem.menuItems">
-                                <a [routerLink]="subSubSubItem.path">{{subSubSubItem.label}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
+                            <ul *ngIf="subSubItem.menuItems.length">
+                                <li *ngFor="let subSubSubItem of subSubItem.menuItems">
+                                    <a [routerLink]="subSubSubItem.path">{{subSubSubItem.label}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

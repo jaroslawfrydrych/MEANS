@@ -40,6 +40,14 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    typegoose_1.prop({ required: false }),
+    __metadata("design:type", String)
+], User.prototype, "firstname", void 0);
+__decorate([
+    typegoose_1.prop({ required: false }),
+    __metadata("design:type", String)
+], User.prototype, "surname", void 0);
+__decorate([
     typegoose_1.prop({ required: true, default: Date.now() }),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);

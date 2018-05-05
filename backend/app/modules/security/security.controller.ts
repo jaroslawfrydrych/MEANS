@@ -42,8 +42,11 @@ export function userNewHandler(req, res, next) {
 }
 
 export function currentUserQuery(req, res, next) {
-    const {username} = req.user;
+    const {username, firstname, surname} = req.user;
+
     return res.json({
-        username
+        username,
+        firstname,
+        surname
     });
 }

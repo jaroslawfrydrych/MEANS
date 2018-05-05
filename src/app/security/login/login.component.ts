@@ -13,6 +13,7 @@ import {CoreService} from '../../core/core.service';
 export class LoginComponent implements OnInit {
 
     public formGroup: FormGroup;
+    public wrongCredentials: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private securityService: SecurityService,
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     public onFormSubmit(event: Event) {
+        this.wrongCredentials = false;
         event.preventDefault();
         this.securityService.loginHandler(this.formGroup.getRawValue())
             .subscribe(() => {
@@ -38,6 +40,10 @@ export class LoginComponent implements OnInit {
                             this.router.navigate([this.coreService.homePage]);
                         }
                     });
+            }, err => {
+                if (err.status === 403) {
+                    this.wrongCredentials = true;
+                }
             });
     }
 }

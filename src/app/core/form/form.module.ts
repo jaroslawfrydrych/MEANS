@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {BaseFormControlComponent} from './base-form-control/base-form-control.component';
 import {InputComponent} from './input/input.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LabelComponent } from './label/label.component';
 
 const COMPONENTS = [
     InputComponent,
@@ -16,7 +17,8 @@ const COMPONENTS = [
         ReactiveFormsModule,
     ],
     declarations: [
-        ...COMPONENTS
+        ...COMPONENTS,
+        LabelComponent
     ],
     exports: [
         ...COMPONENTS

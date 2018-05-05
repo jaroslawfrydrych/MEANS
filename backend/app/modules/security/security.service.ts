@@ -3,10 +3,8 @@ import {Observable} from 'rxjs';
 import {User} from './user.model';
 import {Jwt} from '../../../core/jwt';
 import {InvalidToken} from './invalid-token.model';
-import {RefreshToken, RefreshTokenModel} from './refresh-token.model';
+import {RefreshToken} from './refresh-token.model';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
-import {map} from 'rxjs/operators';
-import {reject} from 'q';
 
 export class SecurityService {
 

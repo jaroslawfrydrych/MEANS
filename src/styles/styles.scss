@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
 @import "variables";
 
 html, body {
@@ -9,12 +8,33 @@ html, body {
 
 body {
     font: {
-        family: 'Roboto', sans-serif;
+        family: 'Fakt', sans-serif;
     }
     background-color: $colorBackgroundPrimary;
+    color: $colorText;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     color: $colorPrimary;
+}
+
+* {
+    box-sizing: border-box;
+    outline: none !important;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }

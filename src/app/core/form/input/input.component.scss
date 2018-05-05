@@ -1,0 +1,17 @@
+@import "../../../../styles/variables";
+
+:host {
+    input {
+        height: 30px;
+        border: {
+            style: solid;
+            width: 1px;
+            color: $colorBorder;
+            radius: 3px;
+        }
+        width: 250px;
+        max-width: 100%;
+        margin-bottom: 15px;
+        padding: 0 10px;
+    }
+}

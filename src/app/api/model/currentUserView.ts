@@ -13,4 +13,6 @@
 
 export interface CurrentUserView {
     username?: string;
+    firstname?: string;
+    surname?: string;
 }

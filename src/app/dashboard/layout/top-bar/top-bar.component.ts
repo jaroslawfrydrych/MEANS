@@ -11,7 +11,7 @@ import {CurrentUserView} from '../../../api';
 })
 export class TopBarComponent implements OnInit {
 
-    public currentUser: CurrentUserView;
+    public initials: string = null;
 
     constructor(private securityService: SecurityService,
                 private userService: UserService,
@@ -21,15 +21,23 @@ export class TopBarComponent implements OnInit {
     ngOnInit() {
         this.userService.currentUser
             .subscribe(user => {
-                this.currentUser = user;
+                this.setUserInitials(user);
             });
     }
 
-    public logout() {
+    public logout(): void {
         this.securityService.logoutHandler()
             .subscribe(() => {
                 this.router.navigate(['/']);
             });
+    }
+
+    private setUserInitials(user): void {
+        if (user.firstname && user.surname) {
+            this.initials = user.firstname.charAt(0) + user.surname.charAt(0);
+        } else {
+            this.initials = user.username.substring(0, 2);
+        }
     }
 
 }

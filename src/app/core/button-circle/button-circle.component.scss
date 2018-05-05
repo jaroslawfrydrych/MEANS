@@ -1,0 +1,12 @@
+@import "../button/button.component";
+
+:host {
+    button {
+        width: $buttonHeight;
+        height: $buttonHeight;
+        padding: 0;
+        border: {
+            radius: 50%;
+        }
+    }
+}

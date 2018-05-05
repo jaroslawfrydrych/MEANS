@@ -1,0 +1,55 @@
+@import "../../../styles/variables";
+
+:host {
+    button {
+        position: relative;
+        cursor: pointer;
+        background-color: $colorPrimary;
+        color: $colorBackgroundPrimary;
+        border: {
+            style: solid;
+            radius: 1.25em;
+            width: 1px;
+            color: $colorPrimary;
+        }
+        outline: none;
+        box-shadow: none;
+        height: $buttonHeight;
+        padding: 0 30px;
+        overflow: hidden;
+        font: {
+            weight: 500;
+            size: 1em;
+        }
+        user-select: none;
+        width: 9.75em;
+        transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+
+        .overlay {
+            position: absolute;
+            top: -999px;
+            right: -999px;
+            bottom: -999px;
+            left: -999px;
+            margin: auto;
+            display: block;
+            opacity: .5;
+            border-radius: 50%;
+            background-color: $colorBackgroundPrimary;
+        }
+
+        &:disabled {
+            &, &:hover {
+                background: #BABCBF;
+                border-color: #BABCBF;
+                color: #FFFFFF;
+                cursor: default;
+            }
+        }
+
+        &:hover {
+            background-color: lighten($colorPrimary, 5);
+            border-color: lighten($colorPrimary, 5);
+        }
+    }
+}
