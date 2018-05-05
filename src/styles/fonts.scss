@@ -1,14 +1,6 @@
-$fontsPath: '../assets/fonts/';
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-/*@font-face {
-	font-family: 'Fakt Air';
-	src: url($fontsPath + 'FaktPro-Air.eot');
-	src: url($fontsPath + 'FaktPro-Air.eot?#iefix') format('embedded-opentype'),
-	     url($fontsPath + 'FaktPro-Air.woff') format('woff'),
-	     url($fontsPath + 'FaktPro-Air.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}*/
+$fontsPath: '../assets/fonts/';
 
 @font-face {
 	font-family: 'Fakt Hair';
@@ -29,16 +21,6 @@ $fontsPath: '../assets/fonts/';
 	font-weight: 100;
 	font-style: normal;
 }
-
-/*@font-face {
-	font-family: 'Fakt';
-	src: url($fontsPath + 'FaktPro-ThinItalic.eot');
-	src: url($fontsPath + 'FaktPro-ThinItalic.eot?#iefix') format('embedded-opentype'),
-	     url($fontsPath + 'FaktPro-ThinItalic.woff') format('woff'),
-	     url($fontsPath + 'FaktPro-ThinItalic.ttf') format('truetype');
-	font-weight: 100;
-	font-style: italic;
-}*/
 
 @font-face {
 	font-family: 'Fakt';

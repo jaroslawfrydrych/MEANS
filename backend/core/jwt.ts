@@ -147,7 +147,7 @@ export class Jwt {
     }
 
     private static authError(res): void {
-        res.status(401).send('Brak autoryzacji');
+        res.status(401).send();
     }
 
     constructor(private app: express.Application,

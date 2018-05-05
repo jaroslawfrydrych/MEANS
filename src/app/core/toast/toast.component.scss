@@ -1,0 +1,48 @@
+@import "../../../styles/variables";
+
+:host {
+    position: fixed;
+    right: 0;
+    bottom: 15px;
+    left: 0;
+    width: 650px;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    z-index: 100;
+    height: 52px;
+    animation-duration: 500ms;
+
+    .toastContainer {
+        position: relative;
+        box-shadow: 0 15px 50px -15px rgba(0, 0, 0, 0.75);
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        background-color: $colorPrimary;
+        color: $colorBackgroundPrimary;
+        padding: 0 10px 0 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        border: {
+            radius: 3px;
+            style: solid;
+            color: $colorPrimary;
+            width: 1px;
+
+        }
+
+        &.error {
+            background-color: $colorError;
+            border-color: $colorError;
+        }
+
+        &.success {
+
+        }
+    }
+}

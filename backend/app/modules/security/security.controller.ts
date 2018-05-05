@@ -16,7 +16,7 @@ export function loginHandler(req, res, next) {
                     }, err => errorHandler(res, err));
             }
 
-            return res.status(403).send();
+            return res.status(403).send('Invalid credentials');
         }).catch(err => errorHandler(res, err));
 }
 

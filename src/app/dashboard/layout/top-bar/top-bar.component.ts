@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SecurityService} from '../../../security/security.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../security/user/user.service';
 import {CurrentUserView} from '../../../api';
+import {Subscription} from 'rxjs/index';
 
 @Component({
     selector: 'app-top-bar',
     templateUrl: './top-bar.component.html',
     styleUrls: ['./top-bar.component.scss']
 })
-export class TopBarComponent implements OnInit {
+export class TopBarComponent implements OnInit, OnDestroy {
 
     public initials: string = null;
+    private subscriptions: Subscription = new Subscription();
 
     constructor(private securityService: SecurityService,
                 private userService: UserService,
@@ -19,17 +21,21 @@ export class TopBarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.currentUser
+        const currentUserSub = this.userService.currentUser
             .subscribe(user => {
                 this.setUserInitials(user);
             });
+
+        this.subscriptions.add(currentUserSub);
     }
 
     public logout(): void {
-        this.securityService.logoutHandler()
+        const logoutHandlerSub = this.securityService.logoutHandler()
             .subscribe(() => {
                 this.router.navigate(['/']);
             });
+
+        this.subscriptions.add(logoutHandlerSub);
     }
 
     private setUserInitials(user): void {
@@ -38,6 +44,10 @@ export class TopBarComponent implements OnInit {
         } else {
             this.initials = user.username.substring(0, 2);
         }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
     }
 
 }

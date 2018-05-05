@@ -1,0 +1,15 @@
+@import "../button/button.component";
+
+:host {
+    button {
+        background: none;
+        border: none;
+        width: 40px;
+        padding: 0;
+
+        &:hover {
+            background-color: rgba($colorBackgroundPrimary, .15);
+            border-color: rgba($colorBackgroundPrimary, .15);
+        }
+    }
+}

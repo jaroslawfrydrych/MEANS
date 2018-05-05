@@ -141,7 +141,7 @@ class Jwt {
         });
     }
     static authError(res) {
-        res.status(401).send('Brak autoryzacji');
+        res.status(401).send();
     }
     static jwtConfig(app, router, swaggerDoc) {
         return new Jwt(app, router, swaggerDoc);

@@ -2,10 +2,11 @@
     <span>DD</span>Managment
 </div>
 <nav>
-    <div class="marker" [ngStyle]="{'transform': 'translate3d(0, ' + markerOffset + 'px, 0)'}" #marker></div>
+    <div class="marker" [ngStyle]="{'transform': 'translate3d(0, ' + markerOffset + 'px, 0)'}"
+         [class.markerActive]="markerActive" #marker></div>
     <ul>
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
-            <a [routerLink]="menuItem.path" (mouseover)="onMouseOver($event)">{{menuItem.label}}</a>
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" #link>
+            <a [routerLink]="menuItem.path">{{menuItem.label}}</a>
 
             <ul *ngIf="menuItem.menuItems.length">
                 <li *ngFor="let subItem of menuItem.menuItems">

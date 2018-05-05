@@ -14,7 +14,7 @@ function loginHandler(req, res, next) {
                 return res.status(200).send();
             }, err => core_controller_1.errorHandler(res, err));
         }
-        return res.status(403).send();
+        return res.status(403).send('Invalid credentials');
     }).catch(err => core_controller_1.errorHandler(res, err));
 }
 exports.loginHandler = loginHandler;
