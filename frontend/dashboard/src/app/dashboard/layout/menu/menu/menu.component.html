@@ -1,0 +1,32 @@
+<div id="menu" [class.closed]="menuService.menuOpen$ | async">
+    <div class="logo">
+        <span>DD</span>Managment
+    </div>
+    <nav>
+        <div class="marker" [ngStyle]="{'transform': 'translate3d(0, ' + markerOffset + 'px, 0)'}"
+             [class.markerActive]="markerActive" #marker></div>
+        <ul>
+            <li *ngFor="let menuItem of menuItems" routerLinkActive="active" #link>
+                <a [routerLink]="parentPath + menuItem.path"><i class="material-icons">{{menuItem.icon}}</i>{{menuItem.label}}</a>
+
+                <ul *ngIf="menuItem.menuItems.length">
+                    <li *ngFor="let subItem of menuItem.menuItems">
+                        <a [routerLink]="parentPath + subItem.path">{{subItem.label}}</a>
+
+                        <ul *ngIf="subItem.menuItems.length">
+                            <li *ngFor="let subSubItem of subItem.menuItems">
+                                <a [routerLink]="parentPath + subSubItem.path">{{subSubItem.label}}</a>
+
+                                <ul *ngIf="subSubItem.menuItems.length">
+                                    <li *ngFor="let subSubSubItem of subSubItem.menuItems">
+                                        <a [routerLink]="parentPath + subSubSubItem.path">{{subSubSubItem.label}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
