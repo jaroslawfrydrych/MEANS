@@ -7,7 +7,7 @@
     "backend": "gulp",
     "backend:build": "gulp build",
     "ng": "ng",
-    "frontend": "ng serve --proxy-config src/proxy.conf.js",
+    "frontend": "ng serve --proxy-config dashboard/src/proxy.conf.js --project=means",
     "frontend:build": "ng build --output-hashing none --prod",
     "build": "npm run backend:build & npm run frontend:build && gulp dist-to-public && gulp clean-dist",
     "test": "ng test",
