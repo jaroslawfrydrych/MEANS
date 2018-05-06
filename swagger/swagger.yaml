@@ -159,6 +159,9 @@ definitions:
   UsersListItemView:
     title: UserListItemView
     properties:
+      id:
+        title: Identyfikator użytkownika
+        type: string
       username:
         title: Nazwa użytkownika
         type: string

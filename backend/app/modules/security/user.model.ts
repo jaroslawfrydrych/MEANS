@@ -1,6 +1,6 @@
 import {prop, Typegoose, pre} from 'typegoose';
 import {UserNew} from '../../models/models';
-import {DocumentQuery} from 'mongoose';
+import {DocumentQuery, Schema, Types} from 'mongoose';
 
 const bcrypt = require('bcrypt');
 
@@ -10,6 +10,12 @@ const bcrypt = require('bcrypt');
 })
 
 export class User extends Typegoose {
+    public _id: any;
+
+    public static getUsersList(): DocumentQuery<Array<User>, any> {
+        return UserModel.find().select('username firstname surname');
+    }
+
     public static findByUsername(username: string): DocumentQuery<User, any> {
         return UserModel.findOne({
             username

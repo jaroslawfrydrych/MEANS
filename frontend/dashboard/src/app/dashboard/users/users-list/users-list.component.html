@@ -3,6 +3,10 @@
     Users
   </app-card-header>
   <app-card-content>
-    Users list...
+    <ul>
+      <li *ngFor="let user of usersList | async">
+        {{user.username}} | {{user.firstname}} | {{user.surname}}
+      </li>
+    </ul>
   </app-card-content>
 </app-card>
