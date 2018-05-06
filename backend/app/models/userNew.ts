@@ -1,6 +1,6 @@
 /**
  * MEANS
- * Api dla MEAN3
+ * Api dla MEANS
  *
  * OpenAPI spec version: 1.0.0
  * Contact: jarek.frydrych@gmail.com

@@ -1,4 +1,4 @@
-import {Configuration} from './configuration';
+import {Configuration} from '../../../../api/configuration';
 
 export function apiConfiguration(): Configuration {
     const conf = new Configuration();

@@ -12,15 +12,20 @@ const MODULES = [
     CardModule
 ];
 
+const COMPONENTS = [
+];
+
 @NgModule({
     imports: [
         CommonModule,
         ...MODULES
     ],
     declarations: [
+        ...COMPONENTS
     ],
     exports: [
-        ...MODULES
+        ...MODULES,
+        ...COMPONENTS
     ]
 })
 export class CoreModule {

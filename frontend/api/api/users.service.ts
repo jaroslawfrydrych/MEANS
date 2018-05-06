@@ -18,13 +18,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { UsersListView } from '../model/usersListView';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class CoreService {
+export class UsersService {
 
     protected basePath = 'http://localhost/api';
     public defaultHeaders = new HttpHeaders();
@@ -56,15 +57,33 @@ export class CoreService {
 
 
     /**
-     * Asd
+     * Pobieranie listy userów
      * 
+     * @param page Numer aktualnie wyświetlanej strony
+     * @param count Liczba rekordów wyświetlanych na stronie
+     * @param sortDirection Kierunek sortowania (rosnąco, malejąco)
+     * @param sortOrder Kolumna, według której nastąpi sortowanie danych
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public asdHandler(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public asdHandler(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public asdHandler(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public asdHandler(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public usersListQuery(page?: number, count?: number, sortDirection?: string, sortOrder?: string, observe?: 'body', reportProgress?: boolean): Observable<UsersListView>;
+    public usersListQuery(page?: number, count?: number, sortDirection?: string, sortOrder?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsersListView>>;
+    public usersListQuery(page?: number, count?: number, sortDirection?: string, sortOrder?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsersListView>>;
+    public usersListQuery(page?: number, count?: number, sortDirection?: string, sortOrder?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (count !== undefined) {
+            queryParameters = queryParameters.set('count', <any>count);
+        }
+        if (sortDirection !== undefined) {
+            queryParameters = queryParameters.set('sort_direction', <any>sortDirection);
+        }
+        if (sortOrder !== undefined) {
+            queryParameters = queryParameters.set('sort_order', <any>sortOrder);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -80,8 +99,9 @@ export class CoreService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/asd`,
+        return this.httpClient.get<UsersListView>(`${this.basePath}/users`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

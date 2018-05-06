@@ -2,7 +2,7 @@ import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from 
 import {SecurityService} from '../../../security/security.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../security/user/user.service';
-import {CurrentUserView} from '../../../api';
+import {CurrentUserView} from '../../../../../../api';
 import {Subscription} from 'rxjs/index';
 import {MenuService} from '../menu/menu/menu.service';
 import {CoreService} from '../../../core/core.service';
@@ -40,7 +40,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         const currentUserSub = this.userService.currentUser
-            .subscribe(user => {
+            .subscribe((user: CurrentUserView) => {
                 this.setUserInitials(user);
             });
 
@@ -57,7 +57,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
         this.subscriptions.add(logoutHandlerSub);
     }
 
-    private setUserInitials(user): void {
+    private setUserInitials(user: CurrentUserView): void {
         if (user.firstname && user.surname) {
             this.initials = user.firstname.charAt(0) + user.surname.charAt(0);
         } else {

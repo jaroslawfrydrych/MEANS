@@ -31,7 +31,7 @@ Dashboard application is running on Angular CLI on `localhost:4200`.
 Frontend - Client
 -----------------
 
-Dashboard application is running on Angular CLI on `localhost:4300`.
+Dashboard application is running on Angular CLI on `localhost:4201`.
 
 Proxy
 -----

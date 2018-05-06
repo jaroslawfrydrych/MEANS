@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
-import {LoginParameters, SecurityService as SecurityApiService} from '../api';
+import {LoginParameters, SecurityService as SecurityApiService} from '../../../../api';
 import {Observable} from 'rxjs';
 import {UserService} from './user/user.service';
 import {map} from 'rxjs/operators';
 
 @Injectable()
 export class SecurityService {
-
-
     constructor(private securityApiService: SecurityApiService,
                 private userService: UserService) {
     }

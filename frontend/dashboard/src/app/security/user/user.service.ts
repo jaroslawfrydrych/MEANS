@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CurrentUserView, SecurityService as SecurityApiService} from '../../api';
+import {CurrentUserView, SecurityService as SecurityApiService} from '../../../../../api';
 import {Observable, ReplaySubject, of} from 'rxjs';
 
 @Injectable()

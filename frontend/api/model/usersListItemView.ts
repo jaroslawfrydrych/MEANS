@@ -11,7 +11,8 @@
  */
 
 
-export interface LoginParameters {
+export interface UsersListItemView {
     username?: string;
-    password?: string;
+    firstname?: string;
+    surname?: string;
 }

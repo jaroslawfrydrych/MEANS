@@ -9,8 +9,8 @@ basePath: /api
 tags:
   - name: Security
     description: Endpointy dla modułu Security
-  - name: Core
-    description: Endpointy dla modułu Core
+  - name: Users
+    description: Endpoity dla modułu Users
 schemes:
   - http
   - https
@@ -74,16 +74,46 @@ paths:
       responses:
         200:
           description: Utworzono użytkownika
-  /asd:
-    x-swagger-router-controller: core
+  /users:
+    x-swagger-router-controller: users
     get:
-      summary: Asd
-      operationId: asdHandler
+      summary: Pobieranie listy userów
+      operationId: usersListQuery
       tags:
-        - Core
+        - Users
+      parameters:
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/count'
+        - $ref: '#/parameters/sort_direction'
+        - $ref: '#/parameters/sort_order'
       responses:
         200:
-          description: Asd response
+          description: Lista użytkowników
+          schema:
+            $ref: '#/definitions/UsersListView'
+parameters:
+  page:
+    description: Numer aktualnie wyświetlanej strony
+    name: page
+    in: query
+    type: integer
+    default: 1
+  count:
+    description: Liczba rekordów wyświetlanych na stronie
+    name: count
+    in: query
+    type: integer
+    default: 25
+  sort_direction:
+    description: Kierunek sortowania (rosnąco, malejąco)
+    name: sort_direction
+    in: query
+    type: string
+  sort_order:
+    description: Kolumna, według której nastąpi sortowanie danych
+    name: sort_order
+    in: query
+    type: string
 definitions:
   LoginParameters:
     title: LoginParameters
@@ -105,6 +135,29 @@ definitions:
         type: string
   CurrentUserView:
     title: CurrentUserView
+    properties:
+      username:
+        title: Nazwa użytkownika
+        type: string
+      firstname:
+        title: Imię użytkownika
+        type: string
+      surname:
+        title: Nazwisko użytkownika
+        type: string
+  UsersListView:
+    title: UsersListView
+    properties:
+      total_count:
+        title: Liczba rekordów
+        type: integer
+      data:
+        title: Elementy listy
+        type: array
+        items:
+          $ref: '#/definitions/UsersListItemView'
+  UsersListItemView:
+    title: UserListItemView
     properties:
       username:
         title: Nazwa użytkownika

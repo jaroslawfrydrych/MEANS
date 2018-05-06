@@ -1,6 +1,6 @@
 /**
  * MEANS
- * Api dla MEAN3
+ * Api dla MEANS
  *
  * OpenAPI spec version: 1.0.0
  * Contact: jarek.frydrych@gmail.com
@@ -13,4 +13,6 @@
 
 export interface CurrentUserView {
     username?: string;
+    firstname?: string;
+    surname?: string;
 }
