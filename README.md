@@ -22,12 +22,20 @@ Backend
 -------
 
 Backend server is running on nodemon gulp server on `localhost:8080`. You can change port setting in `config.json` file.
-You will also 
 
 Frontend - Dashboard
 --------------------
 
-
+Dashboard application is running on Angular CLI on `localhost:4200`.
 
 Frontend - Client
 -----------------
+
+Dashboard application is running on Angular CLI on `localhost:4300`.
+
+Proxy
+-----
+
+Frontend apps are using proxy to communicate with backend API.
+You can overwite proxy settings (target url) by creating `proxy.config.json.dist` file in root directory.
+You can use `proxy.config.json.dist` as template.
