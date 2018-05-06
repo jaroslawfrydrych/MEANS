@@ -12,6 +12,22 @@ Quick start
 -----------
 
 - Run `npm install` in project directory to install all dependencies
+- Create configuration `config.json` inside `config/` directory. You can use `congi.json.dist` file as template.
 - Run `npm run backend` to run backend Node dev server
-- Run `npm run frontend` to run Angular dev server
+- Run `npm run frontend:dashboard` to run Angular dev server with dashboard application
+- Run `npm run frontend:client` to run Angular dev server with client application
 - Run `npm run build` to build entire app (backend & frontend)
+
+Backend
+-------
+
+Backend server is running on nodemon gulp server on `localhost:8080`. You can change port setting in `config.json` file.
+You will also 
+
+Frontend - Dashboard
+--------------------
+
+
+
+Frontend - Client
+-----------------

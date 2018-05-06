@@ -1,3 +1,5 @@
+const CONFIG = require('./config/config.json');
+
 let PROXY_JSON = {
     target: null
 };
@@ -10,7 +12,7 @@ try {
 
 const PROXY_CONFIG = {
     '/api': {
-        target: PROXY_JSON.target || 'http://localhost',
+        target: PROXY_JSON.target || 'http://localhost:' + CONFIG.port,
         secure: false,
         changeOrigin: true
     }

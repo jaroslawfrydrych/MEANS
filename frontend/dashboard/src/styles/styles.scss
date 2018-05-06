@@ -36,5 +36,9 @@ button, [type="button"], [type="reset"], [type="submit"] {
 
 a {
     text-decoration: none;
-    color: inherit;
+    color: $colorPrimary;
+
+    &:hover {
+        color: lighten($colorPrimary, 10);
+    }
 }

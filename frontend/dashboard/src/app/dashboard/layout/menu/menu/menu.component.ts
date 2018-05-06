@@ -53,6 +53,8 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (!activeElement) {
                 activeElement = this.linkElements.first;
+                this.markerActive = false;
+                return;
             }
 
             this.markerOffset = this.getMarkerOffset(activeElement.nativeElement);

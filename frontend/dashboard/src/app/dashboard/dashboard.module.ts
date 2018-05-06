@@ -7,6 +7,7 @@ import {DashboardComponent} from './dashboard.component';
 import {LayoutModule} from './layout/layout.module';
 import {UsersComponent} from './users/users.component';
 import {CoreModule} from '../core/core.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import {CoreModule} from '../core/core.module';
     declarations: [
         HomeComponent,
         DashboardComponent,
-        UsersComponent
+        UsersComponent,
+        PageNotFoundComponent
     ],
     exports: [
         RouterModule
