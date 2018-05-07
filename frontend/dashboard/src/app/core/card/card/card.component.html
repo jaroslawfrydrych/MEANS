@@ -1,6 +1,6 @@
 <div class="cardContainer">
-    <header>
-        <h2>
+    <header *ngIf="header || actions">
+        <h2 *ngIf="header">
             <ng-container [ngTemplateOutlet]="header.headerContent"></ng-container>
         </h2>
 
@@ -8,7 +8,10 @@
             <ng-container [ngTemplateOutlet]="actions.actionsContent"></ng-container>
         </div>
     </header>
-    <div class="content">
+    <div class="content" *ngIf="content">
         <ng-container [ngTemplateOutlet]="content.contentContent"></ng-container>
     </div>
+    <footer *ngIf="footer">
+        <ng-container [ngTemplateOutlet]="footer.footerContent"></ng-container>
+    </footer>
 </div>

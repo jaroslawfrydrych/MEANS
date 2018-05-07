@@ -3,18 +3,18 @@
 </div>
 
 <div class="login-container">
-    <form [formGroup]="formGroup" [ngClass]="{'animated shake': wrongCredentials}">
+    <app-form [formGroup]="formGroup" [ngClass]="{'animated shake': wrongCredentials}">
         <h2>Hello!</h2>
-        <div>
+        <app-label>
             <app-input placeholder="username" formControlName="username"></app-input>
-        </div>
-        <div>
+        </app-label>
+        <app-label>
             <app-input type="password" placeholder="password" formControlName="password"></app-input>
-        </div>
+        </app-label>
         <div>
             <app-button type="submit" (click)="onFormSubmit()" [disabled]="!formGroup.valid">Sign In</app-button>
         </div>
-    </form>
+    </app-form>
 </div>
 
 <div class="copyright">

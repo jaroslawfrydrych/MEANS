@@ -17,12 +17,11 @@ export class SecurityService {
 
     public logoutHandler(): Observable<any> {
         const subject: ReplaySubject<null> = new ReplaySubject<null>(1);
+        this.userService.clearUser();
         this.securityApiService.logoutHandler()
             .subscribe(() => {
-                this.userService.clearUser();
                 subject.next(null);
             }, () => {
-                this.userService.clearUser();
                 subject.next(null);
             });
 

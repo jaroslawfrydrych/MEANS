@@ -57,23 +57,6 @@ paths:
           description: Dane zalogowanego użytkownika
           schema:
             $ref: '#/definitions/CurrentUserView'
-  /security/user:
-    x-swagger-router-controller: security
-    post:
-      summary: Tworzenie usera
-      operationId: userNewHandler
-      tags:
-        - Security
-      parameters:
-        - name: content
-          description: Dane usera
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/UserNew'
-      responses:
-        200:
-          description: Utworzono użytkownika
   /users:
     x-swagger-router-controller: users
     get:
@@ -91,6 +74,21 @@ paths:
           description: Lista użytkowników
           schema:
             $ref: '#/definitions/UsersListView'
+    post:
+      summary: Tworzenie usera
+      operationId: userNewHandler
+      tags:
+        - Users
+      parameters:
+        - name: content
+          description: Dane usera
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserNew'
+      responses:
+        200:
+          description: Utworzono użytkownika
 parameters:
   page:
     description: Numer aktualnie wyświetlanej strony

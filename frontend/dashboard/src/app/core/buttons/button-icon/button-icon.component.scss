@@ -24,8 +24,8 @@
             color: $colorAccent;
 
             &:hover {
-                background-color: rgba($colorBackgroundPrimary, .15);
-                border-color: rgba($colorBackgroundPrimary, .15);
+                background-color: rgba($colorAccent, .15);
+                border-color: rgba($colorAccent, .15);
             }
         }
 

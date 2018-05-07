@@ -63,6 +63,8 @@ export class TopBarComponent implements OnInit, OnDestroy {
         } else {
             this.initials = user.username.substring(0, 2);
         }
+
+        this.initials.toUpperCase();
     }
 
     public menuToggle() {

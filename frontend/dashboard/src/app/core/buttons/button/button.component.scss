@@ -27,7 +27,7 @@
 
         &.primary {
             background-color: $colorPrimary;
-            color: $colorBackgroundPrimary;
+            color: $colorAccent;
             border-color: $colorPrimary;
         }
 
@@ -39,7 +39,7 @@
 
         &.secondary {
             background-color: $colorSecondary;
-            color: $colorBackgroundPrimary;
+            color: $colorAccent;
             border-color: $colorSecondary;
         }
 

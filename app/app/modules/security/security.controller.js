@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const security_service_1 = require("./security.service");
 const core_controller_1 = require("../../../core/core.controller");
-const user_model_1 = require("./user.model");
 function loginHandler(req, res, next) {
     const content = req.swagger.params['content'].value;
     security_service_1.SecurityService.validateUser(content)
@@ -29,15 +28,6 @@ function logoutHandler(req, res, next) {
     }, err => core_controller_1.errorHandler(res, err));
 }
 exports.logoutHandler = logoutHandler;
-function userNewHandler(req, res, next) {
-    const content = req.swagger.params['content'].value;
-    user_model_1.User.createUser(content)
-        .then(() => {
-        return res.status(200).send();
-    })
-        .catch(err => core_controller_1.errorHandler(res, err));
-}
-exports.userNewHandler = userNewHandler;
 function currentUserQuery(req, res, next) {
     const { username, firstname, surname } = req.user;
     return res.json({

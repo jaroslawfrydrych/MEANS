@@ -32,15 +32,6 @@ export function logoutHandler(req, res, next) {
         }, err => errorHandler(res, err));
 }
 
-export function userNewHandler(req, res, next) {
-    const content: any = req.swagger.params['content'].value;
-    User.createUser(content)
-        .then(() => {
-            return res.status(200).send();
-        })
-        .catch(err => errorHandler(res, err));
-}
-
 export function currentUserQuery(req, res, next) {
     const {username, firstname, surname} = req.user;
 

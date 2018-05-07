@@ -20,15 +20,12 @@ import { Observable }                                        from 'rxjs';
 
 import { CurrentUserView } from '../model/currentUserView';
 import { LoginParameters } from '../model/loginParameters';
-import { UserNew } from '../model/userNew';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
-@Injectable(<any>{
-    providedIn: 'root'
-})
+@Injectable()
 export class SecurityService {
 
     protected basePath = 'http://localhost/api';
@@ -165,50 +162,6 @@ export class SecurityService {
         ];
 
         return this.httpClient.get<any>(`${this.basePath}/security/logout`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Tworzenie usera
-     * 
-     * @param content Dane usera
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public userNewHandler(content: UserNew, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public userNewHandler(content: UserNew, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public userNewHandler(content: UserNew, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public userNewHandler(content: UserNew, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (content === null || content === undefined) {
-            throw new Error('Required parameter content was null or undefined when calling userNewHandler.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-        ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/security/user`,
-            content,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

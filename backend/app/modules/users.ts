@@ -1,1 +1,1 @@
-export {usersListQuery} from './users/users.controller';
+export {usersListQuery, userNewHandler} from './users/users.controller';

@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { UserNew } from '../model/userNew';
 import { UsersListView } from '../model/usersListView';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -55,6 +56,50 @@ export class UsersService {
         return false;
     }
 
+
+    /**
+     * Tworzenie usera
+     * 
+     * @param content Dane usera
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userNewHandler(content: UserNew, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public userNewHandler(content: UserNew, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public userNewHandler(content: UserNew, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public userNewHandler(content: UserNew, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (content === null || content === undefined) {
+            throw new Error('Required parameter content was null or undefined when calling userNewHandler.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/users`,
+            content,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Pobieranie listy userów

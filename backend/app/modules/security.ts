@@ -1,1 +1,1 @@
-export {loginHandler, logoutHandler, userNewHandler, currentUserQuery} from './security/security.controller';
+export {loginHandler, logoutHandler, currentUserQuery} from './security/security.controller';

@@ -4,12 +4,14 @@ import {CardComponent} from './card/card.component';
 import {CardHeaderComponent} from './card-header/card-header.component';
 import {CardContentComponent} from './card-content/card-content.component';
 import {CardActionsComponent} from './card-actions/card-actions.component';
+import { CardFooterComponent } from './card-footer/card-footer.component';
 
 const COMPONENTS = [
     CardComponent,
     CardHeaderComponent,
     CardContentComponent,
-    CardActionsComponent
+    CardActionsComponent,
+    CardFooterComponent
 ];
 
 @NgModule({

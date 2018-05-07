@@ -4,6 +4,7 @@ import {FormModule} from './form/form.module';
 import {ToastModule} from './toast/toast.module';
 import {ButtonsModule} from './buttons/buttons.module';
 import {CardModule} from './card/card.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const MODULES = [
     FormModule,
