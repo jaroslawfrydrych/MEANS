@@ -4,13 +4,10 @@
     button {
         position: relative;
         cursor: pointer;
-        background-color: $colorPrimary;
-        color: $colorBackgroundPrimary;
         border: {
             style: solid;
             radius: 1.25em;
             width: 1px;
-            color: $colorPrimary;
         }
         outline: none;
         box-shadow: none;
@@ -28,12 +25,29 @@
         width: 9.75em;
         transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1);
 
+        &.primary {
+            background-color: $colorPrimary;
+            color: $colorBackgroundPrimary;
+            border-color: $colorPrimary;
+        }
+
+        &.accent {
+            background-color: $colorAccent;
+            color: $colorPrimary;
+            border-color: $colorAccent;
+        }
+
+        &.secondary {
+            background-color: $colorSecondary;
+            color: $colorBackgroundPrimary;
+            border-color: $colorSecondary;
+        }
 
         &:disabled {
             &, &:hover {
-                background: #BABCBF;
-                border-color: #BABCBF;
-                color: #FFFFFF;
+                background: $colorDisabled;
+                border-color: $colorDisabled;
+                color: $colorAccent;
                 cursor: default;
             }
         }

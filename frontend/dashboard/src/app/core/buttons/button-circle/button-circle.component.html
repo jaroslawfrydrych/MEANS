@@ -1,3 +1,3 @@
-<button [type]="type" (click)="onClick($event)" [disabled]="disabled !== false">
+<button [type]="type" (click)="onClick($event)" [disabled]="disabled !== false" [ngClass]="color">
   <ng-content></ng-content>
 </button>

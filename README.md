@@ -22,6 +22,7 @@ Backend
 -------
 
 Backend server is running on nodemon gulp server on `localhost:8080`. You can change port setting in `config.json` file.
+Running MongoDB is required to run backend server.
 
 Frontend - Dashboard
 --------------------

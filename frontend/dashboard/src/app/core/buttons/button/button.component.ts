@@ -8,6 +8,7 @@ import {Component, EventEmitter, HostListener, Input, Output} from '@angular/cor
 export class ButtonComponent {
     @Input() public type: string = 'button';
     @Input() public disabled: boolean = false;
+    @Input() public color: string = 'primary';
     public clicked: boolean = false;
 
     @HostListener('click', ['$event']) onHostClick(event) {

@@ -7,9 +7,35 @@
         width: 40px;
         padding: 0;
 
-        &:hover {
-            background-color: rgba($colorBackgroundPrimary, .15);
-            border-color: rgba($colorBackgroundPrimary, .15);
+        &.primary, &.accent, &.secondary {
+            background: none;
+        }
+
+        &.primary {
+            color: $colorPrimary;
+
+            &:hover {
+                background-color: rgba($colorPrimary, .15);
+                border-color: rgba($colorPrimary, .15);
+            }
+        }
+
+        &.accent {
+            color: $colorAccent;
+
+            &:hover {
+                background-color: rgba($colorBackgroundPrimary, .15);
+                border-color: rgba($colorBackgroundPrimary, .15);
+            }
+        }
+
+        &.secondary {
+            color: $colorSecondary;
+
+            &:hover {
+                background-color: rgba($colorSecondary, .15);
+                border-color: rgba($colorSecondary, .15);
+            }
         }
     }
 }

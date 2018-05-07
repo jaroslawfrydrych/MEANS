@@ -1,4 +1,4 @@
-<button [type]="type" (click)="onClick($event)" [disabled]="disabled !== false">
+<button [type]="type" (click)="onClick($event)" [disabled]="disabled !== false" [ngClass]="color">
     <i class="material-icons">
         <ng-content></ng-content>
     </i>

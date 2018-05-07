@@ -35,12 +35,6 @@
             margin-right: auto;
             margin-left: 10px;
             transition: all 250ms ease;
-
-            /deep/ {
-                button {
-                    color: $colorText;
-                }
-            }
         }
 
         .user-profile-button {

@@ -1,5 +1,5 @@
 <div id="top-bar" [class.menu-closed]="menuService.menuOpen$ | async">
-    <app-button-icon class="menu-toggle" (click)="menuToggle()">arrow_back</app-button-icon>
+    <app-button-icon class="menu-toggle" (click)="menuToggle()" color="secondary">arrow_back</app-button-icon>
 
     <button class="user-profile-button" (click)="userProfileDropdownToggle()" #userProfileButton>
         <span class="initials">

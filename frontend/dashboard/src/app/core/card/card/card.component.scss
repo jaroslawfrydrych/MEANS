@@ -10,5 +10,11 @@
             color: $colorBorder;
             radius: 3px;
         }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
 }

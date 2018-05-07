@@ -3,6 +3,10 @@
         <h2>
             <ng-container [ngTemplateOutlet]="header.headerContent"></ng-container>
         </h2>
+
+        <div class="actions" *ngIf="actions">
+            <ng-container [ngTemplateOutlet]="actions.actionsContent"></ng-container>
+        </div>
     </header>
     <div class="content">
         <ng-container [ngTemplateOutlet]="content.contentContent"></ng-container>
