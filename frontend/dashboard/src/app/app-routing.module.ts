@@ -4,7 +4,7 @@ import {SecurityModule} from './security/security.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthGuard} from './security/auth.guard';
 import {LoginGuard} from './security/login.guard';
-import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
     {

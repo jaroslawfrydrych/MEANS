@@ -11,7 +11,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {ApiModule} from '../../../api';
 import {apiConfiguration} from './api/api-configuration';
 import {LoginGuard} from './security/login.guard';
-import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
