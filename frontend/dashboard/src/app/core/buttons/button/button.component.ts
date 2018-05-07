@@ -10,9 +10,11 @@ export class ButtonComponent {
     @Input() public disabled: boolean = false;
     public clicked: boolean = false;
 
-    @HostListener('click', ['$event']) onHostClick(event: Event) {
-        event.preventDefault();
-        event.stopPropagation();
+    @HostListener('click', ['$event']) onHostClick(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
     @Output('click') click: EventEmitter<null> = new EventEmitter<null>();
@@ -21,11 +23,13 @@ export class ButtonComponent {
     }
 
     onClick(event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
         this.click.emit(null);
         this.clicked = true;
         setTimeout(() => {
             this.clicked = false;
-        }, );
+        });
     }
 
 }

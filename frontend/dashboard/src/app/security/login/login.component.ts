@@ -6,7 +6,6 @@ import {SecurityService} from '../security.service';
 import {CoreService} from '../../core/core.service';
 import {Subscription} from 'rxjs/index';
 import {ToastService} from '../../core/toast/toast.service';
-import {ToastTypes} from '../../core/toast/toast-types.enum';
 
 @Component({
     selector: 'app-login',
@@ -34,9 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
-    public onFormSubmit(event: Event) {
+    public onFormSubmit() {
         this.wrongCredentials = false;
-        event.preventDefault();
         this.loginHandlerSubsription = this.securityService.loginHandler(this.formGroup.getRawValue())
             .subscribe(() => {
                 this.userService.checkCurrentUser()

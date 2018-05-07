@@ -3,7 +3,9 @@ import {LoginParameters, SecurityService as SecurityApiService} from '../../../.
 import {Observable, ReplaySubject} from 'rxjs';
 import {UserService} from './user/user.service';
 
-@Injectable()
+@Injectable(<any>{
+    providedIn: 'root'
+})
 export class SecurityService {
     constructor(private securityApiService: SecurityApiService,
                 private userService: UserService) {

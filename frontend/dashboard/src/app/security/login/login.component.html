@@ -12,7 +12,7 @@
             <app-input type="password" placeholder="password" formControlName="password"></app-input>
         </div>
         <div>
-            <app-button type="submit" (click)="onFormSubmit($event)" [disabled]="!formGroup.valid">Sign In</app-button>
+            <app-button type="submit" (click)="onFormSubmit()" [disabled]="!formGroup.valid">Sign In</app-button>
         </div>
     </form>
 </div>

@@ -26,7 +26,9 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 
 
-@Injectable()
+@Injectable(<any>{
+    providedIn: 'root'
+})
 export class SecurityService {
 
     protected basePath = 'http://localhost/api';
