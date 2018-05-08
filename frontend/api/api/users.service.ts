@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { UserDetailsView } from '../model/userDetailsView';
 import { UserNew } from '../model/userNew';
 import { UsersListView } from '../model/usersListView';
 
@@ -58,8 +59,47 @@ export class UsersService {
 
 
     /**
+     * Pobieranie wybranego użytkownika
+     *
+     * @param id Identyfikator użytkownika
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userDetailsQuery(id: string, observe?: 'body', reportProgress?: boolean): Observable<UserDetailsView>;
+    public userDetailsQuery(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserDetailsView>>;
+    public userDetailsQuery(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserDetailsView>>;
+    public userDetailsQuery(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling userDetailsQuery.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<UserDetailsView>(`${this.basePath}/users/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Tworzenie usera
-     * 
+     *
      * @param content Dane usera
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -103,7 +143,7 @@ export class UsersService {
 
     /**
      * Pobieranie listy userów
-     * 
+     *
      * @param page Numer aktualnie wyświetlanej strony
      * @param count Liczba rekordów wyświetlanych na stronie
      * @param sortDirection Kierunek sortowania (rosnąco, malejąco)

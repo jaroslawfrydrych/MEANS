@@ -11,8 +11,7 @@
  */
 
 
-export interface UsersListItemView {
-    id?: string;
+export interface UserDetailsView {
     username?: string;
     firstname?: string;
     surname?: string;

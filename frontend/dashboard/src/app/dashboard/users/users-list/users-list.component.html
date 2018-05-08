@@ -10,7 +10,7 @@
     <app-card-content>
         <ul>
             <li *ngFor="let user of usersList | async">
-                {{user.username}} | {{user.firstname}} | {{user.surname}}
+                <a routerLink="/users/{{user.id}}">{{user.username}} | {{user.firstname}} | {{user.surname}}</a>
             </li>
         </ul>
     </app-card-content>
