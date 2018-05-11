@@ -8,7 +8,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class UsersEditComponent implements OnInit {
 
-    private formGroup: FormGroup;
+    public formGroup: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
     }
@@ -22,4 +22,8 @@ export class UsersEditComponent implements OnInit {
         });
     }
 
+
+    public saveUser() {
+
+    }
 }
