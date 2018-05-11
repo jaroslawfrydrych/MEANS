@@ -2,7 +2,7 @@ import {prop, Typegoose, pre} from 'typegoose';
 import {UserNew} from '../../models/models';
 import {DocumentQuery, Schema, Types} from 'mongoose';
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 @pre<User>('save', function (next) {
     this.password = User.hashPassword(this.password);

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typegoose_1 = require("typegoose");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 let User = User_1 = class User extends typegoose_1.Typegoose {
     static getUsersList() {
         return exports.UserModel.find().select('username firstname surname');
