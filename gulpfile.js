@@ -52,7 +52,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('dist-to-public', () => {
-    gulp.src(['dist/*', '!dist/index.html'])
+    gulp.src(['dist/**/*.*', '!dist/index.html'])
         .pipe(gulp.dest('public'));
 });
 

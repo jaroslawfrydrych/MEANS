@@ -8,7 +8,11 @@
       "sourceRoot": "frontend/dashboard/src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -108,7 +112,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": "dist",
             "index": "frontend/client/src/index.html",
             "main": "frontend/client/src/main.ts",
             "polyfills": "frontend/client/src/polyfills.ts",

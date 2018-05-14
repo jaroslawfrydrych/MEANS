@@ -6,7 +6,9 @@ class AppConfig {
 AppConfig.ENV = APP_CONFIG['env'] || 'development';
 AppConfig.PORT = APP_CONFIG['port'] || 8080;
 AppConfig.TITLE = APP_CONFIG['title'] || '';
+AppConfig.TITLE_DASHBOARD = APP_CONFIG['titleDashboard'] || '';
 AppConfig.BASE_PATH = APP_CONFIG['basePath'] || '';
+AppConfig.DASHBOARD_PATH = APP_CONFIG['dashboardPath'] || '';
 AppConfig.SWAGGER_CONTROLLERS = APP_CONFIG['swaggerControllers'] || '';
 AppConfig.MONGO = APP_CONFIG['mongo'] || null;
 AppConfig.ACCESS_TOKEN_SECRET = APP_CONFIG['accessTokenSecret'] || '';
