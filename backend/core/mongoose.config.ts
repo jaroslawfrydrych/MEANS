@@ -2,7 +2,7 @@ import {AppConfig} from './app.config';
 
 export default (mongoose) => {
 
-    let gracefulExit = function() {
+    const gracefulExit = function () {
         mongoose.connection.close(() => {
             console.log(`Mongoose connection ` +
                 `has disconnected through app termination`);
@@ -12,12 +12,12 @@ export default (mongoose) => {
 
     mongoose.Promise = Promise;
 
-    mongoose.connection.on("connected", () => {
+    mongoose.connection.on('connected', () => {
         console.log(`Successfully connected to ${AppConfig.ENV}` +
             ` database on startup `);
     });
 
-    mongoose.connection.on("error", (err) => {
+    mongoose.connection.on('error', (err) => {
         console.error(`Failed to connect to ${AppConfig.ENV} ` +
             ` database on startup `, err);
     });
@@ -29,9 +29,18 @@ export default (mongoose) => {
 
     process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
 
-    const uri: string = `mongodb://${AppConfig.MONGO.host}:${AppConfig.MONGO.port}/${AppConfig.MONGO.database}`;
+    const mongoPort = AppConfig.MONGO.port ? ':' + AppConfig.MONGO.port : '';
+    let mongoUserPassword = '';
+
+    if (AppConfig.MONGO.username && AppConfig.MONGO.password) {
+        mongoUserPassword = AppConfig.MONGO.username + ':' + AppConfig.MONGO.password + '@';
+    }
+
+    const uri: string =
+        `mongodb://${mongoUserPassword + AppConfig.MONGO.host + mongoPort}/${AppConfig.MONGO.database}`;
     mongoose.connect(uri, (error) => {
-        if (error)
+        if (error) {
             throw error;
+        }
     });
 };
