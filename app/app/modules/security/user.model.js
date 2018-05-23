@@ -23,6 +23,12 @@ let User = User_1 = class User extends typegoose_1.Typegoose {
     static findById(id) {
         return exports.UserModel.findById(id);
     }
+    static findByIdFields(id, fields) {
+        return exports.UserModel.findById(id).select(fields);
+    }
+    static updateUser(id, data) {
+        return exports.UserModel.findByIdAndUpdate(id, data);
+    }
     static hashPassword(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
     }

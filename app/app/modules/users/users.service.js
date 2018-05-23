@@ -23,5 +23,15 @@ class UsersService {
             });
         });
     }
+    static getUserById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return user_model_1.User.findByIdFields(id, 'username firstname surname');
+        });
+    }
+    static updateUser(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return user_model_1.User.updateUser(id, data);
+        });
+    }
 }
 exports.UsersService = UsersService;

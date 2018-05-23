@@ -1,24 +1,21 @@
 <app-card>
-  <app-card-header>
-    Edit user
-  </app-card-header>
-  <app-card-content>
-    <app-form [formGroup]="formGroup">
-      <app-label label="Username">
-        <app-input formControlName="username"></app-input>
-      </app-label>
-      <app-label label="Password">
-        <app-input formControlName="password" type="password"></app-input>
-      </app-label>
-      <app-label label="Firstname">
-        <app-input formControlName="firstname"></app-input>
-      </app-label>
-      <app-label label="Surname">
-        <app-input formControlName="surname"></app-input>
-      </app-label>
-    </app-form>
-  </app-card-content>
-  <app-card-footer>
-    <app-button (click)="saveUser()">Save</app-button>
-  </app-card-footer>
+    <app-card-header>
+        Edit user
+    </app-card-header>
+    <app-card-content>
+        <app-form [formGroup]="formGroup">
+            <app-label label="Username">
+                <app-input formControlName="username"></app-input>
+            </app-label>
+            <app-label label="Firstname">
+                <app-input formControlName="firstname"></app-input>
+            </app-label>
+            <app-label label="Surname">
+                <app-input formControlName="surname"></app-input>
+            </app-label>
+        </app-form>
+    </app-card-content>
+    <app-card-footer>
+        <app-button (click)="saveUser()">Save</app-button>
+    </app-card-footer>
 </app-card>

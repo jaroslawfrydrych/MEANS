@@ -57,6 +57,44 @@ paths:
           description: Dane zalogowanego użytkownika
           schema:
             $ref: '#/definitions/CurrentUserView'
+  /users/{id}:
+      x-swagger-router-controller: users
+      get:
+        summary: Pobieranie wybranego użytkownika
+        operationId: userDetailsQuery
+        tags:
+          - Users
+        parameters:
+          - name: id
+            description: Identyfikator użytkownika
+            type: string
+            in: path
+            required: true
+        responses:
+          200:
+            description: Obiekt zawierający szczegóły użytkownika.
+            schema:
+              $ref: '#/definitions/UserDetailsView'
+      put:
+        summary: Edycja wybranego użytkownika
+        operationId: userDetailsUpdateHandler
+        tags:
+          - Users
+        parameters:
+          - name: id
+            description: Identyfikator użytkownika
+            type: string
+            in: path
+            required: true
+          - name: content
+            description: Dane użytkownika
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/UserDetailsView'
+        responses:
+          200:
+            description: Użytkownik został poprawnie wyedytowany
   /users:
     x-swagger-router-controller: users
     get:
@@ -89,24 +127,6 @@ paths:
       responses:
         200:
           description: Utworzono użytkownika
-  /users/{id}:
-    x-swagger-router-controller: users
-    get:
-      summary: Pobieranie wybranego użytkownika
-      operationId: userDetailsQuery
-      tags:
-        - Users
-      parameters:
-        - name: id
-          description: Identyfikator użytkownika
-          type: string
-          in: path
-          required: true
-      responses:
-        200:
-          description: Obiekt zawierający szczegóły użytkownika.
-          schema:
-            $ref: '#/definitions/UserDetailsView'
 parameters:
   page:
     description: Numer aktualnie wyświetlanej strony

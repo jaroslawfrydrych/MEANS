@@ -1,6 +1,7 @@
 import {prop, Typegoose, pre} from 'typegoose';
 import {UserNew} from '../../models/models';
 import {DocumentQuery, Schema, Types} from 'mongoose';
+import {UserDetailsView} from '../../models/userDetailsView';
 
 const bcrypt = require('bcryptjs');
 
@@ -24,6 +25,14 @@ export class User extends Typegoose {
 
     public static findById(id: string): DocumentQuery<User, any> {
         return UserModel.findById(id);
+    }
+
+    public static findByIdFields(id: string, fields: string): DocumentQuery<User, any> {
+        return UserModel.findById(id).select(fields);
+    }
+
+    public static updateUser(id: string, data: UserDetailsView) {
+        return UserModel.findByIdAndUpdate(id, data);
     }
 
     public static hashPassword(password: string): string {
