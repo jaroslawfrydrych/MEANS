@@ -9,10 +9,10 @@ export class CoreService {
     }
 
     public get loginPage(): string {
-        return 'login';
+        return '/login';
     }
 
     public get homePage(): string {
-        return '';
+        return '/';
     }
 }
