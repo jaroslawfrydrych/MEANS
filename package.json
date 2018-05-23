@@ -11,7 +11,7 @@
     "frontend:dashboard:build": "ng build --output-hashing none --prod --project=dashboard",
     "frontend:client": "ng serve --proxy-config proxy.conf.js --project=client --port=4201",
     "frontend:client:build": "ng build --output-hashing none --prod --project=client",
-    "build": "npm run backend:build & npm run frontend:dashboard:build & npm run frontend:client:build && gulp dist-to-public",
+    "build": "npm run backend:build & npm run frontend:dashboard:build & npm run frontend:client:build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

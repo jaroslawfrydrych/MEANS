@@ -1,1 +1,4301 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{"+EQh":function(t,e,n){"use strict";var r=n("qiMw"),o=n("D9en"),i=n("v2vP"),s=n("d0I2");e.fromEventPattern=function t(e,n,u){return u?t(e,n).pipe(s.map(function(t){return o.isArray(t)?u.apply(void 0,t):u(t)})):new r.Observable(function(t){var r,o=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];return t.next(1===e.length?e[0]:e)};try{r=e(o)}catch(e){return void t.error(e)}if(i.isFunction(n))return function(){return n(o,r)}})}},"+UUc":function(t,e,n){"use strict";var r=n("k/06");e.isInteropObservable=function(t){return t&&"function"==typeof t[r.observable]}},"+V+g":function(t,e,n){"use strict";var r=n("qiMw"),o=n("l95E"),i=n("Reu/"),s=n("ci3w");function u(t){var e=t.index,n=t.period,r=t.subscriber;if(r.next(e),!r.closed){if(-1===n)return r.complete();t.index=e+1,this.schedule(t,n)}}e.timer=function(t,e,n){void 0===t&&(t=0);var a=-1;return i.isNumeric(e)?a=Number(e)<1?1:Number(e):s.isScheduler(e)&&(n=e),s.isScheduler(n)||(n=o.async),new r.Observable(function(e){var r=i.isNumeric(t)?t:+t-n.now();return n.schedule(u,r,{index:0,period:a,subscriber:e})})}},"+uLt":function(t,e,n){"use strict";var r=n("UPWm");e.queue=new(n("K7a0").QueueScheduler)(r.QueueAction)},"+vcp":function(t,e,n){"use strict";var r=n("qiMw");function o(t){var e=t.start,n=t.index,r=t.subscriber;n>=t.count?r.complete():(r.next(e),r.closed||(t.index=n+1,t.start=e+1,this.schedule(t)))}e.range=function(t,e,n){return void 0===t&&(t=0),void 0===e&&(e=0),new r.Observable(function(r){var i=0;if(n)return n.schedule(o,0,{index:i,count:e,start:t,subscriber:r});for(;;){if(i++>=e){r.complete();break}if(r.next(t++),r.closed)break}})},e.dispatch=o},"0fXQ":function(t,e,n){"use strict";var r=n("D+qx");e.asap=new(n("Hqsp").AsapScheduler)(r.AsapAction)},"1DPV":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=function(t){function e(){var n=t.call(this,"no elements in sequence")||this;return n.name="EmptyError",Object.setPrototypeOf(n,e.prototype),n}return r(e,t),e}(Error);e.EmptyError=o},"1hPV":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("v2vP"),i=n("uzuk"),s=n("6Br6"),u=n("7oWP"),a=n("QuXn"),c=n("tpAt"),l=function(t){function e(e,n,r){var o=t.call(this)||this;switch(o.syncErrorValue=null,o.syncErrorThrown=!1,o.syncErrorThrowable=!1,o.isStopped=!1,arguments.length){case 0:o.destination=i.empty;break;case 1:if(!e){o.destination=i.empty;break}if("object"==typeof e){if(p(e)){var s=e[u.rxSubscriber]();o.syncErrorThrowable=s.syncErrorThrowable,o.destination=s,s.add(o)}else o.syncErrorThrowable=!0,o.destination=new h(o,e);break}default:o.syncErrorThrowable=!0,o.destination=new h(o,e,n,r)}return o}return r(e,t),e.prototype[u.rxSubscriber]=function(){return this},e.create=function(t,n,r){var o=new e(t,n,r);return o.syncErrorThrowable=!1,o},e.prototype.next=function(t){this.isStopped||this._next(t)},e.prototype.error=function(t){this.isStopped||(this.isStopped=!0,this._error(t))},e.prototype.complete=function(){this.isStopped||(this.isStopped=!0,this._complete())},e.prototype.unsubscribe=function(){this.closed||(this.isStopped=!0,t.prototype.unsubscribe.call(this))},e.prototype._next=function(t){this.destination.next(t)},e.prototype._error=function(t){this.destination.error(t),this.unsubscribe()},e.prototype._complete=function(){this.destination.complete(),this.unsubscribe()},e.prototype._unsubscribeAndRecycle=function(){var t=this._parent,e=this._parents;return this._parent=null,this._parents=null,this.unsubscribe(),this.closed=!1,this.isStopped=!1,this._parent=t,this._parents=e,this},e}(s.Subscription);e.Subscriber=l;var h=function(t){function e(e,n,r,s){var u,a=t.call(this)||this;a._parentSubscriber=e;var c=a;return o.isFunction(n)?u=n:n&&(u=n.next,r=n.error,s=n.complete,n!==i.empty&&(c=Object.create(n),o.isFunction(c.unsubscribe)&&a.add(c.unsubscribe.bind(c)),c.unsubscribe=a.unsubscribe.bind(a))),a._context=c,a._next=u,a._error=r,a._complete=s,a}return r(e,t),e.prototype.next=function(t){if(!this.isStopped&&this._next){var e=this._parentSubscriber;a.config.useDeprecatedSynchronousErrorHandling&&e.syncErrorThrowable?this.__tryOrSetError(e,this._next,t)&&this.unsubscribe():this.__tryOrUnsub(this._next,t)}},e.prototype.error=function(t){if(!this.isStopped){var e=this._parentSubscriber,n=a.config.useDeprecatedSynchronousErrorHandling;if(this._error)n&&e.syncErrorThrowable?(this.__tryOrSetError(e,this._error,t),this.unsubscribe()):(this.__tryOrUnsub(this._error,t),this.unsubscribe());else if(e.syncErrorThrowable)n?(e.syncErrorValue=t,e.syncErrorThrown=!0):c.hostReportError(t),this.unsubscribe();else{if(this.unsubscribe(),n)throw t;c.hostReportError(t)}}},e.prototype.complete=function(){var t=this;if(!this.isStopped){var e=this._parentSubscriber;if(this._complete){var n=function(){return t._complete.call(t._context)};a.config.useDeprecatedSynchronousErrorHandling&&e.syncErrorThrowable?(this.__tryOrSetError(e,n),this.unsubscribe()):(this.__tryOrUnsub(n),this.unsubscribe())}else this.unsubscribe()}},e.prototype.__tryOrUnsub=function(t,e){try{t.call(this._context,e)}catch(t){if(this.unsubscribe(),a.config.useDeprecatedSynchronousErrorHandling)throw t;c.hostReportError(t)}},e.prototype.__tryOrSetError=function(t,e,n){if(!a.config.useDeprecatedSynchronousErrorHandling)throw new Error("bad call");try{e.call(this._context,n)}catch(e){return a.config.useDeprecatedSynchronousErrorHandling?(t.syncErrorValue=e,t.syncErrorThrown=!0,!0):(c.hostReportError(e),!0)}return!1},e.prototype._unsubscribe=function(){var t=this._parentSubscriber;this._context=null,this._parentSubscriber=null,t.unsubscribe()},e}(l);function p(t){return t instanceof l||"syncErrorThrowable"in t&&t[u.rxSubscriber]}},"5hAx":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=function(t){function e(){var n=t.call(this,"argument out of range")||this;return n.name="ArgumentOutOfRangeError",Object.setPrototypeOf(n,e.prototype),n}return r(e,t),e}(Error);e.ArgumentOutOfRangeError=o},6:function(t,e,n){t.exports=n("zUnb")},"6Br6":function(t,e,n){"use strict";var r=n("D9en"),o=n("a96P"),i=n("v2vP"),s=n("KihZ"),u=n("e2qa"),a=n("ZGdk");function c(t){return t.reduce(function(t,e){return t.concat(e instanceof a.UnsubscriptionError?e.errors:e)},[])}e.Subscription=function(){function t(t){this.closed=!1,this._parent=null,this._parents=null,this._subscriptions=null,t&&(this._unsubscribe=t)}var e;return t.prototype.unsubscribe=function(){var t,e=!1;if(!this.closed){var n=this._parent,l=this._parents,h=this._unsubscribe,p=this._subscriptions;this.closed=!0,this._parent=null,this._parents=null,this._subscriptions=null;for(var f=-1,d=l?l.length:0;n;)n.remove(this),n=++f<d&&l[f]||null;if(i.isFunction(h)&&s.tryCatch(h).call(this)===u.errorObject&&(e=!0,t=t||(u.errorObject.e instanceof a.UnsubscriptionError?c(u.errorObject.e.errors):[u.errorObject.e])),r.isArray(p))for(f=-1,d=p.length;++f<d;){var v=p[f];if(o.isObject(v)&&s.tryCatch(v.unsubscribe).call(v)===u.errorObject){e=!0,t=t||[];var y=u.errorObject.e;y instanceof a.UnsubscriptionError?t=t.concat(c(y.errors)):t.push(y)}}if(e)throw new a.UnsubscriptionError(t)}},t.prototype.add=function(e){if(!e||e===t.EMPTY)return t.EMPTY;if(e===this)return this;var n=e;switch(typeof e){case"function":n=new t(e);case"object":if(n.closed||"function"!=typeof n.unsubscribe)return n;if(this.closed)return n.unsubscribe(),n;if("function"!=typeof n._addParent){var r=n;(n=new t)._subscriptions=[r]}break;default:throw new Error("unrecognized teardown "+e+" added to Subscription.")}return(this._subscriptions||(this._subscriptions=[])).push(n),n._addParent(this),n},t.prototype.remove=function(t){var e=this._subscriptions;if(e){var n=e.indexOf(t);-1!==n&&e.splice(n,1)}},t.prototype._addParent=function(t){var e=this._parent,n=this._parents;e&&e!==t?n?-1===n.indexOf(t)&&n.push(t):this._parents=[t]:this._parent=t},t.EMPTY=((e=new t).closed=!0,e),t}()},"6YZ3":function(t,e,n){"use strict";var r=n("qiMw"),o=n("6Br6"),i=n("7bXj"),s=n("GB03");e.fromIterable=function(t,e){if(!t)throw new Error("Iterable cannot be null");return new r.Observable(e?function(n){var r,s=new o.Subscription;return s.add(function(){r&&"function"==typeof r.return&&r.return()}),s.add(e.schedule(function(){r=t[i.iterator](),s.add(e.schedule(function(){if(!n.closed){var t,e;try{var o=r.next();t=o.value,e=o.done}catch(t){return void n.error(t)}e?n.complete():(n.next(t),this.schedule())}}))})),s}:s.subscribeToIterable(t))}},"7bXj":function(t,e,n){"use strict";function r(){return"function"==typeof Symbol&&Symbol.iterator?Symbol.iterator:"@@iterator"}e.getSymbolIterator=r,e.iterator=r(),e.$$iterator=e.iterator},"7oWP":function(t,e,n){"use strict";e.rxSubscriber="function"==typeof Symbol&&"function"==typeof Symbol.for?Symbol.for("rxSubscriber"):"@@rxSubscriber",e.$$rxSubscriber=e.rxSubscriber},"9Hbr":function(t,e,n){"use strict";var r=n("qiMw"),o=n("RKpm"),i=n("ci3w");function s(t){var e=t.subscriber,n=t.condition;if(!e.closed){if(t.needIterate)try{t.state=t.iterate(t.state)}catch(t){return void e.error(t)}else t.needIterate=!0;if(n){var r=void 0;try{r=n(t.state)}catch(t){return void e.error(t)}if(!r)return void e.complete();if(e.closed)return}var o;try{o=t.resultSelector(t.state)}catch(t){return void e.error(t)}if(!e.closed&&(e.next(o),!e.closed))return this.schedule(t)}}e.generate=function(t,e,n,u,a){var c,l;return 1==arguments.length?(l=t.initialState,e=t.condition,n=t.iterate,c=t.resultSelector||o.identity,a=t.scheduler):void 0===u||i.isScheduler(u)?(l=t,c=o.identity,a=u):(l=t,c=u),new r.Observable(function(t){var r=l;if(a)return a.schedule(s,0,{subscriber:t,iterate:n,condition:e,resultSelector:c,state:r});for(;;){if(e){var o=void 0;try{o=e(r)}catch(e){return void t.error(e)}if(!o){t.complete();break}}var i=void 0;try{i=c(r)}catch(e){return void t.error(e)}if(t.next(i),t.closed)break;try{r=n(r)}catch(e){return void t.error(e)}}})}},Cmdc:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("vdqk");e.AsyncScheduler=function(t){function e(n,r){void 0===r&&(r=o.Scheduler.now);var i=t.call(this,n,function(){return e.delegate&&e.delegate!==i?e.delegate.now():r()})||this;return i.actions=[],i.active=!1,i.scheduled=void 0,i}return r(e,t),e.prototype.schedule=function(n,r,o){return void 0===r&&(r=0),e.delegate&&e.delegate!==this?e.delegate.schedule(n,r,o):t.prototype.schedule.call(this,n,r,o)},e.prototype.flush=function(t){var e=this.actions;if(this.active)e.push(t);else{var n;this.active=!0;do{if(n=t.execute(t.state,t.delay))break}while(t=e.shift());if(this.active=!1,n){for(;t=e.shift();)t.unsubscribe();throw n}}},e}(o.Scheduler)},"D+qx":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("wyss");e.AsapAction=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r}return r(e,t),e.prototype.requestAsyncId=function(e,n,r){return void 0===r&&(r=0),null!==r&&r>0?t.prototype.requestAsyncId.call(this,e,n,r):(e.actions.push(this),e.scheduled||(e.scheduled=o.Immediate.setImmediate(e.flush.bind(e,null))))},e.prototype.recycleAsyncId=function(e,n,r){if(void 0===r&&(r=0),null!==r&&r>0||null===r&&this.delay>0)return t.prototype.recycleAsyncId.call(this,e,n,r);0===e.actions.length&&(o.Immediate.clearImmediate(n),e.scheduled=void 0)},e}(n("vU7N").AsyncAction)},D9en:function(t,e,n){"use strict";e.isArray=Array.isArray||function(t){return t&&"number"==typeof t.length}},DLj4:function(t,e,n){"use strict";var r=n("qiMw");function o(t){t.subscriber.error(t.error)}e.throwError=function(t,e){return new r.Observable(e?function(n){return e.schedule(o,0,{error:t,subscriber:n})}:function(e){return e.error(t)})}},DtmU:function(t,e,n){"use strict";var r=n("qiMw"),o=n("6Br6"),i=n("sBpz");e.fromArray=function(t,e){return new r.Observable(e?function(n){var r=new o.Subscription,i=0;return r.add(e.schedule(function(){i!==t.length?(n.next(t[i++]),n.closed||r.add(this.schedule())):n.complete()})),r}:i.subscribeToArray(t))}},"E/Xc":function(t,e,n){"use strict";var r=n("hjML");function o(t){return t?1===t.length?t[0]:function(e){return t.reduce(function(t,e){return e(t)},e)}:r.noop}e.pipe=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return o(t)},e.pipeFromArray=o},F0rJ:function(t,e,n){"use strict";var r=n("qMCr");e.concatAll=function(){return r.mergeAll(1)}},FVvq:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("kZSD"),i=n("dmvN"),s=n("d0I2"),u=n("R4cV");e.mergeMap=function t(e,n,r){return void 0===r&&(r=Number.POSITIVE_INFINITY),"function"==typeof n?function(o){return o.pipe(t(function(t,r){return u.from(e(t,r)).pipe(s.map(function(e,o){return n(t,e,r,o)}))},r))}:("number"==typeof n&&(r=n),function(t){return t.lift(new a(e,r))})};var a=function(){function t(t,e){void 0===e&&(e=Number.POSITIVE_INFINITY),this.project=t,this.concurrent=e}return t.prototype.call=function(t,e){return e.subscribe(new c(t,this.project,this.concurrent))},t}();e.MergeMapOperator=a;var c=function(t){function e(e,n,r){void 0===r&&(r=Number.POSITIVE_INFINITY);var o=t.call(this,e)||this;return o.project=n,o.concurrent=r,o.hasCompleted=!1,o.buffer=[],o.active=0,o.index=0,o}return r(e,t),e.prototype._next=function(t){this.active<this.concurrent?this._tryNext(t):this.buffer.push(t)},e.prototype._tryNext=function(t){var e,n=this.index++;try{e=this.project(t,n)}catch(t){return void this.destination.error(t)}this.active++,this._innerSub(e,t,n)},e.prototype._innerSub=function(t,e,n){this.add(o.subscribeToResult(this,t,e,n))},e.prototype._complete=function(){this.hasCompleted=!0,0===this.active&&0===this.buffer.length&&this.destination.complete()},e.prototype.notifyNext=function(t,e,n,r,o){this.destination.next(e)},e.prototype.notifyComplete=function(t){var e=this.buffer;this.remove(t),this.active--,e.length>0?this._next(e.shift()):0===this.active&&this.hasCompleted&&this.destination.complete()},e}(i.OuterSubscriber);e.MergeMapSubscriber=c},Fs62:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=function(t){function e(){var n=t.call(this,"Timeout has occurred")||this;return Object.setPrototypeOf(n,e.prototype),n}return r(e,t),e}(Error);e.TimeoutError=o},GB03:function(t,e,n){"use strict";var r=n("7bXj");e.subscribeToIterable=function(t){return function(e){for(var n=t[r.iterator]();;){var o=n.next();if(o.done){e.complete();break}if(e.next(o.value),e.closed)break}return"function"==typeof n.return&&e.add(function(){n.return&&n.return()}),e}}},HRq2:function(t,e,n){"use strict";var r=n("qiMw"),o=n("l95E"),i=n("Reu/");function s(t){var e=t.subscriber,n=t.counter,r=t.period;e.next(n),this.schedule({subscriber:e,counter:n+1,period:r},r)}e.interval=function(t,e){return void 0===t&&(t=0),void 0===e&&(e=o.async),(!i.isNumeric(t)||t<0)&&(t=0),e&&"function"==typeof e.schedule||(e=o.async),new r.Observable(function(n){return n.add(e.schedule(s,t,{subscriber:n,counter:0,period:t})),n})}},Hqsp:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.AsapScheduler=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e.prototype.flush=function(t){this.active=!0,this.scheduled=void 0;var e,n=this.actions,r=-1,o=n.length;t=t||n.shift();do{if(e=t.execute(t.state,t.delay))break}while(++r<o&&(t=n.shift()));if(this.active=!1,e){for(;++r<o&&(t=n.shift());)t.unsubscribe();throw e}},e}(n("Cmdc").AsyncScheduler)},IB8g:function(t,e,n){"use strict";var r=n("qiMw"),o=n("WLOL"),i=n("d0I2"),s=n("ci3w"),u=n("D9en");function a(t){var e=this,n=t.params,r=t.subscriber,i=t.context,s=n.callbackFunc,u=n.args,a=n.scheduler,h=n.subject;if(!h){h=n.subject=new o.AsyncSubject;try{s.apply(i,u.concat([function(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];var r=t.shift();e.add(r?a.schedule(l,0,{err:r,subject:h}):a.schedule(c,0,{value:t.length<=1?t[0]:t,subject:h}))}]))}catch(t){this.add(a.schedule(l,0,{err:t,subject:h}))}}this.add(h.subscribe(r))}function c(t){var e=t.subject;e.next(t.value),e.complete()}function l(t){t.subject.error(t.err)}e.bindNodeCallback=function t(e,n,c){if(n){if(!s.isScheduler(n))return function(){for(var r=[],o=0;o<arguments.length;o++)r[o]=arguments[o];return t(e,c).apply(void 0,r).pipe(i.map(function(t){return u.isArray(t)?n.apply(void 0,t):n(t)}))};c=n}return function(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];var i={subject:void 0,args:t,callbackFunc:e,scheduler:c,context:this};return new r.Observable(function(n){var r=i.context,s=i.subject;if(c)return c.schedule(a,0,{params:i,subscriber:n,context:r});if(!s){s=i.subject=new o.AsyncSubject;try{e.apply(r,t.concat([function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=t.shift();n?s.error(n):(s.next(t.length<=1?t[0]:t),s.complete())}]))}catch(t){s.error(t)}}return s.subscribe(n)})}}},K7a0:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.QueueScheduler=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e}(n("Cmdc").AsyncScheduler)},KihZ:function(t,e,n){"use strict";var r,o=n("e2qa");function i(){try{return r.apply(this,arguments)}catch(t){return o.errorObject.e=t,o.errorObject}}e.tryCatch=function(t){return r=t,i}},LR82:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.Action=function(t){function e(e,n){return t.call(this)||this}return r(e,t),e.prototype.schedule=function(t,e){return void 0===e&&(e=0),this},e}(n("6Br6").Subscription)},Lbxd:function(t,e,n){"use strict";var r=n("k/06");e.subscribeToObservable=function(t){return function(e){var n=t[r.observable]();if("function"!=typeof n.subscribe)throw new TypeError("Provided object does not correctly implement Symbol.observable");return n.subscribe(e)}}},MNI0:function(t,e,n){"use strict";var r=n("qiMw"),o=n("R4cV"),i=n("qIOz");e.using=function(t,e){return new r.Observable(function(n){var r,s;try{r=t()}catch(t){return void n.error(t)}try{s=e(r)}catch(t){return void n.error(t)}var u=(s?o.from(s):i.EMPTY).subscribe(n);return function(){u.unsubscribe(),r&&r.unsubscribe()}})}},O09R:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=function(t){function e(){var n=t.call(this,"object unsubscribed")||this;return n.name="ObjectUnsubscribedError",Object.setPrototypeOf(n,e.prototype),n}return r(e,t),e}(Error);e.ObjectUnsubscribedError=o},"Q+RZ":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.AnimationFrameAction=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r}return r(e,t),e.prototype.requestAsyncId=function(e,n,r){return void 0===r&&(r=0),null!==r&&r>0?t.prototype.requestAsyncId.call(this,e,n,r):(e.actions.push(this),e.scheduled||(e.scheduled=requestAnimationFrame(function(){return e.flush(null)})))},e.prototype.recycleAsyncId=function(e,n,r){if(void 0===r&&(r=0),null!==r&&r>0||null===r&&this.delay>0)return t.prototype.recycleAsyncId.call(this,e,n,r);0===e.actions.length&&(cancelAnimationFrame(n),e.scheduled=void 0)},e}(n("vU7N").AsyncAction)},"QG+a":function(t,e,n){"use strict";var r=n("qiMw"),o=n("D9en"),i=n("v2vP"),s=n("d0I2");Object,e.fromEvent=function t(e,n,u,a){return i.isFunction(u)&&(a=u,u=void 0),a?t(e,n,u).pipe(s.map(function(t){return o.isArray(t)?a.apply(void 0,t):a(t)})):new r.Observable(function(t){!function t(e,n,r,o,i){var s;if(function(t){return t&&"function"==typeof t.addEventListener&&"function"==typeof t.removeEventListener}(e)){var u=e;e.addEventListener(n,r,i),s=function(){return u.removeEventListener(n,r,i)}}else if(function(t){return t&&"function"==typeof t.on&&"function"==typeof t.off}(e)){var a=e;e.on(n,r),s=function(){return a.off(n,r)}}else if(function(t){return t&&"function"==typeof t.addListener&&"function"==typeof t.removeListener}(e)){var c=e;e.addListener(n,r),s=function(){return c.removeListener(n,r)}}else{if(!e||!e.length)throw new TypeError("Invalid event target");for(var l=0,h=e.length;l<h;l++)t(e[l],n,r,o,i)}o.add(s)}(e,n,function(e){t.next(arguments.length>1?Array.prototype.slice.call(arguments):e)},t,u)})}},QuXn:function(t,e,n){"use strict";var r=!1;e.config={Promise:void 0,set useDeprecatedSynchronousErrorHandling(t){r=t},get useDeprecatedSynchronousErrorHandling(){return r}}},R4cV:function(t,e,n){"use strict";var r=n("qiMw"),o=n("xKJD"),i=n("VTS6"),s=n("+UUc"),u=n("vfqg"),a=n("DtmU"),c=n("sC0Z"),l=n("6YZ3"),h=n("kWrq"),p=n("ihxi");e.from=function(t,e){if(!e)return t instanceof r.Observable?t:new r.Observable(p.subscribeTo(t));if(null!=t){if(s.isInteropObservable(t))return h.fromObservable(t,e);if(o.isPromise(t))return c.fromPromise(t,e);if(i.isArrayLike(t))return a.fromArray(t,e);if(u.isIterable(t)||"string"==typeof t)return l.fromIterable(t,e)}throw new TypeError((null!==t&&typeof t||t)+" is not observable")}},RKpm:function(t,e,n){"use strict";e.identity=function(t){return t}},Rdb5:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.SubjectSubscription=function(t){function e(e,n){var r=t.call(this)||this;return r.subject=e,r.subscriber=n,r.closed=!1,r}return r(e,t),e.prototype.unsubscribe=function(){if(!this.closed){this.closed=!0;var t=this.subject,e=t.observers;if(this.subject=null,e&&0!==e.length&&!t.isStopped&&!t.closed){var n=e.indexOf(this.subscriber);-1!==n&&e.splice(n,1)}}},e}(n("6Br6").Subscription)},"Reu/":function(t,e,n){"use strict";var r=n("D9en");e.isNumeric=function(t){return!r.isArray(t)&&t-parseFloat(t)+1>=0}},Spyg:function(t,e,n){"use strict";var r=n("qiMw");e.scalar=function(t){var e=new r.Observable(function(e){e.next(t),e.complete()});return e._isScalar=!0,e.value=t,e}},UPWm:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.QueueAction=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r}return r(e,t),e.prototype.schedule=function(e,n){return void 0===n&&(n=0),n>0?t.prototype.schedule.call(this,e,n):(this.delay=n,this.state=e,this.scheduler.flush(this),this)},e.prototype.execute=function(e,n){return n>0||this.closed?t.prototype.execute.call(this,e,n):this._execute(e,n)},e.prototype.requestAsyncId=function(e,n,r){return void 0===r&&(r=0),null!==r&&r>0||null===r&&this.delay>0?t.prototype.requestAsyncId.call(this,e,n,r):e.flush(this)},e}(n("vU7N").AsyncAction)},VTS6:function(t,e,n){"use strict";e.isArrayLike=function(t){return t&&"number"==typeof t.length&&"function"!=typeof t}},VfLN:function(t,e,n){"use strict";var r=n("Q+RZ");e.animationFrame=new(n("kWS7").AnimationFrameScheduler)(r.AnimationFrameAction)},VuxC:function(t,e,n){"use strict";e.NEVER=new(n("qiMw").Observable)(n("hjML").noop),e.never=function(){return e.NEVER}},VvFP:function(t,e,n){"use strict";var r=n("ci3w"),o=n("t0wZ"),i=n("R4cV"),s=n("F0rJ");e.concat=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 1===t.length||2===t.length&&r.isScheduler(t[1])?i.from(t[0]):s.concatAll()(o.of.apply(void 0,t))}},WLOL:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("tkgy"),i=n("6Br6");e.AsyncSubject=function(t){function e(){var e=null!==t&&t.apply(this,arguments)||this;return e.value=null,e.hasNext=!1,e.hasCompleted=!1,e}return r(e,t),e.prototype._subscribe=function(e){return this.hasError?(e.error(this.thrownError),i.Subscription.EMPTY):this.hasCompleted&&this.hasNext?(e.next(this.value),e.complete(),i.Subscription.EMPTY):t.prototype._subscribe.call(this,e)},e.prototype.next=function(t){this.hasCompleted||(this.value=t,this.hasNext=!0)},e.prototype.error=function(e){this.hasCompleted||t.prototype.error.call(this,e)},e.prototype.complete=function(){this.hasCompleted=!0,this.hasNext&&t.prototype.next.call(this,this.value),t.prototype.complete.call(this)},e}(o.Subject)},Yfti:function(t,e,n){"use strict";var r=n("1hPV"),o=n("7oWP"),i=n("uzuk");e.toSubscriber=function(t,e,n){if(t){if(t instanceof r.Subscriber)return t;if(t[o.rxSubscriber])return t[o.rxSubscriber]()}return t||e||n?new r.Subscriber(t,e,n):new r.Subscriber(i.empty)}},ZGdk:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=function(t){function e(n){var r=t.call(this,n?n.length+" errors occurred during unsubscription:\n  "+n.map(function(t,e){return e+1+") "+t.toString()}).join("\n  "):"")||this;return r.errors=n,r.name="UnsubscriptionError",Object.setPrototypeOf(r,e.prototype),r}return r(e,t),e}(Error);e.UnsubscriptionError=o},a96P:function(t,e,n){"use strict";e.isObject=function(t){return null!=t&&"object"==typeof t}},byuQ:function(t,e,n){"use strict";var r=n("qiMw"),o=n("ci3w"),i=n("qMCr"),s=n("DtmU");e.merge=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=Number.POSITIVE_INFINITY,u=null,a=t[t.length-1];return o.isScheduler(a)?(u=t.pop(),t.length>1&&"number"==typeof t[t.length-1]&&(n=t.pop())):"number"==typeof a&&(n=t.pop()),null===u&&1===t.length&&t[0]instanceof r.Observable?t[0]:i.mergeAll(n)(s.fromArray(t,u))}},ci3w:function(t,e,n){"use strict";e.isScheduler=function(t){return t&&"function"==typeof t.schedule}},crnd:function(t,e){function n(t){return Promise.resolve().then(function(){var e=new Error('Cannot find module "'+t+'".');throw e.code="MODULE_NOT_FOUND",e})}n.keys=function(){return[]},n.resolve=n,t.exports=n,n.id="crnd"},cyo2:function(t,e,n){"use strict";var r=n("qiMw"),o=n("R4cV"),i=n("qIOz");e.defer=function(t){return new r.Observable(function(e){var n;try{n=t()}catch(t){return void e.error(t)}return(n?o.from(n):i.empty()).subscribe(e)})}},czDG:function(t,e,n){"use strict";var r=n("cyo2"),o=n("qIOz");e.iif=function(t,e,n){return void 0===e&&(e=o.EMPTY),void 0===n&&(n=o.EMPTY),r.defer(function(){return t()?e:n})}},d0I2:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("1hPV");e.map=function(t,e){return function(n){if("function"!=typeof t)throw new TypeError("argument is not a function. Are you looking for `mapTo()`?");return n.lift(new i(t,e))}};var i=function(){function t(t,e){this.project=t,this.thisArg=e}return t.prototype.call=function(t,e){return e.subscribe(new s(t,this.project,this.thisArg))},t}();e.MapOperator=i;var s=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o.project=n,o.count=0,o.thisArg=r||o,o}return r(e,t),e.prototype._next=function(t){var e;try{e=this.project.call(this.thisArg,t,this.count++)}catch(t){return void this.destination.error(t)}this.destination.next(e)},e}(o.Subscriber)},d4zx:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.InnerSubscriber=function(t){function e(e,n,r){var o=t.call(this)||this;return o.parent=e,o.outerValue=n,o.outerIndex=r,o.index=0,o}return r(e,t),e.prototype._next=function(t){this.parent.notifyNext(this.outerValue,t,this.outerIndex,this.index++,this)},e.prototype._error=function(t){this.parent.notifyError(t,this),this.unsubscribe()},e.prototype._complete=function(){this.parent.notifyComplete(this),this.unsubscribe()},e}(n("1hPV").Subscriber)},dmvN:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.OuterSubscriber=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e.prototype.notifyNext=function(t,e,n,r,o){this.destination.next(e)},e.prototype.notifyError=function(t,e){this.destination.error(t)},e.prototype.notifyComplete=function(t){this.destination.complete()},e}(n("1hPV").Subscriber)},e2qa:function(t,e,n){"use strict";e.errorObject={e:{}}},"h+IO":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("D9en"),i=n("DtmU"),s=n("dmvN"),u=n("kZSD");e.race=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];if(1===t.length){if(!o.isArray(t[0]))return t[0];t=t[0]}return i.fromArray(t,void 0).lift(new a)};var a=function(){function t(){}return t.prototype.call=function(t,e){return e.subscribe(new c(t))},t}();e.RaceOperator=a;var c=function(t){function e(e){var n=t.call(this,e)||this;return n.hasFirst=!1,n.observables=[],n.subscriptions=[],n}return r(e,t),e.prototype._next=function(t){this.observables.push(t)},e.prototype._complete=function(){var t=this.observables,e=t.length;if(0===e)this.destination.complete();else{for(var n=0;n<e&&!this.hasFirst;n++){var r=t[n],o=u.subscribeToResult(this,r,r,n);this.subscriptions&&this.subscriptions.push(o),this.add(o)}this.observables=null}},e.prototype.notifyNext=function(t,e,n,r,o){if(!this.hasFirst){this.hasFirst=!0;for(var i=0;i<this.subscriptions.length;i++)if(i!==n){var s=this.subscriptions[i];s.unsubscribe(),this.remove(s)}this.subscriptions=null}this.destination.next(e)},e}(s.OuterSubscriber);e.RaceSubscriber=c},hjML:function(t,e,n){"use strict";e.noop=function(){}},hk5J:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("tkgy"),i=n("O09R");e.BehaviorSubject=function(t){function e(e){var n=t.call(this)||this;return n._value=e,n}return r(e,t),Object.defineProperty(e.prototype,"value",{get:function(){return this.getValue()},enumerable:!0,configurable:!0}),e.prototype._subscribe=function(e){var n=t.prototype._subscribe.call(this,e);return n&&!n.closed&&e.next(this._value),n},e.prototype.getValue=function(){if(this.hasError)throw this.thrownError;if(this.closed)throw new i.ObjectUnsubscribedError;return this._value},e.prototype.next=function(e){t.prototype.next.call(this,this._value=e)},e}(o.Subject)},ihxi:function(t,e,n){"use strict";var r=n("qiMw"),o=n("sBpz"),i=n("lTUY"),s=n("GB03"),u=n("Lbxd"),a=n("VTS6"),c=n("xKJD"),l=n("a96P"),h=n("7bXj"),p=n("k/06");e.subscribeTo=function(t){if(t instanceof r.Observable)return function(e){return t._isScalar?(e.next(t.value),void e.complete()):t.subscribe(e)};if(a.isArrayLike(t))return o.subscribeToArray(t);if(c.isPromise(t))return i.subscribeToPromise(t);if(t&&"function"==typeof t[h.iterator])return s.subscribeToIterable(t);if(t&&"function"==typeof t[p.observable])return u.subscribeToObservable(t);var e=l.isObject(t)?"an invalid object":"'"+t+"'";throw new TypeError("You provided "+e+" where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.")}},jxUv:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("tkgy"),i=n("qiMw"),s=n("6Br6"),u=n("vVDj"),a=function(t){function e(e,n){var r=t.call(this)||this;return r.source=e,r.subjectFactory=n,r._refCount=0,r._isComplete=!1,r}return r(e,t),e.prototype._subscribe=function(t){return this.getSubject().subscribe(t)},e.prototype.getSubject=function(){var t=this._subject;return t&&!t.isStopped||(this._subject=this.subjectFactory()),this._subject},e.prototype.connect=function(){var t=this._connection;return t||(this._isComplete=!1,(t=this._connection=new s.Subscription).add(this.source.subscribe(new l(this.getSubject(),this))),t.closed?(this._connection=null,t=s.Subscription.EMPTY):this._connection=t),t},e.prototype.refCount=function(){return u.refCount()(this)},e}(i.Observable);e.ConnectableObservable=a;var c=a.prototype;e.connectableObservableDescriptor={operator:{value:null},_refCount:{value:0,writable:!0},_subject:{value:null,writable:!0},_connection:{value:null,writable:!0},_subscribe:{value:c._subscribe},_isComplete:{value:c._isComplete,writable:!0},getSubject:{value:c.getSubject},connect:{value:c.connect},refCount:{value:c.refCount}};var l=function(t){function e(e,n){var r=t.call(this,e)||this;return r.connectable=n,r}return r(e,t),e.prototype._error=function(e){this._unsubscribe(),t.prototype._error.call(this,e)},e.prototype._complete=function(){this.connectable._isComplete=!0,this._unsubscribe(),t.prototype._complete.call(this)},e.prototype._unsubscribe=function(){var t=this.connectable;if(t){this.connectable=null;var e=t._connection;t._refCount=0,t._subject=null,t._connection=null,e&&e.unsubscribe()}},e}(o.SubjectSubscriber)},"k/06":function(t,e,n){"use strict";e.observable="function"==typeof Symbol&&Symbol.observable||"@@observable"},kWS7:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.AnimationFrameScheduler=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return r(e,t),e.prototype.flush=function(t){this.active=!0,this.scheduled=void 0;var e,n=this.actions,r=-1,o=n.length;t=t||n.shift();do{if(e=t.execute(t.state,t.delay))break}while(++r<o&&(t=n.shift()));if(this.active=!1,e){for(;++r<o&&(t=n.shift());)t.unsubscribe();throw e}},e}(n("Cmdc").AsyncScheduler)},kWrq:function(t,e,n){"use strict";var r=n("qiMw"),o=n("6Br6"),i=n("k/06"),s=n("Lbxd");e.fromObservable=function(t,e){return new r.Observable(e?function(n){var r=new o.Subscription;return r.add(e.schedule(function(){var o=t[i.observable]();r.add(o.subscribe({next:function(t){r.add(e.schedule(function(){return n.next(t)}))},error:function(t){r.add(e.schedule(function(){return n.error(t)}))},complete:function(){r.add(e.schedule(function(){return n.complete()}))}}))})),r}:s.subscribeToObservable(t))}},kZSD:function(t,e,n){"use strict";var r=n("d4zx"),o=n("ihxi");e.subscribeToResult=function(t,e,n,i){var s=new r.InnerSubscriber(t,n,i);return o.subscribeTo(e)(s)}},l95E:function(t,e,n){"use strict";var r=n("vU7N");e.async=new(n("Cmdc").AsyncScheduler)(r.AsyncAction)},lTUY:function(t,e,n){"use strict";var r=n("tpAt");e.subscribeToPromise=function(t){return function(e){return t.then(function(t){e.closed||(e.next(t),e.complete())},function(t){return e.error(t)}).then(null,r.hostReportError),e}}},lnmM:function(t,e,n){"use strict";var r=n("qiMw"),o=n("6Br6");function i(t){var e=t.keys,n=t.index,r=t.subscriber,o=t.subscription,i=t.obj;if(!r.closed)if(n<e.length){var s=e[n];r.next([s,i[s]]),o.add(this.schedule({keys:e,index:n+1,subscriber:r,subscription:o,obj:i}))}else r.complete()}e.pairs=function(t,e){return new r.Observable(e?function(n){var r=Object.keys(t),s=new o.Subscription;return s.add(e.schedule(i,0,{keys:r,index:0,subscriber:n,subscription:s,obj:t})),s}:function(e){for(var n=Object.keys(t),r=0;r<n.length&&!e.closed;r++){var o=n[r];t.hasOwnProperty(o)&&e.next([o,t[o]])}e.complete()})},e.dispatch=i},m4Dw:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("qiMw"),i=n("D9en"),s=n("qIOz"),u=n("kZSD"),a=n("dmvN"),c=n("d0I2");e.forkJoin=function t(){for(var e,n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];return"function"==typeof n[n.length-1]&&(e=n.pop()),1===n.length&&i.isArray(n[0])&&(n=n[0]),0===n.length?s.EMPTY:e?t(n).pipe(c.map(function(t){return e.apply(void 0,t)})):new o.Observable(function(t){return new l(t,n)})};var l=function(t){function e(e,n){var r=t.call(this,e)||this;r.sources=n,r.completed=0,r.haveValues=0;var o=n.length;r.values=new Array(o);for(var i=0;i<o;i++){var s=u.subscribeToResult(r,n[i],null,i);s&&r.add(s)}return r}return r(e,t),e.prototype.notifyNext=function(t,e,n,r,o){this.values[n]=e,o._hasValue||(o._hasValue=!0,this.haveValues++)},e.prototype.notifyComplete=function(t){var e=this.destination,n=this.haveValues,r=this.values,o=r.length;t._hasValue?(this.completed++,this.completed===o&&(n===o&&e.next(r),e.complete())):e.complete()},e}(a.OuterSubscriber)},qIOz:function(t,e,n){"use strict";var r=n("qiMw");function o(t){return new r.Observable(function(e){return t.schedule(function(){return e.complete()})})}e.EMPTY=new r.Observable(function(t){return t.complete()}),e.empty=function(t){return t?o(t):e.EMPTY},e.emptyScheduled=o},qMCr:function(t,e,n){"use strict";var r=n("FVvq"),o=n("RKpm");e.mergeAll=function(t){return void 0===t&&(t=Number.POSITIVE_INFINITY),r.mergeMap(o.identity,t)}},qiMw:function(t,e,n){"use strict";var r=n("Yfti"),o=n("k/06"),i=n("E/Xc"),s=n("QuXn");function u(t){if(t||(t=s.config.Promise||Promise),!t)throw new Error("no Promise impl found");return t}e.Observable=function(){function t(t){this._isScalar=!1,t&&(this._subscribe=t)}return t.prototype.lift=function(e){var n=new t;return n.source=this,n.operator=e,n},t.prototype.subscribe=function(t,e,n){var o=this.operator,i=r.toSubscriber(t,e,n);if(o?o.call(i,this.source):i.add(this.source||!i.syncErrorThrowable?this._subscribe(i):this._trySubscribe(i)),s.config.useDeprecatedSynchronousErrorHandling&&i.syncErrorThrowable&&(i.syncErrorThrowable=!1,i.syncErrorThrown))throw i.syncErrorValue;return i},t.prototype._trySubscribe=function(t){try{return this._subscribe(t)}catch(e){s.config.useDeprecatedSynchronousErrorHandling&&(t.syncErrorThrown=!0,t.syncErrorValue=e),t.error(e)}},t.prototype.forEach=function(t,e){var n=this;return new(e=u(e))(function(e,r){var o;o=n.subscribe(function(e){try{t(e)}catch(t){r(t),o&&o.unsubscribe()}},r,e)})},t.prototype._subscribe=function(t){var e=this.source;return e&&e.subscribe(t)},t.prototype[o.observable]=function(){return this},t.prototype.pipe=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 0===t.length?this:i.pipeFromArray(t)(this)},t.prototype.toPromise=function(t){var e=this;return new(t=u(t))(function(t,n){var r;e.subscribe(function(t){return r=t},function(t){return n(t)},function(){return t(r)})})},t.create=function(e){return new t(e)},t}()},sBpz:function(t,e,n){"use strict";e.subscribeToArray=function(t){return function(e){for(var n=0,r=t.length;n<r&&!e.closed;n++)e.next(t[n]);e.closed||e.complete()}}},sC0Z:function(t,e,n){"use strict";var r=n("qiMw"),o=n("6Br6"),i=n("lTUY");e.fromPromise=function(t,e){return new r.Observable(e?function(n){var r=new o.Subscription;return r.add(e.schedule(function(){return t.then(function(t){r.add(e.schedule(function(){n.next(t),r.add(e.schedule(function(){return n.complete()}))}))},function(t){r.add(e.schedule(function(){return n.error(t)}))})})),r}:i.subscribeToPromise(t))}},sGav:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("1hPV"),i=n("t25p");e.observeOn=function(t,e){return void 0===e&&(e=0),function(n){return n.lift(new s(t,e))}};var s=function(){function t(t,e){void 0===e&&(e=0),this.scheduler=t,this.delay=e}return t.prototype.call=function(t,e){return e.subscribe(new u(t,this.scheduler,this.delay))},t}();e.ObserveOnOperator=s;var u=function(t){function e(e,n,r){void 0===r&&(r=0);var o=t.call(this,e)||this;return o.scheduler=n,o.delay=r,o}return r(e,t),e.dispatch=function(t){t.notification.observe(t.destination),this.unsubscribe()},e.prototype.scheduleMessage=function(t){this.add(this.scheduler.schedule(e.dispatch,this.delay,new a(t,this.destination)))},e.prototype._next=function(t){this.scheduleMessage(i.Notification.createNext(t))},e.prototype._error=function(t){this.scheduleMessage(i.Notification.createError(t))},e.prototype._complete=function(){this.scheduleMessage(i.Notification.createComplete())},e}(o.Subscriber);e.ObserveOnSubscriber=u;var a=function(t,e){this.notification=t,this.destination=e};e.ObserveOnMessage=a},sjzl:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("1hPV"),i=n("6Br6"),s=n("qiMw"),u=n("tkgy");e.groupBy=function(t,e,n,r){return function(o){return o.lift(new a(t,e,n,r))}};var a=function(){function t(t,e,n,r){this.keySelector=t,this.elementSelector=e,this.durationSelector=n,this.subjectSelector=r}return t.prototype.call=function(t,e){return e.subscribe(new c(t,this.keySelector,this.elementSelector,this.durationSelector,this.subjectSelector))},t}(),c=function(t){function e(e,n,r,o,i){var s=t.call(this,e)||this;return s.keySelector=n,s.elementSelector=r,s.durationSelector=o,s.subjectSelector=i,s.groups=null,s.attemptedToUnsubscribe=!1,s.count=0,s}return r(e,t),e.prototype._next=function(t){var e;try{e=this.keySelector(t)}catch(t){return void this.error(t)}this._group(t,e)},e.prototype._group=function(t,e){var n=this.groups;n||(n=this.groups=new Map);var r,o=n.get(e);if(this.elementSelector)try{r=this.elementSelector(t)}catch(t){this.error(t)}else r=t;if(!o){o=this.subjectSelector?this.subjectSelector():new u.Subject,n.set(e,o);var i=new h(e,o,this);if(this.destination.next(i),this.durationSelector){var s=void 0;try{s=this.durationSelector(new h(e,o))}catch(t){return void this.error(t)}this.add(s.subscribe(new l(e,o,this)))}}o.closed||o.next(r)},e.prototype._error=function(t){var e=this.groups;e&&(e.forEach(function(e,n){e.error(t)}),e.clear()),this.destination.error(t)},e.prototype._complete=function(){var t=this.groups;t&&(t.forEach(function(t,e){t.complete()}),t.clear()),this.destination.complete()},e.prototype.removeGroup=function(t){this.groups.delete(t)},e.prototype.unsubscribe=function(){this.closed||(this.attemptedToUnsubscribe=!0,0===this.count&&t.prototype.unsubscribe.call(this))},e}(o.Subscriber),l=function(t){function e(e,n,r){var o=t.call(this,n)||this;return o.key=e,o.group=n,o.parent=r,o}return r(e,t),e.prototype._next=function(t){this.complete()},e.prototype._unsubscribe=function(){var t=this.parent,e=this.key;this.key=this.parent=null,t&&t.removeGroup(e)},e}(o.Subscriber),h=function(t){function e(e,n,r){var o=t.call(this)||this;return o.key=e,o.groupSubject=n,o.refCountSubscription=r,o}return r(e,t),e.prototype._subscribe=function(t){var e=new i.Subscription,n=this.refCountSubscription,r=this.groupSubject;return n&&!n.closed&&e.add(new p(n)),e.add(r.subscribe(t)),e},e}(s.Observable);e.GroupedObservable=h;var p=function(t){function e(e){var n=t.call(this)||this;return n.parent=e,e.count++,n}return r(e,t),e.prototype.unsubscribe=function(){var e=this.parent;e.closed||this.closed||(t.prototype.unsubscribe.call(this),e.count-=1,0===e.count&&e.attemptedToUnsubscribe&&e.unsubscribe())},e}(i.Subscription)},t0wZ:function(t,e,n){"use strict";var r=n("ci3w"),o=n("DtmU"),i=n("qIOz"),s=n("Spyg");e.of=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=t[t.length-1];switch(r.isScheduler(n)?t.pop():n=void 0,t.length){case 0:return i.empty(n);case 1:return n?o.fromArray(t,n):s.scalar(t[0]);default:return o.fromArray(t,n)}}},t25p:function(t,e,n){"use strict";var r=n("qIOz"),o=n("t0wZ"),i=n("DLj4");e.Notification=function(){function t(t,e,n){this.kind=t,this.value=e,this.error=n,this.hasValue="N"===t}return t.prototype.observe=function(t){switch(this.kind){case"N":return t.next&&t.next(this.value);case"E":return t.error&&t.error(this.error);case"C":return t.complete&&t.complete()}},t.prototype.do=function(t,e,n){switch(this.kind){case"N":return t&&t(this.value);case"E":return e&&e(this.error);case"C":return n&&n()}},t.prototype.accept=function(t,e,n){return t&&"function"==typeof t.next?this.observe(t):this.do(t,e,n)},t.prototype.toObservable=function(){switch(this.kind){case"N":return o.of(this.value);case"E":return i.throwError(this.error);case"C":return r.empty()}throw new Error("unexpected notification kind value")},t.createNext=function(e){return void 0!==e?new t("N",e):t.undefinedValueNotification},t.createError=function(e){return new t("E",void 0,e)},t.createComplete=function(){return t.completeNotification},t.completeNotification=new t("C"),t.undefinedValueNotification=new t("N",void 0),t}()},tQA4:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("DtmU"),i=n("D9en"),s=n("1hPV"),u=n("dmvN"),a=n("kZSD"),c=n("7bXj");e.zip=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=t[t.length-1];return"function"==typeof n&&t.pop(),o.fromArray(t,void 0).lift(new l(n))};var l=function(){function t(t){this.resultSelector=t}return t.prototype.call=function(t,e){return e.subscribe(new h(t,this.resultSelector))},t}();e.ZipOperator=l;var h=function(t){function e(e,n,r){void 0===r&&(r=Object.create(null));var o=t.call(this,e)||this;return o.iterators=[],o.active=0,o.resultSelector="function"==typeof n?n:null,o.values=r,o}return r(e,t),e.prototype._next=function(t){var e=this.iterators;i.isArray(t)?e.push(new f(t)):e.push("function"==typeof t[c.iterator]?new p(t[c.iterator]()):new d(this.destination,this,t))},e.prototype._complete=function(){var t=this.iterators,e=t.length;if(0!==e){this.active=e;for(var n=0;n<e;n++){var r=t[n];r.stillUnsubscribed?this.add(r.subscribe(r,n)):this.active--}}else this.destination.complete()},e.prototype.notifyInactive=function(){this.active--,0===this.active&&this.destination.complete()},e.prototype.checkIterators=function(){for(var t=this.iterators,e=t.length,n=this.destination,r=0;r<e;r++)if("function"==typeof(s=t[r]).hasValue&&!s.hasValue())return;var o=!1,i=[];for(r=0;r<e;r++){var s,u=(s=t[r]).next();if(s.hasCompleted()&&(o=!0),u.done)return void n.complete();i.push(u.value)}this.resultSelector?this._tryresultSelector(i):n.next(i),o&&n.complete()},e.prototype._tryresultSelector=function(t){var e;try{e=this.resultSelector.apply(this,t)}catch(t){return void this.destination.error(t)}this.destination.next(e)},e}(s.Subscriber);e.ZipSubscriber=h;var p=function(){function t(t){this.iterator=t,this.nextResult=t.next()}return t.prototype.hasValue=function(){return!0},t.prototype.next=function(){var t=this.nextResult;return this.nextResult=this.iterator.next(),t},t.prototype.hasCompleted=function(){var t=this.nextResult;return t&&t.done},t}(),f=function(){function t(t){this.array=t,this.index=0,this.length=0,this.length=t.length}return t.prototype[c.iterator]=function(){return this},t.prototype.next=function(t){var e=this.index++;return e<this.length?{value:this.array[e],done:!1}:{value:null,done:!0}},t.prototype.hasValue=function(){return this.array.length>this.index},t.prototype.hasCompleted=function(){return this.array.length===this.index},t}(),d=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o.parent=n,o.observable=r,o.stillUnsubscribed=!0,o.buffer=[],o.isComplete=!1,o}return r(e,t),e.prototype[c.iterator]=function(){return this},e.prototype.next=function(){var t=this.buffer;return 0===t.length&&this.isComplete?{value:null,done:!0}:{value:t.shift(),done:!1}},e.prototype.hasValue=function(){return this.buffer.length>0},e.prototype.hasCompleted=function(){return 0===this.buffer.length&&this.isComplete},e.prototype.notifyComplete=function(){this.buffer.length>0?(this.isComplete=!0,this.parent.notifyInactive()):this.destination.complete()},e.prototype.notifyNext=function(t,e,n,r,o){this.buffer.push(e),this.parent.checkIterators()},e.prototype.subscribe=function(t,e){return a.subscribeToResult(this,this.observable,this,e)},e}(u.OuterSubscriber)},tkgy:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("qiMw"),i=n("1hPV"),s=n("6Br6"),u=n("O09R"),a=n("Rdb5"),c=n("7oWP"),l=function(t){function e(e){var n=t.call(this,e)||this;return n.destination=e,n}return r(e,t),e}(i.Subscriber);e.SubjectSubscriber=l;var h=function(t){function e(){var e=t.call(this)||this;return e.observers=[],e.closed=!1,e.isStopped=!1,e.hasError=!1,e.thrownError=null,e}return r(e,t),e.prototype[c.rxSubscriber]=function(){return new l(this)},e.prototype.lift=function(t){var e=new p(this,this);return e.operator=t,e},e.prototype.next=function(t){if(this.closed)throw new u.ObjectUnsubscribedError;if(!this.isStopped)for(var e=this.observers,n=e.length,r=e.slice(),o=0;o<n;o++)r[o].next(t)},e.prototype.error=function(t){if(this.closed)throw new u.ObjectUnsubscribedError;this.hasError=!0,this.thrownError=t,this.isStopped=!0;for(var e=this.observers,n=e.length,r=e.slice(),o=0;o<n;o++)r[o].error(t);this.observers.length=0},e.prototype.complete=function(){if(this.closed)throw new u.ObjectUnsubscribedError;this.isStopped=!0;for(var t=this.observers,e=t.length,n=t.slice(),r=0;r<e;r++)n[r].complete();this.observers.length=0},e.prototype.unsubscribe=function(){this.isStopped=!0,this.closed=!0,this.observers=null},e.prototype._trySubscribe=function(e){if(this.closed)throw new u.ObjectUnsubscribedError;return t.prototype._trySubscribe.call(this,e)},e.prototype._subscribe=function(t){if(this.closed)throw new u.ObjectUnsubscribedError;return this.hasError?(t.error(this.thrownError),s.Subscription.EMPTY):this.isStopped?(t.complete(),s.Subscription.EMPTY):(this.observers.push(t),new a.SubjectSubscription(this,t))},e.prototype.asObservable=function(){var t=new o.Observable;return t.source=this,t},e.create=function(t,e){return new p(t,e)},e}(o.Observable);e.Subject=h;var p=function(t){function e(e,n){var r=t.call(this)||this;return r.destination=e,r.source=n,r}return r(e,t),e.prototype.next=function(t){var e=this.destination;e&&e.next&&e.next(t)},e.prototype.error=function(t){var e=this.destination;e&&e.error&&this.destination.error(t)},e.prototype.complete=function(){var t=this.destination;t&&t.complete&&this.destination.complete()},e.prototype._subscribe=function(t){return this.source?this.source.subscribe(t):s.Subscription.EMPTY},e}(h);e.AnonymousSubject=p},tpAt:function(t,e,n){"use strict";e.hostReportError=function(t){setTimeout(function(){throw t})}},uzuk:function(t,e,n){"use strict";var r=n("QuXn"),o=n("tpAt");e.empty={closed:!0,next:function(t){},error:function(t){if(r.config.useDeprecatedSynchronousErrorHandling)throw t;o.hostReportError(t)},complete:function(){}}},v2vP:function(t,e,n){"use strict";e.isFunction=function(t){return"function"==typeof t}},vU7N:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();e.AsyncAction=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r.pending=!1,r}return r(e,t),e.prototype.schedule=function(t,e){if(void 0===e&&(e=0),this.closed)return this;this.state=t;var n=this.id,r=this.scheduler;return null!=n&&(this.id=this.recycleAsyncId(r,n,e)),this.pending=!0,this.delay=e,this.id=this.id||this.requestAsyncId(r,this.id,e),this},e.prototype.requestAsyncId=function(t,e,n){return void 0===n&&(n=0),setInterval(t.flush.bind(t,this),n)},e.prototype.recycleAsyncId=function(t,e,n){if(void 0===n&&(n=0),null!==n&&this.delay===n&&!1===this.pending)return e;clearInterval(e)},e.prototype.execute=function(t,e){if(this.closed)return new Error("executing a cancelled action");this.pending=!1;var n=this._execute(t,e);if(n)return n;!1===this.pending&&null!=this.id&&(this.id=this.recycleAsyncId(this.scheduler,this.id,null))},e.prototype._execute=function(t,e){var n=!1,r=void 0;try{this.work(t)}catch(t){n=!0,r=!!t&&t||new Error(t)}if(n)return this.unsubscribe(),r},e.prototype._unsubscribe=function(){var t=this.id,e=this.scheduler,n=e.actions,r=n.indexOf(this);this.work=null,this.state=null,this.pending=!1,this.scheduler=null,-1!==r&&n.splice(r,1),null!=t&&(this.id=this.recycleAsyncId(e,t,null)),this.delay=null},e}(n("LR82").Action)},vVDj:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("1hPV");e.refCount=function(){return function(t){return t.lift(new i(t))}};var i=function(){function t(t){this.connectable=t}return t.prototype.call=function(t,e){var n=this.connectable;n._refCount++;var r=new s(t,n),o=e.subscribe(r);return r.closed||(r.connection=n.connect()),o},t}(),s=function(t){function e(e,n){var r=t.call(this,e)||this;return r.connectable=n,r}return r(e,t),e.prototype._unsubscribe=function(){var t=this.connectable;if(t){this.connectable=null;var e=t._refCount;if(e<=0)this.connection=null;else if(t._refCount=e-1,e>1)this.connection=null;else{var n=this.connection,r=t._connection;this.connection=null,!r||n&&r!==n||r.unsubscribe()}}else this.connection=null},e}(o.Subscriber)},vdqk:function(t,e,n){"use strict";e.Scheduler=function(){function t(e,n){void 0===n&&(n=t.now),this.SchedulerAction=e,this.now=n}return t.prototype.schedule=function(t,e,n){return void 0===e&&(e=0),new this.SchedulerAction(this,t).schedule(n,e)},t.now=Date.now?Date.now:function(){return+new Date},t}()},vfqg:function(t,e,n){"use strict";var r=n("7bXj");e.isIterable=function(t){return t&&"function"==typeof t[r.iterator]}},wyss:function(t,e,n){"use strict";var r=1,o={};e.Immediate={setImmediate:function(t){var e=r++;return o[e]=t,Promise.resolve().then(function(){return function(t){var e=o[t];e&&e()}(e)}),e},clearImmediate:function(t){delete o[t]}}},xKJD:function(t,e,n){"use strict";e.isPromise=function(t){return t&&"function"!=typeof t.subscribe&&"function"==typeof t.then}},xnWK:function(t,e,n){"use strict";var r=n("qiMw"),o=n("WLOL"),i=n("d0I2"),s=n("D9en"),u=n("ci3w");function a(t){var e=this,n=t.args,r=t.subscriber,i=t.params,s=i.callbackFunc,u=i.context,a=i.scheduler,l=i.subject;if(!l){l=i.subject=new o.AsyncSubject;try{s.apply(u,n.concat([function(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];e.add(a.schedule(c,0,{value:t.length<=1?t[0]:t,subject:l}))}]))}catch(t){l.error(t)}}this.add(l.subscribe(r))}function c(t){var e=t.subject;e.next(t.value),e.complete()}e.bindCallback=function t(e,n,c){if(n){if(!u.isScheduler(n))return function(){for(var r=[],o=0;o<arguments.length;o++)r[o]=arguments[o];return t(e,c).apply(void 0,r).pipe(i.map(function(t){return s.isArray(t)?n.apply(void 0,t):n(t)}))};c=n}return function(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];var i,s=this,u={context:s,subject:i,callbackFunc:e,scheduler:c};return new r.Observable(function(n){if(c)return c.schedule(a,0,{args:t,subscriber:n,params:u});if(!i){i=new o.AsyncSubject;try{e.apply(s,t.concat([function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];i.next(t.length<=1?t[0]:t),i.complete()}]))}catch(t){i.error(t)}}return i.subscribe(n)})}}},y3Un:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("vU7N");e.VirtualTimeScheduler=function(t){function e(e,n){void 0===e&&(e=i),void 0===n&&(n=Number.POSITIVE_INFINITY);var r=t.call(this,e,function(){return r.frame})||this;return r.maxFrames=n,r.frame=0,r.index=-1,r}return r(e,t),e.prototype.flush=function(){for(var t,e,n=this.actions,r=this.maxFrames;(e=n.shift())&&(this.frame=e.delay)<=r&&!(t=e.execute(e.state,e.delay)););if(t){for(;e=n.shift();)e.unsubscribe();throw t}},e.frameTimeFactor=10,e}(n("Cmdc").AsyncScheduler);var i=function(t){function e(e,n,r){void 0===r&&(r=e.index+=1);var o=t.call(this,e,n)||this;return o.scheduler=e,o.work=n,o.index=r,o.active=!0,o.index=e.index=r,o}return r(e,t),e.prototype.schedule=function(n,r){if(void 0===r&&(r=0),!this.id)return t.prototype.schedule.call(this,n,r);this.active=!1;var o=new e(this.scheduler,this.work);return this.add(o),o.schedule(n,r)},e.prototype.requestAsyncId=function(t,n,r){void 0===r&&(r=0),this.delay=t.frame+r;var o=t.actions;return o.push(this),o.sort(e.sortActions),!0},e.prototype.recycleAsyncId=function(t,e,n){void 0===n&&(n=0)},e.prototype._execute=function(e,n){if(!0===this.active)return t.prototype._execute.call(this,e,n)},e.sortActions=function(t,e){return t.delay===e.delay?t.index===e.index?0:t.index>e.index?1:-1:t.delay>e.delay?1:-1},e}(o.AsyncAction);e.VirtualAction=i},yQId:function(t,e,n){"use strict";var r=n("qiMw");e.isObservable=function(t){return t&&t instanceof r.Observable||"function"==typeof t.lift&&"function"==typeof t.subscribe}},zD4e:function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("ci3w"),i=n("D9en"),s=n("dmvN"),u=n("kZSD"),a=n("DtmU"),c={};e.combineLatest=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=null,r=null;return o.isScheduler(t[t.length-1])&&(r=t.pop()),"function"==typeof t[t.length-1]&&(n=t.pop()),1===t.length&&i.isArray(t[0])&&(t=t[0]),a.fromArray(t,r).lift(new l(n))};var l=function(){function t(t){this.resultSelector=t}return t.prototype.call=function(t,e){return e.subscribe(new h(t,this.resultSelector))},t}();e.CombineLatestOperator=l;var h=function(t){function e(e,n){var r=t.call(this,e)||this;return r.resultSelector=n,r.active=0,r.values=[],r.observables=[],r}return r(e,t),e.prototype._next=function(t){this.values.push(c),this.observables.push(t)},e.prototype._complete=function(){var t=this.observables,e=t.length;if(0===e)this.destination.complete();else{this.active=e,this.toRespond=e;for(var n=0;n<e;n++){var r=t[n];this.add(u.subscribeToResult(this,r,r,n))}}},e.prototype.notifyComplete=function(t){0==(this.active-=1)&&this.destination.complete()},e.prototype.notifyNext=function(t,e,n,r,o){var i=this.values,s=this.toRespond?i[n]===c?--this.toRespond:this.toRespond:0;i[n]=e,0===s&&(this.resultSelector?this._tryResultSelector(i):this.destination.next(i.slice()))},e.prototype._tryResultSelector=function(t){var e;try{e=this.resultSelector.apply(this,t)}catch(t){return void this.destination.error(t)}this.destination.next(e)},e}(s.OuterSubscriber);e.CombineLatestSubscriber=h},"zDe/":function(t,e,n){"use strict";var r=this&&this.__extends||function(){var t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=n("tkgy"),i=n("+uLt"),s=n("6Br6"),u=n("sGav"),a=n("O09R"),c=n("Rdb5");e.ReplaySubject=function(t){function e(e,n,r){void 0===e&&(e=Number.POSITIVE_INFINITY),void 0===n&&(n=Number.POSITIVE_INFINITY);var o=t.call(this)||this;return o.scheduler=r,o._events=[],o._infiniteTimeWindow=!1,o._bufferSize=e<1?1:e,o._windowTime=n<1?1:n,n===Number.POSITIVE_INFINITY?(o._infiniteTimeWindow=!0,o.next=o.nextInfiniteTimeWindow):o.next=o.nextTimeWindow,o}return r(e,t),e.prototype.nextInfiniteTimeWindow=function(e){var n=this._events;n.push(e),n.length>this._bufferSize&&n.shift(),t.prototype.next.call(this,e)},e.prototype.nextTimeWindow=function(e){this._events.push(new l(this._getNow(),e)),this._trimBufferThenGetEvents(),t.prototype.next.call(this,e)},e.prototype._subscribe=function(t){var e,n=this._infiniteTimeWindow,r=n?this._events:this._trimBufferThenGetEvents(),o=this.scheduler,i=r.length;if(this.closed)throw new a.ObjectUnsubscribedError;if(this.isStopped||this.hasError?e=s.Subscription.EMPTY:(this.observers.push(t),e=new c.SubjectSubscription(this,t)),o&&t.add(t=new u.ObserveOnSubscriber(t,o)),n)for(var l=0;l<i&&!t.closed;l++)t.next(r[l]);else for(l=0;l<i&&!t.closed;l++)t.next(r[l].value);return this.hasError?t.error(this.thrownError):this.isStopped&&t.complete(),e},e.prototype._getNow=function(){return(this.scheduler||i.queue).now()},e.prototype._trimBufferThenGetEvents=function(){for(var t=this._getNow(),e=this._bufferSize,n=this._windowTime,r=this._events,o=r.length,i=0;i<o&&!(t-r[i].time<n);)i++;return o>e&&(i=Math.max(i,o-e)),i>0&&r.splice(0,i),r},e}(o.Subject);var l=function(t,e){this.time=t,this.value=e}},zNxM:function(t,e,n){"use strict";e.Observable=n("qiMw").Observable,e.ConnectableObservable=n("jxUv").ConnectableObservable,e.GroupedObservable=n("sjzl").GroupedObservable,e.observable=n("k/06").observable,e.Subject=n("tkgy").Subject,e.BehaviorSubject=n("hk5J").BehaviorSubject,e.ReplaySubject=n("zDe/").ReplaySubject,e.AsyncSubject=n("WLOL").AsyncSubject,e.asapScheduler=n("0fXQ").asap,e.asyncScheduler=n("l95E").async,e.queueScheduler=n("+uLt").queue,e.animationFrameScheduler=n("VfLN").animationFrame;var r=n("y3Un");e.VirtualTimeScheduler=r.VirtualTimeScheduler,e.VirtualAction=r.VirtualAction,e.Scheduler=n("vdqk").Scheduler,e.Subscription=n("6Br6").Subscription,e.Subscriber=n("1hPV").Subscriber,e.Notification=n("t25p").Notification,e.pipe=n("E/Xc").pipe,e.noop=n("hjML").noop,e.identity=n("RKpm").identity,e.isObservable=n("yQId").isObservable,e.ArgumentOutOfRangeError=n("5hAx").ArgumentOutOfRangeError,e.EmptyError=n("1DPV").EmptyError,e.ObjectUnsubscribedError=n("O09R").ObjectUnsubscribedError,e.UnsubscriptionError=n("ZGdk").UnsubscriptionError,e.TimeoutError=n("Fs62").TimeoutError,e.bindCallback=n("xnWK").bindCallback,e.bindNodeCallback=n("IB8g").bindNodeCallback,e.combineLatest=n("zD4e").combineLatest,e.concat=n("VvFP").concat,e.defer=n("cyo2").defer,e.empty=n("qIOz").empty,e.forkJoin=n("m4Dw").forkJoin,e.from=n("R4cV").from,e.fromEvent=n("QG+a").fromEvent,e.fromEventPattern=n("+EQh").fromEventPattern,e.generate=n("9Hbr").generate,e.iif=n("czDG").iif,e.interval=n("HRq2").interval,e.merge=n("byuQ").merge,e.never=n("VuxC").never,e.of=n("t0wZ").of,e.onErrorResumeNext=n("zrHX").onErrorResumeNext,e.pairs=n("lnmM").pairs,e.race=n("h+IO").race,e.range=n("+vcp").range,e.throwError=n("DLj4").throwError,e.timer=n("+V+g").timer,e.using=n("MNI0").using,e.zip=n("tQA4").zip,e.EMPTY=n("qIOz").EMPTY,e.NEVER=n("VuxC").NEVER,e.config=n("QuXn").config},zUnb:function(t,e,n){"use strict";n.r(e);var r=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])};function o(t,e){function n(){this.constructor=t}r(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}var i=Object.assign||function(t){for(var e,n=1,r=arguments.length;n<r;n++)for(var o in e=arguments[n])Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t};function s(t){var e="function"==typeof Symbol&&t[Symbol.iterator],n=0;return e?e.call(t):{next:function(){return t&&n>=t.length&&(t=void 0),{value:t&&t[n++],done:!t}}}}function u(t,e){var n="function"==typeof Symbol&&t[Symbol.iterator];if(!n)return t;var r,o,i=n.call(t),s=[];try{for(;(void 0===e||e-- >0)&&!(r=i.next()).done;)s.push(r.value)}catch(t){o={error:t}}finally{try{r&&!r.done&&(n=i.return)&&n.call(i)}finally{if(o)throw o.error}}return s}function a(){for(var t=[],e=0;e<arguments.length;e++)t=t.concat(u(arguments[e]));return t}function c(t){return"function"==typeof t}var l=!1,h={Promise:void 0,set useDeprecatedSynchronousErrorHandling(t){l=t},get useDeprecatedSynchronousErrorHandling(){return l}};function p(t){setTimeout(function(){throw t})}var f={closed:!0,next:function(t){},error:function(t){if(h.useDeprecatedSynchronousErrorHandling)throw t;p(t)},complete:function(){}},d=Array.isArray||function(t){return t&&"number"==typeof t.length};function v(t){return null!=t&&"object"==typeof t}var y,g={e:{}};function m(){try{return y.apply(this,arguments)}catch(t){return g.e=t,g}}function b(t){return y=t,m}var _=function(t){function e(n){var r=t.call(this,n?n.length+" errors occurred during unsubscription:\n  "+n.map(function(t,e){return e+1+") "+t.toString()}).join("\n  "):"")||this;return r.errors=n,r.name="UnsubscriptionError",Object.setPrototypeOf(r,e.prototype),r}return o(e,t),e}(Error),w=function(){function t(t){this.closed=!1,this._parent=null,this._parents=null,this._subscriptions=null,t&&(this._unsubscribe=t)}var e;return t.prototype.unsubscribe=function(){var t,e=!1;if(!this.closed){var n=this._parent,r=this._parents,o=this._unsubscribe,i=this._subscriptions;this.closed=!0,this._parent=null,this._parents=null,this._subscriptions=null;for(var s=-1,u=r?r.length:0;n;)n.remove(this),n=++s<u&&r[s]||null;if(c(o)&&b(o).call(this)===g&&(e=!0,t=t||(g.e instanceof _?C(g.e.errors):[g.e])),d(i))for(s=-1,u=i.length;++s<u;){var a=i[s];if(v(a)&&b(a.unsubscribe).call(a)===g){e=!0,t=t||[];var l=g.e;l instanceof _?t=t.concat(C(l.errors)):t.push(l)}}if(e)throw new _(t)}},t.prototype.add=function(e){if(!e||e===t.EMPTY)return t.EMPTY;if(e===this)return this;var n=e;switch(typeof e){case"function":n=new t(e);case"object":if(n.closed||"function"!=typeof n.unsubscribe)return n;if(this.closed)return n.unsubscribe(),n;if("function"!=typeof n._addParent){var r=n;(n=new t)._subscriptions=[r]}break;default:throw new Error("unrecognized teardown "+e+" added to Subscription.")}return(this._subscriptions||(this._subscriptions=[])).push(n),n._addParent(this),n},t.prototype.remove=function(t){var e=this._subscriptions;if(e){var n=e.indexOf(t);-1!==n&&e.splice(n,1)}},t.prototype._addParent=function(t){var e=this._parent,n=this._parents;e&&e!==t?n?-1===n.indexOf(t)&&n.push(t):this._parents=[t]:this._parent=t},t.EMPTY=((e=new t).closed=!0,e),t}();function C(t){return t.reduce(function(t,e){return t.concat(e instanceof _?e.errors:e)},[])}var x="function"==typeof Symbol&&"function"==typeof Symbol.for?Symbol.for("rxSubscriber"):"@@rxSubscriber",S=function(t){function e(e,n,r){var o,i=t.call(this)||this;switch(i.syncErrorValue=null,i.syncErrorThrown=!1,i.syncErrorThrowable=!1,i.isStopped=!1,arguments.length){case 0:i.destination=f;break;case 1:if(!e){i.destination=f;break}if("object"==typeof e){if((o=e)instanceof S||"syncErrorThrowable"in o&&o[x]){var s=e[x]();i.syncErrorThrowable=s.syncErrorThrowable,i.destination=s,s.add(i)}else i.syncErrorThrowable=!0,i.destination=new E(i,e);break}default:i.syncErrorThrowable=!0,i.destination=new E(i,e,n,r)}return i}return o(e,t),e.prototype[x]=function(){return this},e.create=function(t,n,r){var o=new e(t,n,r);return o.syncErrorThrowable=!1,o},e.prototype.next=function(t){this.isStopped||this._next(t)},e.prototype.error=function(t){this.isStopped||(this.isStopped=!0,this._error(t))},e.prototype.complete=function(){this.isStopped||(this.isStopped=!0,this._complete())},e.prototype.unsubscribe=function(){this.closed||(this.isStopped=!0,t.prototype.unsubscribe.call(this))},e.prototype._next=function(t){this.destination.next(t)},e.prototype._error=function(t){this.destination.error(t),this.unsubscribe()},e.prototype._complete=function(){this.destination.complete(),this.unsubscribe()},e.prototype._unsubscribeAndRecycle=function(){var t=this._parent,e=this._parents;return this._parent=null,this._parents=null,this.unsubscribe(),this.closed=!1,this.isStopped=!1,this._parent=t,this._parents=e,this},e}(w),E=function(t){function e(e,n,r,o){var i,s=t.call(this)||this;s._parentSubscriber=e;var u=s;return c(n)?i=n:n&&(i=n.next,r=n.error,o=n.complete,n!==f&&(c((u=Object.create(n)).unsubscribe)&&s.add(u.unsubscribe.bind(u)),u.unsubscribe=s.unsubscribe.bind(s))),s._context=u,s._next=i,s._error=r,s._complete=o,s}return o(e,t),e.prototype.next=function(t){if(!this.isStopped&&this._next){var e=this._parentSubscriber;h.useDeprecatedSynchronousErrorHandling&&e.syncErrorThrowable?this.__tryOrSetError(e,this._next,t)&&this.unsubscribe():this.__tryOrUnsub(this._next,t)}},e.prototype.error=function(t){if(!this.isStopped){var e=this._parentSubscriber,n=h.useDeprecatedSynchronousErrorHandling;if(this._error)n&&e.syncErrorThrowable?(this.__tryOrSetError(e,this._error,t),this.unsubscribe()):(this.__tryOrUnsub(this._error,t),this.unsubscribe());else if(e.syncErrorThrowable)n?(e.syncErrorValue=t,e.syncErrorThrown=!0):p(t),this.unsubscribe();else{if(this.unsubscribe(),n)throw t;p(t)}}},e.prototype.complete=function(){var t=this;if(!this.isStopped){var e=this._parentSubscriber;if(this._complete){var n=function(){return t._complete.call(t._context)};h.useDeprecatedSynchronousErrorHandling&&e.syncErrorThrowable?(this.__tryOrSetError(e,n),this.unsubscribe()):(this.__tryOrUnsub(n),this.unsubscribe())}else this.unsubscribe()}},e.prototype.__tryOrUnsub=function(t,e){try{t.call(this._context,e)}catch(t){if(this.unsubscribe(),h.useDeprecatedSynchronousErrorHandling)throw t;p(t)}},e.prototype.__tryOrSetError=function(t,e,n){if(!h.useDeprecatedSynchronousErrorHandling)throw new Error("bad call");try{e.call(this._context,n)}catch(e){return h.useDeprecatedSynchronousErrorHandling?(t.syncErrorValue=e,t.syncErrorThrown=!0,!0):(p(e),!0)}return!1},e.prototype._unsubscribe=function(){var t=this._parentSubscriber;this._context=null,this._parentSubscriber=null,t.unsubscribe()},e}(S),O="function"==typeof Symbol&&Symbol.observable||"@@observable";function T(){}function A(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return P(t)}function P(t){return t?1===t.length?t[0]:function(e){return t.reduce(function(t,e){return e(t)},e)}:T}var I=function(){function t(t){this._isScalar=!1,t&&(this._subscribe=t)}return t.prototype.lift=function(e){var n=new t;return n.source=this,n.operator=e,n},t.prototype.subscribe=function(t,e,n){var r=this.operator,o=function(t,e,n){if(t){if(t instanceof S)return t;if(t[x])return t[x]()}return t||e||n?new S(t,e,n):new S(f)}(t,e,n);if(r?r.call(o,this.source):o.add(this.source||!o.syncErrorThrowable?this._subscribe(o):this._trySubscribe(o)),h.useDeprecatedSynchronousErrorHandling&&o.syncErrorThrowable&&(o.syncErrorThrowable=!1,o.syncErrorThrown))throw o.syncErrorValue;return o},t.prototype._trySubscribe=function(t){try{return this._subscribe(t)}catch(e){h.useDeprecatedSynchronousErrorHandling&&(t.syncErrorThrown=!0,t.syncErrorValue=e),t.error(e)}},t.prototype.forEach=function(t,e){var n=this;return new(e=k(e))(function(e,r){var o;o=n.subscribe(function(e){try{t(e)}catch(t){r(t),o&&o.unsubscribe()}},r,e)})},t.prototype._subscribe=function(t){var e=this.source;return e&&e.subscribe(t)},t.prototype[O]=function(){return this},t.prototype.pipe=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return 0===t.length?this:P(t)(this)},t.prototype.toPromise=function(t){var e=this;return new(t=k(t))(function(t,n){var r;e.subscribe(function(t){return r=t},function(t){return n(t)},function(){return t(r)})})},t.create=function(e){return new t(e)},t}();function k(t){if(t||(t=h.Promise||Promise),!t)throw new Error("no Promise impl found");return t}function N(t){return t&&"function"==typeof t.schedule}var R=function(t){function e(e,n,r){var o=t.call(this)||this;return o.parent=e,o.outerValue=n,o.outerIndex=r,o.index=0,o}return o(e,t),e.prototype._next=function(t){this.parent.notifyNext(this.outerValue,t,this.outerIndex,this.index++,this)},e.prototype._error=function(t){this.parent.notifyError(t,this),this.unsubscribe()},e.prototype._complete=function(){this.parent.notifyComplete(this),this.unsubscribe()},e}(S),j=function(t){return function(e){for(var n=0,r=t.length;n<r&&!e.closed;n++)e.next(t[n]);e.closed||e.complete()}},V=function(t){return function(e){return t.then(function(t){e.closed||(e.next(t),e.complete())},function(t){return e.error(t)}).then(null,p),e}},M=function(){return"function"==typeof Symbol&&Symbol.iterator?Symbol.iterator:"@@iterator"}(),D=function(t){return function(e){for(var n=t[M]();;){var r=n.next();if(r.done){e.complete();break}if(e.next(r.value),e.closed)break}return"function"==typeof n.return&&e.add(function(){n.return&&n.return()}),e}},U=function(t){return function(e){var n=t[O]();if("function"!=typeof n.subscribe)throw new TypeError("Provided object does not correctly implement Symbol.observable");return n.subscribe(e)}},L=function(t){return t&&"number"==typeof t.length&&"function"!=typeof t};function H(t){return t&&"function"!=typeof t.subscribe&&"function"==typeof t.then}var F=function(t){if(t instanceof I)return function(e){return t._isScalar?(e.next(t.value),void e.complete()):t.subscribe(e)};if(L(t))return j(t);if(H(t))return V(t);if(t&&"function"==typeof t[M])return D(t);if(t&&"function"==typeof t[O])return U(t);var e=v(t)?"an invalid object":"'"+t+"'";throw new TypeError("You provided "+e+" where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.")};function z(t,e,n,r){var o=new R(t,n,r);return F(e)(o)}var q=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.notifyNext=function(t,e,n,r,o){this.destination.next(e)},e.prototype.notifyError=function(t,e){this.destination.error(t)},e.prototype.notifyComplete=function(t){this.destination.complete()},e}(S);function B(t,e){return function(n){if("function"!=typeof t)throw new TypeError("argument is not a function. Are you looking for `mapTo()`?");return n.lift(new G(t,e))}}var G=function(){function t(t,e){this.project=t,this.thisArg=e}return t.prototype.call=function(t,e){return e.subscribe(new W(t,this.project,this.thisArg))},t}(),W=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o.project=n,o.count=0,o.thisArg=r||o,o}return o(e,t),e.prototype._next=function(t){var e;try{e=this.project.call(this.thisArg,t,this.count++)}catch(t){return void this.destination.error(t)}this.destination.next(e)},e}(S);function Z(t,e){return new I(e?function(n){var r=new w,o=0;return r.add(e.schedule(function(){o!==t.length?(n.next(t[o++]),n.closed||r.add(this.schedule())):n.complete()})),r}:j(t))}function Q(t,e){if(!e)return t instanceof I?t:new I(F(t));if(null!=t){if(function(t){return t&&"function"==typeof t[O]}(t))return function(t,e){return new I(e?function(n){var r=new w;return r.add(e.schedule(function(){var o=t[O]();r.add(o.subscribe({next:function(t){r.add(e.schedule(function(){return n.next(t)}))},error:function(t){r.add(e.schedule(function(){return n.error(t)}))},complete:function(){r.add(e.schedule(function(){return n.complete()}))}}))})),r}:U(t))}(t,e);if(H(t))return function(t,e){return new I(e?function(n){var r=new w;return r.add(e.schedule(function(){return t.then(function(t){r.add(e.schedule(function(){n.next(t),r.add(e.schedule(function(){return n.complete()}))}))},function(t){r.add(e.schedule(function(){return n.error(t)}))})})),r}:V(t))}(t,e);if(L(t))return Z(t,e);if(function(t){return t&&"function"==typeof t[M]}(t)||"string"==typeof t)return function(t,e){if(!t)throw new Error("Iterable cannot be null");return new I(e?function(n){var r,o=new w;return o.add(function(){r&&"function"==typeof r.return&&r.return()}),o.add(e.schedule(function(){r=t[M](),o.add(e.schedule(function(){if(!n.closed){var t,e;try{var o=r.next();t=o.value,e=o.done}catch(t){return void n.error(t)}e?n.complete():(n.next(t),this.schedule())}}))})),o}:D(t))}(t,e)}throw new TypeError((null!==t&&typeof t||t)+" is not observable")}function K(t,e,n){return void 0===n&&(n=Number.POSITIVE_INFINITY),"function"==typeof e?function(r){return r.pipe(K(function(n,r){return Q(t(n,r)).pipe(B(function(t,o){return e(n,t,r,o)}))},n))}:("number"==typeof e&&(n=e),function(e){return e.lift(new Y(t,n))})}var Y=function(){function t(t,e){void 0===e&&(e=Number.POSITIVE_INFINITY),this.project=t,this.concurrent=e}return t.prototype.call=function(t,e){return e.subscribe(new J(t,this.project,this.concurrent))},t}(),J=function(t){function e(e,n,r){void 0===r&&(r=Number.POSITIVE_INFINITY);var o=t.call(this,e)||this;return o.project=n,o.concurrent=r,o.hasCompleted=!1,o.buffer=[],o.active=0,o.index=0,o}return o(e,t),e.prototype._next=function(t){this.active<this.concurrent?this._tryNext(t):this.buffer.push(t)},e.prototype._tryNext=function(t){var e,n=this.index++;try{e=this.project(t,n)}catch(t){return void this.destination.error(t)}this.active++,this._innerSub(e,t,n)},e.prototype._innerSub=function(t,e,n){this.add(z(this,t,e,n))},e.prototype._complete=function(){this.hasCompleted=!0,0===this.active&&0===this.buffer.length&&this.destination.complete()},e.prototype.notifyNext=function(t,e,n,r,o){this.destination.next(e)},e.prototype.notifyComplete=function(t){var e=this.buffer;this.remove(t),this.active--,e.length>0?this._next(e.shift()):0===this.active&&this.hasCompleted&&this.destination.complete()},e}(q);function X(t){return t}function $(t){return void 0===t&&(t=Number.POSITIVE_INFINITY),K(X,t)}var tt=function(t){function e(){var n=t.call(this,"object unsubscribed")||this;return n.name="ObjectUnsubscribedError",Object.setPrototypeOf(n,e.prototype),n}return o(e,t),e}(Error),et=function(t){function e(e,n){var r=t.call(this)||this;return r.subject=e,r.subscriber=n,r.closed=!1,r}return o(e,t),e.prototype.unsubscribe=function(){if(!this.closed){this.closed=!0;var t=this.subject,e=t.observers;if(this.subject=null,e&&0!==e.length&&!t.isStopped&&!t.closed){var n=e.indexOf(this.subscriber);-1!==n&&e.splice(n,1)}}},e}(w),nt=function(t){function e(e){var n=t.call(this,e)||this;return n.destination=e,n}return o(e,t),e}(S),rt=function(t){function e(){var e=t.call(this)||this;return e.observers=[],e.closed=!1,e.isStopped=!1,e.hasError=!1,e.thrownError=null,e}return o(e,t),e.prototype[x]=function(){return new nt(this)},e.prototype.lift=function(t){var e=new ot(this,this);return e.operator=t,e},e.prototype.next=function(t){if(this.closed)throw new tt;if(!this.isStopped)for(var e=this.observers,n=e.length,r=e.slice(),o=0;o<n;o++)r[o].next(t)},e.prototype.error=function(t){if(this.closed)throw new tt;this.hasError=!0,this.thrownError=t,this.isStopped=!0;for(var e=this.observers,n=e.length,r=e.slice(),o=0;o<n;o++)r[o].error(t);this.observers.length=0},e.prototype.complete=function(){if(this.closed)throw new tt;this.isStopped=!0;for(var t=this.observers,e=t.length,n=t.slice(),r=0;r<e;r++)n[r].complete();this.observers.length=0},e.prototype.unsubscribe=function(){this.isStopped=!0,this.closed=!0,this.observers=null},e.prototype._trySubscribe=function(e){if(this.closed)throw new tt;return t.prototype._trySubscribe.call(this,e)},e.prototype._subscribe=function(t){if(this.closed)throw new tt;return this.hasError?(t.error(this.thrownError),w.EMPTY):this.isStopped?(t.complete(),w.EMPTY):(this.observers.push(t),new et(this,t))},e.prototype.asObservable=function(){var t=new I;return t.source=this,t},e.create=function(t,e){return new ot(t,e)},e}(I),ot=function(t){function e(e,n){var r=t.call(this)||this;return r.destination=e,r.source=n,r}return o(e,t),e.prototype.next=function(t){var e=this.destination;e&&e.next&&e.next(t)},e.prototype.error=function(t){var e=this.destination;e&&e.error&&this.destination.error(t)},e.prototype.complete=function(){var t=this.destination;t&&t.complete&&this.destination.complete()},e.prototype._subscribe=function(t){return this.source?this.source.subscribe(t):w.EMPTY},e}(rt);function it(){return function(t){return t.lift(new st(t))}}var st=function(){function t(t){this.connectable=t}return t.prototype.call=function(t,e){var n=this.connectable;n._refCount++;var r=new ut(t,n),o=e.subscribe(r);return r.closed||(r.connection=n.connect()),o},t}(),ut=function(t){function e(e,n){var r=t.call(this,e)||this;return r.connectable=n,r}return o(e,t),e.prototype._unsubscribe=function(){var t=this.connectable;if(t){this.connectable=null;var e=t._refCount;if(e<=0)this.connection=null;else if(t._refCount=e-1,e>1)this.connection=null;else{var n=this.connection,r=t._connection;this.connection=null,!r||n&&r!==n||r.unsubscribe()}}else this.connection=null},e}(S),at=function(t){function e(e,n){var r=t.call(this)||this;return r.source=e,r.subjectFactory=n,r._refCount=0,r._isComplete=!1,r}return o(e,t),e.prototype._subscribe=function(t){return this.getSubject().subscribe(t)},e.prototype.getSubject=function(){var t=this._subject;return t&&!t.isStopped||(this._subject=this.subjectFactory()),this._subject},e.prototype.connect=function(){var t=this._connection;return t||(this._isComplete=!1,(t=this._connection=new w).add(this.source.subscribe(new lt(this.getSubject(),this))),t.closed?(this._connection=null,t=w.EMPTY):this._connection=t),t},e.prototype.refCount=function(){return it()(this)},e}(I).prototype,ct={operator:{value:null},_refCount:{value:0,writable:!0},_subject:{value:null,writable:!0},_connection:{value:null,writable:!0},_subscribe:{value:at._subscribe},_isComplete:{value:at._isComplete,writable:!0},getSubject:{value:at.getSubject},connect:{value:at.connect},refCount:{value:at.refCount}},lt=function(t){function e(e,n){var r=t.call(this,e)||this;return r.connectable=n,r}return o(e,t),e.prototype._error=function(e){this._unsubscribe(),t.prototype._error.call(this,e)},e.prototype._complete=function(){this.connectable._isComplete=!0,this._unsubscribe(),t.prototype._complete.call(this)},e.prototype._unsubscribe=function(){var t=this.connectable;if(t){this.connectable=null;var e=t._connection;t._refCount=0,t._subject=null,t._connection=null,e&&e.unsubscribe()}},e}(nt);function ht(){return new rt}function pt(t){return{providedIn:t.providedIn||null,factory:t.factory,value:void 0}}var ft=function(){function t(t,e){this._desc=t,this.ngMetadataName="InjectionToken",this.ngInjectableDef=void 0!==e?pt({providedIn:e.providedIn||"root",factory:e.factory}):void 0}return t.prototype.toString=function(){return"InjectionToken "+this._desc},t}(),dt="__parameters__";function vt(t,e,n){var r=function(t){return function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];if(t){var r=t.apply(void 0,a(e));for(var o in r)this[o]=r[o]}}}(e);function o(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];if(this instanceof o)return r.apply(this,t),this;var n,i=new((n=o).bind.apply(n,a([void 0],t)));return s.annotation=i,s;function s(t,e,n){for(var r=t.hasOwnProperty(dt)?t[dt]:Object.defineProperty(t,dt,{value:[]})[dt];r.length<=n;)r.push(null);return(r[n]=r[n]||[]).push(i),t}}return n&&(o.prototype=Object.create(n.prototype)),o.prototype.ngMetadataName=t,o.annotationCls=o,o}var yt=new ft("AnalyzeForEntryComponents");Function;var gt="undefined"!=typeof window&&window,mt="undefined"!=typeof self&&"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope&&self,bt="undefined"!=typeof global&&global,_t=gt||bt||mt,wt=Promise.resolve(0),Ct=null;function xt(){if(!Ct){var t=_t.Symbol;if(t&&t.iterator)Ct=t.iterator;else for(var e=Object.getOwnPropertyNames(Map.prototype),n=0;n<e.length;++n){var r=e[n];"entries"!==r&&"size"!==r&&Map.prototype[r]===Map.prototype.entries&&(Ct=r)}}return Ct}function St(t){"undefined"==typeof Zone?wt.then(function(){t&&t.apply(null,null)}):Zone.current.scheduleMicroTask("scheduleMicrotask",t)}function Et(t,e){return t===e||"number"==typeof t&&"number"==typeof e&&isNaN(t)&&isNaN(e)}function Ot(t){if("string"==typeof t)return t;if(t instanceof Array)return"["+t.map(Ot).join(", ")+"]";if(null==t)return""+t;if(t.overriddenName)return""+t.overriddenName;if(t.name)return""+t.name;var e=t.toString();if(null==e)return""+e;var n=e.indexOf("\n");return-1===n?e:e.substring(0,n)}function Tt(t){return t.__forward_ref__=Tt,t.toString=function(){return Ot(this())},t}function At(t){return"function"==typeof t&&t.hasOwnProperty("__forward_ref__")&&t.__forward_ref__===Tt?t():t}var Pt=vt("Inject",function(t){return{token:t}}),It=vt("Optional"),kt=vt("Self"),Nt=vt("SkipSelf"),Rt="__source",jt=new Object,Vt=new ft("INJECTOR"),Mt=function(){function t(){}return t.prototype.get=function(t,e){if(void 0===e&&(e=jt),e===jt)throw new Error("NullInjectorError: No provider for "+Ot(t)+"!");return e},t}(),Dt=function(){function t(){}return t.create=function(t,e){return Array.isArray(t)?new Zt(t,e):new Zt(t.providers,t.parent,t.name||null)},t.THROW_IF_NOT_FOUND=jt,t.NULL=new Mt,t.ngInjectableDef=pt({providedIn:"any",factory:function(){return $t(Vt)}}),t}(),Ut=function(t){return t},Lt=[],Ht=Ut,Ft=function(){return Array.prototype.slice.call(arguments)},zt={},qt=function(t){for(var e in t)if(t[e]===zt)return e;throw Error("!prop")}({provide:String,useValue:zt}),Bt=Dt.NULL,Gt=/\n/gm,Wt="\u0275",Zt=function(){function t(t,e,n){void 0===e&&(e=Bt),void 0===n&&(n=null),this.parent=e,this.source=n;var r=this._records=new Map;r.set(Dt,{token:Dt,fn:Ut,deps:Lt,value:this,useNew:!1}),r.set(Vt,{token:Vt,fn:Ut,deps:Lt,value:this,useNew:!1}),function t(e,n){if(n)if((n=At(n))instanceof Array)for(var r=0;r<n.length;r++)t(e,n[r]);else{if("function"==typeof n)throw Yt("Function/Class not supported",n);if(!n||"object"!=typeof n||!n.provide)throw Yt("Unexpected provider",n);var o=At(n.provide),i=function(t){var e=function(t){var e=Lt,n=t.deps;if(n&&n.length){e=[];for(var r=0;r<n.length;r++){var o=6;if((a=At(n[r]))instanceof Array)for(var i=0,s=a;i<s.length;i++){var u=s[i];u instanceof It||u==It?o|=1:u instanceof Nt||u==Nt?o&=-3:u instanceof kt||u==kt?o&=-5:a=u instanceof Pt?u.token:At(u)}e.push({token:a,options:o})}}else if(t.useExisting){var a;e=[{token:a=At(t.useExisting),options:6}]}else if(!(n||qt in t))throw Yt("'deps' required",t);return e}(t),n=Ut,r=Lt,o=!1,i=At(t.provide);if(qt in t)r=t.useValue;else if(t.useFactory)n=t.useFactory;else if(t.useExisting);else if(t.useClass)o=!0,n=At(t.useClass);else{if("function"!=typeof i)throw Yt("StaticProvider does not have [useValue|useFactory|useExisting|useClass] or [provide] is not newable",t);o=!0,n=i}return{deps:e,fn:n,useNew:o,value:r}}(n);if(!0===n.multi){var s=e.get(o);if(s){if(s.fn!==Ft)throw Qt(o)}else e.set(o,s={token:n.provide,deps:[],useNew:!1,fn:Ft,value:Lt});s.deps.push({token:o=n,options:6})}var u=e.get(o);if(u&&u.fn==Ft)throw Qt(o);e.set(o,i)}}(r,t)}return t.prototype.get=function(t,e,n){void 0===n&&(n=0);var r=this._records.get(t);try{return function t(e,n,r,o,i,s){try{return function(e,n,r,o,i,s){var u,c;if(!n||4&s)2&s||(u=o.get(e,i,0));else{if((u=n.value)==Ht)throw Error(Wt+"Circular dependency");if(u===Lt){n.value=Ht;var l=n.useNew,h=n.fn,p=n.deps,f=Lt;if(p.length){f=[];for(var d=0;d<p.length;d++){var v=p[d],y=v.options,g=2&y?r.get(v.token):void 0;f.push(t(v.token,g,r,g||4&y?o:Bt,1&y?null:Dt.THROW_IF_NOT_FOUND,0))}}n.value=u=l?new((c=h).bind.apply(c,a([void 0],f))):h.apply(void 0,f)}}return u}(e,n,r,o,i,s)}catch(t){throw t instanceof Error||(t=new Error(t)),(t.ngTempTokenPath=t.ngTempTokenPath||[]).unshift(e),n&&n.value==Ht&&(n.value=Lt),t}}(t,r,this._records,this.parent,e,n)}catch(e){var o=e.ngTempTokenPath;throw t[Rt]&&o.unshift(t[Rt]),e.message=Kt("\n"+e.message,o,this.source),e.ngTokenPath=o,e.ngTempTokenPath=null,e}},t.prototype.toString=function(){var t=[];return this._records.forEach(function(e,n){return t.push(Ot(n))}),"StaticInjector["+t.join(", ")+"]"},t}();function Qt(t){return Yt("Cannot mix multi providers and regular providers",t)}function Kt(t,e,n){void 0===n&&(n=null),t=t&&"\n"===t.charAt(0)&&t.charAt(1)==Wt?t.substr(2):t;var r=Ot(e);if(e instanceof Array)r=e.map(Ot).join(" -> ");else if("object"==typeof e){var o=[];for(var i in e)if(e.hasOwnProperty(i)){var s=e[i];o.push(i+":"+("string"==typeof s?JSON.stringify(s):Ot(s)))}r="{"+o.join(", ")+"}"}return"StaticInjectorError"+(n?"("+n+")":"")+"["+r+"]: "+t.replace(Gt,"\n  ")}function Yt(t,e){return new Error(Kt(t,e))}var Jt=void 0;function Xt(t){var e=Jt;return Jt=t,e}function $t(t,e){if(void 0===e&&(e=0),void 0===Jt)throw new Error("inject() must be called from an injection context");if(null===Jt){var n=t.ngInjectableDef;if(n&&"root"==n.providedIn)return void 0===n.value?n.value=n.factory():n.value;throw new Error("Injector: NOT_FOUND ["+Ot(t)+"]")}return Jt.get(t,8&e?null:void 0,e)}String;var te=function(t){return t[t.Emulated=0]="Emulated",t[t.Native=1]="Native",t[t.None=2]="None",t}({}),ee=new function(t){this.full="6.0.0",this.major="6.0.0".split(".")[0],this.minor="6.0.0".split(".")[1],this.patch="6.0.0".split(".").slice(2).join(".")}("6.0.0"),ne="ngDebugContext",re="ngOriginalError",oe="ngErrorLogger";function ie(t){return t[ne]}function se(t){return t[re]}function ue(t){for(var e=[],n=1;n<arguments.length;n++)e[n-1]=arguments[n];t.error.apply(t,a(e))}var ae=function(){function t(){this._console=console}return t.prototype.handleError=function(t){var e=this._findOriginalError(t),n=this._findContext(t),r=function(t){return t[oe]||ue}(t);r(this._console,"ERROR",t),e&&r(this._console,"ORIGINAL ERROR",e),n&&r(this._console,"ERROR CONTEXT",n)},t.prototype._findContext=function(t){return t?ie(t)?ie(t):this._findContext(se(t)):null},t.prototype._findOriginalError=function(t){for(var e=se(t);e&&se(e);)e=se(e);return e},t}(),ce=new ft("The presence of this token marks an injector as being the root injector.");function le(t){return!!t&&"function"==typeof t.then}function he(t){return!!t&&"function"==typeof t.subscribe}var pe=new ft("Application Initializer"),fe=function(){function t(t){var e=this;this.appInits=t,this.initialized=!1,this.done=!1,this.donePromise=new Promise(function(t,n){e.resolve=t,e.reject=n})}return t.prototype.runInitializers=function(){var t=this;if(!this.initialized){var e=[],n=function(){t.done=!0,t.resolve()};if(this.appInits)for(var r=0;r<this.appInits.length;r++){var o=this.appInits[r]();le(o)&&e.push(o)}Promise.all(e).then(function(){n()}).catch(function(e){t.reject(e)}),0===e.length&&n(),this.initialized=!0}},t}(),de=new ft("AppId");function ve(){return""+ye()+ye()+ye()}function ye(){return String.fromCharCode(97+Math.floor(25*Math.random()))}var ge=new ft("Platform Initializer"),me=new ft("Platform ID"),be=new ft("appBootstrapListener"),_e=function(){function t(){}return t.prototype.log=function(t){console.log(t)},t.prototype.warn=function(t){console.warn(t)},t.ctorParameters=function(){return[]},t}();function we(){throw new Error("Runtime compiler is not loaded")}var Ce=function(){function t(){}return t.prototype.compileModuleSync=function(t){throw we()},t.prototype.compileModuleAsync=function(t){throw we()},t.prototype.compileModuleAndAllComponentsSync=function(t){throw we()},t.prototype.compileModuleAndAllComponentsAsync=function(t){throw we()},t.prototype.clearCache=function(){},t.prototype.clearCacheFor=function(t){},t}(),xe=function(){},Se=function(){};function Ee(t){var e=Error("No component factory found for "+Ot(t)+". Did you add it to @NgModule.entryComponents?");return e[Ae]=t,e}var Oe,Te,Ae="ngComponent",Pe=function(){function t(){}return t.prototype.resolveComponentFactory=function(t){throw Ee(t)},t}(),Ie=function(){function t(){}return t.NULL=new Pe,t}(),ke=function(){function t(t,e,n){this._parent=e,this._ngModule=n,this._factories=new Map;for(var r=0;r<t.length;r++){var o=t[r];this._factories.set(o.componentType,o)}}return t.prototype.resolveComponentFactory=function(t){var e=this._factories.get(t);if(!e&&this._parent&&(e=this._parent.resolveComponentFactory(t)),!e)throw Ee(t);return new Ne(e,this._ngModule)},t}(),Ne=function(t){function e(e,n){var r=t.call(this)||this;return r.factory=e,r.ngModule=n,r.selector=e.selector,r.componentType=e.componentType,r.ngContentSelectors=e.ngContentSelectors,r.inputs=e.inputs,r.outputs=e.outputs,r}return o(e,t),e.prototype.create=function(t,e,n,r){return this.factory.create(t,e,n,r||this.ngModule)},e}(Se),Re=function(){},je=function(){},Ve=function(){var t=_t.wtf;return!(!t||!(Oe=t.trace)||(Te=Oe.events,0))}();function Me(t,e){return null}var De=Ve?function(t,e){return void 0===e&&(e=null),Te.createScope(t,e)}:function(t,e){return Me},Ue=Ve?function(t,e){return Oe.leaveScope(t,e),e}:function(t,e){return e},Le=function(t){function e(e){void 0===e&&(e=!1);var n=t.call(this)||this;return n.__isAsync=e,n}return o(e,t),e.prototype.emit=function(e){t.prototype.next.call(this,e)},e.prototype.subscribe=function(e,n,r){var o,i=function(t){return null},s=function(){return null};e&&"object"==typeof e?(o=this.__isAsync?function(t){setTimeout(function(){return e.next(t)})}:function(t){e.next(t)},e.error&&(i=this.__isAsync?function(t){setTimeout(function(){return e.error(t)})}:function(t){e.error(t)}),e.complete&&(s=this.__isAsync?function(){setTimeout(function(){return e.complete()})}:function(){e.complete()})):(o=this.__isAsync?function(t){setTimeout(function(){return e(t)})}:function(t){e(t)},n&&(i=this.__isAsync?function(t){setTimeout(function(){return n(t)})}:function(t){n(t)}),r&&(s=this.__isAsync?function(){setTimeout(function(){return r()})}:function(){r()}));var u=t.prototype.subscribe.call(this,o,i,s);return e instanceof w&&e.add(u),u},e}(rt),He=function(){function t(t){var e,n=t.enableLongStackTrace,r=void 0!==n&&n;if(this.hasPendingMicrotasks=!1,this.hasPendingMacrotasks=!1,this.isStable=!0,this.onUnstable=new Le(!1),this.onMicrotaskEmpty=new Le(!1),this.onStable=new Le(!1),this.onError=new Le(!1),"undefined"==typeof Zone)throw new Error("In this configuration Angular requires Zone.js");Zone.assertZonePatched(),this._nesting=0,this._outer=this._inner=Zone.current,Zone.wtfZoneSpec&&(this._inner=this._inner.fork(Zone.wtfZoneSpec)),Zone.TaskTrackingZoneSpec&&(this._inner=this._inner.fork(new Zone.TaskTrackingZoneSpec)),r&&Zone.longStackTraceZoneSpec&&(this._inner=this._inner.fork(Zone.longStackTraceZoneSpec)),(e=this)._inner=e._inner.fork({name:"angular",properties:{isAngularZone:!0},onInvokeTask:function(t,n,r,o,i,s){try{return Be(e),t.invokeTask(r,o,i,s)}finally{Ge(e)}},onInvoke:function(t,n,r,o,i,s,u){try{return Be(e),t.invoke(r,o,i,s,u)}finally{Ge(e)}},onHasTask:function(t,n,r,o){t.hasTask(r,o),n===r&&("microTask"==o.change?(e.hasPendingMicrotasks=o.microTask,qe(e)):"macroTask"==o.change&&(e.hasPendingMacrotasks=o.macroTask))},onHandleError:function(t,n,r,o){return t.handleError(r,o),e.runOutsideAngular(function(){return e.onError.emit(o)}),!1}})}return t.isInAngularZone=function(){return!0===Zone.current.get("isAngularZone")},t.assertInAngularZone=function(){if(!t.isInAngularZone())throw new Error("Expected to be in Angular Zone, but it is not!")},t.assertNotInAngularZone=function(){if(t.isInAngularZone())throw new Error("Expected to not be in Angular Zone, but it is!")},t.prototype.run=function(t,e,n){return this._inner.run(t,e,n)},t.prototype.runTask=function(t,e,n,r){var o=this._inner,i=o.scheduleEventTask("NgZoneEvent: "+r,t,ze,Fe,Fe);try{return o.runTask(i,e,n)}finally{o.cancelTask(i)}},t.prototype.runGuarded=function(t,e,n){return this._inner.runGuarded(t,e,n)},t.prototype.runOutsideAngular=function(t){return this._outer.run(t)},t}();function Fe(){}var ze={};function qe(t){if(0==t._nesting&&!t.hasPendingMicrotasks&&!t.isStable)try{t._nesting++,t.onMicrotaskEmpty.emit(null)}finally{if(t._nesting--,!t.hasPendingMicrotasks)try{t.runOutsideAngular(function(){return t.onStable.emit(null)})}finally{t.isStable=!0}}}function Be(t){t._nesting++,t.isStable&&(t.isStable=!1,t.onUnstable.emit(null))}function Ge(t){t._nesting--,qe(t)}var We,Ze=function(){function t(){this.hasPendingMicrotasks=!1,this.hasPendingMacrotasks=!1,this.isStable=!0,this.onUnstable=new Le,this.onMicrotaskEmpty=new Le,this.onStable=new Le,this.onError=new Le}return t.prototype.run=function(t){return t()},t.prototype.runGuarded=function(t){return t()},t.prototype.runOutsideAngular=function(t){return t()},t.prototype.runTask=function(t){return t()},t}(),Qe=function(){function t(t){var e=this;this._ngZone=t,this._pendingCount=0,this._isZoneStable=!0,this._didWork=!1,this._callbacks=[],this._watchAngularEvents(),t.run(function(){e.taskTrackingZone=Zone.current.get("TaskTrackingZone")})}return t.prototype._watchAngularEvents=function(){var t=this;this._ngZone.onUnstable.subscribe({next:function(){t._didWork=!0,t._isZoneStable=!1}}),this._ngZone.runOutsideAngular(function(){t._ngZone.onStable.subscribe({next:function(){He.assertNotInAngularZone(),St(function(){t._isZoneStable=!0,t._runCallbacksIfReady()})}})})},t.prototype.increasePendingRequestCount=function(){return this._pendingCount+=1,this._didWork=!0,this._pendingCount},t.prototype.decreasePendingRequestCount=function(){if(this._pendingCount-=1,this._pendingCount<0)throw new Error("pending async requests below zero");return this._runCallbacksIfReady(),this._pendingCount},t.prototype.isStable=function(){return this._isZoneStable&&0===this._pendingCount&&!this._ngZone.hasPendingMacrotasks},t.prototype._runCallbacksIfReady=function(){var t=this;if(this.isStable())St(function(){for(;0!==t._callbacks.length;){var e=t._callbacks.pop();clearTimeout(e.timeoutId),e.doneCb(t._didWork)}t._didWork=!1});else{var e=this.getPendingTasks();this._callbacks=this._callbacks.filter(function(t){return!t.updateCb||!t.updateCb(e)||(clearTimeout(t.timeoutId),!1)}),this._didWork=!0}},t.prototype.getPendingTasks=function(){return this.taskTrackingZone?this.taskTrackingZone.macroTasks.map(function(t){return{source:t.source,isPeriodic:t.data.isPeriodic,delay:t.data.delay,creationLocation:t.creationLocation,xhr:t.data.target}}):[]},t.prototype.addCallback=function(t,e,n){var r=this,o=-1;e&&e>0&&(o=setTimeout(function(){r._callbacks=r._callbacks.filter(function(t){return t.timeoutId!==o}),t(r._didWork,r.getPendingTasks())},e)),this._callbacks.push({doneCb:t,timeoutId:o,updateCb:n})},t.prototype.whenStable=function(t,e,n){if(n&&!this.taskTrackingZone)throw new Error('Task tracking zone is required when passing an update callback to whenStable(). Is "zone.js/dist/task-tracking.js" loaded?');this.addCallback(t,e,n),this._runCallbacksIfReady()},t.prototype.getPendingRequestCount=function(){return this._pendingCount},t.prototype.findProviders=function(t,e,n){return[]},t}(),Ke=function(){function t(){this._applications=new Map,Ye.addToWindow(this)}return t.prototype.registerApplication=function(t,e){this._applications.set(t,e)},t.prototype.unregisterApplication=function(t){this._applications.delete(t)},t.prototype.unregisterAllApplications=function(){this._applications.clear()},t.prototype.getTestability=function(t){return this._applications.get(t)||null},t.prototype.getAllTestabilities=function(){return Array.from(this._applications.values())},t.prototype.getAllRootElements=function(){return Array.from(this._applications.keys())},t.prototype.findTestabilityInTree=function(t,e){return void 0===e&&(e=!0),Ye.findTestabilityInTree(this,t,e)},t.ctorParameters=function(){return[]},t}(),Ye=new(function(){function t(){}return t.prototype.addToWindow=function(t){},t.prototype.findTestabilityInTree=function(t,e,n){return null},t}()),Je=!0,Xe=!1,$e=new ft("AllowMultipleToken");function tn(){return Xe=!0,Je}var en=function(t,e){this.name=t,this.token=e};function nn(t,e,n){void 0===n&&(n=[]);var r="Platform: "+e,o=new ft(r);return function(e){void 0===e&&(e=[]);var i=rn();if(!i||i.injector.get($e,!1))if(t)t(n.concat(e).concat({provide:o,useValue:!0}));else{var s=n.concat(e).concat({provide:o,useValue:!0});!function(t){if(We&&!We.destroyed&&!We.injector.get($e,!1))throw new Error("There can be only one platform. Destroy the previous one to create a new one.");We=t.get(on);var e=t.get(ge,null);e&&e.forEach(function(t){return t()})}(Dt.create({providers:s,name:r}))}return function(t){var e=rn();if(!e)throw new Error("No platform exists!");if(!e.injector.get(t,null))throw new Error("A platform with a different configuration has been created. Please destroy it first.");return e}(o)}}function rn(){return We&&!We.destroyed?We:null}var on=function(){function t(t){this._injector=t,this._modules=[],this._destroyListeners=[],this._destroyed=!1}return t.prototype.bootstrapModuleFactory=function(t,e){var n,r=this,o="noop"===(n=e?e.ngZone:void 0)?new Ze:("zone.js"===n?void 0:n)||new He({enableLongStackTrace:tn()}),i=[{provide:He,useValue:o}];return o.run(function(){var e=Dt.create({providers:i,parent:r.injector,name:t.moduleType.name}),n=t.create(e),s=n.injector.get(ae,null);if(!s)throw new Error("No ErrorHandler. Is platform module (BrowserModule) included?");return n.onDestroy(function(){return an(r._modules,n)}),o.runOutsideAngular(function(){return o.onError.subscribe({next:function(t){s.handleError(t)}})}),function(t,e,o){try{var i=((s=n.injector.get(fe)).runInitializers(),s.donePromise.then(function(){return r._moduleDoBootstrap(n),n}));return le(i)?i.catch(function(n){throw e.runOutsideAngular(function(){return t.handleError(n)}),n}):i}catch(n){throw e.runOutsideAngular(function(){return t.handleError(n)}),n}var s}(s,o)})},t.prototype.bootstrapModule=function(t,e){var n=this;void 0===e&&(e=[]);var r=this.injector.get(xe),o=sn({},e);return r.createCompiler([o]).compileModuleAsync(t).then(function(t){return n.bootstrapModuleFactory(t,o)})},t.prototype._moduleDoBootstrap=function(t){var e=t.injector.get(un);if(t._bootstrapComponents.length>0)t._bootstrapComponents.forEach(function(t){return e.bootstrap(t)});else{if(!t.instance.ngDoBootstrap)throw new Error("The module "+Ot(t.instance.constructor)+' was bootstrapped, but it does not declare "@NgModule.bootstrap" components nor a "ngDoBootstrap" method. Please define one of these.');t.instance.ngDoBootstrap(e)}this._modules.push(t)},t.prototype.onDestroy=function(t){this._destroyListeners.push(t)},Object.defineProperty(t.prototype,"injector",{get:function(){return this._injector},enumerable:!0,configurable:!0}),t.prototype.destroy=function(){if(this._destroyed)throw new Error("The platform has already been destroyed!");this._modules.slice().forEach(function(t){return t.destroy()}),this._destroyListeners.forEach(function(t){return t()}),this._destroyed=!0},Object.defineProperty(t.prototype,"destroyed",{get:function(){return this._destroyed},enumerable:!0,configurable:!0}),t}();function sn(t,e){return Array.isArray(e)?e.reduce(sn,t):i({},t,e)}var un=function(){function t(t,e,n,r,o,i){var s=this;this._zone=t,this._console=e,this._injector=n,this._exceptionHandler=r,this._componentFactoryResolver=o,this._initStatus=i,this._bootstrapListeners=[],this._views=[],this._runningTick=!1,this._enforceNoNewChanges=!1,this._stable=!0,this.componentTypes=[],this.components=[],this._enforceNoNewChanges=tn(),this._zone.onMicrotaskEmpty.subscribe({next:function(){s._zone.run(function(){s.tick()})}});var u=new I(function(t){s._stable=s._zone.isStable&&!s._zone.hasPendingMacrotasks&&!s._zone.hasPendingMicrotasks,s._zone.runOutsideAngular(function(){t.next(s._stable),t.complete()})}),a=new I(function(t){var e;s._zone.runOutsideAngular(function(){e=s._zone.onStable.subscribe(function(){He.assertNotInAngularZone(),St(function(){s._stable||s._zone.hasPendingMacrotasks||s._zone.hasPendingMicrotasks||(s._stable=!0,t.next(!0))})})});var n=s._zone.onUnstable.subscribe(function(){He.assertInAngularZone(),s._stable&&(s._stable=!1,s._zone.runOutsideAngular(function(){t.next(!1)}))});return function(){e.unsubscribe(),n.unsubscribe()}});this.isStable=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=Number.POSITIVE_INFINITY,r=null,o=t[t.length-1];return N(o)?(r=t.pop(),t.length>1&&"number"==typeof t[t.length-1]&&(n=t.pop())):"number"==typeof o&&(n=t.pop()),null===r&&1===t.length&&t[0]instanceof I?t[0]:$(n)(Z(t,r))}(u,a.pipe(function(t){return it()((e=ht,function(t){var n;n="function"==typeof e?e:function(){return e};var r=Object.create(t,ct);return r.source=t,r.subjectFactory=n,r})(t));var e}))}return t.prototype.bootstrap=function(t,e){var n,r=this;if(!this._initStatus.done)throw new Error("Cannot bootstrap as there are still asynchronous initializers running. Bootstrap components in the `ngDoBootstrap` method of the root module.");n=t instanceof Se?t:this._componentFactoryResolver.resolveComponentFactory(t),this.componentTypes.push(n.componentType);var o=n instanceof Ne?null:this._injector.get(Re),i=n.create(Dt.NULL,[],e||n.selector,o);i.onDestroy(function(){r._unloadComponent(i)});var s=i.injector.get(Qe,null);return s&&i.injector.get(Ke).registerApplication(i.location.nativeElement,s),this._loadComponent(i),tn()&&this._console.log("Angular is running in the development mode. Call enableProdMode() to enable the production mode."),i},t.prototype.tick=function(){var e=this;if(this._runningTick)throw new Error("ApplicationRef.tick is called recursively");var n=t._tickScope();try{this._runningTick=!0,this._views.forEach(function(t){return t.detectChanges()}),this._enforceNoNewChanges&&this._views.forEach(function(t){return t.checkNoChanges()})}catch(t){this._zone.runOutsideAngular(function(){return e._exceptionHandler.handleError(t)})}finally{this._runningTick=!1,Ue(n)}},t.prototype.attachView=function(t){var e=t;this._views.push(e),e.attachToAppRef(this)},t.prototype.detachView=function(t){var e=t;an(this._views,e),e.detachFromAppRef()},t.prototype._loadComponent=function(t){this.attachView(t.hostView),this.tick(),this.components.push(t),this._injector.get(be,[]).concat(this._bootstrapListeners).forEach(function(e){return e(t)})},t.prototype._unloadComponent=function(t){this.detachView(t.hostView),an(this.components,t)},t.prototype.ngOnDestroy=function(){this._views.slice().forEach(function(t){return t.destroy()})},Object.defineProperty(t.prototype,"viewCount",{get:function(){return this._views.length},enumerable:!0,configurable:!0}),t._tickScope=De("ApplicationRef#tick()"),t}();function an(t,e){var n=t.indexOf(e);n>-1&&t.splice(n,1)}var cn=function(){},ln=function(t){return t[t.Important=1]="Important",t[t.DashCase=2]="DashCase",t}({}),hn=function(){},pn=function(t){this.nativeElement=t},fn=function(){},dn=function(){function t(){this.dirty=!0,this._results=[],this.changes=new Le,this.length=0}return t.prototype.map=function(t){return this._results.map(t)},t.prototype.filter=function(t){return this._results.filter(t)},t.prototype.find=function(t){return this._results.find(t)},t.prototype.reduce=function(t,e){return this._results.reduce(t,e)},t.prototype.forEach=function(t){this._results.forEach(t)},t.prototype.some=function(t){return this._results.some(t)},t.prototype.toArray=function(){return this._results.slice()},t.prototype[xt()]=function(){return this._results[xt()]()},t.prototype.toString=function(){return this._results.toString()},t.prototype.reset=function(t){this._results=function t(e){return e.reduce(function(e,n){var r=Array.isArray(n)?t(n):n;return e.concat(r)},[])}(t),this.dirty=!1,this.length=this._results.length,this.last=this._results[this.length-1],this.first=this._results[0]},t.prototype.notifyOnChanges=function(){this.changes.emit(this)},t.prototype.setDirty=function(){this.dirty=!0},t.prototype.destroy=function(){this.changes.complete(),this.changes.unsubscribe()},t}(),vn=function(){},yn={factoryPathPrefix:"",factoryPathSuffix:".ngfactory"},gn=function(){function t(t,e){this._compiler=t,this._config=e||yn}return t.prototype.load=function(t){return this._compiler instanceof Ce?this.loadFactory(t):this.loadAndCompile(t)},t.prototype.loadAndCompile=function(t){var e=this,r=u(t.split("#"),2),o=r[0],i=r[1];return void 0===i&&(i="default"),n("crnd")(o).then(function(t){return t[i]}).then(function(t){return mn(t,o,i)}).then(function(t){return e._compiler.compileModuleAsync(t)})},t.prototype.loadFactory=function(t){var e=u(t.split("#"),2),r=e[0],o=e[1],i="NgFactory";return void 0===o&&(o="default",i=""),n("crnd")(this._config.factoryPathPrefix+r+this._config.factoryPathSuffix).then(function(t){return t[o+i]}).then(function(t){return mn(t,r,o)})},t}();function mn(t,e,n){if(!t)throw new Error("Cannot find '"+n+"' in '"+e+"'");return t}var bn=function(){},_n=function(){},wn=function(){},Cn=function(){function t(t,e,n){this._debugContext=n,this.nativeNode=t,e&&e instanceof xn?e.addChild(this):this.parent=null,this.listeners=[]}return Object.defineProperty(t.prototype,"injector",{get:function(){return this._debugContext.injector},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"componentInstance",{get:function(){return this._debugContext.component},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"context",{get:function(){return this._debugContext.context},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"references",{get:function(){return this._debugContext.references},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"providerTokens",{get:function(){return this._debugContext.providerTokens},enumerable:!0,configurable:!0}),t}(),xn=function(t){function e(e,n,r){var o=t.call(this,e,n,r)||this;return o.properties={},o.attributes={},o.classes={},o.styles={},o.childNodes=[],o.nativeElement=e,o}return o(e,t),e.prototype.addChild=function(t){t&&(this.childNodes.push(t),t.parent=this)},e.prototype.removeChild=function(t){var e=this.childNodes.indexOf(t);-1!==e&&(t.parent=null,this.childNodes.splice(e,1))},e.prototype.insertChildrenAfter=function(t,e){var n,r=this,o=this.childNodes.indexOf(t);-1!==o&&((n=this.childNodes).splice.apply(n,a([o+1,0],e)),e.forEach(function(t){t.parent&&t.parent.removeChild(t),t.parent=r}))},e.prototype.insertBefore=function(t,e){var n=this.childNodes.indexOf(t);-1===n?this.addChild(e):(e.parent&&e.parent.removeChild(e),e.parent=this,this.childNodes.splice(n,0,e))},e.prototype.query=function(t){return this.queryAll(t)[0]||null},e.prototype.queryAll=function(t){var e=[];return function t(e,n,r){e.childNodes.forEach(function(e){e instanceof xn&&(n(e)&&r.push(e),t(e,n,r))})}(this,t,e),e},e.prototype.queryAllNodes=function(t){var e=[];return function t(e,n,r){e instanceof xn&&e.childNodes.forEach(function(e){n(e)&&r.push(e),e instanceof xn&&t(e,n,r)})}(this,t,e),e},Object.defineProperty(e.prototype,"children",{get:function(){return this.childNodes.filter(function(t){return t instanceof e})},enumerable:!0,configurable:!0}),e.prototype.triggerEventHandler=function(t,e){this.listeners.forEach(function(n){n.name==t&&n.callback(e)})},e}(Cn),Sn=new Map;function En(t){return Sn.get(t)||null}function On(t){Sn.set(t.nativeNode,t)}function Tn(t,e){var n=In(t),r=In(e);return n&&r?function(t,e,n){for(var r=t[xt()](),o=e[xt()]();;){var i=r.next(),s=o.next();if(i.done&&s.done)return!0;if(i.done||s.done)return!1;if(!n(i.value,s.value))return!1}}(t,e,Tn):!(n||!t||"object"!=typeof t&&"function"!=typeof t||r||!e||"object"!=typeof e&&"function"!=typeof e)||Et(t,e)}var An=function(){function t(t){this.wrapped=t}return t.wrap=function(e){return new t(e)},t.unwrap=function(e){return t.isWrapped(e)?e.wrapped:e},t.isWrapped=function(e){return e instanceof t},t}(),Pn=function(){function t(t,e,n){this.previousValue=t,this.currentValue=e,this.firstChange=n}return t.prototype.isFirstChange=function(){return this.firstChange},t}();function In(t){return!!kn(t)&&(Array.isArray(t)||!(t instanceof Map)&&xt()in t)}function kn(t){return null!==t&&("function"==typeof t||"object"==typeof t)}var Nn=function(){function t(){}return t.prototype.supports=function(t){return In(t)},t.prototype.create=function(t){return new jn(t)},t}(),Rn=function(t,e){return e},jn=function(){function t(t){this.length=0,this._linkedRecords=null,this._unlinkedRecords=null,this._previousItHead=null,this._itHead=null,this._itTail=null,this._additionsHead=null,this._additionsTail=null,this._movesHead=null,this._movesTail=null,this._removalsHead=null,this._removalsTail=null,this._identityChangesHead=null,this._identityChangesTail=null,this._trackByFn=t||Rn}return t.prototype.forEachItem=function(t){var e;for(e=this._itHead;null!==e;e=e._next)t(e)},t.prototype.forEachOperation=function(t){for(var e=this._itHead,n=this._removalsHead,r=0,o=null;e||n;){var i=!n||e&&e.currentIndex<Un(n,r,o)?e:n,s=Un(i,r,o),u=i.currentIndex;if(i===n)r--,n=n._nextRemoved;else if(e=e._next,null==i.previousIndex)r++;else{o||(o=[]);var a=s-r,c=u-r;if(a!=c){for(var l=0;l<a;l++){var h=l<o.length?o[l]:o[l]=0,p=h+l;c<=p&&p<a&&(o[l]=h+1)}o[i.previousIndex]=c-a}}s!==u&&t(i,s,u)}},t.prototype.forEachPreviousItem=function(t){var e;for(e=this._previousItHead;null!==e;e=e._nextPrevious)t(e)},t.prototype.forEachAddedItem=function(t){var e;for(e=this._additionsHead;null!==e;e=e._nextAdded)t(e)},t.prototype.forEachMovedItem=function(t){var e;for(e=this._movesHead;null!==e;e=e._nextMoved)t(e)},t.prototype.forEachRemovedItem=function(t){var e;for(e=this._removalsHead;null!==e;e=e._nextRemoved)t(e)},t.prototype.forEachIdentityChange=function(t){var e;for(e=this._identityChangesHead;null!==e;e=e._nextIdentityChange)t(e)},t.prototype.diff=function(t){if(null==t&&(t=[]),!In(t))throw new Error("Error trying to diff '"+Ot(t)+"'. Only arrays and iterables are allowed");return this.check(t)?this:null},t.prototype.onDestroy=function(){},t.prototype.check=function(t){var e=this;this._reset();var n,r,o,i=this._itHead,s=!1;if(Array.isArray(t)){this.length=t.length;for(var u=0;u<this.length;u++)o=this._trackByFn(u,r=t[u]),null!==i&&Et(i.trackById,o)?(s&&(i=this._verifyReinsertion(i,r,o,u)),Et(i.item,r)||this._addIdentityChange(i,r)):(i=this._mismatch(i,r,o,u),s=!0),i=i._next}else n=0,function(t,e){if(Array.isArray(t))for(var n=0;n<t.length;n++)e(t[n]);else for(var r=t[xt()](),o=void 0;!(o=r.next()).done;)e(o.value)}(t,function(t){o=e._trackByFn(n,t),null!==i&&Et(i.trackById,o)?(s&&(i=e._verifyReinsertion(i,t,o,n)),Et(i.item,t)||e._addIdentityChange(i,t)):(i=e._mismatch(i,t,o,n),s=!0),i=i._next,n++}),this.length=n;return this._truncate(i),this.collection=t,this.isDirty},Object.defineProperty(t.prototype,"isDirty",{get:function(){return null!==this._additionsHead||null!==this._movesHead||null!==this._removalsHead||null!==this._identityChangesHead},enumerable:!0,configurable:!0}),t.prototype._reset=function(){if(this.isDirty){var t=void 0,e=void 0;for(t=this._previousItHead=this._itHead;null!==t;t=t._next)t._nextPrevious=t._next;for(t=this._additionsHead;null!==t;t=t._nextAdded)t.previousIndex=t.currentIndex;for(this._additionsHead=this._additionsTail=null,t=this._movesHead;null!==t;t=e)t.previousIndex=t.currentIndex,e=t._nextMoved;this._movesHead=this._movesTail=null,this._removalsHead=this._removalsTail=null,this._identityChangesHead=this._identityChangesTail=null}},t.prototype._mismatch=function(t,e,n,r){var o;return null===t?o=this._itTail:(o=t._prev,this._remove(t)),null!==(t=null===this._linkedRecords?null:this._linkedRecords.get(n,r))?(Et(t.item,e)||this._addIdentityChange(t,e),this._moveAfter(t,o,r)):null!==(t=null===this._unlinkedRecords?null:this._unlinkedRecords.get(n,null))?(Et(t.item,e)||this._addIdentityChange(t,e),this._reinsertAfter(t,o,r)):t=this._addAfter(new Vn(e,n),o,r),t},t.prototype._verifyReinsertion=function(t,e,n,r){var o=null===this._unlinkedRecords?null:this._unlinkedRecords.get(n,null);return null!==o?t=this._reinsertAfter(o,t._prev,r):t.currentIndex!=r&&(t.currentIndex=r,this._addToMoves(t,r)),t},t.prototype._truncate=function(t){for(;null!==t;){var e=t._next;this._addToRemovals(this._unlink(t)),t=e}null!==this._unlinkedRecords&&this._unlinkedRecords.clear(),null!==this._additionsTail&&(this._additionsTail._nextAdded=null),null!==this._movesTail&&(this._movesTail._nextMoved=null),null!==this._itTail&&(this._itTail._next=null),null!==this._removalsTail&&(this._removalsTail._nextRemoved=null),null!==this._identityChangesTail&&(this._identityChangesTail._nextIdentityChange=null)},t.prototype._reinsertAfter=function(t,e,n){null!==this._unlinkedRecords&&this._unlinkedRecords.remove(t);var r=t._prevRemoved,o=t._nextRemoved;return null===r?this._removalsHead=o:r._nextRemoved=o,null===o?this._removalsTail=r:o._prevRemoved=r,this._insertAfter(t,e,n),this._addToMoves(t,n),t},t.prototype._moveAfter=function(t,e,n){return this._unlink(t),this._insertAfter(t,e,n),this._addToMoves(t,n),t},t.prototype._addAfter=function(t,e,n){return this._insertAfter(t,e,n),this._additionsTail=null===this._additionsTail?this._additionsHead=t:this._additionsTail._nextAdded=t,t},t.prototype._insertAfter=function(t,e,n){var r=null===e?this._itHead:e._next;return t._next=r,t._prev=e,null===r?this._itTail=t:r._prev=t,null===e?this._itHead=t:e._next=t,null===this._linkedRecords&&(this._linkedRecords=new Dn),this._linkedRecords.put(t),t.currentIndex=n,t},t.prototype._remove=function(t){return this._addToRemovals(this._unlink(t))},t.prototype._unlink=function(t){null!==this._linkedRecords&&this._linkedRecords.remove(t);var e=t._prev,n=t._next;return null===e?this._itHead=n:e._next=n,null===n?this._itTail=e:n._prev=e,t},t.prototype._addToMoves=function(t,e){return t.previousIndex===e?t:(this._movesTail=null===this._movesTail?this._movesHead=t:this._movesTail._nextMoved=t,t)},t.prototype._addToRemovals=function(t){return null===this._unlinkedRecords&&(this._unlinkedRecords=new Dn),this._unlinkedRecords.put(t),t.currentIndex=null,t._nextRemoved=null,null===this._removalsTail?(this._removalsTail=this._removalsHead=t,t._prevRemoved=null):(t._prevRemoved=this._removalsTail,this._removalsTail=this._removalsTail._nextRemoved=t),t},t.prototype._addIdentityChange=function(t,e){return t.item=e,this._identityChangesTail=null===this._identityChangesTail?this._identityChangesHead=t:this._identityChangesTail._nextIdentityChange=t,t},t}(),Vn=function(t,e){this.item=t,this.trackById=e,this.currentIndex=null,this.previousIndex=null,this._nextPrevious=null,this._prev=null,this._next=null,this._prevDup=null,this._nextDup=null,this._prevRemoved=null,this._nextRemoved=null,this._nextAdded=null,this._nextMoved=null,this._nextIdentityChange=null},Mn=function(){function t(){this._head=null,this._tail=null}return t.prototype.add=function(t){null===this._head?(this._head=this._tail=t,t._nextDup=null,t._prevDup=null):(this._tail._nextDup=t,t._prevDup=this._tail,t._nextDup=null,this._tail=t)},t.prototype.get=function(t,e){var n;for(n=this._head;null!==n;n=n._nextDup)if((null===e||e<=n.currentIndex)&&Et(n.trackById,t))return n;return null},t.prototype.remove=function(t){var e=t._prevDup,n=t._nextDup;return null===e?this._head=n:e._nextDup=n,null===n?this._tail=e:n._prevDup=e,null===this._head},t}(),Dn=function(){function t(){this.map=new Map}return t.prototype.put=function(t){var e=t.trackById,n=this.map.get(e);n||(n=new Mn,this.map.set(e,n)),n.add(t)},t.prototype.get=function(t,e){var n=this.map.get(t);return n?n.get(t,e):null},t.prototype.remove=function(t){var e=t.trackById;return this.map.get(e).remove(t)&&this.map.delete(e),t},Object.defineProperty(t.prototype,"isEmpty",{get:function(){return 0===this.map.size},enumerable:!0,configurable:!0}),t.prototype.clear=function(){this.map.clear()},t}();function Un(t,e,n){var r=t.previousIndex;if(null===r)return r;var o=0;return n&&r<n.length&&(o=n[r]),r+e+o}var Ln=function(){function t(){}return t.prototype.supports=function(t){return t instanceof Map||kn(t)},t.prototype.create=function(){return new Hn},t}(),Hn=function(){function t(){this._records=new Map,this._mapHead=null,this._appendAfter=null,this._previousMapHead=null,this._changesHead=null,this._changesTail=null,this._additionsHead=null,this._additionsTail=null,this._removalsHead=null,this._removalsTail=null}return Object.defineProperty(t.prototype,"isDirty",{get:function(){return null!==this._additionsHead||null!==this._changesHead||null!==this._removalsHead},enumerable:!0,configurable:!0}),t.prototype.forEachItem=function(t){var e;for(e=this._mapHead;null!==e;e=e._next)t(e)},t.prototype.forEachPreviousItem=function(t){var e;for(e=this._previousMapHead;null!==e;e=e._nextPrevious)t(e)},t.prototype.forEachChangedItem=function(t){var e;for(e=this._changesHead;null!==e;e=e._nextChanged)t(e)},t.prototype.forEachAddedItem=function(t){var e;for(e=this._additionsHead;null!==e;e=e._nextAdded)t(e)},t.prototype.forEachRemovedItem=function(t){var e;for(e=this._removalsHead;null!==e;e=e._nextRemoved)t(e)},t.prototype.diff=function(t){if(t){if(!(t instanceof Map||kn(t)))throw new Error("Error trying to diff '"+Ot(t)+"'. Only maps and objects are allowed")}else t=new Map;return this.check(t)?this:null},t.prototype.onDestroy=function(){},t.prototype.check=function(t){var e=this;this._reset();var n=this._mapHead;if(this._appendAfter=null,this._forEach(t,function(t,r){if(n&&n.key===r)e._maybeAddToChanges(n,t),e._appendAfter=n,n=n._next;else{var o=e._getOrCreateRecordForKey(r,t);n=e._insertBeforeOrAppend(n,o)}}),n){n._prev&&(n._prev._next=null),this._removalsHead=n;for(var r=n;null!==r;r=r._nextRemoved)r===this._mapHead&&(this._mapHead=null),this._records.delete(r.key),r._nextRemoved=r._next,r.previousValue=r.currentValue,r.currentValue=null,r._prev=null,r._next=null}return this._changesTail&&(this._changesTail._nextChanged=null),this._additionsTail&&(this._additionsTail._nextAdded=null),this.isDirty},t.prototype._insertBeforeOrAppend=function(t,e){if(t){var n=t._prev;return e._next=t,e._prev=n,t._prev=e,n&&(n._next=e),t===this._mapHead&&(this._mapHead=e),this._appendAfter=t,t}return this._appendAfter?(this._appendAfter._next=e,e._prev=this._appendAfter):this._mapHead=e,this._appendAfter=e,null},t.prototype._getOrCreateRecordForKey=function(t,e){if(this._records.has(t)){var n=this._records.get(t);this._maybeAddToChanges(n,e);var r=n._prev,o=n._next;return r&&(r._next=o),o&&(o._prev=r),n._next=null,n._prev=null,n}var i=new Fn(t);return this._records.set(t,i),i.currentValue=e,this._addToAdditions(i),i},t.prototype._reset=function(){if(this.isDirty){var t=void 0;for(this._previousMapHead=this._mapHead,t=this._previousMapHead;null!==t;t=t._next)t._nextPrevious=t._next;for(t=this._changesHead;null!==t;t=t._nextChanged)t.previousValue=t.currentValue;for(t=this._additionsHead;null!=t;t=t._nextAdded)t.previousValue=t.currentValue;this._changesHead=this._changesTail=null,this._additionsHead=this._additionsTail=null,this._removalsHead=null}},t.prototype._maybeAddToChanges=function(t,e){Et(e,t.currentValue)||(t.previousValue=t.currentValue,t.currentValue=e,this._addToChanges(t))},t.prototype._addToAdditions=function(t){null===this._additionsHead?this._additionsHead=this._additionsTail=t:(this._additionsTail._nextAdded=t,this._additionsTail=t)},t.prototype._addToChanges=function(t){null===this._changesHead?this._changesHead=this._changesTail=t:(this._changesTail._nextChanged=t,this._changesTail=t)},t.prototype._forEach=function(t,e){t instanceof Map?t.forEach(e):Object.keys(t).forEach(function(n){return e(t[n],n)})},t}(),Fn=function(t){this.key=t,this.previousValue=null,this.currentValue=null,this._nextPrevious=null,this._next=null,this._prev=null,this._nextAdded=null,this._nextRemoved=null,this._nextChanged=null},zn=function(){function t(t){this.factories=t}return t.create=function(e,n){if(null!=n){var r=n.factories.slice();e=e.concat(r)}return new t(e)},t.extend=function(e){return{provide:t,useFactory:function(n){if(!n)throw new Error("Cannot extend IterableDiffers without a parent injector");return t.create(e,n)},deps:[[t,new Nt,new It]]}},t.prototype.find=function(t){var e,n=this.factories.find(function(e){return e.supports(t)});if(null!=n)return n;throw new Error("Cannot find a differ supporting object '"+t+"' of type '"+((e=t).name||typeof e)+"'")},t.ngInjectableDef=pt({providedIn:"root",factory:function(){return new t([new Nn])}}),t}(),qn=function(){function t(t){this.factories=t}return t.create=function(e,n){if(n){var r=n.factories.slice();e=e.concat(r)}return new t(e)},t.extend=function(e){return{provide:t,useFactory:function(n){if(!n)throw new Error("Cannot extend KeyValueDiffers without a parent injector");return t.create(e,n)},deps:[[t,new Nt,new It]]}},t.prototype.find=function(t){var e=this.factories.find(function(e){return e.supports(t)});if(e)return e;throw new Error("Cannot find a differ supporting object '"+t+"'")},t}(),Bn=[new Ln],Gn=new zn([new Nn]),Wn=new qn(Bn),Zn=nn(null,"core",[{provide:me,useValue:"unknown"},{provide:on,deps:[Dt]},{provide:Ke,deps:[]},{provide:_e,deps:[]}]),Qn=new ft("LocaleId");function Kn(){return Gn}function Yn(){return Wn}function Jn(t){return t||"en-US"}var Xn=function(t){},$n=function(){function t(t){if(this.defaultDoc=t,this.inertDocument=this.defaultDoc.implementation.createHTMLDocument("sanitization-inert"),this.inertBodyElement=this.inertDocument.body,null==this.inertBodyElement){var e=this.inertDocument.createElement("html");this.inertDocument.appendChild(e),this.inertBodyElement=this.inertDocument.createElement("body"),e.appendChild(this.inertBodyElement)}this.inertBodyElement.innerHTML='<svg><g onload="this.parentNode.remove()"></g></svg>',!this.inertBodyElement.querySelector||this.inertBodyElement.querySelector("svg")?(this.inertBodyElement.innerHTML='<svg><p><style><img src="</style><img src=x onerror=alert(1)//">',this.getInertBodyElement=this.inertBodyElement.querySelector&&this.inertBodyElement.querySelector("svg img")&&function(){try{return!!window.DOMParser}catch(t){return!1}}()?this.getInertBodyElement_DOMParser:this.getInertBodyElement_InertDocument):this.getInertBodyElement=this.getInertBodyElement_XHR}return t.prototype.getInertBodyElement_XHR=function(t){t="<body><remove></remove>"+t+"</body>";try{t=encodeURI(t)}catch(t){return null}var e=new XMLHttpRequest;e.responseType="document",e.open("GET","data:text/html;charset=utf-8,"+t,!1),e.send(null);var n=e.response.body;return n.removeChild(n.firstChild),n},t.prototype.getInertBodyElement_DOMParser=function(t){t="<body><remove></remove>"+t+"</body>";try{var e=(new window.DOMParser).parseFromString(t,"text/html").body;return e.removeChild(e.firstChild),e}catch(t){return null}},t.prototype.getInertBodyElement_InertDocument=function(t){var e=this.inertDocument.createElement("template");return"content"in e?(e.innerHTML=t,e):(this.inertBodyElement.innerHTML=t,this.defaultDoc.documentMode&&this.stripCustomNsAttrs(this.inertBodyElement),this.inertBodyElement)},t.prototype.stripCustomNsAttrs=function(t){for(var e=t.attributes,n=e.length-1;0<n;n--){var r=e.item(n).name;"xmlns:ns1"!==r&&0!==r.indexOf("ns1:")||t.removeAttribute(r)}for(var o=t.firstChild;o;)o.nodeType===Node.ELEMENT_NODE&&this.stripCustomNsAttrs(o),o=o.nextSibling},t}(),tr=/^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi,er=/^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;function nr(t){return(t=String(t)).match(tr)||t.match(er)?t:(tn()&&console.warn("WARNING: sanitizing unsafe URL value "+t+" (see http://g.co/ng/security#xss)"),"unsafe:"+t)}function rr(t){var e,n,r={};try{for(var o=s(t.split(",")),i=o.next();!i.done;i=o.next())r[i.value]=!0}catch(t){e={error:t}}finally{try{i&&!i.done&&(n=o.return)&&n.call(o)}finally{if(e)throw e.error}}return r}function or(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n,r,o={};try{for(var i=s(t),u=i.next();!u.done;u=i.next()){var a=u.value;for(var c in a)a.hasOwnProperty(c)&&(o[c]=!0)}}catch(t){n={error:t}}finally{try{u&&!u.done&&(r=i.return)&&r.call(i)}finally{if(n)throw n.error}}return o}var ir,sr=rr("area,br,col,hr,img,wbr"),ur=rr("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr"),ar=rr("rp,rt"),cr=or(ar,ur),lr=or(sr,or(ur,rr("address,article,aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul")),or(ar,rr("a,abbr,acronym,audio,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video")),cr),hr=rr("background,cite,href,itemtype,longdesc,poster,src,xlink:href"),pr=rr("srcset"),fr=or(hr,pr,rr("abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,valign,value,vspace,width")),dr=function(){function t(){this.sanitizedSomething=!1,this.buf=[]}return t.prototype.sanitizeChildren=function(t){for(var e=t.firstChild;e;)if(e.nodeType===Node.ELEMENT_NODE?this.startElement(e):e.nodeType===Node.TEXT_NODE?this.chars(e.nodeValue):this.sanitizedSomething=!0,e.firstChild)e=e.firstChild;else for(;e;){e.nodeType===Node.ELEMENT_NODE&&this.endElement(e);var n=this.checkClobberedElement(e,e.nextSibling);if(n){e=n;break}e=this.checkClobberedElement(e,e.parentNode)}return this.buf.join("")},t.prototype.startElement=function(t){var e=t.nodeName.toLowerCase();if(lr.hasOwnProperty(e)){this.buf.push("<"),this.buf.push(e);for(var n,r=t.attributes,o=0;o<r.length;o++){var i=r.item(o),s=i.name,u=s.toLowerCase();if(fr.hasOwnProperty(u)){var a=i.value;hr[u]&&(a=nr(a)),pr[u]&&(n=a,a=(n=String(n)).split(",").map(function(t){return nr(t.trim())}).join(", ")),this.buf.push(" ",s,'="',gr(a),'"')}else this.sanitizedSomething=!0}this.buf.push(">")}else this.sanitizedSomething=!0},t.prototype.endElement=function(t){var e=t.nodeName.toLowerCase();lr.hasOwnProperty(e)&&!sr.hasOwnProperty(e)&&(this.buf.push("</"),this.buf.push(e),this.buf.push(">"))},t.prototype.chars=function(t){this.buf.push(gr(t))},t.prototype.checkClobberedElement=function(t,e){if(e&&(t.compareDocumentPosition(e)&Node.DOCUMENT_POSITION_CONTAINED_BY)===Node.DOCUMENT_POSITION_CONTAINED_BY)throw new Error("Failed to sanitize html because the element is clobbered: "+t.outerHTML);return e},t}(),vr=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,yr=/([^\#-~ |!])/g;function gr(t){return t.replace(/&/g,"&amp;").replace(vr,function(t){return"&#"+(1024*(t.charCodeAt(0)-55296)+(t.charCodeAt(1)-56320)+65536)+";"}).replace(yr,function(t){return"&#"+t.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function mr(t){return"content"in t&&function(t){return t.nodeType===Node.ELEMENT_NODE&&"TEMPLATE"===t.nodeName}(t)?t.content:null}var br=new RegExp("^([-,.\"'%_!# a-zA-Z0-9]+|(?:(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?|(?:rgb|hsl)a?|(?:repeating-)?(?:linear|radial)-gradient|(?:calc|attr))\\([-0-9.%, #a-zA-Z]+\\))$","g"),_r=/^url\(([^)]+)\)$/,wr=function(t){return t[t.NONE=0]="NONE",t[t.HTML=1]="HTML",t[t.STYLE=2]="STYLE",t[t.SCRIPT=3]="SCRIPT",t[t.URL=4]="URL",t[t.RESOURCE_URL=5]="RESOURCE_URL",t}({}),Cr=function(){};function xr(t,e,n){var r=t.state,o=1792&r;return o===e?(t.state=-1793&r|n,t.initIndex=-1,!0):o===n}function Sr(t,e,n){return(1792&t.state)===e&&t.initIndex<=n&&(t.initIndex=n+1,!0)}function Er(t,e){return t.nodes[e]}function Or(t,e){return t.nodes[e]}function Tr(t,e){return t.nodes[e]}function Ar(t,e){return t.nodes[e]}function Pr(t,e){return t.nodes[e]}var Ir={setCurrentNode:void 0,createRootView:void 0,createEmbeddedView:void 0,createComponentView:void 0,createNgModuleRef:void 0,overrideProvider:void 0,overrideComponentView:void 0,clearOverrides:void 0,checkAndUpdateView:void 0,checkNoChangesView:void 0,destroyView:void 0,resolveDep:void 0,createDebugContext:void 0,handleEvent:void 0,updateDirectives:void 0,updateRenderer:void 0,dirtyParentQueries:void 0};function kr(t,e,n,r){var o="ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: '"+e+"'. Current value: '"+n+"'.";return r&&(o+=" It seems like the view has been created after its parent and its children have been dirty checked. Has it been created in a change detection hook ?"),function(t,e){var n=new Error(t);return Nr(n,e),n}(o,t)}function Nr(t,e){t[ne]=e,t[oe]=e.logError.bind(e)}function Rr(t){return new Error("ViewDestroyedError: Attempt to use a destroyed view: "+t)}var jr=function(){},Vr=new Map;function Mr(t){var e=Vr.get(t);return e||(e=Ot(t)+"_"+Vr.size,Vr.set(t,e)),e}var Dr="$$undefined",Ur="$$empty";function Lr(t){return{id:Dr,styles:t.styles,encapsulation:t.encapsulation,data:t.data}}var Hr=0;function Fr(t,e,n,r){return!(!(2&t.state)&&Et(t.oldValues[e.bindingIndex+n],r))}function zr(t,e,n,r){return!!Fr(t,e,n,r)&&(t.oldValues[e.bindingIndex+n]=r,!0)}function qr(t,e,n,r){var o=t.oldValues[e.bindingIndex+n];if(1&t.state||!Tn(o,r)){var i=e.bindings[n].name;throw kr(Ir.createDebugContext(t,e.nodeIndex),i+": "+o,i+": "+r,0!=(1&t.state))}}function Br(t){for(var e=t;e;)2&e.def.flags&&(e.state|=8),e=e.viewContainerParent||e.parent}function Gr(t,e){for(var n=t;n&&n!==e;)n.state|=64,n=n.viewContainerParent||n.parent}function Wr(t,e,n,r){try{return Br(33554432&t.def.nodes[e].flags?Or(t,e).componentView:t),Ir.handleEvent(t,e,n,r)}catch(e){t.root.errorHandler.handleError(e)}}function Zr(t){return t.parent?Or(t.parent,t.parentNodeDef.nodeIndex):null}function Qr(t){return t.parent?t.parentNodeDef.parent:null}function Kr(t,e){switch(201347067&e.flags){case 1:return Or(t,e.nodeIndex).renderElement;case 2:return Er(t,e.nodeIndex).renderText}}function Yr(t){return!!t.parent&&!!(32768&t.parentNodeDef.flags)}function Jr(t){return!(!t.parent||32768&t.parentNodeDef.flags)}function Xr(t){return 1<<t%32}function $r(t){var e={},n=0,r={};return t&&t.forEach(function(t){var o=u(t,2),i=o[0],s=o[1];"number"==typeof i?(e[i]=s,n|=Xr(i)):r[i]=s}),{matchedQueries:e,references:r,matchedQueryIds:n}}function to(t,e){return t.map(function(t){var n,r,o;return Array.isArray(t)?(r=(o=u(t,2))[0],n=o[1]):(r=0,n=t),n&&("function"==typeof n||"object"==typeof n)&&e&&Object.defineProperty(n,Rt,{value:e,configurable:!0}),{flags:r,token:n,tokenKey:Mr(n)}})}function eo(t,e,n){var r=n.renderParent;return r?0==(1&r.flags)||0==(33554432&r.flags)||r.element.componentRendererType&&r.element.componentRendererType.encapsulation===te.Native?Or(t,n.renderParent.nodeIndex).renderElement:void 0:e}var no=new WeakMap;function ro(t){var e=no.get(t);return e||((e=t(function(){return jr})).factory=t,no.set(t,e)),e}function oo(t,e,n,r,o){3===e&&(n=t.renderer.parentNode(Kr(t,t.def.lastRenderRootNode))),io(t,e,0,t.def.nodes.length-1,n,r,o)}function io(t,e,n,r,o,i,s){for(var u=n;u<=r;u++){var a=t.def.nodes[u];11&a.flags&&uo(t,a,e,o,i,s),u+=a.childCount}}function so(t,e,n,r,o,i){for(var s=t;s&&!Yr(s);)s=s.parent;for(var u=s.parent,a=Qr(s),c=a.nodeIndex+a.childCount,l=a.nodeIndex+1;l<=c;l++){var h=u.def.nodes[l];h.ngContentIndex===e&&uo(u,h,n,r,o,i),l+=h.childCount}if(!u.parent){var p=t.root.projectableNodes[e];if(p)for(l=0;l<p.length;l++)ao(t,p[l],n,r,o,i)}}function uo(t,e,n,r,o,i){if(8&e.flags)so(t,e.ngContent.index,n,r,o,i);else{var s=Kr(t,e);if(3===n&&33554432&e.flags&&48&e.bindingFlags?(16&e.bindingFlags&&ao(t,s,n,r,o,i),32&e.bindingFlags&&ao(Or(t,e.nodeIndex).componentView,s,n,r,o,i)):ao(t,s,n,r,o,i),16777216&e.flags)for(var u=Or(t,e.nodeIndex).viewContainer._embeddedViews,a=0;a<u.length;a++)oo(u[a],n,r,o,i);1&e.flags&&!e.element.name&&io(t,n,e.nodeIndex+1,e.nodeIndex+e.childCount,r,o,i)}}function ao(t,e,n,r,o,i){var s=t.renderer;switch(n){case 1:s.appendChild(r,e);break;case 2:s.insertBefore(r,e,o);break;case 3:s.removeChild(r,e);break;case 0:i.push(e)}}var co=/^:([^:]+):(.+)$/;function lo(t){if(":"===t[0]){var e=t.match(co);return[e[1],e[2]]}return["",t]}function ho(t){for(var e=0,n=0;n<t.length;n++)e|=t[n].flags;return e}function po(t,e,n,r,o,i){t|=1;var s=$r(e);return{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,flags:t,checkIndex:-1,childFlags:0,directChildFlags:0,childMatchedQueries:0,matchedQueries:s.matchedQueries,matchedQueryIds:s.matchedQueryIds,references:s.references,ngContentIndex:n,childCount:r,bindings:[],bindingFlags:0,outputs:[],element:{ns:null,name:null,attrs:null,template:i?ro(i):null,componentProvider:null,componentView:null,componentRendererType:null,publicProviders:null,allProviders:null,handleEvent:o||jr},provider:null,text:null,query:null,ngContent:null}}function fo(t,e,n,r,o,i,s,a,c,l,h,p){void 0===s&&(s=[]),l||(l=jr);var f=$r(n),d=f.matchedQueries,v=f.references,y=f.matchedQueryIds,g=null,m=null;i&&(g=(k=u(lo(i),2))[0],m=k[1]),a=a||[];for(var b=new Array(a.length),_=0;_<a.length;_++){var w=u(a[_],3),C=w[0],x=w[2],S=u(lo(w[1]),2),E=S[0],O=S[1],T=void 0,A=void 0;switch(15&C){case 4:A=x;break;case 1:case 8:T=x}b[_]={flags:C,ns:E,name:O,nonMinifiedName:O,securityContext:T,suffix:A}}c=c||[];var P=new Array(c.length);for(_=0;_<c.length;_++){var I=u(c[_],2);P[_]={type:0,target:I[0],eventName:I[1],propName:null}}var k,N=(s=s||[]).map(function(t){var e=u(t,2),n=e[1],r=u(lo(e[0]),2);return[r[0],r[1],n]});return p=function(t){if(t&&t.id===Dr){var e=null!=t.encapsulation&&t.encapsulation!==te.None||t.styles.length||Object.keys(t.data).length;t.id=e?"c"+Hr++:Ur}return t&&t.id===Ur&&(t=null),t||null}(p),h&&(e|=33554432),{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,checkIndex:t,flags:e|=1,childFlags:0,directChildFlags:0,childMatchedQueries:0,matchedQueries:d,matchedQueryIds:y,references:v,ngContentIndex:r,childCount:o,bindings:b,bindingFlags:ho(b),outputs:P,element:{ns:g,name:m,attrs:N,template:null,componentProvider:null,componentView:h||null,componentRendererType:p,publicProviders:null,allProviders:null,handleEvent:l||jr},provider:null,text:null,query:null,ngContent:null}}function vo(t,e,n){var r,o=n.element,i=t.root.selectorOrNode,s=t.renderer;if(t.parent||!i){r=o.name?s.createElement(o.name,o.ns):s.createComment("");var a=eo(t,e,n);a&&s.appendChild(a,r)}else r=s.selectRootElement(i);if(o.attrs)for(var c=0;c<o.attrs.length;c++){var l=u(o.attrs[c],3);s.setAttribute(r,l[1],l[2],l[0])}return r}function yo(t,e,n,r){for(var o=0;o<n.outputs.length;o++){var i=n.outputs[o],s=go(t,n.nodeIndex,(h=i.eventName,(l=i.target)?l+":"+h:h)),u=i.target,a=t;"component"===i.target&&(u=null,a=e);var c=a.renderer.listen(u||r,i.eventName,s);t.disposables[n.outputIndex+o]=c}var l,h}function go(t,e,n){return function(r){return Wr(t,e,n,r)}}function mo(t,e,n,r){if(!zr(t,e,n,r))return!1;var o=e.bindings[n],i=Or(t,e.nodeIndex),s=i.renderElement,u=o.name;switch(15&o.flags){case 1:!function(t,e,n,r,o,i){var s=e.securityContext,u=s?t.root.sanitizer.sanitize(s,i):i;u=null!=u?u.toString():null;var a=t.renderer;null!=i?a.setAttribute(n,o,u,r):a.removeAttribute(n,o,r)}(t,o,s,o.ns,u,r);break;case 2:!function(t,e,n,r){var o=t.renderer;r?o.addClass(e,n):o.removeClass(e,n)}(t,s,u,r);break;case 4:!function(t,e,n,r,o){var i=t.root.sanitizer.sanitize(wr.STYLE,o);if(null!=i){i=i.toString();var s=e.suffix;null!=s&&(i+=s)}else i=null;var u=t.renderer;null!=i?u.setStyle(n,r,i):u.removeStyle(n,r)}(t,o,s,u,r);break;case 8:!function(t,e,n,r,o){var i=e.securityContext,s=i?t.root.sanitizer.sanitize(i,o):o;t.renderer.setProperty(n,r,s)}(33554432&e.flags&&32&o.flags?i.componentView:t,o,s,u,r)}return!0}var bo=new Object,_o=Mr(Dt),wo=Mr(Vt),Co=Mr(Re);function xo(t,e,n,r){return n=At(n),{index:-1,deps:to(r,Ot(e)),flags:t,token:e,value:n}}function So(t,e,n){void 0===n&&(n=Dt.THROW_IF_NOT_FOUND);var r,o,i=Xt(t);try{if(8&e.flags)return e.token;if(2&e.flags&&(n=null),1&e.flags)return t._parent.get(e.token,n);var s=e.tokenKey;switch(s){case _o:case wo:case Co:return t}var u=t._def.providersByKey[s];if(u){var a=t._providers[u.index];return void 0===a&&(a=t._providers[u.index]=Eo(t,u)),a===bo?void 0:a}if(e.token.ngInjectableDef&&(r=t,null!=(o=e.token.ngInjectableDef).providedIn&&(function(t,e){return t._def.modules.indexOf(o.providedIn)>-1}(r)||"root"===o.providedIn&&r._def.isRoot))){var c=t._providers.length;return t._def.providersByKey[e.tokenKey]={flags:5120,value:e.token.ngInjectableDef.factory,deps:[],index:c,token:e.token},t._providers[c]=bo,t._providers[c]=Eo(t,t._def.providersByKey[e.tokenKey])}return t._parent.get(e.token,n)}finally{Xt(i)}}function Eo(t,e){var n;switch(201347067&e.flags){case 512:n=function(t,e,n){var r=n.length;switch(r){case 0:return new e;case 1:return new e(So(t,n[0]));case 2:return new e(So(t,n[0]),So(t,n[1]));case 3:return new e(So(t,n[0]),So(t,n[1]),So(t,n[2]));default:for(var o=new Array(r),i=0;i<r;i++)o[i]=So(t,n[i]);return new(e.bind.apply(e,a([void 0],o)))}}(t,e.value,e.deps);break;case 1024:n=function(t,e,n){var r=n.length;switch(r){case 0:return e();case 1:return e(So(t,n[0]));case 2:return e(So(t,n[0]),So(t,n[1]));case 3:return e(So(t,n[0]),So(t,n[1]),So(t,n[2]));default:for(var o=Array(r),i=0;i<r;i++)o[i]=So(t,n[i]);return e.apply(void 0,a(o))}}(t,e.value,e.deps);break;case 2048:n=So(t,e.deps[0]);break;case 256:n=e.value}return void 0===n?bo:n}function Oo(t,e){var n=t.viewContainer._embeddedViews;if((null==e||e>=n.length)&&(e=n.length-1),e<0)return null;var r=n[e];return r.viewContainerParent=null,Io(n,e),Ir.dirtyParentQueries(r),Ao(r),r}function To(t,e,n){var r=e?Kr(e,e.def.lastRenderRootNode):t.renderElement;oo(n,2,n.renderer.parentNode(r),n.renderer.nextSibling(r),void 0)}function Ao(t){oo(t,3,null,null,void 0)}function Po(t,e,n){e>=t.length?t.push(n):t.splice(e,0,n)}function Io(t,e){e>=t.length-1?t.pop():t.splice(e,1)}var ko=new Object;function No(t,e,n,r,o,i){return new Ro(t,e,n,r,o,i)}var Ro=function(t){function e(e,n,r,o,i,s){var u=t.call(this)||this;return u.selector=e,u.componentType=n,u._inputs=o,u._outputs=i,u.ngContentSelectors=s,u.viewDefFactory=r,u}return o(e,t),Object.defineProperty(e.prototype,"inputs",{get:function(){var t=[],e=this._inputs;for(var n in e)t.push({propName:n,templateName:e[n]});return t},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputs",{get:function(){var t=[];for(var e in this._outputs)t.push({propName:e,templateName:this._outputs[e]});return t},enumerable:!0,configurable:!0}),e.prototype.create=function(t,e,n,r){if(!r)throw new Error("ngModule should be provided");var o=ro(this.viewDefFactory),i=o.nodes[0].element.componentProvider.nodeIndex,s=Ir.createRootView(t,e||[],n,o,r,ko),u=Tr(s,i).instance;return n&&s.renderer.setAttribute(Or(s,0).renderElement,"ng-version",ee.full),new jo(s,new Uo(s),u)},e}(Se),jo=function(t){function e(e,n,r){var o=t.call(this)||this;return o._view=e,o._viewRef=n,o._component=r,o._elDef=o._view.def.nodes[0],o.hostView=n,o.changeDetectorRef=n,o.instance=r,o}return o(e,t),Object.defineProperty(e.prototype,"location",{get:function(){return new pn(Or(this._view,this._elDef.nodeIndex).renderElement)},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"injector",{get:function(){return new zo(this._view,this._elDef)},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"componentType",{get:function(){return this._component.constructor},enumerable:!0,configurable:!0}),e.prototype.destroy=function(){this._viewRef.destroy()},e.prototype.onDestroy=function(t){this._viewRef.onDestroy(t)},e}(function(){});function Vo(t,e,n){return new Mo(t,e,n)}var Mo=function(){function t(t,e,n){this._view=t,this._elDef=e,this._data=n,this._embeddedViews=[]}return Object.defineProperty(t.prototype,"element",{get:function(){return new pn(this._data.renderElement)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"injector",{get:function(){return new zo(this._view,this._elDef)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"parentInjector",{get:function(){for(var t=this._view,e=this._elDef.parent;!e&&t;)e=Qr(t),t=t.parent;return t?new zo(t,e):new zo(this._view,null)},enumerable:!0,configurable:!0}),t.prototype.clear=function(){for(var t=this._embeddedViews.length-1;t>=0;t--){var e=Oo(this._data,t);Ir.destroyView(e)}},t.prototype.get=function(t){var e=this._embeddedViews[t];if(e){var n=new Uo(e);return n.attachToViewContainerRef(this),n}return null},Object.defineProperty(t.prototype,"length",{get:function(){return this._embeddedViews.length},enumerable:!0,configurable:!0}),t.prototype.createEmbeddedView=function(t,e,n){var r=t.createEmbeddedView(e||{});return this.insert(r,n),r},t.prototype.createComponent=function(t,e,n,r,o){var i=n||this.parentInjector;o||t instanceof Ne||(o=i.get(Re));var s=t.create(i,r,void 0,o);return this.insert(s.hostView,e),s},t.prototype.insert=function(t,e){if(t.destroyed)throw new Error("Cannot insert a destroyed View in a ViewContainer!");var n,r,o,i,s=t;return o=s._view,i=(n=this._data).viewContainer._embeddedViews,null!==(r=e)&&void 0!==r||(r=i.length),o.viewContainerParent=this._view,Po(i,r,o),function(t,e){var n=Zr(e);if(n&&n!==t&&!(16&e.state)){e.state|=16;var r=n.template._projectedViews;r||(r=n.template._projectedViews=[]),r.push(e),function(t,n){if(!(4&n.flags)){e.parent.def.nodeFlags|=4,n.flags|=4;for(var r=n.parent;r;)r.childFlags|=4,r=r.parent}}(0,e.parentNodeDef)}}(n,o),Ir.dirtyParentQueries(o),To(n,r>0?i[r-1]:null,o),s.attachToViewContainerRef(this),t},t.prototype.move=function(t,e){if(t.destroyed)throw new Error("Cannot move a destroyed View in a ViewContainer!");var n,r,o,i,s,u=this._embeddedViews.indexOf(t._view);return o=e,s=(i=(n=this._data).viewContainer._embeddedViews)[r=u],Io(i,r),null==o&&(o=i.length),Po(i,o,s),Ir.dirtyParentQueries(s),Ao(s),To(n,o>0?i[o-1]:null,s),t},t.prototype.indexOf=function(t){return this._embeddedViews.indexOf(t._view)},t.prototype.remove=function(t){var e=Oo(this._data,t);e&&Ir.destroyView(e)},t.prototype.detach=function(t){var e=Oo(this._data,t);return e?new Uo(e):null},t}();function Do(t){return new Uo(t)}var Uo=function(){function t(t){this._view=t,this._viewContainerRef=null,this._appRef=null}return Object.defineProperty(t.prototype,"rootNodes",{get:function(){return oo(this._view,0,void 0,void 0,t=[]),t;var t},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"context",{get:function(){return this._view.context},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"destroyed",{get:function(){return 0!=(128&this._view.state)},enumerable:!0,configurable:!0}),t.prototype.markForCheck=function(){Br(this._view)},t.prototype.detach=function(){this._view.state&=-5},t.prototype.detectChanges=function(){var t=this._view.root.rendererFactory;t.begin&&t.begin();try{Ir.checkAndUpdateView(this._view)}finally{t.end&&t.end()}},t.prototype.checkNoChanges=function(){Ir.checkNoChangesView(this._view)},t.prototype.reattach=function(){this._view.state|=4},t.prototype.onDestroy=function(t){this._view.disposables||(this._view.disposables=[]),this._view.disposables.push(t)},t.prototype.destroy=function(){this._appRef?this._appRef.detachView(this):this._viewContainerRef&&this._viewContainerRef.detach(this._viewContainerRef.indexOf(this)),Ir.destroyView(this._view)},t.prototype.detachFromAppRef=function(){this._appRef=null,Ao(this._view),Ir.dirtyParentQueries(this._view)},t.prototype.attachToAppRef=function(t){if(this._viewContainerRef)throw new Error("This view is already attached to a ViewContainer!");this._appRef=t},t.prototype.attachToViewContainerRef=function(t){if(this._appRef)throw new Error("This view is already attached directly to the ApplicationRef!");this._viewContainerRef=t},t}();function Lo(t,e){return new Ho(t,e)}var Ho=function(t){function e(e,n){var r=t.call(this)||this;return r._parentView=e,r._def=n,r}return o(e,t),e.prototype.createEmbeddedView=function(t){return new Uo(Ir.createEmbeddedView(this._parentView,this._def,this._def.element.template,t))},Object.defineProperty(e.prototype,"elementRef",{get:function(){return new pn(Or(this._parentView,this._def.nodeIndex).renderElement)},enumerable:!0,configurable:!0}),e}(bn);function Fo(t,e){return new zo(t,e)}var zo=function(){function t(t,e){this.view=t,this.elDef=e}return t.prototype.get=function(t,e){return void 0===e&&(e=Dt.THROW_IF_NOT_FOUND),Ir.resolveDep(this.view,this.elDef,!!this.elDef&&0!=(33554432&this.elDef.flags),{flags:0,token:t,tokenKey:Mr(t)},e)},t}();function qo(t,e){var n=t.def.nodes[e];if(1&n.flags){var r=Or(t,n.nodeIndex);return n.element.template?r.template:r.renderElement}if(2&n.flags)return Er(t,n.nodeIndex).renderText;if(20240&n.flags)return Tr(t,n.nodeIndex).instance;throw new Error("Illegal state: read nodeValue for node index "+e)}function Bo(t){return new Go(t.renderer)}var Go=function(){function t(t){this.delegate=t}return t.prototype.selectRootElement=function(t){return this.delegate.selectRootElement(t)},t.prototype.createElement=function(t,e){var n=u(lo(e),2),r=this.delegate.createElement(n[1],n[0]);return t&&this.delegate.appendChild(t,r),r},t.prototype.createViewRoot=function(t){return t},t.prototype.createTemplateAnchor=function(t){var e=this.delegate.createComment("");return t&&this.delegate.appendChild(t,e),e},t.prototype.createText=function(t,e){var n=this.delegate.createText(e);return t&&this.delegate.appendChild(t,n),n},t.prototype.projectNodes=function(t,e){for(var n=0;n<e.length;n++)this.delegate.appendChild(t,e[n])},t.prototype.attachViewAfter=function(t,e){for(var n=this.delegate.parentNode(t),r=this.delegate.nextSibling(t),o=0;o<e.length;o++)this.delegate.insertBefore(n,e[o],r)},t.prototype.detachView=function(t){for(var e=0;e<t.length;e++){var n=t[e],r=this.delegate.parentNode(n);this.delegate.removeChild(r,n)}},t.prototype.destroyView=function(t,e){for(var n=0;n<e.length;n++)this.delegate.destroyNode(e[n])},t.prototype.listen=function(t,e,n){return this.delegate.listen(t,e,n)},t.prototype.listenGlobal=function(t,e,n){return this.delegate.listen(t,e,n)},t.prototype.setElementProperty=function(t,e,n){this.delegate.setProperty(t,e,n)},t.prototype.setElementAttribute=function(t,e,n){var r=u(lo(e),2),o=r[0],i=r[1];null!=n?this.delegate.setAttribute(t,i,n,o):this.delegate.removeAttribute(t,i,o)},t.prototype.setBindingDebugInfo=function(t,e,n){},t.prototype.setElementClass=function(t,e,n){n?this.delegate.addClass(t,e):this.delegate.removeClass(t,e)},t.prototype.setElementStyle=function(t,e,n){null!=n?this.delegate.setStyle(t,e,n):this.delegate.removeStyle(t,e)},t.prototype.invokeElementMethod=function(t,e,n){t[e].apply(t,n)},t.prototype.setText=function(t,e){this.delegate.setValue(t,e)},t.prototype.animate=function(){throw new Error("Renderer.animate is no longer supported!")},t}();function Wo(t,e,n,r){return new Zo(t,e,n,r)}var Zo=function(){function t(t,e,n,r){this._moduleType=t,this._parent=e,this._bootstrapComponents=n,this._def=r,this._destroyListeners=[],this._destroyed=!1,this.injector=this,function(t){for(var e=t._def,n=t._providers=new Array(e.providers.length),r=0;r<e.providers.length;r++){var o=e.providers[r];4096&o.flags||void 0===n[r]&&(n[r]=Eo(t,o))}}(this)}return t.prototype.get=function(t,e,n){void 0===e&&(e=Dt.THROW_IF_NOT_FOUND),void 0===n&&(n=0);var r=0;return 4&n?r|=1:2&n&&(r|=4),So(this,{token:t,tokenKey:Mr(t),flags:r},e)},Object.defineProperty(t.prototype,"instance",{get:function(){return this.get(this._moduleType)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"componentFactoryResolver",{get:function(){return this.get(Ie)},enumerable:!0,configurable:!0}),t.prototype.destroy=function(){if(this._destroyed)throw new Error("The ng module "+Ot(this.instance.constructor)+" has already been destroyed.");this._destroyed=!0,function(t,e){for(var n=t._def,r=0;r<n.providers.length;r++)if(131072&n.providers[r].flags){var o=t._providers[r];o&&o!==bo&&o.ngOnDestroy()}}(this),this._destroyListeners.forEach(function(t){return t()})},t.prototype.onDestroy=function(t){this._destroyListeners.push(t)},t}(),Qo=Mr(function(){}),Ko=Mr(hn),Yo=Mr(pn),Jo=Mr(_n),Xo=Mr(bn),$o=Mr(wn),ti=Mr(Dt),ei=Mr(Vt);function ni(t,e,n,r,o,i,s,a){var c=[];if(s)for(var l in s){var h=u(s[l],2);c[h[0]]={flags:8,name:l,nonMinifiedName:h[1],ns:null,securityContext:null,suffix:null}}var p=[];if(a)for(var f in a)p.push({type:1,propName:f,target:null,eventName:a[f]});return ri(t,e|=16384,n,r,o,o,i,c,p)}function ri(t,e,n,r,o,i,s,u,a){var c=$r(n),l=c.matchedQueries,h=c.references,p=c.matchedQueryIds;a||(a=[]),u||(u=[]),i=At(i);var f=to(s,Ot(o));return{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,checkIndex:t,flags:e,childFlags:0,directChildFlags:0,childMatchedQueries:0,matchedQueries:l,matchedQueryIds:p,references:h,ngContentIndex:-1,childCount:r,bindings:u,bindingFlags:ho(u),outputs:a,element:null,provider:{token:o,value:i,deps:f},text:null,query:null,ngContent:null}}function oi(t,e){return ai(t,e)}function ii(t,e){for(var n=t;n.parent&&!Yr(n);)n=n.parent;return ci(n.parent,Qr(n),!0,e.provider.value,e.provider.deps)}function si(t,e){var n=ci(t,e.parent,(32768&e.flags)>0,e.provider.value,e.provider.deps);if(e.outputs.length)for(var r=0;r<e.outputs.length;r++){var o=e.outputs[r],i=n[o.propName].subscribe(ui(t,e.parent.nodeIndex,o.eventName));t.disposables[e.outputIndex+r]=i.unsubscribe.bind(i)}return n}function ui(t,e,n){return function(r){return Wr(t,e,n,r)}}function ai(t,e){var n=(8192&e.flags)>0,r=e.provider;switch(201347067&e.flags){case 512:return ci(t,e.parent,n,r.value,r.deps);case 1024:return function(t,e,n,r,o){var i=o.length;switch(i){case 0:return r();case 1:return r(hi(t,e,n,o[0]));case 2:return r(hi(t,e,n,o[0]),hi(t,e,n,o[1]));case 3:return r(hi(t,e,n,o[0]),hi(t,e,n,o[1]),hi(t,e,n,o[2]));default:for(var s=Array(i),u=0;u<i;u++)s[u]=hi(t,e,n,o[u]);return r.apply(void 0,a(s))}}(t,e.parent,n,r.value,r.deps);case 2048:return hi(t,e.parent,n,r.deps[0]);case 256:return r.value}}function ci(t,e,n,r,o){var i=o.length;switch(i){case 0:return new r;case 1:return new r(hi(t,e,n,o[0]));case 2:return new r(hi(t,e,n,o[0]),hi(t,e,n,o[1]));case 3:return new r(hi(t,e,n,o[0]),hi(t,e,n,o[1]),hi(t,e,n,o[2]));default:for(var s=new Array(i),u=0;u<i;u++)s[u]=hi(t,e,n,o[u]);return new(r.bind.apply(r,a([void 0],s)))}}var li={};function hi(t,e,n,r,o){if(void 0===o&&(o=Dt.THROW_IF_NOT_FOUND),8&r.flags)return r.token;var i=t;2&r.flags&&(o=null);var s=r.tokenKey;s===$o&&(n=!(!e||!e.element.componentView)),e&&1&r.flags&&(n=!1,e=e.parent);for(var u=t;u;){if(e)switch(s){case Qo:return Bo(pi(u,e,n));case Ko:return pi(u,e,n).renderer;case Yo:return new pn(Or(u,e.nodeIndex).renderElement);case Jo:return Or(u,e.nodeIndex).viewContainer;case Xo:if(e.element.template)return Or(u,e.nodeIndex).template;break;case $o:return Do(pi(u,e,n));case ti:case ei:return Fo(u,e);default:var a=(n?e.element.allProviders:e.element.publicProviders)[s];if(a){var c=Tr(u,a.nodeIndex);return c||(c={instance:ai(u,a)},u.nodes[a.nodeIndex]=c),c.instance}}n=Yr(u),e=Qr(u),u=u.parent,4&r.flags&&(u=null)}var l=i.root.injector.get(r.token,li);return l!==li||o===li?l:i.root.ngModule.injector.get(r.token,o)}function pi(t,e,n){var r;if(n)r=Or(t,e.nodeIndex).componentView;else for(r=t;r.parent&&!Yr(r);)r=r.parent;return r}function fi(t,e,n,r,o,i){if(32768&n.flags){var s=Or(t,n.parent.nodeIndex).componentView;2&s.def.flags&&(s.state|=8)}if(e.instance[n.bindings[r].name]=o,524288&n.flags){i=i||{};var u=An.unwrap(t.oldValues[n.bindingIndex+r]);i[n.bindings[r].nonMinifiedName]=new Pn(u,o,0!=(2&t.state))}return t.oldValues[n.bindingIndex+r]=o,i}function di(t,e){if(t.def.nodeFlags&e)for(var n=t.def.nodes,r=0,o=0;o<n.length;o++){var i=n[o],s=i.parent;for(!s&&i.flags&e&&yi(t,o,i.flags&e,r++),0==(i.childFlags&e)&&(o+=i.childCount);s&&1&s.flags&&o===s.nodeIndex+s.childCount;)s.directChildFlags&e&&(r=vi(t,s,e,r)),s=s.parent}}function vi(t,e,n,r){for(var o=e.nodeIndex+1;o<=e.nodeIndex+e.childCount;o++){var i=t.def.nodes[o];i.flags&n&&yi(t,o,i.flags&n,r++),o+=i.childCount}return r}function yi(t,e,n,r){var o=Tr(t,e);if(o){var i=o.instance;i&&(Ir.setCurrentNode(t,e),1048576&n&&Sr(t,512,r)&&i.ngAfterContentInit(),2097152&n&&i.ngAfterContentChecked(),4194304&n&&Sr(t,768,r)&&i.ngAfterViewInit(),8388608&n&&i.ngAfterViewChecked(),131072&n&&i.ngOnDestroy())}}function gi(t,e,n){var r=[];for(var o in n)r.push({propName:o,bindingType:n[o]});return{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,checkIndex:-1,flags:t,childFlags:0,directChildFlags:0,childMatchedQueries:0,ngContentIndex:-1,matchedQueries:{},matchedQueryIds:0,references:{},childCount:0,bindings:[],bindingFlags:0,outputs:[],element:null,provider:null,text:null,query:{id:e,filterId:Xr(e),bindings:r},ngContent:null}}function mi(t){for(var e=t.def.nodeMatchedQueries;t.parent&&Jr(t);){var n=t.parentNodeDef;t=t.parent;for(var r=n.nodeIndex+n.childCount,o=0;o<=r;o++)67108864&(i=t.def.nodes[o]).flags&&536870912&i.flags&&(i.query.filterId&e)===i.query.filterId&&Pr(t,o).setDirty(),!(1&i.flags&&o+i.childCount<n.nodeIndex)&&67108864&i.childFlags&&536870912&i.childFlags||(o+=i.childCount)}if(134217728&t.def.nodeFlags)for(o=0;o<t.def.nodes.length;o++){var i;134217728&(i=t.def.nodes[o]).flags&&536870912&i.flags&&Pr(t,o).setDirty(),o+=i.childCount}}function bi(t,e){var n=Pr(t,e.nodeIndex);if(n.dirty){var r,o=void 0;if(67108864&e.flags){var i=e.parent.parent;o=_i(t,i.nodeIndex,i.nodeIndex+i.childCount,e.query,[]),r=Tr(t,e.parent.nodeIndex).instance}else 134217728&e.flags&&(o=_i(t,0,t.def.nodes.length-1,e.query,[]),r=t.component);n.reset(o);for(var s=e.query.bindings,u=!1,a=0;a<s.length;a++){var c=s[a],l=void 0;switch(c.bindingType){case 0:l=n.first;break;case 1:l=n,u=!0}r[c.propName]=l}u&&n.notifyOnChanges()}}function _i(t,e,n,r,o){for(var i=e;i<=n;i++){var s=t.def.nodes[i],u=s.matchedQueries[r.id];if(null!=u&&o.push(wi(t,s,u)),1&s.flags&&s.element.template&&(s.element.template.nodeMatchedQueries&r.filterId)===r.filterId){var a=Or(t,i);if((s.childMatchedQueries&r.filterId)===r.filterId&&(_i(t,i+1,i+s.childCount,r,o),i+=s.childCount),16777216&s.flags)for(var c=a.viewContainer._embeddedViews,l=0;l<c.length;l++){var h=c[l],p=Zr(h);p&&p===a&&_i(h,0,h.def.nodes.length-1,r,o)}var f=a.template._projectedViews;if(f)for(l=0;l<f.length;l++){var d=f[l];_i(d,0,d.def.nodes.length-1,r,o)}}(s.childMatchedQueries&r.filterId)!==r.filterId&&(i+=s.childCount)}return o}function wi(t,e,n){if(null!=n)switch(n){case 1:return Or(t,e.nodeIndex).renderElement;case 0:return new pn(Or(t,e.nodeIndex).renderElement);case 2:return Or(t,e.nodeIndex).template;case 3:return Or(t,e.nodeIndex).viewContainer;case 4:return Tr(t,e.nodeIndex).instance}}function Ci(t,e){return{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,checkIndex:-1,flags:8,childFlags:0,directChildFlags:0,childMatchedQueries:0,matchedQueries:{},matchedQueryIds:0,references:{},ngContentIndex:t,childCount:0,bindings:[],bindingFlags:0,outputs:[],element:null,provider:null,text:null,query:null,ngContent:{index:e}}}function xi(t,e,n){var r=eo(t,e,n);r&&so(t,n.ngContent.index,1,r,null,void 0)}function Si(t,e,n){for(var r=new Array(n.length-1),o=1;o<n.length;o++)r[o-1]={flags:8,name:null,ns:null,nonMinifiedName:null,securityContext:null,suffix:n[o]};return{nodeIndex:-1,parent:null,renderParent:null,bindingIndex:-1,outputIndex:-1,checkIndex:t,flags:2,childFlags:0,directChildFlags:0,childMatchedQueries:0,matchedQueries:{},matchedQueryIds:0,references:{},ngContentIndex:e,childCount:0,bindings:r,bindingFlags:8,outputs:[],element:null,provider:null,text:{prefix:n[0]},query:null,ngContent:null}}function Ei(t,e,n){var r,o=t.renderer;r=o.createText(n.text.prefix);var i=eo(t,e,n);return i&&o.appendChild(i,r),{renderText:r}}function Oi(t,e){return(null!=t?t.toString():"")+e.suffix}function Ti(t,e,n,r){for(var o=0,i=0,s=0,u=0,a=0,c=null,l=null,h=!1,p=!1,f=null,d=0;d<e.length;d++){var v=e[d];if(v.nodeIndex=d,v.parent=c,v.bindingIndex=o,v.outputIndex=i,v.renderParent=l,s|=v.flags,a|=v.matchedQueryIds,v.element){var y=v.element;y.publicProviders=c?c.element.publicProviders:Object.create(null),y.allProviders=y.publicProviders,h=!1,p=!1,v.element.template&&(a|=v.element.template.nodeMatchedQueries)}if(Pi(c,v,e.length),o+=v.bindings.length,i+=v.outputs.length,!l&&3&v.flags&&(f=v),20224&v.flags){h||(h=!0,c.element.publicProviders=Object.create(c.element.publicProviders),c.element.allProviders=c.element.publicProviders);var g=0!=(32768&v.flags);0==(8192&v.flags)||g?c.element.publicProviders[Mr(v.provider.token)]=v:(p||(p=!0,c.element.allProviders=Object.create(c.element.publicProviders)),c.element.allProviders[Mr(v.provider.token)]=v),g&&(c.element.componentProvider=v)}if(c?(c.childFlags|=v.flags,c.directChildFlags|=v.flags,c.childMatchedQueries|=v.matchedQueryIds,v.element&&v.element.template&&(c.childMatchedQueries|=v.element.template.nodeMatchedQueries)):u|=v.flags,v.childCount>0)c=v,Ai(v)||(l=v);else for(;c&&d===c.nodeIndex+c.childCount;){var m=c.parent;m&&(m.childFlags|=c.childFlags,m.childMatchedQueries|=c.childMatchedQueries),l=(c=m)&&Ai(c)?c.renderParent:c}}return{factory:null,nodeFlags:s,rootNodeFlags:u,nodeMatchedQueries:a,flags:t,nodes:e,updateDirectives:n||jr,updateRenderer:r||jr,handleEvent:function(t,n,r,o){return e[n].element.handleEvent(t,r,o)},bindingCount:o,outputCount:i,lastRenderRootNode:f}}function Ai(t){return 0!=(1&t.flags)&&null===t.element.name}function Pi(t,e,n){var r=e.element&&e.element.template;if(r){if(!r.lastRenderRootNode)throw new Error("Illegal State: Embedded templates without nodes are not allowed!");if(r.lastRenderRootNode&&16777216&r.lastRenderRootNode.flags)throw new Error("Illegal State: Last root node of a template can't have embedded views, at index "+e.nodeIndex+"!")}if(20224&e.flags&&0==(1&(t?t.flags:0)))throw new Error("Illegal State: StaticProvider/Directive nodes need to be children of elements or anchors, at index "+e.nodeIndex+"!");if(e.query){if(67108864&e.flags&&(!t||0==(16384&t.flags)))throw new Error("Illegal State: Content Query nodes need to be children of directives, at index "+e.nodeIndex+"!");if(134217728&e.flags&&t)throw new Error("Illegal State: View Query nodes have to be top level nodes, at index "+e.nodeIndex+"!")}if(e.childCount){var o=t?t.nodeIndex+t.childCount:n-1;if(e.nodeIndex<=o&&e.nodeIndex+e.childCount>o)throw new Error("Illegal State: childCount of node leads outside of parent, at index "+e.nodeIndex+"!")}}function Ii(t,e,n,r){var o=Ri(t.root,t.renderer,t,e,n);return ji(o,t.component,r),Vi(o),o}function ki(t,e,n){var r=Ri(t,t.renderer,null,null,e);return ji(r,n,n),Vi(r),r}function Ni(t,e,n,r){var o,i=e.element.componentRendererType;return o=i?t.root.rendererFactory.createRenderer(r,i):t.root.renderer,Ri(t.root,o,t,e.element.componentProvider,n)}function Ri(t,e,n,r,o){var i=new Array(o.nodes.length),s=o.outputCount?new Array(o.outputCount):null;return{def:o,parent:n,viewContainerParent:null,parentNodeDef:r,context:null,component:null,nodes:i,state:13,root:t,renderer:e,oldValues:new Array(o.bindingCount),disposables:s,initIndex:-1}}function ji(t,e,n){t.component=e,t.context=n}function Vi(t){var e;Yr(t)&&(e=Or(t.parent,t.parentNodeDef.parent.nodeIndex).renderElement);for(var n=t.def,r=t.nodes,o=0;o<n.nodes.length;o++){var i=n.nodes[o];Ir.setCurrentNode(t,o);var s=void 0;switch(201347067&i.flags){case 1:var u=vo(t,e,i),a=void 0;if(33554432&i.flags){var c=ro(i.element.componentView);a=Ir.createComponentView(t,i,c,u)}yo(t,a,i,u),s={renderElement:u,componentView:a,viewContainer:null,template:i.element.template?Lo(t,i):void 0},16777216&i.flags&&(s.viewContainer=Vo(t,i,s));break;case 2:s=Ei(t,e,i);break;case 512:case 1024:case 2048:case 256:(s=r[o])||4096&i.flags||(s={instance:oi(t,i)});break;case 16:s={instance:ii(t,i)};break;case 16384:(s=r[o])||(s={instance:si(t,i)}),32768&i.flags&&ji(Or(t,i.parent.nodeIndex).componentView,s.instance,s.instance);break;case 32:case 64:case 128:s={value:void 0};break;case 67108864:case 134217728:s=new dn;break;case 8:xi(t,e,i),s=void 0}r[o]=s}Bi(t,qi.CreateViewNodes),Qi(t,201326592,268435456,0)}function Mi(t){Li(t),Ir.updateDirectives(t,1),Gi(t,qi.CheckNoChanges),Ir.updateRenderer(t,1),Bi(t,qi.CheckNoChanges),t.state&=-97}function Di(t){1&t.state?(t.state&=-2,t.state|=2):t.state&=-3,xr(t,0,256),Li(t),Ir.updateDirectives(t,0),Gi(t,qi.CheckAndUpdate),Qi(t,67108864,536870912,0);var e=xr(t,256,512);di(t,2097152|(e?1048576:0)),Ir.updateRenderer(t,0),Bi(t,qi.CheckAndUpdate),Qi(t,134217728,536870912,0),di(t,8388608|((e=xr(t,512,768))?4194304:0)),2&t.def.flags&&(t.state&=-9),t.state&=-97,xr(t,768,1024)}function Ui(t,e,n,r,o,i,s,u,c,l,h,p,f){return 0===n?function(t,e,n,r,o,i,s,u,a,c,l,h){switch(201347067&e.flags){case 1:return function(t,e,n,r,o,i,s,u,a,c,l,h){var p=e.bindings.length,f=!1;return p>0&&mo(t,e,0,n)&&(f=!0),p>1&&mo(t,e,1,r)&&(f=!0),p>2&&mo(t,e,2,o)&&(f=!0),p>3&&mo(t,e,3,i)&&(f=!0),p>4&&mo(t,e,4,s)&&(f=!0),p>5&&mo(t,e,5,u)&&(f=!0),p>6&&mo(t,e,6,a)&&(f=!0),p>7&&mo(t,e,7,c)&&(f=!0),p>8&&mo(t,e,8,l)&&(f=!0),p>9&&mo(t,e,9,h)&&(f=!0),f}(t,e,n,r,o,i,s,u,a,c,l,h);case 2:return function(t,e,n,r,o,i,s,u,a,c,l,h){var p=!1,f=e.bindings,d=f.length;if(d>0&&zr(t,e,0,n)&&(p=!0),d>1&&zr(t,e,1,r)&&(p=!0),d>2&&zr(t,e,2,o)&&(p=!0),d>3&&zr(t,e,3,i)&&(p=!0),d>4&&zr(t,e,4,s)&&(p=!0),d>5&&zr(t,e,5,u)&&(p=!0),d>6&&zr(t,e,6,a)&&(p=!0),d>7&&zr(t,e,7,c)&&(p=!0),d>8&&zr(t,e,8,l)&&(p=!0),d>9&&zr(t,e,9,h)&&(p=!0),p){var v=e.text.prefix;d>0&&(v+=Oi(n,f[0])),d>1&&(v+=Oi(r,f[1])),d>2&&(v+=Oi(o,f[2])),d>3&&(v+=Oi(i,f[3])),d>4&&(v+=Oi(s,f[4])),d>5&&(v+=Oi(u,f[5])),d>6&&(v+=Oi(a,f[6])),d>7&&(v+=Oi(c,f[7])),d>8&&(v+=Oi(l,f[8])),d>9&&(v+=Oi(h,f[9]));var y=Er(t,e.nodeIndex).renderText;t.renderer.setValue(y,v)}return p}(t,e,n,r,o,i,s,u,a,c,l,h);case 16384:return function(t,e,n,r,o,i,s,u,a,c,l,h){var p=Tr(t,e.nodeIndex),f=p.instance,d=!1,v=void 0,y=e.bindings.length;return y>0&&Fr(t,e,0,n)&&(d=!0,v=fi(t,p,e,0,n,v)),y>1&&Fr(t,e,1,r)&&(d=!0,v=fi(t,p,e,1,r,v)),y>2&&Fr(t,e,2,o)&&(d=!0,v=fi(t,p,e,2,o,v)),y>3&&Fr(t,e,3,i)&&(d=!0,v=fi(t,p,e,3,i,v)),y>4&&Fr(t,e,4,s)&&(d=!0,v=fi(t,p,e,4,s,v)),y>5&&Fr(t,e,5,u)&&(d=!0,v=fi(t,p,e,5,u,v)),y>6&&Fr(t,e,6,a)&&(d=!0,v=fi(t,p,e,6,a,v)),y>7&&Fr(t,e,7,c)&&(d=!0,v=fi(t,p,e,7,c,v)),y>8&&Fr(t,e,8,l)&&(d=!0,v=fi(t,p,e,8,l,v)),y>9&&Fr(t,e,9,h)&&(d=!0,v=fi(t,p,e,9,h,v)),v&&f.ngOnChanges(v),65536&e.flags&&Sr(t,256,e.nodeIndex)&&f.ngOnInit(),262144&e.flags&&f.ngDoCheck(),d}(t,e,n,r,o,i,s,u,a,c,l,h);case 32:case 64:case 128:return function(t,e,n,r,o,i,s,u,a,c,l,h){var p=e.bindings,f=!1,d=p.length;if(d>0&&zr(t,e,0,n)&&(f=!0),d>1&&zr(t,e,1,r)&&(f=!0),d>2&&zr(t,e,2,o)&&(f=!0),d>3&&zr(t,e,3,i)&&(f=!0),d>4&&zr(t,e,4,s)&&(f=!0),d>5&&zr(t,e,5,u)&&(f=!0),d>6&&zr(t,e,6,a)&&(f=!0),d>7&&zr(t,e,7,c)&&(f=!0),d>8&&zr(t,e,8,l)&&(f=!0),d>9&&zr(t,e,9,h)&&(f=!0),f){var v=Ar(t,e.nodeIndex),y=void 0;switch(201347067&e.flags){case 32:y=new Array(p.length),d>0&&(y[0]=n),d>1&&(y[1]=r),d>2&&(y[2]=o),d>3&&(y[3]=i),d>4&&(y[4]=s),d>5&&(y[5]=u),d>6&&(y[6]=a),d>7&&(y[7]=c),d>8&&(y[8]=l),d>9&&(y[9]=h);break;case 64:y={},d>0&&(y[p[0].name]=n),d>1&&(y[p[1].name]=r),d>2&&(y[p[2].name]=o),d>3&&(y[p[3].name]=i),d>4&&(y[p[4].name]=s),d>5&&(y[p[5].name]=u),d>6&&(y[p[6].name]=a),d>7&&(y[p[7].name]=c),d>8&&(y[p[8].name]=l),d>9&&(y[p[9].name]=h);break;case 128:var g=n;switch(d){case 1:y=g.transform(n);break;case 2:y=g.transform(r);break;case 3:y=g.transform(r,o);break;case 4:y=g.transform(r,o,i);break;case 5:y=g.transform(r,o,i,s);break;case 6:y=g.transform(r,o,i,s,u);break;case 7:y=g.transform(r,o,i,s,u,a);break;case 8:y=g.transform(r,o,i,s,u,a,c);break;case 9:y=g.transform(r,o,i,s,u,a,c,l);break;case 10:y=g.transform(r,o,i,s,u,a,c,l,h)}}v.value=y}return f}(t,e,n,r,o,i,s,u,a,c,l,h);default:throw"unreachable"}}(t,e,r,o,i,s,u,c,l,h,p,f):function(t,e,n){switch(201347067&e.flags){case 1:return function(t,e,n){for(var r=!1,o=0;o<n.length;o++)mo(t,e,o,n[o])&&(r=!0);return r}(t,e,n);case 2:return function(t,e,n){for(var r=e.bindings,o=!1,i=0;i<n.length;i++)zr(t,e,i,n[i])&&(o=!0);if(o){var s="";for(i=0;i<n.length;i++)s+=Oi(n[i],r[i]);s=e.text.prefix+s;var u=Er(t,e.nodeIndex).renderText;t.renderer.setValue(u,s)}return o}(t,e,n);case 16384:return function(t,e,n){for(var r=Tr(t,e.nodeIndex),o=r.instance,i=!1,s=void 0,u=0;u<n.length;u++)Fr(t,e,u,n[u])&&(i=!0,s=fi(t,r,e,u,n[u],s));return s&&o.ngOnChanges(s),65536&e.flags&&Sr(t,256,e.nodeIndex)&&o.ngOnInit(),262144&e.flags&&o.ngDoCheck(),i}(t,e,n);case 32:case 64:case 128:return function(t,e,n){for(var r=e.bindings,o=!1,i=0;i<n.length;i++)zr(t,e,i,n[i])&&(o=!0);if(o){var s=Ar(t,e.nodeIndex),u=void 0;switch(201347067&e.flags){case 32:u=n;break;case 64:for(u={},i=0;i<n.length;i++)u[r[i].name]=n[i];break;case 128:var c=n[0],l=n.slice(1);u=c.transform.apply(c,a(l))}s.value=u}return o}(t,e,n);default:throw"unreachable"}}(t,e,r)}function Li(t){var e=t.def;if(4&e.nodeFlags)for(var n=0;n<e.nodes.length;n++){var r=e.nodes[n];if(4&r.flags){var o=Or(t,n).template._projectedViews;if(o)for(var i=0;i<o.length;i++){var s=o[i];s.state|=32,Gr(s,t)}}else 0==(4&r.childFlags)&&(n+=r.childCount)}}function Hi(t,e,n,r,o,i,s,u,a,c,l,h,p){return 0===n?function(t,e,n,r,o,i,s,u,a,c,l,h){var p=e.bindings.length;p>0&&qr(t,e,0,n),p>1&&qr(t,e,1,r),p>2&&qr(t,e,2,o),p>3&&qr(t,e,3,i),p>4&&qr(t,e,4,s),p>5&&qr(t,e,5,u),p>6&&qr(t,e,6,a),p>7&&qr(t,e,7,c),p>8&&qr(t,e,8,l),p>9&&qr(t,e,9,h)}(t,e,r,o,i,s,u,a,c,l,h,p):function(t,e,n){for(var r=0;r<n.length;r++)qr(t,e,r,n[r])}(t,e,r),!1}function Fi(t,e){if(Pr(t,e.nodeIndex).dirty)throw kr(Ir.createDebugContext(t,e.nodeIndex),"Query "+e.query.id+" not dirty","Query "+e.query.id+" dirty",0!=(1&t.state))}function zi(t){if(!(128&t.state)){if(Gi(t,qi.Destroy),Bi(t,qi.Destroy),di(t,131072),t.disposables)for(var e=0;e<t.disposables.length;e++)t.disposables[e]();!function(t){if(16&t.state){var e=Zr(t);if(e){var n=e.template._projectedViews;n&&(Io(n,n.indexOf(t)),Ir.dirtyParentQueries(t))}}}(t),t.renderer.destroyNode&&function(t){for(var e=t.def.nodes.length,n=0;n<e;n++){var r=t.def.nodes[n];1&r.flags?t.renderer.destroyNode(Or(t,n).renderElement):2&r.flags?t.renderer.destroyNode(Er(t,n).renderText):(67108864&r.flags||134217728&r.flags)&&Pr(t,n).destroy()}}(t),Yr(t)&&t.renderer.destroy(),t.state|=128}}var qi=function(t){return t[t.CreateViewNodes=0]="CreateViewNodes",t[t.CheckNoChanges=1]="CheckNoChanges",t[t.CheckNoChangesProjectedViews=2]="CheckNoChangesProjectedViews",t[t.CheckAndUpdate=3]="CheckAndUpdate",t[t.CheckAndUpdateProjectedViews=4]="CheckAndUpdateProjectedViews",t[t.Destroy=5]="Destroy",t}({});function Bi(t,e){var n=t.def;if(33554432&n.nodeFlags)for(var r=0;r<n.nodes.length;r++){var o=n.nodes[r];33554432&o.flags?Wi(Or(t,r).componentView,e):0==(33554432&o.childFlags)&&(r+=o.childCount)}}function Gi(t,e){var n=t.def;if(16777216&n.nodeFlags)for(var r=0;r<n.nodes.length;r++){var o=n.nodes[r];if(16777216&o.flags)for(var i=Or(t,r).viewContainer._embeddedViews,s=0;s<i.length;s++)Wi(i[s],e);else 0==(16777216&o.childFlags)&&(r+=o.childCount)}}function Wi(t,e){var n=t.state;switch(e){case qi.CheckNoChanges:0==(128&n)&&(12==(12&n)?Mi(t):64&n&&Zi(t,qi.CheckNoChangesProjectedViews));break;case qi.CheckNoChangesProjectedViews:0==(128&n)&&(32&n?Mi(t):64&n&&Zi(t,e));break;case qi.CheckAndUpdate:0==(128&n)&&(12==(12&n)?Di(t):64&n&&Zi(t,qi.CheckAndUpdateProjectedViews));break;case qi.CheckAndUpdateProjectedViews:0==(128&n)&&(32&n?Di(t):64&n&&Zi(t,e));break;case qi.Destroy:zi(t);break;case qi.CreateViewNodes:Vi(t)}}function Zi(t,e){Gi(t,e),Bi(t,e)}function Qi(t,e,n,r){if(t.def.nodeFlags&e&&t.def.nodeFlags&n)for(var o=t.def.nodes.length,i=0;i<o;i++){var s=t.def.nodes[i];if(s.flags&e&&s.flags&n)switch(Ir.setCurrentNode(t,s.nodeIndex),r){case 0:bi(t,s);break;case 1:Fi(t,s)}s.childFlags&e&&s.childFlags&n||(i+=s.childCount)}}var Ki=!1;function Yi(t,e,n,r,o,i){return ki(Xi(t,o,o.injector.get(cn),e,n),r,i)}function Ji(t,e,n,r,o,i){var s=o.injector.get(cn),u=Xi(t,o,new Ns(s),e,n),a=as(r);return Is(gs.create,ki,null,[u,a,i])}function Xi(t,e,n,r,o){var i=e.injector.get(Cr),s=e.injector.get(ae);return{ngModule:e,injector:t,projectableNodes:r,selectorOrNode:o,sanitizer:i,rendererFactory:n,renderer:n.createRenderer(null,null),errorHandler:s}}function $i(t,e,n,r){var o=as(n);return Is(gs.create,Ii,null,[t,e,o,r])}function ts(t,e,n,r){return n=os.get(e.element.componentProvider.provider.token)||as(n),Is(gs.create,Ni,null,[t,e,n,r])}function es(t,e,n,r){return Wo(t,e,n,function(t){var e=function(t){var e=!1,n=!1;return 0===ns.size?{hasOverrides:e,hasDeprecatedOverrides:n}:(t.providers.forEach(function(t){var r=ns.get(t.token);3840&t.flags&&r&&(e=!0,n=n||r.deprecatedBehavior)}),t.modules.forEach(function(t){rs.forEach(function(r,o){o.ngInjectableDef.providedIn===t&&(e=!0,n=n||r.deprecatedBehavior)})}),{hasOverrides:e,hasDeprecatedOverrides:n})}(t),n=e.hasDeprecatedOverrides;return e.hasOverrides?(function(t){for(var e=0;e<t.providers.length;e++){var r=t.providers[e];n&&(r.flags|=4096);var o=ns.get(r.token);o&&(r.flags=-3841&r.flags|o.flags,r.deps=to(o.deps),r.value=o.value)}if(rs.size>0){var i=new Set(t.modules);rs.forEach(function(e,r){if(i.has(r.ngInjectableDef.providedIn)){var o={token:r,flags:e.flags|(n?4096:0),deps:to(e.deps),value:e.value,index:t.providers.length};t.providers.push(o),t.providersByKey[Mr(r)]=o}})}}(t=t.factory(function(){return jr})),t):t}(r))}var ns=new Map,rs=new Map,os=new Map;function is(t){ns.set(t.token,t),"function"==typeof t.token&&t.token.ngInjectableDef&&"function"==typeof t.token.ngInjectableDef.providedIn&&rs.set(t.token,t)}function ss(t,e){var n=ro(ro(e.viewDefFactory).nodes[0].element.componentView);os.set(t,n)}function us(){ns.clear(),rs.clear(),os.clear()}function as(t){if(0===ns.size)return t;var e=function(t){for(var e=[],n=null,r=0;r<t.nodes.length;r++){var o=t.nodes[r];1&o.flags&&(n=o),n&&3840&o.flags&&ns.has(o.provider.token)&&(e.push(n.nodeIndex),n=null)}return e}(t);if(0===e.length)return t;t=t.factory(function(){return jr});for(var n=0;n<e.length;n++)r(t,e[n]);return t;function r(t,e){for(var n=e+1;n<t.nodes.length;n++){var r=t.nodes[n];if(1&r.flags)return;if(3840&r.flags){var o=r.provider,i=ns.get(o.token);i&&(r.flags=-3841&r.flags|i.flags,o.deps=to(i.deps),o.value=i.value)}}}}function cs(t,e,n,r,o,i,s,u,a,c,l,h,p){var f=t.def.nodes[e];return Ui(t,f,n,r,o,i,s,u,a,c,l,h,p),224&f.flags?Ar(t,e).value:void 0}function ls(t,e,n,r,o,i,s,u,a,c,l,h,p){var f=t.def.nodes[e];return Hi(t,f,n,r,o,i,s,u,a,c,l,h,p),224&f.flags?Ar(t,e).value:void 0}function hs(t){return Is(gs.detectChanges,Di,null,[t])}function ps(t){return Is(gs.checkNoChanges,Mi,null,[t])}function fs(t){return Is(gs.destroy,zi,null,[t])}var ds,vs,ys,gs=function(t){return t[t.create=0]="create",t[t.detectChanges=1]="detectChanges",t[t.checkNoChanges=2]="checkNoChanges",t[t.destroy=3]="destroy",t[t.handleEvent=4]="handleEvent",t}({});function ms(t,e){vs=t,ys=e}function bs(t,e,n,r){return ms(t,e),Is(gs.handleEvent,t.def.handleEvent,null,[t,e,n,r])}function _s(t,e){if(128&t.state)throw Rr(gs[ds]);return ms(t,Os(t,0)),t.def.updateDirectives(function(t,n,r){for(var o=[],i=3;i<arguments.length;i++)o[i-3]=arguments[i];var s=t.def.nodes[n];return 0===e?Cs(t,s,r,o):xs(t,s,r,o),16384&s.flags&&ms(t,Os(t,n)),224&s.flags?Ar(t,s.nodeIndex).value:void 0},t)}function ws(t,e){if(128&t.state)throw Rr(gs[ds]);return ms(t,Ts(t,0)),t.def.updateRenderer(function(t,n,r){for(var o=[],i=3;i<arguments.length;i++)o[i-3]=arguments[i];var s=t.def.nodes[n];return 0===e?Cs(t,s,r,o):xs(t,s,r,o),3&s.flags&&ms(t,Ts(t,n)),224&s.flags?Ar(t,s.nodeIndex).value:void 0},t)}function Cs(t,e,n,r){if(Ui.apply(void 0,a([t,e,n],r))){var o=1===n?r[0]:r;if(16384&e.flags){for(var i={},s=0;s<e.bindings.length;s++){var u=e.bindings[s],c=o[s];8&u.flags&&(i[(f=u.nonMinifiedName,"ng-reflect-"+(f=f.replace(/[$@]/g,"_").replace(Ss,function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];return"-"+t[1].toLowerCase()})))]=Es(c))}var l=e.parent,h=Or(t,l.nodeIndex).renderElement;if(l.element.name)for(var p in i)null!=(c=i[p])?t.renderer.setAttribute(h,p,c):t.renderer.removeAttribute(h,p);else t.renderer.setValue(h,"bindings="+JSON.stringify(i,null,2))}}var f}function xs(t,e,n,r){Hi.apply(void 0,a([t,e,n],r))}var Ss=/([A-Z])/g;function Es(t){try{return null!=t?t.toString().slice(0,30):t}catch(t){return"[ERROR] Exception while trying to serialize the value"}}function Os(t,e){for(var n=e;n<t.def.nodes.length;n++){var r=t.def.nodes[n];if(16384&r.flags&&r.bindings&&r.bindings.length)return n}return null}function Ts(t,e){for(var n=e;n<t.def.nodes.length;n++){var r=t.def.nodes[n];if(3&r.flags&&r.bindings&&r.bindings.length)return n}return null}var As=function(){function t(t,e){this.view=t,this.nodeIndex=e,null==e&&(this.nodeIndex=e=0),this.nodeDef=t.def.nodes[e];for(var n=this.nodeDef,r=t;n&&0==(1&n.flags);)n=n.parent;if(!n)for(;!n&&r;)n=Qr(r),r=r.parent;this.elDef=n,this.elView=r}return Object.defineProperty(t.prototype,"elOrCompView",{get:function(){return Or(this.elView,this.elDef.nodeIndex).componentView||this.view},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"injector",{get:function(){return Fo(this.elView,this.elDef)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"component",{get:function(){return this.elOrCompView.component},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"context",{get:function(){return this.elOrCompView.context},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"providerTokens",{get:function(){var t=[];if(this.elDef)for(var e=this.elDef.nodeIndex+1;e<=this.elDef.nodeIndex+this.elDef.childCount;e++){var n=this.elView.def.nodes[e];20224&n.flags&&t.push(n.provider.token),e+=n.childCount}return t},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"references",{get:function(){var t={};if(this.elDef){Ps(this.elView,this.elDef,t);for(var e=this.elDef.nodeIndex+1;e<=this.elDef.nodeIndex+this.elDef.childCount;e++){var n=this.elView.def.nodes[e];20224&n.flags&&Ps(this.elView,n,t),e+=n.childCount}}return t},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"componentRenderElement",{get:function(){var t=function(t){for(;t&&!Yr(t);)t=t.parent;return t.parent?Or(t.parent,Qr(t).nodeIndex):null}(this.elOrCompView);return t?t.renderElement:void 0},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"renderNode",{get:function(){return 2&this.nodeDef.flags?Kr(this.view,this.nodeDef):Kr(this.elView,this.elDef)},enumerable:!0,configurable:!0}),t.prototype.logError=function(t){for(var e,n,r=[],o=1;o<arguments.length;o++)r[o-1]=arguments[o];2&this.nodeDef.flags?(e=this.view.def,n=this.nodeDef.nodeIndex):(e=this.elView.def,n=this.elDef.nodeIndex);var i=function(t,e){for(var n=-1,r=0;r<=e;r++)3&t.nodes[r].flags&&n++;return n}(e,n),s=-1;e.factory(function(){return++s===i?(e=t.error).bind.apply(e,a([t],r)):jr;var e}),s<i&&(t.error("Illegal state: the ViewDefinitionFactory did not call the logger!"),t.error.apply(t,a(r)))},t}();function Ps(t,e,n){for(var r in e.references)n[r]=wi(t,e,e.references[r])}function Is(t,e,n,r){var o=ds,i=vs,s=ys;try{ds=t;var u=e.apply(n,r);return vs=i,ys=s,ds=o,u}catch(t){if(ie(t)||!vs)throw t;throw function(t,e){return t instanceof Error||(t=new Error(t.toString())),Nr(t,e),t}(t,ks())}}function ks(){return vs?new As(vs,ys):null}var Ns=function(){function t(t){this.delegate=t}return t.prototype.createRenderer=function(t,e){return new Rs(this.delegate.createRenderer(t,e))},t.prototype.begin=function(){this.delegate.begin&&this.delegate.begin()},t.prototype.end=function(){this.delegate.end&&this.delegate.end()},t.prototype.whenRenderingDone=function(){return this.delegate.whenRenderingDone?this.delegate.whenRenderingDone():Promise.resolve(null)},t}(),Rs=function(){function t(t){this.delegate=t,this.data=this.delegate.data}return t.prototype.destroyNode=function(t){!function(t){Sn.delete(t.nativeNode)}(En(t)),this.delegate.destroyNode&&this.delegate.destroyNode(t)},t.prototype.destroy=function(){this.delegate.destroy()},t.prototype.createElement=function(t,e){var n=this.delegate.createElement(t,e),r=ks();if(r){var o=new xn(n,null,r);o.name=t,On(o)}return n},t.prototype.createComment=function(t){var e=this.delegate.createComment(t),n=ks();return n&&On(new Cn(e,null,n)),e},t.prototype.createText=function(t){var e=this.delegate.createText(t),n=ks();return n&&On(new Cn(e,null,n)),e},t.prototype.appendChild=function(t,e){var n=En(t),r=En(e);n&&r&&n instanceof xn&&n.addChild(r),this.delegate.appendChild(t,e)},t.prototype.insertBefore=function(t,e,n){var r=En(t),o=En(e),i=En(n);r&&o&&r instanceof xn&&r.insertBefore(i,o),this.delegate.insertBefore(t,e,n)},t.prototype.removeChild=function(t,e){var n=En(t),r=En(e);n&&r&&n instanceof xn&&n.removeChild(r),this.delegate.removeChild(t,e)},t.prototype.selectRootElement=function(t){var e=this.delegate.selectRootElement(t),n=ks();return n&&On(new xn(e,null,n)),e},t.prototype.setAttribute=function(t,e,n,r){var o=En(t);o&&o instanceof xn&&(o.attributes[r?r+":"+e:e]=n),this.delegate.setAttribute(t,e,n,r)},t.prototype.removeAttribute=function(t,e,n){var r=En(t);r&&r instanceof xn&&(r.attributes[n?n+":"+e:e]=null),this.delegate.removeAttribute(t,e,n)},t.prototype.addClass=function(t,e){var n=En(t);n&&n instanceof xn&&(n.classes[e]=!0),this.delegate.addClass(t,e)},t.prototype.removeClass=function(t,e){var n=En(t);n&&n instanceof xn&&(n.classes[e]=!1),this.delegate.removeClass(t,e)},t.prototype.setStyle=function(t,e,n,r){var o=En(t);o&&o instanceof xn&&(o.styles[e]=n),this.delegate.setStyle(t,e,n,r)},t.prototype.removeStyle=function(t,e,n){var r=En(t);r&&r instanceof xn&&(r.styles[e]=null),this.delegate.removeStyle(t,e,n)},t.prototype.setProperty=function(t,e,n){var r=En(t);r&&r instanceof xn&&(r.properties[e]=n),this.delegate.setProperty(t,e,n)},t.prototype.listen=function(t,e,n){if("string"!=typeof t){var r=En(t);r&&r.listeners.push(new function(t,e){this.name=t,this.callback=e}(e,n))}return this.delegate.listen(t,e,n)},t.prototype.parentNode=function(t){return this.delegate.parentNode(t)},t.prototype.nextSibling=function(t){return this.delegate.nextSibling(t)},t.prototype.setValue=function(t,e){return this.delegate.setValue(t,e)},t}(),js=function(t){function e(e,n,r){var o=t.call(this)||this;return o.moduleType=e,o._bootstrapComponents=n,o._ngModuleDefFactory=r,o}return o(e,t),e.prototype.create=function(t){!function(){if(!Ki){Ki=!0;var t=tn()?{setCurrentNode:ms,createRootView:Ji,createEmbeddedView:$i,createComponentView:ts,createNgModuleRef:es,overrideProvider:is,overrideComponentView:ss,clearOverrides:us,checkAndUpdateView:hs,checkNoChangesView:ps,destroyView:fs,createDebugContext:function(t,e){return new As(t,e)},handleEvent:bs,updateDirectives:_s,updateRenderer:ws}:{setCurrentNode:function(){},createRootView:Yi,createEmbeddedView:Ii,createComponentView:Ni,createNgModuleRef:Wo,overrideProvider:jr,overrideComponentView:jr,clearOverrides:jr,checkAndUpdateView:Di,checkNoChangesView:Mi,destroyView:zi,createDebugContext:function(t,e){return new As(t,e)},handleEvent:function(t,e,n,r){return t.def.handleEvent(t,e,n,r)},updateDirectives:function(t,e){return t.def.updateDirectives(0===e?cs:ls,t)},updateRenderer:function(t,e){return t.def.updateRenderer(0===e?cs:ls,t)}};Ir.setCurrentNode=t.setCurrentNode,Ir.createRootView=t.createRootView,Ir.createEmbeddedView=t.createEmbeddedView,Ir.createComponentView=t.createComponentView,Ir.createNgModuleRef=t.createNgModuleRef,Ir.overrideProvider=t.overrideProvider,Ir.overrideComponentView=t.overrideComponentView,Ir.clearOverrides=t.clearOverrides,Ir.checkAndUpdateView=t.checkAndUpdateView,Ir.checkNoChangesView=t.checkNoChangesView,Ir.destroyView=t.destroyView,Ir.resolveDep=hi,Ir.createDebugContext=t.createDebugContext,Ir.handleEvent=t.handleEvent,Ir.updateDirectives=t.updateDirectives,Ir.updateRenderer=t.updateRenderer,Ir.dirtyParentQueries=mi}}();var e=ro(this._ngModuleDefFactory);return Ir.createNgModuleRef(this.moduleType,t||Dt.NULL,this._bootstrapComponents,e)},e}(je);"undefined"==typeof ngDevMode&&("undefined"!=typeof window&&(window.ngDevMode=!0),"undefined"!=typeof self&&(self.ngDevMode=!0),"undefined"!=typeof global&&(global.ngDevMode=!0));var Vs=function(){},Ms=function(){},Ds=function(){},Us=new ft("Location Initialized"),Ls=function(){},Hs=new ft("appBaseHref"),Fs=function(){function t(e){var n=this;this._subject=new Le,this._platformStrategy=e;var r=this._platformStrategy.getBaseHref();this._baseHref=t.stripTrailingSlash(zs(r)),this._platformStrategy.onPopState(function(t){n._subject.emit({url:n.path(!0),pop:!0,state:t.state,type:t.type})})}return t.prototype.path=function(t){return void 0===t&&(t=!1),this.normalize(this._platformStrategy.path(t))},t.prototype.isCurrentPathEqualTo=function(e,n){return void 0===n&&(n=""),this.path()==this.normalize(e+t.normalizeQueryParams(n))},t.prototype.normalize=function(e){return t.stripTrailingSlash(function(t,e){return t&&e.startsWith(t)?e.substring(t.length):e}(this._baseHref,zs(e)))},t.prototype.prepareExternalUrl=function(t){return t&&"/"!==t[0]&&(t="/"+t),this._platformStrategy.prepareExternalUrl(t)},t.prototype.go=function(t,e,n){void 0===e&&(e=""),void 0===n&&(n=null),this._platformStrategy.pushState(n,"",t,e)},t.prototype.replaceState=function(t,e,n){void 0===e&&(e=""),void 0===n&&(n=null),this._platformStrategy.replaceState(n,"",t,e)},t.prototype.forward=function(){this._platformStrategy.forward()},t.prototype.back=function(){this._platformStrategy.back()},t.prototype.subscribe=function(t,e,n){return this._subject.subscribe({next:t,error:e,complete:n})},t.normalizeQueryParams=function(t){return t&&"?"!==t[0]?"?"+t:t},t.joinWithSlash=function(t,e){if(0==t.length)return e;if(0==e.length)return t;var n=0;return t.endsWith("/")&&n++,e.startsWith("/")&&n++,2==n?t+e.substring(1):1==n?t+e:t+"/"+e},t.stripTrailingSlash=function(t){var e=t.match(/#|\?|$/),n=e&&e.index||t.length;return t.slice(0,n-("/"===t[n-1]?1:0))+t.slice(n)},t}();function zs(t){return t.replace(/\/index.html$/,"")}var qs=function(t){function e(e,n){var r=t.call(this)||this;return r._platformLocation=e,r._baseHref="",null!=n&&(r._baseHref=n),r}return o(e,t),e.prototype.onPopState=function(t){this._platformLocation.onPopState(t),this._platformLocation.onHashChange(t)},e.prototype.getBaseHref=function(){return this._baseHref},e.prototype.path=function(t){void 0===t&&(t=!1);var e=this._platformLocation.hash;return null==e&&(e="#"),e.length>0?e.substring(1):e},e.prototype.prepareExternalUrl=function(t){var e=Fs.joinWithSlash(this._baseHref,t);return e.length>0?"#"+e:e},e.prototype.pushState=function(t,e,n,r){var o=this.prepareExternalUrl(n+Fs.normalizeQueryParams(r));0==o.length&&(o=this._platformLocation.pathname),this._platformLocation.pushState(t,e,o)},e.prototype.replaceState=function(t,e,n,r){var o=this.prepareExternalUrl(n+Fs.normalizeQueryParams(r));0==o.length&&(o=this._platformLocation.pathname),this._platformLocation.replaceState(t,e,o)},e.prototype.forward=function(){this._platformLocation.forward()},e.prototype.back=function(){this._platformLocation.back()},e}(Ls),Bs=function(t){function e(e,n){var r=t.call(this)||this;if(r._platformLocation=e,null==n&&(n=r._platformLocation.getBaseHrefFromDOM()),null==n)throw new Error("No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document.");return r._baseHref=n,r}return o(e,t),e.prototype.onPopState=function(t){this._platformLocation.onPopState(t),this._platformLocation.onHashChange(t)},e.prototype.getBaseHref=function(){return this._baseHref},e.prototype.prepareExternalUrl=function(t){return Fs.joinWithSlash(this._baseHref,t)},e.prototype.path=function(t){void 0===t&&(t=!1);var e=this._platformLocation.pathname+Fs.normalizeQueryParams(this._platformLocation.search),n=this._platformLocation.hash;return n&&t?""+e+n:e},e.prototype.pushState=function(t,e,n,r){var o=this.prepareExternalUrl(n+Fs.normalizeQueryParams(r));this._platformLocation.pushState(t,e,o)},e.prototype.replaceState=function(t,e,n,r){var o=this.prepareExternalUrl(n+Fs.normalizeQueryParams(r));this._platformLocation.replaceState(t,e,o)},e.prototype.forward=function(){this._platformLocation.forward()},e.prototype.back=function(){this._platformLocation.back()},e}(Ls),Gs=void 0,Ws=["en",[["a","p"],["AM","PM"],Gs],[["AM","PM"],Gs,Gs],[["S","M","T","W","T","F","S"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],["Su","Mo","Tu","We","Th","Fr","Sa"]],Gs,[["J","F","M","A","M","J","J","A","S","O","N","D"],["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],["January","February","March","April","May","June","July","August","September","October","November","December"]],Gs,[["B","A"],["BC","AD"],["Before Christ","Anno Domini"]],0,[6,0],["M/d/yy","MMM d, y","MMMM d, y","EEEE, MMMM d, y"],["h:mm a","h:mm:ss a","h:mm:ss a z","h:mm:ss a zzzz"],["{1}, {0}",Gs,"{1} 'at' {0}",Gs],[".",",",";","%","+","-","E","\xd7","\u2030","\u221e","NaN",":"],["#,##0.###","#,##0%","\xa4#,##0.00","#E0"],"$","US Dollar",{},function(t){var e=Math.floor(Math.abs(t)),n=t.toString().replace(/^[^.]*\.?/,"").length;return 1===e&&0===n?1:5}],Zs={},Qs=function(t){return t[t.Zero=0]="Zero",t[t.One=1]="One",t[t.Two=2]="Two",t[t.Few=3]="Few",t[t.Many=4]="Many",t[t.Other=5]="Other",t}({}),Ks=new ft("UseV4Plurals"),Ys=function(){},Js=function(t){function e(e,n){var r=t.call(this)||this;return r.locale=e,r.deprecatedPluralFn=n,r}return o(e,t),e.prototype.getPluralCategory=function(t,e){switch(this.deprecatedPluralFn?this.deprecatedPluralFn(e||this.locale,t):function(t){return function(t){var e=t.toLowerCase().replace(/_/g,"-"),n=Zs[e];if(n)return n;var r=e.split("-")[0];if(n=Zs[r])return n;if("en"===r)return Ws;throw new Error('Missing locale data for the locale "'+t+'".')}(t)[18]}(e||this.locale)(t)){case Qs.Zero:return"zero";case Qs.One:return"one";case Qs.Two:return"two";case Qs.Few:return"few";case Qs.Many:return"many";default:return"other"}},e}(Ys);function Xs(t,e){e=encodeURIComponent(e);try{for(var n=s(t.split(";")),r=n.next();!r.done;r=n.next()){var o=r.value,i=o.indexOf("="),a=u(-1==i?[o,""]:[o.slice(0,i),o.slice(i+1)],2),c=a[1];if(a[0].trim()===e)return decodeURIComponent(c)}}catch(t){l={error:t}}finally{try{r&&!r.done&&(h=n.return)&&h.call(n)}finally{if(l)throw l.error}}return null;var l,h}var $s=function(){function t(t,e,n,r){this._iterableDiffers=t,this._keyValueDiffers=e,this._ngEl=n,this._renderer=r,this._initialClasses=[]}return Object.defineProperty(t.prototype,"klass",{set:function(t){this._removeClasses(this._initialClasses),this._initialClasses="string"==typeof t?t.split(/\s+/):[],this._applyClasses(this._initialClasses),this._applyClasses(this._rawClass)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"ngClass",{set:function(t){this._removeClasses(this._rawClass),this._applyClasses(this._initialClasses),this._iterableDiffer=null,this._keyValueDiffer=null,this._rawClass="string"==typeof t?t.split(/\s+/):t,this._rawClass&&(In(this._rawClass)?this._iterableDiffer=this._iterableDiffers.find(this._rawClass).create():this._keyValueDiffer=this._keyValueDiffers.find(this._rawClass).create())},enumerable:!0,configurable:!0}),t.prototype.ngDoCheck=function(){if(this._iterableDiffer){var t=this._iterableDiffer.diff(this._rawClass);t&&this._applyIterableChanges(t)}else if(this._keyValueDiffer){var e=this._keyValueDiffer.diff(this._rawClass);e&&this._applyKeyValueChanges(e)}},t.prototype._applyKeyValueChanges=function(t){var e=this;t.forEachAddedItem(function(t){return e._toggleClass(t.key,t.currentValue)}),t.forEachChangedItem(function(t){return e._toggleClass(t.key,t.currentValue)}),t.forEachRemovedItem(function(t){t.previousValue&&e._toggleClass(t.key,!1)})},t.prototype._applyIterableChanges=function(t){var e=this;t.forEachAddedItem(function(t){if("string"!=typeof t.item)throw new Error("NgClass can only toggle CSS classes expressed as strings, got "+Ot(t.item));e._toggleClass(t.item,!0)}),t.forEachRemovedItem(function(t){return e._toggleClass(t.item,!1)})},t.prototype._applyClasses=function(t){var e=this;t&&(Array.isArray(t)||t instanceof Set?t.forEach(function(t){return e._toggleClass(t,!0)}):Object.keys(t).forEach(function(n){return e._toggleClass(n,!!t[n])}))},t.prototype._removeClasses=function(t){var e=this;t&&(Array.isArray(t)||t instanceof Set?t.forEach(function(t){return e._toggleClass(t,!1)}):Object.keys(t).forEach(function(t){return e._toggleClass(t,!1)}))},t.prototype._toggleClass=function(t,e){var n=this;(t=t.trim())&&t.split(/\s+/g).forEach(function(t){e?n._renderer.addClass(n._ngEl.nativeElement,t):n._renderer.removeClass(n._ngEl.nativeElement,t)})},t}(),tu=function(){function t(t,e){this._viewContainer=t,this._context=new eu,this._thenTemplateRef=null,this._elseTemplateRef=null,this._thenViewRef=null,this._elseViewRef=null,this._thenTemplateRef=e}return Object.defineProperty(t.prototype,"ngIf",{set:function(t){this._context.$implicit=this._context.ngIf=t,this._updateView()},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"ngIfThen",{set:function(t){nu("ngIfThen",t),this._thenTemplateRef=t,this._thenViewRef=null,this._updateView()},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"ngIfElse",{set:function(t){nu("ngIfElse",t),this._elseTemplateRef=t,this._elseViewRef=null,this._updateView()},enumerable:!0,configurable:!0}),t.prototype._updateView=function(){this._context.$implicit?this._thenViewRef||(this._viewContainer.clear(),this._elseViewRef=null,this._thenTemplateRef&&(this._thenViewRef=this._viewContainer.createEmbeddedView(this._thenTemplateRef,this._context))):this._elseViewRef||(this._viewContainer.clear(),this._thenViewRef=null,this._elseTemplateRef&&(this._elseViewRef=this._viewContainer.createEmbeddedView(this._elseTemplateRef,this._context)))},t}(),eu=function(){this.$implicit=null,this.ngIf=null};function nu(t,e){if(e&&!e.createEmbeddedView)throw new Error(t+" must be a TemplateRef, but received '"+Ot(e)+"'.")}var ru=function(){function t(t){this._viewContainerRef=t}return t.prototype.ngOnChanges=function(t){this._shouldRecreateView(t)?(this._viewRef&&this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._viewRef)),this.ngTemplateOutlet&&(this._viewRef=this._viewContainerRef.createEmbeddedView(this.ngTemplateOutlet,this.ngTemplateOutletContext))):this._viewRef&&this.ngTemplateOutletContext&&this._updateExistingContext(this.ngTemplateOutletContext)},t.prototype._shouldRecreateView=function(t){var e=t.ngTemplateOutletContext;return!!t.ngTemplateOutlet||e&&this._hasContextShapeChanged(e)},t.prototype._hasContextShapeChanged=function(t){var e,n,r=Object.keys(t.previousValue||{}),o=Object.keys(t.currentValue||{});if(r.length===o.length){try{for(var i=s(o),u=i.next();!u.done;u=i.next())if(-1===r.indexOf(u.value))return!0}catch(t){e={error:t}}finally{try{u&&!u.done&&(n=i.return)&&n.call(i)}finally{if(e)throw e.error}}return!1}return!0},t.prototype._updateExistingContext=function(t){try{for(var e=s(Object.keys(t)),n=e.next();!n.done;n=e.next()){var r=n.value;this._viewRef.context[r]=this.ngTemplateOutletContext[r]}}catch(t){o={error:t}}finally{try{n&&!n.done&&(i=e.return)&&i.call(e)}finally{if(o)throw o.error}}var o,i},t}(),ou=function(){},iu=new ft("DocumentToken"),su=function(){function t(){}return t.prototype.ngOnInit=function(){},t}(),uu=function(){function t(){}return t.prototype.ngOnInit=function(){},t}(),au=function(){function t(){this.type="button",this.disabled=!1,this.color="primary",this.clicked=!1,this.click=new Le}return t.prototype.onHostClick=function(t){t&&(t.preventDefault(),t.stopPropagation())},t.prototype.onClick=function(t){var e=this;t.preventDefault(),t.stopPropagation(),this.click.emit(null),this.clicked=!0,setTimeout(function(){e.clicked=!1})},t}(),cu=function(){function t(){}return t.prototype.ngOnInit=function(){},t}(),lu=Lr({encapsulation:0,styles:[["[_nghost-%COMP%]   .cardContainer[_ngcontent-%COMP%]{background-color:#fff;padding:10px 30px 25px;border-radius:3px;border:1px solid #e5e6eb}[_nghost-%COMP%]   .cardContainer[_ngcontent-%COMP%]   header[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:space-between}[_nghost-%COMP%]   .cardContainer[_ngcontent-%COMP%]   footer[_ngcontent-%COMP%]{display:flex;align-items:center;justify-content:flex-end}"]],data:{}});function hu(t){return Ti(0,[(t()(),fo(0,0,null,null,2,"h2",[],null,null,null,null,null)),(t()(),fo(1,16777216,null,null,1,null,null,null,null,null,null,null)),ni(2,540672,null,0,ru,[_n],{ngTemplateOutlet:[0,"ngTemplateOutlet"]},null)],function(t,e){t(e,2,0,e.component.header.headerContent)},null)}function pu(t){return Ti(0,[(t()(),fo(0,0,null,null,2,"div",[["class","actions"]],null,null,null,null,null)),(t()(),fo(1,16777216,null,null,1,null,null,null,null,null,null,null)),ni(2,540672,null,0,ru,[_n],{ngTemplateOutlet:[0,"ngTemplateOutlet"]},null)],function(t,e){t(e,2,0,e.component.actions.actionsContent)},null)}function fu(t){return Ti(0,[(t()(),fo(0,0,null,null,4,"header",[],null,null,null,null,null)),(t()(),po(16777216,null,null,1,null,hu)),ni(2,16384,null,0,tu,[_n,bn],{ngIf:[0,"ngIf"]},null),(t()(),po(16777216,null,null,1,null,pu)),ni(4,16384,null,0,tu,[_n,bn],{ngIf:[0,"ngIf"]},null)],function(t,e){var n=e.component;t(e,2,0,n.header),t(e,4,0,n.actions)},null)}function du(t){return Ti(0,[(t()(),fo(0,0,null,null,2,"div",[["class","content"]],null,null,null,null,null)),(t()(),fo(1,16777216,null,null,1,null,null,null,null,null,null,null)),ni(2,540672,null,0,ru,[_n],{ngTemplateOutlet:[0,"ngTemplateOutlet"]},null)],function(t,e){t(e,2,0,e.component.content.contentContent)},null)}function vu(t){return Ti(0,[(t()(),fo(0,0,null,null,2,"footer",[],null,null,null,null,null)),(t()(),fo(1,16777216,null,null,1,null,null,null,null,null,null,null)),ni(2,540672,null,0,ru,[_n],{ngTemplateOutlet:[0,"ngTemplateOutlet"]},null)],function(t,e){t(e,2,0,e.component.footer.footerContent)},null)}function yu(t){return Ti(0,[(t()(),fo(0,0,null,null,6,"div",[["class","cardContainer"]],null,null,null,null,null)),(t()(),po(16777216,null,null,1,null,fu)),ni(2,16384,null,0,tu,[_n,bn],{ngIf:[0,"ngIf"]},null),(t()(),po(16777216,null,null,1,null,du)),ni(4,16384,null,0,tu,[_n,bn],{ngIf:[0,"ngIf"]},null),(t()(),po(16777216,null,null,1,null,vu)),ni(6,16384,null,0,tu,[_n,bn],{ngIf:[0,"ngIf"]},null)],function(t,e){var n=e.component;t(e,2,0,n.header||n.actions),t(e,4,0,n.content),t(e,6,0,n.footer)},null)}var gu=Lr({encapsulation:0,styles:[[""]],data:{}});function mu(t){return Ti(0,[Ci(null,0),(t()(),po(0,null,null,0))],null,null)}function bu(t){return Ti(0,[gi(402653184,1,{headerContent:0}),(t()(),po(0,[[1,2],["headerContent",2]],null,0,null,mu))],null,null)}var _u=Lr({encapsulation:0,styles:[[""]],data:{}});function wu(t){return Ti(0,[Ci(null,0),(t()(),po(0,null,null,0))],null,null)}function Cu(t){return Ti(0,[gi(402653184,1,{contentContent:0}),(t()(),po(0,[[1,2],["contentContent",2]],null,0,null,wu))],null,null)}var xu=new I(function(t){return t.complete()});function Su(t){return t?function(t){return new I(function(e){return t.schedule(function(){return e.complete()})})}(t):xu}function Eu(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n,r,o=t[t.length-1];switch(N(o)?t.pop():o=void 0,t.length){case 0:return Su(o);case 1:return o?Z(t,o):(n=t[0],(r=new I(function(t){t.next(n),t.complete()}))._isScalar=!0,r.value=n,r);default:return Z(t,o)}}var Ou=function(t){function e(e){var n=t.call(this)||this;return n._value=e,n}return o(e,t),Object.defineProperty(e.prototype,"value",{get:function(){return this.getValue()},enumerable:!0,configurable:!0}),e.prototype._subscribe=function(e){var n=t.prototype._subscribe.call(this,e);return n&&!n.closed&&e.next(this._value),n},e.prototype.getValue=function(){if(this.hasError)throw this.thrownError;if(this.closed)throw new tt;return this._value},e.prototype.next=function(e){t.prototype.next.call(this,this._value=e)},e}(rt),Tu=function(t){function e(){var n=t.call(this,"no elements in sequence")||this;return n.name="EmptyError",Object.setPrototypeOf(n,e.prototype),n}return o(e,t),e}(Error);function Au(t,e){return K(t,e,1)}function Pu(t,e){var n=!1;return arguments.length>=2&&(n=!0),function(r){return r.lift(new Iu(t,e,n))}}var Iu=function(){function t(t,e,n){void 0===n&&(n=!1),this.accumulator=t,this.seed=e,this.hasSeed=n}return t.prototype.call=function(t,e){return e.subscribe(new ku(t,this.accumulator,this.seed,this.hasSeed))},t}(),ku=function(t){function e(e,n,r,o){var i=t.call(this,e)||this;return i.accumulator=n,i._seed=r,i.hasSeed=o,i.index=0,i}return o(e,t),Object.defineProperty(e.prototype,"seed",{get:function(){return this._seed},set:function(t){this.hasSeed=!0,this._seed=t},enumerable:!0,configurable:!0}),e.prototype._next=function(t){if(this.hasSeed)return this._tryNext(t);this.seed=t,this.destination.next(t)},e.prototype._tryNext=function(t){var e,n=this.index++;try{e=this.accumulator(this.seed,t,n)}catch(t){this.destination.error(t)}this.seed=e,this.destination.next(e)},e}(S),Nu=function(t){function e(){var n=t.call(this,"argument out of range")||this;return n.name="ArgumentOutOfRangeError",Object.setPrototypeOf(n,e.prototype),n}return o(e,t),e}(Error);function Ru(t){return function(e){return 0===t?Su():e.lift(new ju(t))}}var ju=function(){function t(t){if(this.total=t,this.total<0)throw new Nu}return t.prototype.call=function(t,e){return e.subscribe(new Vu(t,this.total))},t}(),Vu=function(t){function e(e,n){var r=t.call(this,e)||this;return r.total=n,r.ring=new Array,r.count=0,r}return o(e,t),e.prototype._next=function(t){var e=this.ring,n=this.total,r=this.count++;e.length<n?e.push(t):e[r%n]=t},e.prototype._complete=function(){var t=this.destination,e=this.count;if(e>0)for(var n=this.count>=this.total?this.total:this.count,r=this.ring,o=0;o<n;o++){var i=e++%n;t.next(r[i])}t.complete()},e}(S);function Mu(t){return void 0===t&&(t=null),function(e){return e.lift(new Du(t))}}var Du=function(){function t(t){this.defaultValue=t}return t.prototype.call=function(t,e){return e.subscribe(new Uu(t,this.defaultValue))},t}(),Uu=function(t){function e(e,n){var r=t.call(this,e)||this;return r.defaultValue=n,r.isEmpty=!0,r}return o(e,t),e.prototype._next=function(t){this.isEmpty=!1,this.destination.next(t)},e.prototype._complete=function(){this.isEmpty&&this.destination.next(this.defaultValue),this.destination.complete()},e}(S);function Lu(t,e){return function(n){return n.lift(new Hu(t,e))}}var Hu=function(){function t(t,e){this.predicate=t,this.thisArg=e}return t.prototype.call=function(t,e){return e.subscribe(new Fu(t,this.predicate,this.thisArg))},t}(),Fu=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o.predicate=n,o.thisArg=r,o.count=0,o}return o(e,t),e.prototype._next=function(t){var e;try{e=this.predicate.call(this.thisArg,t,this.count++)}catch(t){return void this.destination.error(t)}e&&this.destination.next(t)},e}(S),zu=function(){function t(t,e,n){this.nextOrObserver=t,this.error=e,this.complete=n}return t.prototype.call=function(t,e){return e.subscribe(new qu(t,this.nextOrObserver,this.error,this.complete))},t}(),qu=function(t){function e(e,n,r,o){var i=t.call(this,e)||this;return i._tapNext=T,i._tapError=T,i._tapComplete=T,i._tapError=r||T,i._tapComplete=o||T,c(n)?(i._context=i,i._tapNext=n):n&&(i._context=n,i._tapNext=n.next||T,i._tapError=n.error||T,i._tapComplete=n.complete||T),i}return o(e,t),e.prototype._next=function(t){try{this._tapNext.call(this._context,t)}catch(t){return void this.destination.error(t)}this.destination.next(t)},e.prototype._error=function(t){try{this._tapError.call(this._context,t)}catch(t){return void this.destination.error(t)}this.destination.error(t)},e.prototype._complete=function(){try{this._tapComplete.call(this._context)}catch(t){return void this.destination.error(t)}return this.destination.complete()},e}(S),Bu=function(t){return void 0===t&&(t=Gu),e={hasValue:!1,next:function(){this.hasValue=!0},complete:function(){if(!this.hasValue)throw t()}},function(t){return t.lift(new zu(e,void 0,void 0))};var e};function Gu(){return new Tu}function Wu(t,e){var n=arguments.length>=2;return function(r){return r.pipe(t?Lu(function(e,n){return t(e,n,r)}):X,Ru(1),n?Mu(e):Bu(function(){return new Tu}))}}function Zu(t){return function(e){var n=new Qu(t),r=e.lift(n);return n.caught=r}}var Qu=function(){function t(t){this.selector=t}return t.prototype.call=function(t,e){return e.subscribe(new Ku(t,this.selector,this.caught))},t}(),Ku=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o.selector=n,o.caught=r,o}return o(e,t),e.prototype.error=function(e){if(!this.isStopped){var n=void 0;try{n=this.selector(e,this.caught)}catch(e){return void t.prototype.error.call(this,e)}this._unsubscribeAndRecycle(),this.add(z(this,n))}},e}(q);function Yu(t,e){return function(n){return n.lift(new Ju(t,e,n))}}var Ju=function(){function t(t,e,n){this.predicate=t,this.thisArg=e,this.source=n}return t.prototype.call=function(t,e){return e.subscribe(new Xu(t,this.predicate,this.thisArg,this.source))},t}(),Xu=function(t){function e(e,n,r,o){var i=t.call(this,e)||this;return i.predicate=n,i.thisArg=r,i.source=o,i.index=0,i.thisArg=r||i,i}return o(e,t),e.prototype.notifyComplete=function(t){this.destination.next(t),this.destination.complete()},e.prototype._next=function(t){var e=!1;try{e=this.predicate.call(this.thisArg,t,this.index++,this.source)}catch(t){return void this.destination.error(t)}e||this.notifyComplete(!1)},e.prototype._complete=function(){this.notifyComplete(!0)},e}(S),$u=function(){function t(t){if(this.total=t,this.total<0)throw new Nu}return t.prototype.call=function(t,e){return e.subscribe(new ta(t,this.total))},t}(),ta=function(t){function e(e,n){var r=t.call(this,e)||this;return r.total=n,r.count=0,r}return o(e,t),e.prototype._next=function(t){var e=this.total,n=++this.count;n<=e&&(this.destination.next(t),n===e&&(this.destination.complete(),this.unsubscribe()))},e}(S);function ea(t,e){var n=arguments.length>=2;return function(r){return r.pipe(t?Lu(function(e,n){return t(e,n,r)}):X,function(t){return t.lift(new $u(1))},n?Mu(e):Bu(function(){return new Tu}))}}function na(){return $(1)}var ra=null;function oa(){return ra}var ia,sa={class:"className",innerHtml:"innerHTML",readonly:"readOnly",tabindex:"tabIndex"},ua={"\b":"Backspace","\t":"Tab","\x7f":"Delete","\x1b":"Escape",Del:"Delete",Esc:"Escape",Left:"ArrowLeft",Right:"ArrowRight",Up:"ArrowUp",Down:"ArrowDown",Menu:"ContextMenu",Scroll:"ScrollLock",Win:"OS"},aa={A:"1",B:"2",C:"3",D:"4",E:"5",F:"6",G:"7",H:"8",I:"9",J:"*",K:"+",M:"-",N:".",O:"/","`":"0","\x90":"NumLock"};_t.Node&&(ia=_t.Node.prototype.contains||function(t){return!!(16&this.compareDocumentPosition(t))});var ca,la=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.parse=function(t){throw new Error("parse not implemented")},e.makeCurrent=function(){var t;t=new e,ra||(ra=t)},e.prototype.hasProperty=function(t,e){return e in t},e.prototype.setProperty=function(t,e,n){t[e]=n},e.prototype.getProperty=function(t,e){return t[e]},e.prototype.invoke=function(t,e,n){var r;(r=t)[e].apply(r,a(n))},e.prototype.logError=function(t){window.console&&(console.error?console.error(t):console.log(t))},e.prototype.log=function(t){window.console&&window.console.log&&window.console.log(t)},e.prototype.logGroup=function(t){window.console&&window.console.group&&window.console.group(t)},e.prototype.logGroupEnd=function(){window.console&&window.console.groupEnd&&window.console.groupEnd()},Object.defineProperty(e.prototype,"attrToPropMap",{get:function(){return sa},enumerable:!0,configurable:!0}),e.prototype.contains=function(t,e){return ia.call(t,e)},e.prototype.querySelector=function(t,e){return t.querySelector(e)},e.prototype.querySelectorAll=function(t,e){return t.querySelectorAll(e)},e.prototype.on=function(t,e,n){t.addEventListener(e,n,!1)},e.prototype.onAndCancel=function(t,e,n){return t.addEventListener(e,n,!1),function(){t.removeEventListener(e,n,!1)}},e.prototype.dispatchEvent=function(t,e){t.dispatchEvent(e)},e.prototype.createMouseEvent=function(t){var e=this.getDefaultDocument().createEvent("MouseEvent");return e.initEvent(t,!0,!0),e},e.prototype.createEvent=function(t){var e=this.getDefaultDocument().createEvent("Event");return e.initEvent(t,!0,!0),e},e.prototype.preventDefault=function(t){t.preventDefault(),t.returnValue=!1},e.prototype.isPrevented=function(t){return t.defaultPrevented||null!=t.returnValue&&!t.returnValue},e.prototype.getInnerHTML=function(t){return t.innerHTML},e.prototype.getTemplateContent=function(t){return"content"in t&&this.isTemplateElement(t)?t.content:null},e.prototype.getOuterHTML=function(t){return t.outerHTML},e.prototype.nodeName=function(t){return t.nodeName},e.prototype.nodeValue=function(t){return t.nodeValue},e.prototype.type=function(t){return t.type},e.prototype.content=function(t){return this.hasProperty(t,"content")?t.content:t},e.prototype.firstChild=function(t){return t.firstChild},e.prototype.nextSibling=function(t){return t.nextSibling},e.prototype.parentElement=function(t){return t.parentNode},e.prototype.childNodes=function(t){return t.childNodes},e.prototype.childNodesAsList=function(t){for(var e=t.childNodes,n=new Array(e.length),r=0;r<e.length;r++)n[r]=e[r];return n},e.prototype.clearNodes=function(t){for(;t.firstChild;)t.removeChild(t.firstChild)},e.prototype.appendChild=function(t,e){t.appendChild(e)},e.prototype.removeChild=function(t,e){t.removeChild(e)},e.prototype.replaceChild=function(t,e,n){t.replaceChild(e,n)},e.prototype.remove=function(t){return t.parentNode&&t.parentNode.removeChild(t),t},e.prototype.insertBefore=function(t,e,n){t.insertBefore(n,e)},e.prototype.insertAllBefore=function(t,e,n){n.forEach(function(n){return t.insertBefore(n,e)})},e.prototype.insertAfter=function(t,e,n){t.insertBefore(n,e.nextSibling)},e.prototype.setInnerHTML=function(t,e){t.innerHTML=e},e.prototype.getText=function(t){return t.textContent},e.prototype.setText=function(t,e){t.textContent=e},e.prototype.getValue=function(t){return t.value},e.prototype.setValue=function(t,e){t.value=e},e.prototype.getChecked=function(t){return t.checked},e.prototype.setChecked=function(t,e){t.checked=e},e.prototype.createComment=function(t){return this.getDefaultDocument().createComment(t)},e.prototype.createTemplate=function(t){var e=this.getDefaultDocument().createElement("template");return e.innerHTML=t,e},e.prototype.createElement=function(t,e){return(e=e||this.getDefaultDocument()).createElement(t)},e.prototype.createElementNS=function(t,e,n){return(n=n||this.getDefaultDocument()).createElementNS(t,e)},e.prototype.createTextNode=function(t,e){return(e=e||this.getDefaultDocument()).createTextNode(t)},e.prototype.createScriptTag=function(t,e,n){var r=(n=n||this.getDefaultDocument()).createElement("SCRIPT");return r.setAttribute(t,e),r},e.prototype.createStyleElement=function(t,e){var n=(e=e||this.getDefaultDocument()).createElement("style");return this.appendChild(n,this.createTextNode(t,e)),n},e.prototype.createShadowRoot=function(t){return t.createShadowRoot()},e.prototype.getShadowRoot=function(t){return t.shadowRoot},e.prototype.getHost=function(t){return t.host},e.prototype.clone=function(t){return t.cloneNode(!0)},e.prototype.getElementsByClassName=function(t,e){return t.getElementsByClassName(e)},e.prototype.getElementsByTagName=function(t,e){return t.getElementsByTagName(e)},e.prototype.classList=function(t){return Array.prototype.slice.call(t.classList,0)},e.prototype.addClass=function(t,e){t.classList.add(e)},e.prototype.removeClass=function(t,e){t.classList.remove(e)},e.prototype.hasClass=function(t,e){return t.classList.contains(e)},e.prototype.setStyle=function(t,e,n){t.style[e]=n},e.prototype.removeStyle=function(t,e){t.style[e]=""},e.prototype.getStyle=function(t,e){return t.style[e]},e.prototype.hasStyle=function(t,e,n){var r=this.getStyle(t,e)||"";return n?r==n:r.length>0},e.prototype.tagName=function(t){return t.tagName},e.prototype.attributeMap=function(t){for(var e=new Map,n=t.attributes,r=0;r<n.length;r++){var o=n.item(r);e.set(o.name,o.value)}return e},e.prototype.hasAttribute=function(t,e){return t.hasAttribute(e)},e.prototype.hasAttributeNS=function(t,e,n){return t.hasAttributeNS(e,n)},e.prototype.getAttribute=function(t,e){return t.getAttribute(e)},e.prototype.getAttributeNS=function(t,e,n){return t.getAttributeNS(e,n)},e.prototype.setAttribute=function(t,e,n){t.setAttribute(e,n)},e.prototype.setAttributeNS=function(t,e,n,r){t.setAttributeNS(e,n,r)},e.prototype.removeAttribute=function(t,e){t.removeAttribute(e)},e.prototype.removeAttributeNS=function(t,e,n){t.removeAttributeNS(e,n)},e.prototype.templateAwareRoot=function(t){return this.isTemplateElement(t)?this.content(t):t},e.prototype.createHtmlDocument=function(){return document.implementation.createHTMLDocument("fakeTitle")},e.prototype.getDefaultDocument=function(){return document},e.prototype.getBoundingClientRect=function(t){try{return t.getBoundingClientRect()}catch(t){return{top:0,bottom:0,left:0,right:0,width:0,height:0}}},e.prototype.getTitle=function(t){return t.title},e.prototype.setTitle=function(t,e){t.title=e||""},e.prototype.elementMatches=function(t,e){return!!this.isElementNode(t)&&(t.matches&&t.matches(e)||t.msMatchesSelector&&t.msMatchesSelector(e)||t.webkitMatchesSelector&&t.webkitMatchesSelector(e))},e.prototype.isTemplateElement=function(t){return this.isElementNode(t)&&"TEMPLATE"===t.nodeName},e.prototype.isTextNode=function(t){return t.nodeType===Node.TEXT_NODE},e.prototype.isCommentNode=function(t){return t.nodeType===Node.COMMENT_NODE},e.prototype.isElementNode=function(t){return t.nodeType===Node.ELEMENT_NODE},e.prototype.hasShadowRoot=function(t){return null!=t.shadowRoot&&t instanceof HTMLElement},e.prototype.isShadowRoot=function(t){return t instanceof DocumentFragment},e.prototype.importIntoDoc=function(t){return document.importNode(this.templateAwareRoot(t),!0)},e.prototype.adoptNode=function(t){return document.adoptNode(t)},e.prototype.getHref=function(t){return t.getAttribute("href")},e.prototype.getEventKey=function(t){var e=t.key;if(null==e){if(null==(e=t.keyIdentifier))return"Unidentified";e.startsWith("U+")&&(e=String.fromCharCode(parseInt(e.substring(2),16)),3===t.location&&aa.hasOwnProperty(e)&&(e=aa[e]))}return ua[e]||e},e.prototype.getGlobalEventTarget=function(t,e){return"window"===e?window:"document"===e?t:"body"===e?t.body:null},e.prototype.getHistory=function(){return window.history},e.prototype.getLocation=function(){return window.location},e.prototype.getBaseHref=function(t){var e,n=ha||(ha=document.querySelector("base"))?ha.getAttribute("href"):null;return null==n?null:(e=n,ca||(ca=document.createElement("a")),ca.setAttribute("href",e),"/"===ca.pathname.charAt(0)?ca.pathname:"/"+ca.pathname)},e.prototype.resetBaseElement=function(){ha=null},e.prototype.getUserAgent=function(){return window.navigator.userAgent},e.prototype.setData=function(t,e,n){this.setAttribute(t,"data-"+e,n)},e.prototype.getData=function(t,e){return this.getAttribute(t,"data-"+e)},e.prototype.getComputedStyle=function(t){return getComputedStyle(t)},e.prototype.supportsWebAnimation=function(){return"function"==typeof Element.prototype.animate},e.prototype.performanceNow=function(){return window.performance&&window.performance.now?window.performance.now():(new Date).getTime()},e.prototype.supportsCookies=function(){return!0},e.prototype.getCookie=function(t){return Xs(document.cookie,t)},e.prototype.setCookie=function(t,e){document.cookie=encodeURIComponent(t)+"="+encodeURIComponent(e)},e}(function(t){function e(){var e=t.call(this)||this;e._animationPrefix=null,e._transitionEnd=null;try{var n=e.createElement("div",document);if(null!=e.getStyle(n,"animationName"))e._animationPrefix="";else for(var r=["Webkit","Moz","O","ms"],o=0;o<r.length;o++)if(null!=e.getStyle(n,r[o]+"AnimationName")){e._animationPrefix="-"+r[o].toLowerCase()+"-";break}var i={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};Object.keys(i).forEach(function(t){null!=e.getStyle(n,t)&&(e._transitionEnd=i[t])})}catch(t){e._animationPrefix=null,e._transitionEnd=null}return e}return o(e,t),e.prototype.getDistributedNodes=function(t){return t.getDistributedNodes()},e.prototype.resolveAndSetHref=function(t,e,n){t.href=null==n?e:e+"/../"+n},e.prototype.supportsDOMEvents=function(){return!0},e.prototype.supportsNativeShadowDOM=function(){return"function"==typeof document.body.createShadowRoot},e.prototype.getAnimationPrefix=function(){return this._animationPrefix?this._animationPrefix:""},e.prototype.getTransitionEnd=function(){return this._transitionEnd?this._transitionEnd:""},e.prototype.supportsAnimation=function(){return null!=this._animationPrefix&&null!=this._transitionEnd},e}(function(){function t(){this.resourceLoaderType=null}return Object.defineProperty(t.prototype,"attrToPropMap",{get:function(){return this._attrToPropMap},set:function(t){this._attrToPropMap=t},enumerable:!0,configurable:!0}),t}())),ha=null,pa=iu;function fa(){return!!window.history.pushState}var da=function(t){function e(e){var n=t.call(this)||this;return n._doc=e,n._init(),n}return o(e,t),e.prototype._init=function(){this.location=oa().getLocation(),this._history=oa().getHistory()},e.prototype.getBaseHrefFromDOM=function(){return oa().getBaseHref(this._doc)},e.prototype.onPopState=function(t){oa().getGlobalEventTarget(this._doc,"window").addEventListener("popstate",t,!1)},e.prototype.onHashChange=function(t){oa().getGlobalEventTarget(this._doc,"window").addEventListener("hashchange",t,!1)},Object.defineProperty(e.prototype,"pathname",{get:function(){return this.location.pathname},set:function(t){this.location.pathname=t},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"search",{get:function(){return this.location.search},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"hash",{get:function(){return this.location.hash},enumerable:!0,configurable:!0}),e.prototype.pushState=function(t,e,n){fa()?this._history.pushState(t,e,n):this.location.hash=n},e.prototype.replaceState=function(t,e,n){fa()?this._history.replaceState(t,e,n):this.location.hash=n},e.prototype.forward=function(){this._history.forward()},e.prototype.back=function(){this._history.back()},e.ctorParameters=function(){return[{type:void 0,decorators:[{type:Pt,args:[pa]}]}]},e}(Ds),va=function(){function t(t){this._doc=t,this._dom=oa()}return t.prototype.addTag=function(t,e){return void 0===e&&(e=!1),t?this._getOrCreateElement(t,e):null},t.prototype.addTags=function(t,e){var n=this;return void 0===e&&(e=!1),t?t.reduce(function(t,r){return r&&t.push(n._getOrCreateElement(r,e)),t},[]):[]},t.prototype.getTag=function(t){return t&&this._dom.querySelector(this._doc,"meta["+t+"]")||null},t.prototype.getTags=function(t){if(!t)return[];var e=this._dom.querySelectorAll(this._doc,"meta["+t+"]");return e?[].slice.call(e):[]},t.prototype.updateTag=function(t,e){if(!t)return null;e=e||this._parseSelector(t);var n=this.getTag(e);return n?this._setMetaElementAttributes(t,n):this._getOrCreateElement(t,!0)},t.prototype.removeTag=function(t){this.removeTagElement(this.getTag(t))},t.prototype.removeTagElement=function(t){t&&this._dom.remove(t)},t.prototype._getOrCreateElement=function(t,e){if(void 0===e&&(e=!1),!e){var n=this._parseSelector(t),r=this.getTag(n);if(r&&this._containsAttributes(t,r))return r}var o=this._dom.createElement("meta");this._setMetaElementAttributes(t,o);var i=this._dom.getElementsByTagName(this._doc,"head")[0];return this._dom.appendChild(i,o),o},t.prototype._setMetaElementAttributes=function(t,e){var n=this;return Object.keys(t).forEach(function(r){return n._dom.setAttribute(e,r,t[r])}),e},t.prototype._parseSelector=function(t){var e=t.name?"name":"property";return e+'="'+t[e]+'"'},t.prototype._containsAttributes=function(t,e){var n=this;return Object.keys(t).every(function(r){return n._dom.getAttribute(e,r)===t[r]})},t}(),ya=new ft("TRANSITION_ID"),ga=[{provide:pe,useFactory:function(t,e,n){return function(){n.get(fe).donePromise.then(function(){var n=oa();Array.prototype.slice.apply(n.querySelectorAll(e,"style[ng-transition]")).filter(function(e){return n.getAttribute(e,"ng-transition")===t}).forEach(function(t){return n.remove(t)})})}},deps:[ya,pa,Dt],multi:!0}],ma=function(){function t(){}return t.init=function(){var e;e=new t,Ye=e},t.prototype.addToWindow=function(t){_t.getAngularTestability=function(e,n){void 0===n&&(n=!0);var r=t.findTestabilityInTree(e,n);if(null==r)throw new Error("Could not find testability for element.");return r},_t.getAllAngularTestabilities=function(){return t.getAllTestabilities()},_t.getAllAngularRootElements=function(){return t.getAllRootElements()},_t.frameworkStabilizers||(_t.frameworkStabilizers=[]),_t.frameworkStabilizers.push(function(t){var e=_t.getAllAngularTestabilities(),n=e.length,r=!1,o=function(e){r=r||e,0==--n&&t(r)};e.forEach(function(t){t.whenStable(o)})})},t.prototype.findTestabilityInTree=function(t,e,n){if(null==e)return null;var r=t.getTestability(e);return null!=r?r:n?oa().isShadowRoot(e)?this.findTestabilityInTree(t,oa().getHost(e),!0):this.findTestabilityInTree(t,oa().parentElement(e),!0):null},t}(),ba=function(){function t(t){this._doc=t}return t.prototype.getTitle=function(){return oa().getTitle(this._doc)},t.prototype.setTitle=function(t){oa().setTitle(this._doc,t)},t}();function _a(t,e){"undefined"!=typeof COMPILED&&COMPILED||((_t.ng=_t.ng||{})[t]=e)}var wa={ApplicationRef:un,NgZone:He};function Ca(t){return En(t)}var xa=new ft("EventManagerPlugins"),Sa=function(){function t(t,e){var n=this;this._zone=e,this._eventNameToPlugin=new Map,t.forEach(function(t){return t.manager=n}),this._plugins=t.slice().reverse()}return t.prototype.addEventListener=function(t,e,n){return this._findPluginFor(e).addEventListener(t,e,n)},t.prototype.addGlobalEventListener=function(t,e,n){return this._findPluginFor(e).addGlobalEventListener(t,e,n)},t.prototype.getZone=function(){return this._zone},t.prototype._findPluginFor=function(t){var e=this._eventNameToPlugin.get(t);if(e)return e;for(var n=this._plugins,r=0;r<n.length;r++){var o=n[r];if(o.supports(t))return this._eventNameToPlugin.set(t,o),o}throw new Error("No event manager plugin found for event "+t)},t}(),Ea=function(){function t(t){this._doc=t}return t.prototype.addGlobalEventListener=function(t,e,n){var r=oa().getGlobalEventTarget(this._doc,t);if(!r)throw new Error("Unsupported event target "+r+" for event "+e);return this.addEventListener(r,e,n)},t}(),Oa=function(){function t(){this._stylesSet=new Set}return t.prototype.addStyles=function(t){var e=this,n=new Set;t.forEach(function(t){e._stylesSet.has(t)||(e._stylesSet.add(t),n.add(t))}),this.onStylesAdded(n)},t.prototype.onStylesAdded=function(t){},t.prototype.getAllStyles=function(){return Array.from(this._stylesSet)},t}(),Ta=function(t){function e(e){var n=t.call(this)||this;return n._doc=e,n._hostNodes=new Set,n._styleNodes=new Set,n._hostNodes.add(e.head),n}return o(e,t),e.prototype._addStylesToHost=function(t,e){var n=this;t.forEach(function(t){var r=n._doc.createElement("style");r.textContent=t,n._styleNodes.add(e.appendChild(r))})},e.prototype.addHost=function(t){this._addStylesToHost(this._stylesSet,t),this._hostNodes.add(t)},e.prototype.removeHost=function(t){this._hostNodes.delete(t)},e.prototype.onStylesAdded=function(t){var e=this;this._hostNodes.forEach(function(n){return e._addStylesToHost(t,n)})},e.prototype.ngOnDestroy=function(){this._styleNodes.forEach(function(t){return oa().remove(t)})},e}(Oa),Aa={svg:"http://www.w3.org/2000/svg",xhtml:"http://www.w3.org/1999/xhtml",xlink:"http://www.w3.org/1999/xlink",xml:"http://www.w3.org/XML/1998/namespace",xmlns:"http://www.w3.org/2000/xmlns/"},Pa=/%COMP%/g,Ia="_nghost-%COMP%",ka="_ngcontent-%COMP%";function Na(t,e,n){for(var r=0;r<e.length;r++){var o=e[r];Array.isArray(o)?Na(t,o,n):(o=o.replace(Pa,t),n.push(o))}return n}function Ra(t){return function(e){!1===t(e)&&(e.preventDefault(),e.returnValue=!1)}}var ja=function(){function t(t,e){this.eventManager=t,this.sharedStylesHost=e,this.rendererByCompId=new Map,this.defaultRenderer=new Va(t)}return t.prototype.createRenderer=function(t,e){if(!t||!e)return this.defaultRenderer;switch(e.encapsulation){case te.Emulated:var n=this.rendererByCompId.get(e.id);return n||(n=new La(this.eventManager,this.sharedStylesHost,e),this.rendererByCompId.set(e.id,n)),n.applyToHost(t),n;case te.Native:return new Ha(this.eventManager,this.sharedStylesHost,t,e);default:if(!this.rendererByCompId.has(e.id)){var r=Na(e.id,e.styles,[]);this.sharedStylesHost.addStyles(r),this.rendererByCompId.set(e.id,this.defaultRenderer)}return this.defaultRenderer}},t.prototype.begin=function(){},t.prototype.end=function(){},t}(),Va=function(){function t(t){this.eventManager=t,this.data=Object.create(null)}return t.prototype.destroy=function(){},t.prototype.createElement=function(t,e){return e?document.createElementNS(Aa[e],t):document.createElement(t)},t.prototype.createComment=function(t){return document.createComment(t)},t.prototype.createText=function(t){return document.createTextNode(t)},t.prototype.appendChild=function(t,e){t.appendChild(e)},t.prototype.insertBefore=function(t,e,n){t&&t.insertBefore(e,n)},t.prototype.removeChild=function(t,e){t&&t.removeChild(e)},t.prototype.selectRootElement=function(t){var e="string"==typeof t?document.querySelector(t):t;if(!e)throw new Error('The selector "'+t+'" did not match any elements');return e.textContent="",e},t.prototype.parentNode=function(t){return t.parentNode},t.prototype.nextSibling=function(t){return t.nextSibling},t.prototype.setAttribute=function(t,e,n,r){if(r){e=r+":"+e;var o=Aa[r];o?t.setAttributeNS(o,e,n):t.setAttribute(e,n)}else t.setAttribute(e,n)},t.prototype.removeAttribute=function(t,e,n){if(n){var r=Aa[n];r?t.removeAttributeNS(r,e):t.removeAttribute(n+":"+e)}else t.removeAttribute(e)},t.prototype.addClass=function(t,e){t.classList.add(e)},t.prototype.removeClass=function(t,e){t.classList.remove(e)},t.prototype.setStyle=function(t,e,n,r){r&ln.DashCase?t.style.setProperty(e,n,r&ln.Important?"important":""):t.style[e]=n},t.prototype.removeStyle=function(t,e,n){n&ln.DashCase?t.style.removeProperty(e):t.style[e]=""},t.prototype.setProperty=function(t,e,n){Da(e,"property"),t[e]=n},t.prototype.setValue=function(t,e){t.nodeValue=e},t.prototype.listen=function(t,e,n){return Da(e,"listener"),"string"==typeof t?this.eventManager.addGlobalEventListener(t,e,Ra(n)):this.eventManager.addEventListener(t,e,Ra(n))},t}(),Ma="@".charCodeAt(0);function Da(t,e){if(t.charCodeAt(0)===Ma)throw new Error("Found the synthetic "+e+" "+t+'. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.')}var Ua,La=function(t){function e(e,n,r){var o=t.call(this,e)||this;o.component=r;var i=Na(r.id,r.styles,[]);return n.addStyles(i),o.contentAttr=ka.replace(Pa,r.id),o.hostAttr=Ia.replace(Pa,r.id),o}return o(e,t),e.prototype.applyToHost=function(e){t.prototype.setAttribute.call(this,e,this.hostAttr,"")},e.prototype.createElement=function(e,n){var r=t.prototype.createElement.call(this,e,n);return t.prototype.setAttribute.call(this,r,this.contentAttr,""),r},e}(Va),Ha=function(t){function e(e,n,r,o){var i=t.call(this,e)||this;i.sharedStylesHost=n,i.hostEl=r,i.component=o,i.shadowRoot=r.createShadowRoot(),i.sharedStylesHost.addHost(i.shadowRoot);for(var s=Na(o.id,o.styles,[]),u=0;u<s.length;u++){var a=document.createElement("style");a.textContent=s[u],i.shadowRoot.appendChild(a)}return i}return o(e,t),e.prototype.nodeOrShadowRoot=function(t){return t===this.hostEl?this.shadowRoot:t},e.prototype.destroy=function(){this.sharedStylesHost.removeHost(this.shadowRoot)},e.prototype.appendChild=function(e,n){return t.prototype.appendChild.call(this,this.nodeOrShadowRoot(e),n)},e.prototype.insertBefore=function(e,n,r){return t.prototype.insertBefore.call(this,this.nodeOrShadowRoot(e),n,r)},e.prototype.removeChild=function(e,n){return t.prototype.removeChild.call(this,this.nodeOrShadowRoot(e),n)},e.prototype.parentNode=function(e){return this.nodeOrShadowRoot(t.prototype.parentNode.call(this,this.nodeOrShadowRoot(e)))},e}(Va),Fa="undefined"!=typeof Zone&&Zone.__symbol__||function(t){return"__zone_symbol__"+t},za=Fa("addEventListener"),qa=Fa("removeEventListener"),Ba={},Ga="__zone_symbol__propagationStopped";"undefined"!=typeof Zone&&Zone[Fa("BLACK_LISTED_EVENTS")]&&(Ua={});var Wa=function(t){return!!Ua&&Ua.hasOwnProperty(t)},Za=function(t){var e=Ba[t.type];if(e){var n=this[e];if(n){var r=[t];if(1===n.length)return(s=n[0]).zone!==Zone.current?s.zone.run(s.handler,this,r):s.handler.apply(this,r);for(var o=n.slice(),i=0;i<o.length&&!0!==t[Ga];i++){var s;(s=o[i]).zone!==Zone.current?s.zone.run(s.handler,this,r):s.handler.apply(this,r)}}}},Qa=function(t){function e(e,n){var r=t.call(this,e)||this;return r.ngZone=n,r.patchEvent(),r}return o(e,t),e.prototype.patchEvent=function(){if(Event&&Event.prototype&&!Event.prototype.__zone_symbol__stopImmediatePropagation){var t=Event.prototype.__zone_symbol__stopImmediatePropagation=Event.prototype.stopImmediatePropagation;Event.prototype.stopImmediatePropagation=function(){this&&(this[Ga]=!0),t&&t.apply(this,arguments)}}},e.prototype.supports=function(t){return!0},e.prototype.addEventListener=function(t,e,n){var r=this,o=n;if(!t[za]||He.isInAngularZone()&&!Wa(e))t.addEventListener(e,o,!1);else{var i=Ba[e];i||(i=Ba[e]=Fa("ANGULAR"+e+"FALSE"));var s=t[i],u=s&&s.length>0;s||(s=t[i]=[]);var a=Wa(e)?Zone.root:Zone.current;if(0===s.length)s.push({zone:a,handler:o});else{for(var c=!1,l=0;l<s.length;l++)if(s[l].handler===o){c=!0;break}c||s.push({zone:a,handler:o})}u||t[za](e,Za,!1)}return function(){return r.removeEventListener(t,e,o)}},e.prototype.removeEventListener=function(t,e,n){var r=t[qa];if(!r)return t.removeEventListener.apply(t,[e,n,!1]);var o=Ba[e],i=o&&t[o];if(!i)return t.removeEventListener.apply(t,[e,n,!1]);for(var s=!1,u=0;u<i.length;u++)if(i[u].handler===n){s=!0,i.splice(u,1);break}s?0===i.length&&r.apply(t,[e,Za,!1]):t.removeEventListener.apply(t,[e,n,!1])},e}(Ea),Ka={pan:!0,panstart:!0,panmove:!0,panend:!0,pancancel:!0,panleft:!0,panright:!0,panup:!0,pandown:!0,pinch:!0,pinchstart:!0,pinchmove:!0,pinchend:!0,pinchcancel:!0,pinchin:!0,pinchout:!0,press:!0,pressup:!0,rotate:!0,rotatestart:!0,rotatemove:!0,rotateend:!0,rotatecancel:!0,swipe:!0,swipeleft:!0,swiperight:!0,swipeup:!0,swipedown:!0,tap:!0},Ya=new ft("HammerGestureConfig"),Ja=function(){function t(){this.events=[],this.overrides={}}return t.prototype.buildHammer=function(t){var e=new Hammer(t,this.options);for(var n in e.get("pinch").set({enable:!0}),e.get("rotate").set({enable:!0}),this.overrides)e.get(n).set(this.overrides[n]);return e},t}(),Xa=function(t){function e(e,n,r){var o=t.call(this,e)||this;return o._config=n,o.console=r,o}return o(e,t),e.prototype.supports=function(t){return!(!Ka.hasOwnProperty(t.toLowerCase())&&!this.isCustomEvent(t)||!window.Hammer&&(this.console.warn("Hammer.js is not loaded, can not bind '"+t+"' event."),1))},e.prototype.addEventListener=function(t,e,n){var r=this,o=this.manager.getZone();return e=e.toLowerCase(),o.runOutsideAngular(function(){var i=r._config.buildHammer(t),s=function(t){o.runGuarded(function(){n(t)})};return i.on(e,s),function(){return i.off(e,s)}})},e.prototype.isCustomEvent=function(t){return this._config.events.indexOf(t)>-1},e}(Ea),$a=["alt","control","meta","shift"],tc={alt:function(t){return t.altKey},control:function(t){return t.ctrlKey},meta:function(t){return t.metaKey},shift:function(t){return t.shiftKey}},ec=function(t){function e(e){return t.call(this,e)||this}return o(e,t),e.prototype.supports=function(t){return null!=e.parseEventName(t)},e.prototype.addEventListener=function(t,n,r){var o=e.parseEventName(n),i=e.eventCallback(o.fullKey,r,this.manager.getZone());return this.manager.getZone().runOutsideAngular(function(){return oa().onAndCancel(t,o.domEventName,i)})},e.parseEventName=function(t){var n=t.toLowerCase().split("."),r=n.shift();if(0===n.length||"keydown"!==r&&"keyup"!==r)return null;var o=e._normalizeKey(n.pop()),i="";if($a.forEach(function(t){var e=n.indexOf(t);e>-1&&(n.splice(e,1),i+=t+".")}),i+=o,0!=n.length||0===o.length)return null;var s={};return s.domEventName=r,s.fullKey=i,s},e.getEventFullKey=function(t){var e="",n=oa().getEventKey(t);return" "===(n=n.toLowerCase())?n="space":"."===n&&(n="dot"),$a.forEach(function(r){r!=n&&(0,tc[r])(t)&&(e+=r+".")}),e+=n},e.eventCallback=function(t,n,r){return function(o){e.getEventFullKey(o)===t&&r.runGuarded(function(){return n(o)})}},e._normalizeKey=function(t){switch(t){case"esc":return"escape";default:return t}},e}(Ea),nc=function(){},rc=function(t){function e(e){var n=t.call(this)||this;return n._doc=e,n}return o(e,t),e.prototype.sanitize=function(t,e){if(null==e)return null;switch(t){case wr.NONE:return e;case wr.HTML:return e instanceof ic?e.changingThisBreaksApplicationSecurity:(this.checkNotSafeValue(e,"HTML"),function(t,e){var n=null;try{ir=ir||new $n(t);var r=e?String(e):"";n=ir.getInertBodyElement(r);var o=5,i=r;do{if(0===o)throw new Error("Failed to sanitize html because the input is unstable");o--,r=i,i=n.innerHTML,n=ir.getInertBodyElement(r)}while(r!==i);var s=new dr,u=s.sanitizeChildren(mr(n)||n);return tn()&&s.sanitizedSomething&&console.warn("WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss)."),u}finally{if(n)for(var a=mr(n)||n;a.firstChild;)a.removeChild(a.firstChild)}}(this._doc,String(e)));case wr.STYLE:return e instanceof sc?e.changingThisBreaksApplicationSecurity:(this.checkNotSafeValue(e,"Style"),function(t){if(!(t=String(t).trim()))return"";var e=t.match(_r);return e&&nr(e[1])===e[1]||t.match(br)&&function(t){for(var e=!0,n=!0,r=0;r<t.length;r++){var o=t.charAt(r);"'"===o&&n?e=!e:'"'===o&&e&&(n=!n)}return e&&n}(t)?t:(tn()&&console.warn("WARNING: sanitizing unsafe style value "+t+" (see http://g.co/ng/security#xss)."),"unsafe")}(e));case wr.SCRIPT:if(e instanceof uc)return e.changingThisBreaksApplicationSecurity;throw this.checkNotSafeValue(e,"Script"),new Error("unsafe value used in a script context");case wr.URL:return e instanceof cc||e instanceof ac?e.changingThisBreaksApplicationSecurity:(this.checkNotSafeValue(e,"URL"),nr(String(e)));case wr.RESOURCE_URL:if(e instanceof cc)return e.changingThisBreaksApplicationSecurity;throw this.checkNotSafeValue(e,"ResourceURL"),new Error("unsafe value used in a resource URL context (see http://g.co/ng/security#xss)");default:throw new Error("Unexpected SecurityContext "+t+" (see http://g.co/ng/security#xss)")}},e.prototype.checkNotSafeValue=function(t,e){if(t instanceof oc)throw new Error("Required a safe "+e+", got a "+t.getTypeName()+" (see http://g.co/ng/security#xss)")},e.prototype.bypassSecurityTrustHtml=function(t){return new ic(t)},e.prototype.bypassSecurityTrustStyle=function(t){return new sc(t)},e.prototype.bypassSecurityTrustScript=function(t){return new uc(t)},e.prototype.bypassSecurityTrustUrl=function(t){return new ac(t)},e.prototype.bypassSecurityTrustResourceUrl=function(t){return new cc(t)},e}(nc),oc=function(){function t(t){this.changingThisBreaksApplicationSecurity=t}return t.prototype.toString=function(){return"SafeValue must use [property]=binding: "+this.changingThisBreaksApplicationSecurity+" (see http://g.co/ng/security#xss)"},t}(),ic=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.getTypeName=function(){return"HTML"},e}(oc),sc=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.getTypeName=function(){return"Style"},e}(oc),uc=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.getTypeName=function(){return"Script"},e}(oc),ac=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.getTypeName=function(){return"URL"},e}(oc),cc=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.getTypeName=function(){return"ResourceURL"},e}(oc),lc=nn(Zn,"browser",[{provide:me,useValue:"browser"},{provide:ge,useValue:function(){la.makeCurrent(),ma.init()},multi:!0},{provide:Ds,useClass:da,deps:[pa]},{provide:pa,useFactory:function(){return document},deps:[]}]);function hc(){return new ae}var pc=function(){function t(t){if(t)throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.")}return t.withServerTransition=function(e){return{ngModule:t,providers:[{provide:de,useValue:e.appId},{provide:ya,useExisting:de},ga]}},t}();"undefined"!=typeof window&&window;var fc=function(t,e){this.id=t,this.url=e},dc=function(t){function e(e,n,r,o){void 0===r&&(r="imperative"),void 0===o&&(o=null);var i=t.call(this,e,n)||this;return i.navigationTrigger=r,i.restoredState=o,i}return o(e,t),e.prototype.toString=function(){return"NavigationStart(id: "+this.id+", url: '"+this.url+"')"},e}(fc),vc=function(t){function e(e,n,r){var o=t.call(this,e,n)||this;return o.urlAfterRedirects=r,o}return o(e,t),e.prototype.toString=function(){return"NavigationEnd(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"')"},e}(fc),yc=function(t){function e(e,n,r){var o=t.call(this,e,n)||this;return o.reason=r,o}return o(e,t),e.prototype.toString=function(){return"NavigationCancel(id: "+this.id+", url: '"+this.url+"')"},e}(fc),gc=function(t){function e(e,n,r){var o=t.call(this,e,n)||this;return o.error=r,o}return o(e,t),e.prototype.toString=function(){return"NavigationError(id: "+this.id+", url: '"+this.url+"', error: "+this.error+")"},e}(fc),mc=function(t){function e(e,n,r,o){var i=t.call(this,e,n)||this;return i.urlAfterRedirects=r,i.state=o,i}return o(e,t),e.prototype.toString=function(){return"RoutesRecognized(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"', state: "+this.state+")"},e}(fc),bc=function(t){function e(e,n,r,o){var i=t.call(this,e,n)||this;return i.urlAfterRedirects=r,i.state=o,i}return o(e,t),e.prototype.toString=function(){return"GuardsCheckStart(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"', state: "+this.state+")"},e}(fc),_c=function(t){function e(e,n,r,o,i){var s=t.call(this,e,n)||this;return s.urlAfterRedirects=r,s.state=o,s.shouldActivate=i,s}return o(e,t),e.prototype.toString=function(){return"GuardsCheckEnd(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"', state: "+this.state+", shouldActivate: "+this.shouldActivate+")"},e}(fc),wc=function(t){function e(e,n,r,o){var i=t.call(this,e,n)||this;return i.urlAfterRedirects=r,i.state=o,i}return o(e,t),e.prototype.toString=function(){return"ResolveStart(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"', state: "+this.state+")"},e}(fc),Cc=function(t){function e(e,n,r,o){var i=t.call(this,e,n)||this;return i.urlAfterRedirects=r,i.state=o,i}return o(e,t),e.prototype.toString=function(){return"ResolveEnd(id: "+this.id+", url: '"+this.url+"', urlAfterRedirects: '"+this.urlAfterRedirects+"', state: "+this.state+")"},e}(fc),xc=function(){function t(t){this.route=t}return t.prototype.toString=function(){return"RouteConfigLoadStart(path: "+this.route.path+")"},t}(),Sc=function(){function t(t){this.route=t}return t.prototype.toString=function(){return"RouteConfigLoadEnd(path: "+this.route.path+")"},t}(),Ec=function(){function t(t){this.snapshot=t}return t.prototype.toString=function(){return"ChildActivationStart(path: '"+(this.snapshot.routeConfig&&this.snapshot.routeConfig.path||"")+"')"},t}(),Oc=function(){function t(t){this.snapshot=t}return t.prototype.toString=function(){return"ChildActivationEnd(path: '"+(this.snapshot.routeConfig&&this.snapshot.routeConfig.path||"")+"')"},t}(),Tc=function(){function t(t){this.snapshot=t}return t.prototype.toString=function(){return"ActivationStart(path: '"+(this.snapshot.routeConfig&&this.snapshot.routeConfig.path||"")+"')"},t}(),Ac=function(){function t(t){this.snapshot=t}return t.prototype.toString=function(){return"ActivationEnd(path: '"+(this.snapshot.routeConfig&&this.snapshot.routeConfig.path||"")+"')"},t}(),Pc="primary",Ic=function(){function t(t){this.params=t||{}}return t.prototype.has=function(t){return this.params.hasOwnProperty(t)},t.prototype.get=function(t){if(this.has(t)){var e=this.params[t];return Array.isArray(e)?e[0]:e}return null},t.prototype.getAll=function(t){if(this.has(t)){var e=this.params[t];return Array.isArray(e)?e:[e]}return[]},Object.defineProperty(t.prototype,"keys",{get:function(){return Object.keys(this.params)},enumerable:!0,configurable:!0}),t}();function kc(t){return new Ic(t)}function Nc(t,e,n){var r=n.path.split("/");if(r.length>t.length)return null;if("full"===n.pathMatch&&(e.hasChildren()||r.length<t.length))return null;for(var o={},i=0;i<r.length;i++){var s=r[i],u=t[i];if(s.startsWith(":"))o[s.substring(1)]=u;else if(s!==u.path)return null}return{consumed:t.slice(0,r.length),posParams:o}}var Rc=function(t,e){this.routes=t,this.module=e};function jc(t,e){void 0===e&&(e="");for(var n=0;n<t.length;n++){var r=t[n];Vc(r,Mc(e,r))}}function Vc(t,e){if(!t)throw new Error("\n      Invalid configuration of route '"+e+"': Encountered undefined route.\n      The reason might be an extra comma.\n\n      Example:\n      const routes: Routes = [\n        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },\n        { path: 'dashboard',  component: DashboardComponent },, << two commas\n        { path: 'detail/:id', component: HeroDetailComponent }\n      ];\n    ");if(Array.isArray(t))throw new Error("Invalid configuration of route '"+e+"': Array cannot be specified");if(!t.component&&t.outlet&&t.outlet!==Pc)throw new Error("Invalid configuration of route '"+e+"': a componentless route cannot have a named outlet set");if(t.redirectTo&&t.children)throw new Error("Invalid configuration of route '"+e+"': redirectTo and children cannot be used together");if(t.redirectTo&&t.loadChildren)throw new Error("Invalid configuration of route '"+e+"': redirectTo and loadChildren cannot be used together");if(t.children&&t.loadChildren)throw new Error("Invalid configuration of route '"+e+"': children and loadChildren cannot be used together");if(t.redirectTo&&t.component)throw new Error("Invalid configuration of route '"+e+"': redirectTo and component cannot be used together");if(t.path&&t.matcher)throw new Error("Invalid configuration of route '"+e+"': path and matcher cannot be used together");if(void 0===t.redirectTo&&!t.component&&!t.children&&!t.loadChildren)throw new Error("Invalid configuration of route '"+e+"'. One of the following must be provided: component, redirectTo, children or loadChildren");if(void 0===t.path&&void 0===t.matcher)throw new Error("Invalid configuration of route '"+e+"': routes must have either a path or a matcher specified");if("string"==typeof t.path&&"/"===t.path.charAt(0))throw new Error("Invalid configuration of route '"+e+"': path cannot start with a slash");if(""===t.path&&void 0!==t.redirectTo&&void 0===t.pathMatch)throw new Error("Invalid configuration of route '{path: \""+e+'", redirectTo: "'+t.redirectTo+"\"}': please provide 'pathMatch'. The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.");if(void 0!==t.pathMatch&&"full"!==t.pathMatch&&"prefix"!==t.pathMatch)throw new Error("Invalid configuration of route '"+e+"': pathMatch can only be set to 'prefix' or 'full'");t.children&&jc(t.children,e)}function Mc(t,e){return e?t||e.path?t&&!e.path?t+"/":!t&&e.path?e.path:t+"/"+e.path:"":t}function Dc(t){var e=t.children&&t.children.map(Dc);return e?i({},t,{children:e}):i({},t)}function Uc(t,e){var n,r=Object.keys(t),o=Object.keys(e);if(r.length!=o.length)return!1;for(var i=0;i<r.length;i++)if(t[n=r[i]]!==e[n])return!1;return!0}function Lc(t){return Array.prototype.concat.apply([],t)}function Hc(t){return t.length>0?t[t.length-1]:null}function Fc(t,e){for(var n in t)t.hasOwnProperty(n)&&e(t[n],n)}function zc(t){return t.pipe($(),Yu(function(t){return!0===t}))}function qc(t){return he(t)?t:le(t)?Q(Promise.resolve(t)):Eu(t)}function Bc(t,e,n){return n?function(t,e){return Uc(t,e)}(t.queryParams,e.queryParams)&&function t(e,n){if(!Qc(e.segments,n.segments))return!1;if(e.numberOfChildren!==n.numberOfChildren)return!1;for(var r in n.children){if(!e.children[r])return!1;if(!t(e.children[r],n.children[r]))return!1}return!0}(t.root,e.root):function(t,e){return Object.keys(e).length<=Object.keys(t).length&&Object.keys(e).every(function(n){return e[n]===t[n]})}(t.queryParams,e.queryParams)&&function t(e,n){return function e(n,r,o){if(n.segments.length>o.length)return!!Qc(s=n.segments.slice(0,o.length),o)&&!r.hasChildren();if(n.segments.length===o.length){if(!Qc(n.segments,o))return!1;for(var i in r.children){if(!n.children[i])return!1;if(!t(n.children[i],r.children[i]))return!1}return!0}var s=o.slice(0,n.segments.length),u=o.slice(n.segments.length);return!!Qc(n.segments,s)&&!!n.children[Pc]&&e(n.children[Pc],r,u)}(e,n,n.segments)}(t.root,e.root)}var Gc=function(){function t(t,e,n){this.root=t,this.queryParams=e,this.fragment=n}return Object.defineProperty(t.prototype,"queryParamMap",{get:function(){return this._queryParamMap||(this._queryParamMap=kc(this.queryParams)),this._queryParamMap},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return Xc.serialize(this)},t}(),Wc=function(){function t(t,e){var n=this;this.segments=t,this.children=e,this.parent=null,Fc(e,function(t,e){return t.parent=n})}return t.prototype.hasChildren=function(){return this.numberOfChildren>0},Object.defineProperty(t.prototype,"numberOfChildren",{get:function(){return Object.keys(this.children).length},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return $c(this)},t}(),Zc=function(){function t(t,e){this.path=t,this.parameters=e}return Object.defineProperty(t.prototype,"parameterMap",{get:function(){return this._parameterMap||(this._parameterMap=kc(this.parameters)),this._parameterMap},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return il(this)},t}();function Qc(t,e){return t.length===e.length&&t.every(function(t,n){return t.path===e[n].path})}function Kc(t,e){var n=[];return Fc(t.children,function(t,r){r===Pc&&(n=n.concat(e(t,r)))}),Fc(t.children,function(t,r){r!==Pc&&(n=n.concat(e(t,r)))}),n}var Yc=function(){},Jc=function(){function t(){}return t.prototype.parse=function(t){var e=new ll(t);return new Gc(e.parseRootSegment(),e.parseQueryParams(),e.parseFragment())},t.prototype.serialize=function(t){var e,n;return"/"+function t(e,n){if(!e.hasChildren())return $c(e);if(n){var r=e.children[Pc]?t(e.children[Pc],!1):"",o=[];return Fc(e.children,function(e,n){n!==Pc&&o.push(n+":"+t(e,!1))}),o.length>0?r+"("+o.join("//")+")":r}var i=Kc(e,function(n,r){return r===Pc?[t(e.children[Pc],!1)]:[r+":"+t(n,!1)]});return $c(e)+"/("+i.join("//")+")"}(t.root,!0)+(e=t.queryParams,(n=Object.keys(e).map(function(t){var n=e[t];return Array.isArray(n)?n.map(function(e){return el(t)+"="+el(e)}).join("&"):el(t)+"="+el(n)})).length?"?"+n.join("&"):"")+("string"==typeof t.fragment?"#"+encodeURI(t.fragment):"")},t}(),Xc=new Jc;function $c(t){return t.segments.map(function(t){return il(t)}).join("/")}function tl(t){return encodeURIComponent(t).replace(/%40/g,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",")}function el(t){return tl(t).replace(/%3B/gi,";")}function nl(t){return tl(t).replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/%26/gi,"&")}function rl(t){return decodeURIComponent(t)}function ol(t){return rl(t.replace(/\+/g,"%20"))}function il(t){return""+nl(t.path)+(e=t.parameters,Object.keys(e).map(function(t){return";"+nl(t)+"="+nl(e[t])}).join(""));var e}var sl=/^[^\/()?;=&#]+/;function ul(t){var e=t.match(sl);return e?e[0]:""}var al=/^[^=?&#]+/,cl=/^[^?&#]+/,ll=function(){function t(t){this.url=t,this.remaining=t}return t.prototype.parseRootSegment=function(){return this.consumeOptional("/"),""===this.remaining||this.peekStartsWith("?")||this.peekStartsWith("#")?new Wc([],{}):new Wc([],this.parseChildren())},t.prototype.parseQueryParams=function(){var t={};if(this.consumeOptional("?"))do{this.parseQueryParam(t)}while(this.consumeOptional("&"));return t},t.prototype.parseFragment=function(){return this.consumeOptional("#")?decodeURIComponent(this.remaining):null},t.prototype.parseChildren=function(){if(""===this.remaining)return{};this.consumeOptional("/");var t=[];for(this.peekStartsWith("(")||t.push(this.parseSegment());this.peekStartsWith("/")&&!this.peekStartsWith("//")&&!this.peekStartsWith("/(");)this.capture("/"),t.push(this.parseSegment());var e={};this.peekStartsWith("/(")&&(this.capture("/"),e=this.parseParens(!0));var n={};return this.peekStartsWith("(")&&(n=this.parseParens(!1)),(t.length>0||Object.keys(e).length>0)&&(n[Pc]=new Wc(t,e)),n},t.prototype.parseSegment=function(){var t=ul(this.remaining);if(""===t&&this.peekStartsWith(";"))throw new Error("Empty path url segment cannot have parameters: '"+this.remaining+"'.");return this.capture(t),new Zc(rl(t),this.parseMatrixParams())},t.prototype.parseMatrixParams=function(){for(var t={};this.consumeOptional(";");)this.parseParam(t);return t},t.prototype.parseParam=function(t){var e=ul(this.remaining);if(e){this.capture(e);var n="";if(this.consumeOptional("=")){var r=ul(this.remaining);r&&this.capture(n=r)}t[rl(e)]=rl(n)}},t.prototype.parseQueryParam=function(t){var e,n=(e=this.remaining.match(al))?e[0]:"";if(n){this.capture(n);var r="";if(this.consumeOptional("=")){var o=function(t){var e=t.match(cl);return e?e[0]:""}(this.remaining);o&&this.capture(r=o)}var i=ol(n),s=ol(r);if(t.hasOwnProperty(i)){var u=t[i];Array.isArray(u)||(t[i]=u=[u]),u.push(s)}else t[i]=s}},t.prototype.parseParens=function(t){var e={};for(this.capture("(");!this.consumeOptional(")")&&this.remaining.length>0;){var n=ul(this.remaining),r=this.remaining[n.length];if("/"!==r&&")"!==r&&";"!==r)throw new Error("Cannot parse url '"+this.url+"'");var o=void 0;n.indexOf(":")>-1?(o=n.substr(0,n.indexOf(":")),this.capture(o),this.capture(":")):t&&(o=Pc);var i=this.parseChildren();e[o]=1===Object.keys(i).length?i[Pc]:new Wc([],i),this.consumeOptional("//")}return e},t.prototype.peekStartsWith=function(t){return this.remaining.startsWith(t)},t.prototype.consumeOptional=function(t){return!!this.peekStartsWith(t)&&(this.remaining=this.remaining.substring(t.length),!0)},t.prototype.capture=function(t){if(!this.consumeOptional(t))throw new Error('Expected "'+t+'".')},t}(),hl=function(t){this.segmentGroup=t||null},pl=function(t){this.urlTree=t};function fl(t){return new I(function(e){return e.error(new hl(t))})}function dl(t){return new I(function(e){return e.error(new pl(t))})}function vl(t){return new I(function(e){return e.error(new Error("Only absolute redirects can have named outlets. redirectTo: '"+t+"'"))})}var yl=function(){function t(t,e,n,r,o){this.configLoader=e,this.urlSerializer=n,this.urlTree=r,this.config=o,this.allowRedirects=!0,this.ngModule=t.get(Re)}return t.prototype.apply=function(){var t=this;return this.expandSegmentGroup(this.ngModule,this.config,this.urlTree.root,Pc).pipe(B(function(e){return t.createUrlTree(e,t.urlTree.queryParams,t.urlTree.fragment)})).pipe(Zu(function(e){if(e instanceof pl)return t.allowRedirects=!1,t.match(e.urlTree);if(e instanceof hl)throw t.noMatchError(e);throw e}))},t.prototype.match=function(t){var e=this;return this.expandSegmentGroup(this.ngModule,this.config,t.root,Pc).pipe(B(function(n){return e.createUrlTree(n,t.queryParams,t.fragment)})).pipe(Zu(function(t){if(t instanceof hl)throw e.noMatchError(t);throw t}))},t.prototype.noMatchError=function(t){return new Error("Cannot match any routes. URL Segment: '"+t.segmentGroup+"'")},t.prototype.createUrlTree=function(t,e,n){var r,o=t.segments.length>0?new Wc([],((r={})[Pc]=t,r)):t;return new Gc(o,e,n)},t.prototype.expandSegmentGroup=function(t,e,n,r){return 0===n.segments.length&&n.hasChildren()?this.expandChildren(t,e,n).pipe(B(function(t){return new Wc([],t)})):this.expandSegment(t,n,e,n.segments,r,!0)},t.prototype.expandChildren=function(t,e,n){var r=this;return function(n,o){if(0===Object.keys(n).length)return Eu({});var i=[],s=[],u={};return Fc(n,function(n,o){var a,c,l=(a=o,c=n,r.expandSegmentGroup(t,e,c,a)).pipe(B(function(t){return u[o]=t}));o===Pc?i.push(l):s.push(l)}),Eu.apply(null,i.concat(s)).pipe(na(),Wu(),B(function(){return u}))}(n.children)},t.prototype.expandSegment=function(t,e,n,r,o,i){var s=this;return Eu.apply(void 0,a(n)).pipe(B(function(u){return s.expandSegmentAgainstRoute(t,e,n,u,r,o,i).pipe(Zu(function(t){if(t instanceof hl)return Eu(null);throw t}))}),na(),ea(function(t){return!!t}),Zu(function(t,n){if(t instanceof Tu||"EmptyError"===t.name){if(s.noLeftoversInUrl(e,r,o))return Eu(new Wc([],{}));throw new hl(e)}throw t}))},t.prototype.noLeftoversInUrl=function(t,e,n){return 0===e.length&&!t.children[n]},t.prototype.expandSegmentAgainstRoute=function(t,e,n,r,o,i,s){return _l(r)!==i?fl(e):void 0===r.redirectTo?this.matchSegmentAgainstRoute(t,e,r,o):s&&this.allowRedirects?this.expandSegmentAgainstRouteUsingRedirect(t,e,n,r,o,i):fl(e)},t.prototype.expandSegmentAgainstRouteUsingRedirect=function(t,e,n,r,o,i){return"**"===r.path?this.expandWildCardWithParamsAgainstRouteUsingRedirect(t,n,r,i):this.expandRegularSegmentAgainstRouteUsingRedirect(t,e,n,r,o,i)},t.prototype.expandWildCardWithParamsAgainstRouteUsingRedirect=function(t,e,n,r){var o=this,i=this.applyRedirectCommands([],n.redirectTo,{});return n.redirectTo.startsWith("/")?dl(i):this.lineralizeSegments(n,i).pipe(K(function(n){var i=new Wc(n,{});return o.expandSegment(t,i,e,n,r,!1)}))},t.prototype.expandRegularSegmentAgainstRouteUsingRedirect=function(t,e,n,r,o,i){var s=this,u=gl(e,r,o),a=u.consumedSegments,c=u.lastChild,l=u.positionalParamSegments;if(!u.matched)return fl(e);var h=this.applyRedirectCommands(a,r.redirectTo,l);return r.redirectTo.startsWith("/")?dl(h):this.lineralizeSegments(r,h).pipe(K(function(r){return s.expandSegment(t,e,n,r.concat(o.slice(c)),i,!1)}))},t.prototype.matchSegmentAgainstRoute=function(t,e,n,r){var o=this;if("**"===n.path)return n.loadChildren?this.configLoader.load(t.injector,n).pipe(B(function(t){return n._loadedConfig=t,new Wc(r,{})})):Eu(new Wc(r,{}));var u=gl(e,n,r),a=u.consumedSegments,c=u.lastChild;if(!u.matched)return fl(e);var l=r.slice(c);return this.getChildConfig(t,n).pipe(K(function(t){var n=t.module,r=t.routes,u=function(t,e,n,r){return n.length>0&&function(t,e,n){return r.some(function(n){return bl(t,e,n)&&_l(n)!==Pc})}(t,n)?{segmentGroup:ml(new Wc(e,function(t,e){var n,r,o={};o[Pc]=e;try{for(var i=s(t),u=i.next();!u.done;u=i.next()){var a=u.value;""===a.path&&_l(a)!==Pc&&(o[_l(a)]=new Wc([],{}))}}catch(t){n={error:t}}finally{try{u&&!u.done&&(r=i.return)&&r.call(i)}finally{if(n)throw n.error}}return o}(r,new Wc(n,t.children)))),slicedSegments:[]}:0===n.length&&function(t,e,n){return r.some(function(n){return bl(t,e,n)})}(t,n)?{segmentGroup:ml(new Wc(t.segments,function(t,e,n,r){var o,u,a={};try{for(var c=s(n),l=c.next();!l.done;l=c.next()){var h=l.value;bl(t,e,h)&&!r[_l(h)]&&(a[_l(h)]=new Wc([],{}))}}catch(t){o={error:t}}finally{try{l&&!l.done&&(u=c.return)&&u.call(c)}finally{if(o)throw o.error}}return i({},r,a)}(t,n,r,t.children))),slicedSegments:n}:{segmentGroup:t,slicedSegments:n}}(e,a,l,r),c=u.segmentGroup,h=u.slicedSegments;return 0===h.length&&c.hasChildren()?o.expandChildren(n,r,c).pipe(B(function(t){return new Wc(a,t)})):0===r.length&&0===h.length?Eu(new Wc(a,{})):o.expandSegment(n,c,r,h,Pc,!0).pipe(B(function(t){return new Wc(a.concat(t.segments),t.children)}))}))},t.prototype.getChildConfig=function(t,e){var n=this;return e.children?Eu(new Rc(e.children,t)):e.loadChildren?void 0!==e._loadedConfig?Eu(e._loadedConfig):function(t,e){var n=e.canLoad;return n&&0!==n.length?zc(Q(n).pipe(B(function(n){var r=t.get(n);return qc(r.canLoad?r.canLoad(e):r(e))}))):Eu(!0)}(t.injector,e).pipe(K(function(r){return r?n.configLoader.load(t.injector,e).pipe(B(function(t){return e._loadedConfig=t,t})):function(t){return new I(function(e){return e.error(((n=Error("NavigationCancelingError: Cannot load children because the guard of the route \"path: '"+t.path+"'\" returned false")).ngNavigationCancelingError=!0,n));var n})}(e)})):Eu(new Rc([],t))},t.prototype.lineralizeSegments=function(t,e){for(var n=[],r=e.root;;){if(n=n.concat(r.segments),0===r.numberOfChildren)return Eu(n);if(r.numberOfChildren>1||!r.children[Pc])return vl(t.redirectTo);r=r.children[Pc]}},t.prototype.applyRedirectCommands=function(t,e,n){return this.applyRedirectCreatreUrlTree(e,this.urlSerializer.parse(e),t,n)},t.prototype.applyRedirectCreatreUrlTree=function(t,e,n,r){var o=this.createSegmentGroup(t,e.root,n,r);return new Gc(o,this.createQueryParams(e.queryParams,this.urlTree.queryParams),e.fragment)},t.prototype.createQueryParams=function(t,e){var n={};return Fc(t,function(t,r){if("string"==typeof t&&t.startsWith(":")){var o=t.substring(1);n[r]=e[o]}else n[r]=t}),n},t.prototype.createSegmentGroup=function(t,e,n,r){var o=this,i=this.createSegments(t,e.segments,n,r),s={};return Fc(e.children,function(e,i){s[i]=o.createSegmentGroup(t,e,n,r)}),new Wc(i,s)},t.prototype.createSegments=function(t,e,n,r){var o=this;return e.map(function(e){return e.path.startsWith(":")?o.findPosParam(t,e,r):o.findOrReturn(e,n)})},t.prototype.findPosParam=function(t,e,n){var r=n[e.path.substring(1)];if(!r)throw new Error("Cannot redirect to '"+t+"'. Cannot find '"+e.path+"'.");return r},t.prototype.findOrReturn=function(t,e){var n,r,o=0;try{for(var i=s(e),u=i.next();!u.done;u=i.next()){var a=u.value;if(a.path===t.path)return e.splice(o),a;o++}}catch(t){n={error:t}}finally{try{u&&!u.done&&(r=i.return)&&r.call(i)}finally{if(n)throw n.error}}return t},t}();function gl(t,e,n){if(""===e.path)return"full"===e.pathMatch&&(t.hasChildren()||n.length>0)?{matched:!1,consumedSegments:[],lastChild:0,positionalParamSegments:{}}:{matched:!0,consumedSegments:[],lastChild:0,positionalParamSegments:{}};var r=(e.matcher||Nc)(n,t,e);return r?{matched:!0,consumedSegments:r.consumed,lastChild:r.consumed.length,positionalParamSegments:r.posParams}:{matched:!1,consumedSegments:[],lastChild:0,positionalParamSegments:{}}}function ml(t){if(1===t.numberOfChildren&&t.children[Pc]){var e=t.children[Pc];return new Wc(t.segments.concat(e.segments),e.children)}return t}function bl(t,e,n){return(!(t.hasChildren()||e.length>0)||"full"!==n.pathMatch)&&""===n.path&&void 0!==n.redirectTo}function _l(t){return t.outlet||Pc}var wl=function(){function t(t){this._root=t}return Object.defineProperty(t.prototype,"root",{get:function(){return this._root.value},enumerable:!0,configurable:!0}),t.prototype.parent=function(t){var e=this.pathFromRoot(t);return e.length>1?e[e.length-2]:null},t.prototype.children=function(t){var e=Cl(t,this._root);return e?e.children.map(function(t){return t.value}):[]},t.prototype.firstChild=function(t){var e=Cl(t,this._root);return e&&e.children.length>0?e.children[0].value:null},t.prototype.siblings=function(t){var e=xl(t,this._root);return e.length<2?[]:e[e.length-2].children.map(function(t){return t.value}).filter(function(e){return e!==t})},t.prototype.pathFromRoot=function(t){return xl(t,this._root).map(function(t){return t.value})},t}();function Cl(t,e){if(t===e.value)return e;try{for(var n=s(e.children),r=n.next();!r.done;r=n.next()){var o=Cl(t,r.value);if(o)return o}}catch(t){i={error:t}}finally{try{r&&!r.done&&(u=n.return)&&u.call(n)}finally{if(i)throw i.error}}return null;var i,u}function xl(t,e){if(t===e.value)return[e];try{for(var n=s(e.children),r=n.next();!r.done;r=n.next()){var o=xl(t,r.value);if(o.length)return o.unshift(e),o}}catch(t){i={error:t}}finally{try{r&&!r.done&&(u=n.return)&&u.call(n)}finally{if(i)throw i.error}}return[];var i,u}var Sl=function(){function t(t,e){this.value=t,this.children=e}return t.prototype.toString=function(){return"TreeNode("+this.value+")"},t}();function El(t){var e={};return t&&t.children.forEach(function(t){return e[t.value.outlet]=t}),e}var Ol=function(t){function e(e,n){var r=t.call(this,e)||this;return r.snapshot=n,Nl(r,e),r}return o(e,t),e.prototype.toString=function(){return this.snapshot.toString()},e}(wl);function Tl(t,e){var n=function(t,e){var n=new Il([],{},{},"",{},Pc,e,null,t.root,-1,{});return new kl("",new Sl(n,[]))}(t,e),r=new Ou([new Zc("",{})]),o=new Ou({}),i=new Ou({}),s=new Ou({}),u=new Ou(""),a=new Al(r,o,s,u,i,Pc,e,n.root);return a.snapshot=n.root,new Ol(new Sl(a,[]),n)}var Al=function(){function t(t,e,n,r,o,i,s,u){this.url=t,this.params=e,this.queryParams=n,this.fragment=r,this.data=o,this.outlet=i,this.component=s,this._futureSnapshot=u}return Object.defineProperty(t.prototype,"routeConfig",{get:function(){return this._futureSnapshot.routeConfig},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"root",{get:function(){return this._routerState.root},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"parent",{get:function(){return this._routerState.parent(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"firstChild",{get:function(){return this._routerState.firstChild(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"children",{get:function(){return this._routerState.children(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pathFromRoot",{get:function(){return this._routerState.pathFromRoot(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"paramMap",{get:function(){return this._paramMap||(this._paramMap=this.params.pipe(B(function(t){return kc(t)}))),this._paramMap},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"queryParamMap",{get:function(){return this._queryParamMap||(this._queryParamMap=this.queryParams.pipe(B(function(t){return kc(t)}))),this._queryParamMap},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return this.snapshot?this.snapshot.toString():"Future("+this._futureSnapshot+")"},t}();function Pl(t,e){void 0===e&&(e="emptyOnly");var n=t.pathFromRoot,r=0;if("always"!==e)for(r=n.length-1;r>=1;){var o=n[r],s=n[r-1];if(o.routeConfig&&""===o.routeConfig.path)r--;else{if(s.component)break;r--}}return function(t){return t.reduce(function(t,e){return{params:i({},t.params,e.params),data:i({},t.data,e.data),resolve:i({},t.resolve,e._resolvedData)}},{params:{},data:{},resolve:{}})}(n.slice(r))}var Il=function(){function t(t,e,n,r,o,i,s,u,a,c,l){this.url=t,this.params=e,this.queryParams=n,this.fragment=r,this.data=o,this.outlet=i,this.component=s,this.routeConfig=u,this._urlSegment=a,this._lastPathIndex=c,this._resolve=l}return Object.defineProperty(t.prototype,"root",{get:function(){return this._routerState.root},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"parent",{get:function(){return this._routerState.parent(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"firstChild",{get:function(){return this._routerState.firstChild(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"children",{get:function(){return this._routerState.children(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pathFromRoot",{get:function(){return this._routerState.pathFromRoot(this)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"paramMap",{get:function(){return this._paramMap||(this._paramMap=kc(this.params)),this._paramMap},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"queryParamMap",{get:function(){return this._queryParamMap||(this._queryParamMap=kc(this.queryParams)),this._queryParamMap},enumerable:!0,configurable:!0}),t.prototype.toString=function(){return"Route(url:'"+this.url.map(function(t){return t.toString()}).join("/")+"', path:'"+(this.routeConfig?this.routeConfig.path:"")+"')"},t}(),kl=function(t){function e(e,n){var r=t.call(this,n)||this;return r.url=e,Nl(r,n),r}return o(e,t),e.prototype.toString=function(){return Rl(this._root)},e}(wl);function Nl(t,e){e.value._routerState=t,e.children.forEach(function(e){return Nl(t,e)})}function Rl(t){var e=t.children.length>0?" { "+t.children.map(Rl).join(", ")+" } ":"";return""+t.value+e}function jl(t){if(t.snapshot){var e=t.snapshot,n=t._futureSnapshot;t.snapshot=n,Uc(e.queryParams,n.queryParams)||t.queryParams.next(n.queryParams),e.fragment!==n.fragment&&t.fragment.next(n.fragment),Uc(e.params,n.params)||t.params.next(n.params),function(t,e){if(t.length!==e.length)return!1;for(var n=0;n<t.length;++n)if(!Uc(t[n],e[n]))return!1;return!0}(e.url,n.url)||t.url.next(n.url),Uc(e.data,n.data)||t.data.next(n.data)}else t.snapshot=t._futureSnapshot,t.data.next(t._futureSnapshot.data)}function Vl(t,e){var n,r;return Uc(t.params,e.params)&&Qc(n=t.url,r=e.url)&&n.every(function(t,e){return Uc(t.parameters,r[e].parameters)})&&!(!t.parent!=!e.parent)&&(!t.parent||Vl(t.parent,e.parent))}function Ml(t){return"object"==typeof t&&null!=t&&!t.outlets&&!t.segmentPath}function Dl(t,e,n,r,o){var i={};return r&&Fc(r,function(t,e){i[e]=Array.isArray(t)?t.map(function(t){return""+t}):""+t}),new Gc(n.root===t?e:function t(e,n,r){var o={};return Fc(e.children,function(e,i){o[i]=e===n?r:t(e,n,r)}),new Wc(e.segments,o)}(n.root,t,e),i,o)}var Ul=function(){function t(t,e,n){if(this.isAbsolute=t,this.numberOfDoubleDots=e,this.commands=n,t&&n.length>0&&Ml(n[0]))throw new Error("Root segment cannot have matrix parameters");var r=n.find(function(t){return"object"==typeof t&&null!=t&&t.outlets});if(r&&r!==Hc(n))throw new Error("{outlets:{}} has to be the last command")}return t.prototype.toRoot=function(){return this.isAbsolute&&1===this.commands.length&&"/"==this.commands[0]},t}(),Ll=function(t,e,n){this.segmentGroup=t,this.processChildren=e,this.index=n};function Hl(t){return"object"==typeof t&&null!=t&&t.outlets?t.outlets[Pc]:""+t}function Fl(t,e,n){if(t||(t=new Wc([],{})),0===t.segments.length&&t.hasChildren())return zl(t,e,n);var r=function(t,e,n){for(var r=0,o=e,i={match:!1,pathIndex:0,commandIndex:0};o<t.segments.length;){if(r>=n.length)return i;var s=t.segments[o],u=Hl(n[r]),a=r<n.length-1?n[r+1]:null;if(o>0&&void 0===u)break;if(u&&a&&"object"==typeof a&&void 0===a.outlets){if(!Wl(u,a,s))return i;r+=2}else{if(!Wl(u,{},s))return i;r++}o++}return{match:!0,pathIndex:o,commandIndex:r}}(t,e,n),o=n.slice(r.commandIndex);if(r.match&&r.pathIndex<t.segments.length){var i=new Wc(t.segments.slice(0,r.pathIndex),{});return i.children[Pc]=new Wc(t.segments.slice(r.pathIndex),t.children),zl(i,0,o)}return r.match&&0===o.length?new Wc(t.segments,{}):r.match&&!t.hasChildren()?ql(t,e,n):r.match?zl(t,0,o):ql(t,e,n)}function zl(t,e,n){if(0===n.length)return new Wc(t.segments,{});var r=function(t){return"object"!=typeof t[0]?((e={})[Pc]=t,e):void 0===t[0].outlets?((n={})[Pc]=t,n):t[0].outlets;var e,n}(n),o={};return Fc(r,function(n,r){null!==n&&(o[r]=Fl(t.children[r],e,n))}),Fc(t.children,function(t,e){void 0===r[e]&&(o[e]=t)}),new Wc(t.segments,o)}function ql(t,e,n){for(var r=t.segments.slice(0,e),o=0;o<n.length;){if("object"==typeof n[o]&&void 0!==n[o].outlets){var i=Bl(n[o].outlets);return new Wc(r,i)}if(0===o&&Ml(n[0]))r.push(new Zc(t.segments[e].path,n[0])),o++;else{var s=Hl(n[o]),u=o<n.length-1?n[o+1]:null;s&&u&&Ml(u)?(r.push(new Zc(s,Gl(u))),o+=2):(r.push(new Zc(s,{})),o++)}}return new Wc(r,{})}function Bl(t){var e={};return Fc(t,function(t,n){null!==t&&(e[n]=ql(new Wc([],{}),0,t))}),e}function Gl(t){var e={};return Fc(t,function(t,n){return e[n]=""+t}),e}function Wl(t,e,n){return t==n.path&&Uc(e,n.parameters)}var Zl=function(t){this.path=t,this.route=this.path[this.path.length-1]},Ql=function(t,e){this.component=t,this.route=e},Kl=function(){function t(t,e,n,r){this.future=t,this.curr=e,this.moduleInjector=n,this.forwardEvent=r,this.canActivateChecks=[],this.canDeactivateChecks=[]}return t.prototype.initialize=function(t){var e=this.future._root;this.setupChildRouteGuards(e,this.curr?this.curr._root:null,t,[e.value])},t.prototype.checkGuards=function(){var t=this;return this.isDeactivating()||this.isActivating()?this.runCanDeactivateChecks().pipe(K(function(e){return e?t.runCanActivateChecks():Eu(!1)})):Eu(!0)},t.prototype.resolveData=function(t){var e=this;return this.isActivating()?Q(this.canActivateChecks).pipe(Au(function(n){return e.runResolve(n.route,t)}),function(t,e){return arguments.length>=2?function(n){return A(Pu(t,e),Ru(1),Mu(e))(n)}:function(e){return A(Pu(function(e,n,r){return t(e,n,r+1)}),Ru(1))(e)}}(function(t,e){return t})):Eu(null)},t.prototype.isDeactivating=function(){return 0!==this.canDeactivateChecks.length},t.prototype.isActivating=function(){return 0!==this.canActivateChecks.length},t.prototype.setupChildRouteGuards=function(t,e,n,r){var o=this,i=El(e);t.children.forEach(function(t){o.setupRouteGuards(t,i[t.value.outlet],n,r.concat([t.value])),delete i[t.value.outlet]}),Fc(i,function(t,e){return o.deactivateRouteAndItsChildren(t,n.getContext(e))})},t.prototype.setupRouteGuards=function(t,e,n,r){var o=t.value,i=e?e.value:null,s=n?n.getContext(t.value.outlet):null;if(i&&o.routeConfig===i.routeConfig){var u=this.shouldRunGuardsAndResolvers(i,o,o.routeConfig.runGuardsAndResolvers);u?this.canActivateChecks.push(new Zl(r)):(o.data=i.data,o._resolvedData=i._resolvedData),this.setupChildRouteGuards(t,e,o.component?s?s.children:null:n,r),u&&this.canDeactivateChecks.push(new Ql(s.outlet.component,i))}else i&&this.deactivateRouteAndItsChildren(e,s),this.canActivateChecks.push(new Zl(r)),this.setupChildRouteGuards(t,null,o.component?s?s.children:null:n,r)},t.prototype.shouldRunGuardsAndResolvers=function(t,e,n){switch(n){case"always":return!0;case"paramsOrQueryParamsChange":return!Vl(t,e)||!Uc(t.queryParams,e.queryParams);case"paramsChange":default:return!Vl(t,e)}},t.prototype.deactivateRouteAndItsChildren=function(t,e){var n=this,r=El(t),o=t.value;Fc(r,function(t,r){n.deactivateRouteAndItsChildren(t,o.component?e?e.children.getContext(r):null:e)}),this.canDeactivateChecks.push(new Ql(o.component&&e&&e.outlet&&e.outlet.isActivated?e.outlet.component:null,o))},t.prototype.runCanDeactivateChecks=function(){var t=this;return Q(this.canDeactivateChecks).pipe(K(function(e){return t.runCanDeactivate(e.component,e.route)}),Yu(function(t){return!0===t}))},t.prototype.runCanActivateChecks=function(){var t=this;return Q(this.canActivateChecks).pipe(Au(function(e){return zc(Q([t.fireChildActivationStart(e.route.parent),t.fireActivationStart(e.route),t.runCanActivateChild(e.path),t.runCanActivate(e.route)]))}),Yu(function(t){return!0===t}))},t.prototype.fireActivationStart=function(t){return null!==t&&this.forwardEvent&&this.forwardEvent(new Tc(t)),Eu(!0)},t.prototype.fireChildActivationStart=function(t){return null!==t&&this.forwardEvent&&this.forwardEvent(new Ec(t)),Eu(!0)},t.prototype.runCanActivate=function(t){var e=this,n=t.routeConfig?t.routeConfig.canActivate:null;return n&&0!==n.length?zc(Q(n).pipe(B(function(n){var r=e.getToken(n,t);return qc(r.canActivate?r.canActivate(t,e.future):r(t,e.future)).pipe(ea())}))):Eu(!0)},t.prototype.runCanActivateChild=function(t){var e=this,n=t[t.length-1];return zc(Q(t.slice(0,t.length-1).reverse().map(function(t){return e.extractCanActivateChild(t)}).filter(function(t){return null!==t})).pipe(B(function(t){return zc(Q(t.guards).pipe(B(function(r){var o=e.getToken(r,t.node);return qc(o.canActivateChild?o.canActivateChild(n,e.future):o(n,e.future)).pipe(ea())})))})))},t.prototype.extractCanActivateChild=function(t){var e=t.routeConfig?t.routeConfig.canActivateChild:null;return e&&0!==e.length?{node:t,guards:e}:null},t.prototype.runCanDeactivate=function(t,e){var n=this,r=e&&e.routeConfig?e.routeConfig.canDeactivate:null;return r&&0!==r.length?Q(r).pipe(K(function(r){var o=n.getToken(r,e);return qc(o.canDeactivate?o.canDeactivate(t,e,n.curr,n.future):o(t,e,n.curr,n.future)).pipe(ea())})).pipe(Yu(function(t){return!0===t})):Eu(!0)},t.prototype.runResolve=function(t,e){return this.resolveNode(t._resolve,t).pipe(B(function(n){return t._resolvedData=n,t.data=i({},t.data,Pl(t,e).resolve),null}))},t.prototype.resolveNode=function(t,e){var n=this,r=Object.keys(t);if(0===r.length)return Eu({});if(1===r.length){var o=r[0];return this.getResolver(t[o],e).pipe(B(function(t){return(e={})[o]=t,e;var e}))}var i={};return Q(r).pipe(K(function(r){return n.getResolver(t[r],e).pipe(B(function(t){return i[r]=t,t}))})).pipe(Wu(),B(function(){return i}))},t.prototype.getResolver=function(t,e){var n=this.getToken(t,e);return qc(n.resolve?n.resolve(e,this.future):n(e,this.future))},t.prototype.getToken=function(t,e){var n=function(t){if(!t)return null;for(var e=t.parent;e;e=e.parent){var n=e.routeConfig;if(n&&n._loadedConfig)return n._loadedConfig}return null}(e);return(n?n.module.injector:this.moduleInjector).get(t)},t}(),Yl=function(){},Jl=function(){function t(t,e,n,r,o){this.rootComponentType=t,this.config=e,this.urlTree=n,this.url=r,this.paramsInheritanceStrategy=o}return t.prototype.recognize=function(){try{var t=th(this.urlTree.root,[],[],this.config).segmentGroup,e=this.processSegmentGroup(this.config,t,Pc),n=new Il([],Object.freeze({}),Object.freeze(this.urlTree.queryParams),this.urlTree.fragment,{},Pc,this.rootComponentType,null,this.urlTree.root,-1,{}),r=new Sl(n,e),o=new kl(this.url,r);return this.inheritParamsAndData(o._root),Eu(o)}catch(t){return new I(function(e){return e.error(t)})}},t.prototype.inheritParamsAndData=function(t){var e=this,n=t.value,r=Pl(n,this.paramsInheritanceStrategy);n.params=Object.freeze(r.params),n.data=Object.freeze(r.data),t.children.forEach(function(t){return e.inheritParamsAndData(t)})},t.prototype.processSegmentGroup=function(t,e,n){return 0===e.segments.length&&e.hasChildren()?this.processChildren(t,e):this.processSegment(t,e,e.segments,n)},t.prototype.processChildren=function(t,e){var n,r=this,o=Kc(e,function(e,n){return r.processSegmentGroup(t,e,n)});return n={},o.forEach(function(t){var e=n[t.value.outlet];if(e){var r=e.url.map(function(t){return t.toString()}).join("/"),o=t.value.url.map(function(t){return t.toString()}).join("/");throw new Error("Two segments cannot have the same outlet name: '"+r+"' and '"+o+"'.")}n[t.value.outlet]=t.value}),o.sort(function(t,e){return t.value.outlet===Pc?-1:e.value.outlet===Pc?1:t.value.outlet.localeCompare(e.value.outlet)}),o},t.prototype.processSegment=function(t,e,n,r){try{for(var o=s(t),i=o.next();!i.done;i=o.next()){var u=i.value;try{return this.processSegmentAgainstRoute(u,e,n,r)}catch(t){if(!(t instanceof Yl))throw t}}}catch(t){a={error:t}}finally{try{i&&!i.done&&(c=o.return)&&c.call(o)}finally{if(a)throw a.error}}if(this.noLeftoversInUrl(e,n,r))return[];throw new Yl;var a,c},t.prototype.noLeftoversInUrl=function(t,e,n){return 0===e.length&&!t.children[n]},t.prototype.processSegmentAgainstRoute=function(t,e,n,r){if(t.redirectTo)throw new Yl;if((t.outlet||Pc)!==r)throw new Yl;var o,s=[],u=[];if("**"===t.path){var a=n.length>0?Hc(n).parameters:{};o=new Il(n,a,Object.freeze(this.urlTree.queryParams),this.urlTree.fragment,rh(t),r,t.component,t,Xl(e),$l(e)+n.length,oh(t))}else{var c=function(t,e,n){if(""===e.path){if("full"===e.pathMatch&&(t.hasChildren()||n.length>0))throw new Yl;return{consumedSegments:[],lastChild:0,parameters:{}}}var r=(e.matcher||Nc)(n,t,e);if(!r)throw new Yl;var o={};Fc(r.posParams,function(t,e){o[e]=t.path});var s=r.consumed.length>0?i({},o,r.consumed[r.consumed.length-1].parameters):o;return{consumedSegments:r.consumed,lastChild:r.consumed.length,parameters:s}}(e,t,n);s=c.consumedSegments,u=n.slice(c.lastChild),o=new Il(s,c.parameters,Object.freeze(this.urlTree.queryParams),this.urlTree.fragment,rh(t),r,t.component,t,Xl(e),$l(e)+s.length,oh(t))}var l=function(t){return t.children?t.children:t.loadChildren?t._loadedConfig.routes:[]}(t),h=th(e,s,u,l),p=h.segmentGroup,f=h.slicedSegments;if(0===f.length&&p.hasChildren()){var d=this.processChildren(l,p);return[new Sl(o,d)]}if(0===l.length&&0===f.length)return[new Sl(o,[])];var v=this.processSegment(l,p,f,Pc);return[new Sl(o,v)]},t}();function Xl(t){for(var e=t;e._sourceSegment;)e=e._sourceSegment;return e}function $l(t){for(var e=t,n=e._segmentIndexShift?e._segmentIndexShift:0;e._sourceSegment;)n+=(e=e._sourceSegment)._segmentIndexShift?e._segmentIndexShift:0;return n-1}function th(t,e,n,r){if(n.length>0&&function(t,e,n){return r.some(function(n){return eh(t,e,n)&&nh(n)!==Pc})}(t,n)){var o=new Wc(e,function(t,e,n,r){var o,i,u={};u[Pc]=r,r._sourceSegment=t,r._segmentIndexShift=e.length;try{for(var a=s(n),c=a.next();!c.done;c=a.next()){var l=c.value;if(""===l.path&&nh(l)!==Pc){var h=new Wc([],{});h._sourceSegment=t,h._segmentIndexShift=e.length,u[nh(l)]=h}}}catch(t){o={error:t}}finally{try{c&&!c.done&&(i=a.return)&&i.call(a)}finally{if(o)throw o.error}}return u}(t,e,r,new Wc(n,t.children)));return o._sourceSegment=t,o._segmentIndexShift=e.length,{segmentGroup:o,slicedSegments:[]}}if(0===n.length&&function(t,e,n){return r.some(function(n){return eh(t,e,n)})}(t,n)){var u=new Wc(t.segments,function(t,e,n,r){var o,u,a={};try{for(var c=s(n),l=c.next();!l.done;l=c.next()){var h=l.value;if(eh(t,e,h)&&!r[nh(h)]){var p=new Wc([],{});p._sourceSegment=t,p._segmentIndexShift=t.segments.length,a[nh(h)]=p}}}catch(t){o={error:t}}finally{try{l&&!l.done&&(u=c.return)&&u.call(c)}finally{if(o)throw o.error}}return i({},r,a)}(t,n,r,t.children));return u._sourceSegment=t,u._segmentIndexShift=e.length,{segmentGroup:u,slicedSegments:n}}var a=new Wc(t.segments,t.children);return a._sourceSegment=t,a._segmentIndexShift=e.length,{segmentGroup:a,slicedSegments:n}}function eh(t,e,n){return(!(t.hasChildren()||e.length>0)||"full"!==n.pathMatch)&&""===n.path&&void 0===n.redirectTo}function nh(t){return t.outlet||Pc}function rh(t){return t.data||{}}function oh(t){return t.resolve||{}}var ih=function(){},sh=function(){function t(){}return t.prototype.shouldDetach=function(t){return!1},t.prototype.store=function(t,e){},t.prototype.shouldAttach=function(t){return!1},t.prototype.retrieve=function(t){return null},t.prototype.shouldReuseRoute=function(t,e){return t.routeConfig===e.routeConfig},t}(),uh=new ft("ROUTES"),ah=function(){function t(t,e,n,r){this.loader=t,this.compiler=e,this.onLoadStartListener=n,this.onLoadEndListener=r}return t.prototype.load=function(t,e){var n=this;return this.onLoadStartListener&&this.onLoadStartListener(e),this.loadModuleFactory(e.loadChildren).pipe(B(function(r){n.onLoadEndListener&&n.onLoadEndListener(e);var o=r.create(t);return new Rc(Lc(o.injector.get(uh)).map(Dc),o)}))},t.prototype.loadModuleFactory=function(t){var e=this;return"string"==typeof t?Q(this.loader.load(t)):qc(t()).pipe(K(function(t){return t instanceof je?Eu(t):Q(e.compiler.compileModuleAsync(t))}))},t}(),ch=function(){},lh=function(){function t(){}return t.prototype.shouldProcessUrl=function(t){return!0},t.prototype.extract=function(t){return t},t.prototype.merge=function(t,e){return t},t}();function hh(t){throw t}function ph(t){return Eu(null)}var fh=function(){function t(t,e,n,r,o,i,s,u){var a=this;this.rootComponentType=t,this.urlSerializer=e,this.rootContexts=n,this.location=r,this.config=u,this.navigations=new Ou(null),this.navigationId=0,this.events=new rt,this.errorHandler=hh,this.navigated=!1,this.lastSuccessfulId=-1,this.hooks={beforePreactivation:ph,afterPreactivation:ph},this.urlHandlingStrategy=new lh,this.routeReuseStrategy=new sh,this.onSameUrlNavigation="ignore",this.paramsInheritanceStrategy="emptyOnly",this.ngModule=o.get(Re),this.resetConfig(u),this.currentUrlTree=new Gc(new Wc([],{}),{},null),this.rawUrlTree=this.currentUrlTree,this.configLoader=new ah(i,s,function(t){return a.triggerEvent(new xc(t))},function(t){return a.triggerEvent(new Sc(t))}),this.routerState=Tl(this.currentUrlTree,this.rootComponentType),this.processNavigations()}return t.prototype.resetRootComponentType=function(t){this.rootComponentType=t,this.routerState.root.component=this.rootComponentType},t.prototype.initialNavigation=function(){this.setUpLocationChangeListener(),0===this.navigationId&&this.navigateByUrl(this.location.path(!0),{replaceUrl:!0})},t.prototype.setUpLocationChangeListener=function(){var t=this;this.locationSubscription||(this.locationSubscription=this.location.subscribe(function(e){var n=t.urlSerializer.parse(e.url),r="popstate"===e.type?"popstate":"hashchange",o=e.state&&e.state.navigationId?{navigationId:e.state.navigationId}:null;setTimeout(function(){t.scheduleNavigation(n,r,o,{replaceUrl:!0})},0)}))},Object.defineProperty(t.prototype,"url",{get:function(){return this.serializeUrl(this.currentUrlTree)},enumerable:!0,configurable:!0}),t.prototype.triggerEvent=function(t){this.events.next(t)},t.prototype.resetConfig=function(t){jc(t),this.config=t.map(Dc),this.navigated=!1,this.lastSuccessfulId=-1},t.prototype.ngOnDestroy=function(){this.dispose()},t.prototype.dispose=function(){this.locationSubscription&&(this.locationSubscription.unsubscribe(),this.locationSubscription=null)},t.prototype.createUrlTree=function(t,e){void 0===e&&(e={});var n=e.relativeTo,r=e.queryParams,o=e.fragment,s=e.preserveQueryParams,u=e.queryParamsHandling,c=e.preserveFragment;tn()&&s&&console&&console.warn&&console.warn("preserveQueryParams is deprecated, use queryParamsHandling instead.");var l=n||this.routerState.root,h=c?this.currentUrlTree.fragment:o,p=null;if(u)switch(u){case"merge":p=i({},this.currentUrlTree.queryParams,r);break;case"preserve":p=this.currentUrlTree.queryParams;break;default:p=r||null}else p=s?this.currentUrlTree.queryParams:r||null;return null!==p&&(p=this.removeEmptyProps(p)),function(t,e,n,r,o){if(0===n.length)return Dl(e.root,e.root,e,r,o);var i=function(t){if("string"==typeof t[0]&&1===t.length&&"/"===t[0])return new Ul(!0,0,t);var e=0,n=!1,r=t.reduce(function(t,r,o){if("object"==typeof r&&null!=r){if(r.outlets){var i={};return Fc(r.outlets,function(t,e){i[e]="string"==typeof t?t.split("/"):t}),a(t,[{outlets:i}])}if(r.segmentPath)return a(t,[r.segmentPath])}return"string"!=typeof r?a(t,[r]):0===o?(r.split("/").forEach(function(r,o){0==o&&"."===r||(0==o&&""===r?n=!0:".."===r?e++:""!=r&&t.push(r))}),t):a(t,[r])},[]);return new Ul(n,e,r)}(n);if(i.toRoot())return Dl(e.root,new Wc([],{}),e,r,o);var s=function(t,n,r){if(t.isAbsolute)return new Ll(e.root,!0,0);if(-1===r.snapshot._lastPathIndex)return new Ll(r.snapshot._urlSegment,!0,0);var o=Ml(t.commands[0])?0:1;return function(e,n,i){for(var s=r.snapshot._urlSegment,u=r.snapshot._lastPathIndex+o,a=t.numberOfDoubleDots;a>u;){if(a-=u,!(s=s.parent))throw new Error("Invalid number of '../'");u=s.segments.length}return new Ll(s,!1,u-a)}()}(i,0,t),u=s.processChildren?zl(s.segmentGroup,s.index,i.commands):Fl(s.segmentGroup,s.index,i.commands);return Dl(s.segmentGroup,u,e,r,o)}(l,this.currentUrlTree,t,p,h)},t.prototype.navigateByUrl=function(t,e){void 0===e&&(e={skipLocationChange:!1});var n=t instanceof Gc?t:this.parseUrl(t),r=this.urlHandlingStrategy.merge(n,this.rawUrlTree);return this.scheduleNavigation(r,"imperative",null,e)},t.prototype.navigate=function(t,e){return void 0===e&&(e={skipLocationChange:!1}),function(t){for(var e=0;e<t.length;e++){var n=t[e];if(null==n)throw new Error("The requested path contains "+n+" segment at index "+e)}}(t),this.navigateByUrl(this.createUrlTree(t,e),e)},t.prototype.serializeUrl=function(t){return this.urlSerializer.serialize(t)},t.prototype.parseUrl=function(t){return this.urlSerializer.parse(t)},t.prototype.isActive=function(t,e){if(t instanceof Gc)return Bc(this.currentUrlTree,t,e);var n=this.urlSerializer.parse(t);return Bc(this.currentUrlTree,n,e)},t.prototype.removeEmptyProps=function(t){return Object.keys(t).reduce(function(e,n){var r=t[n];return null!==r&&void 0!==r&&(e[n]=r),e},{})},t.prototype.processNavigations=function(){var t=this;this.navigations.pipe(Au(function(e){return e?(t.executeScheduledNavigation(e),e.promise.catch(function(){})):Eu(null)})).subscribe(function(){})},t.prototype.scheduleNavigation=function(t,e,n,r){var o=this.navigations.value;if(o&&"imperative"!==e&&"imperative"===o.source&&o.rawUrl.toString()===t.toString())return Promise.resolve(!0);if(o&&"hashchange"==e&&"popstate"===o.source&&o.rawUrl.toString()===t.toString())return Promise.resolve(!0);if(o&&"popstate"==e&&"hashchange"===o.source&&o.rawUrl.toString()===t.toString())return Promise.resolve(!0);var i=null,s=null,u=new Promise(function(t,e){i=t,s=e}),a=++this.navigationId;return this.navigations.next({id:a,source:e,state:n,rawUrl:t,extras:r,resolve:i,reject:s,promise:u}),u.catch(function(t){return Promise.reject(t)})},t.prototype.executeScheduledNavigation=function(t){var e=this,n=t.id,r=t.rawUrl,o=t.extras,i=t.resolve,s=t.reject,u=t.source,a=t.state,c=this.urlHandlingStrategy.extract(r),l=!this.navigated||c.toString()!==this.currentUrlTree.toString();("reload"===this.onSameUrlNavigation||l)&&this.urlHandlingStrategy.shouldProcessUrl(r)?(this.events.next(new dc(n,this.serializeUrl(c),u,a)),Promise.resolve().then(function(t){return e.runNavigate(c,r,!!o.skipLocationChange,!!o.replaceUrl,n,null)}).then(i,s)):l&&this.rawUrlTree&&this.urlHandlingStrategy.shouldProcessUrl(this.rawUrlTree)?(this.events.next(new dc(n,this.serializeUrl(c),u,a)),Promise.resolve().then(function(t){return e.runNavigate(c,r,!1,!1,n,Tl(c,e.rootComponentType).snapshot)}).then(i,s)):(this.rawUrlTree=r,i(null))},t.prototype.runNavigate=function(t,e,n,r,o,i){var u=this;return o!==this.navigationId?(this.events.next(new yc(o,this.serializeUrl(t),"Navigation ID "+o+" is not equal to the current navigation id "+this.navigationId)),Promise.resolve(!1)):new Promise(function(a,c){var l,h=(i?Eu({appliedUrl:t,snapshot:i}):new yl(u.ngModule.injector,u.configLoader,u.urlSerializer,t,u.config).apply().pipe(K(function(e){return function(t,e,n,r,o){return void 0===o&&(o="emptyOnly"),new Jl(t,e,n,r,o).recognize()}(u.rootComponentType,u.config,e,u.serializeUrl(e),u.paramsInheritanceStrategy).pipe(B(function(n){return u.events.next(new mc(o,u.serializeUrl(t),u.serializeUrl(e),n)),{appliedUrl:e,snapshot:n}}))}))).pipe(K(function(t){return"boolean"==typeof t?Eu(t):u.hooks.beforePreactivation(t.snapshot).pipe(B(function(){return t}))})).pipe(B(function(t){if("boolean"==typeof t)return t;var e=t.appliedUrl,n=t.snapshot;return(l=new Kl(n,u.routerState.snapshot,u.ngModule.injector,function(t){return u.triggerEvent(t)})).initialize(u.rootContexts),{appliedUrl:e,snapshot:n}})).pipe(K(function(e){if("boolean"==typeof e||u.navigationId!==o)return Eu(!1);var n=e.appliedUrl,r=e.snapshot;return u.triggerEvent(new bc(o,u.serializeUrl(t),u.serializeUrl(n),r)),l.checkGuards().pipe(B(function(e){return u.triggerEvent(new _c(o,u.serializeUrl(t),u.serializeUrl(n),r,e)),{appliedUrl:n,snapshot:r,shouldActivate:e}}))})).pipe(K(function(e){return"boolean"==typeof e||u.navigationId!==o?Eu(!1):e.shouldActivate&&l.isActivating()?(u.triggerEvent(new wc(o,u.serializeUrl(t),u.serializeUrl(e.appliedUrl),e.snapshot)),l.resolveData(u.paramsInheritanceStrategy).pipe(B(function(){return u.triggerEvent(new Cc(o,u.serializeUrl(t),u.serializeUrl(e.appliedUrl),e.snapshot)),e}))):Eu(e)})).pipe(K(function(t){return"boolean"==typeof t||u.navigationId!==o?Eu(!1):u.hooks.afterPreactivation(t.snapshot).pipe(B(function(){return t}))})).pipe(B(function(t){if("boolean"==typeof t||u.navigationId!==o)return!1;var e,n,r,i=t.appliedUrl,a=t.shouldActivate;return a?{appliedUrl:i,state:(r=function t(e,n,r){if(r&&e.shouldReuseRoute(n.value,r.value.snapshot)){(c=r.value)._futureSnapshot=n.value;var o=function(e,n,r){return n.children.map(function(n){try{for(var o=s(r.children),i=o.next();!i.done;i=o.next()){var u=i.value;if(e.shouldReuseRoute(u.value.snapshot,n.value))return t(e,n,u)}}catch(t){a={error:t}}finally{try{i&&!i.done&&(c=o.return)&&c.call(o)}finally{if(a)throw a.error}}return t(e,n);var a,c})}(e,n,r);return new Sl(c,o)}var i=e.retrieve(n.value);if(i){var u=i.route;return function t(e,n){if(e.value.routeConfig!==n.value.routeConfig)throw new Error("Cannot reattach ActivatedRouteSnapshot created from a different route");if(e.children.length!==n.children.length)throw new Error("Cannot reattach ActivatedRouteSnapshot with a different number of children");n.value._futureSnapshot=e.value;for(var r=0;r<e.children.length;++r)t(e.children[r],n.children[r])}(n,u),u}var a,c=new Al(new Ou((a=n.value).url),new Ou(a.params),new Ou(a.queryParams),new Ou(a.fragment),new Ou(a.data),a.outlet,a.component,a);return o=n.children.map(function(n){return t(e,n)}),new Sl(c,o)}(u.routeReuseStrategy,(e=t.snapshot)._root,(n=u.routerState)?n._root:void 0),new Ol(r,e)),shouldActivate:a}:{appliedUrl:i,state:null,shouldActivate:a}}));u.activateRoutes(h,u.routerState,u.currentUrlTree,o,t,e,n,r,a,c)})},t.prototype.activateRoutes=function(t,e,n,r,o,i,s,u,a,c){var l,h=this;t.forEach(function(t){if("boolean"!=typeof t&&t.shouldActivate&&r===h.navigationId&&t.state){var n=t.state;if(h.currentUrlTree=t.appliedUrl,h.rawUrlTree=h.urlHandlingStrategy.merge(h.currentUrlTree,i),h.routerState=n,!s){var o=h.urlSerializer.serialize(h.rawUrlTree);h.location.isCurrentPathEqualTo(o)||u?h.location.replaceState(o,"",{navigationId:r}):h.location.go(o,"",{navigationId:r})}new dh(h.routeReuseStrategy,n,e,function(t){return h.triggerEvent(t)}).activate(h.rootContexts),l=!0}else l=!1}).then(function(){l?(h.navigated=!0,h.lastSuccessfulId=r,h.events.next(new vc(r,h.serializeUrl(o),h.serializeUrl(h.currentUrlTree))),a(!0)):(h.resetUrlToCurrentUrlTree(),h.events.next(new yc(r,h.serializeUrl(o),"")),a(!1))},function(t){if((s=t)&&s.ngNavigationCancelingError)h.navigated=!0,h.resetStateAndUrl(e,n,i),h.events.next(new yc(r,h.serializeUrl(o),t.message)),a(!1);else{h.resetStateAndUrl(e,n,i),h.events.next(new gc(r,h.serializeUrl(o),t));try{a(h.errorHandler(t))}catch(t){c(t)}}var s})},t.prototype.resetStateAndUrl=function(t,e,n){this.routerState=t,this.currentUrlTree=e,this.rawUrlTree=this.urlHandlingStrategy.merge(this.currentUrlTree,n),this.resetUrlToCurrentUrlTree()},t.prototype.resetUrlToCurrentUrlTree=function(){this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree),"",{navigationId:this.lastSuccessfulId})},t}(),dh=function(){function t(t,e,n,r){this.routeReuseStrategy=t,this.futureState=e,this.currState=n,this.forwardEvent=r}return t.prototype.activate=function(t){var e=this.futureState._root,n=this.currState?this.currState._root:null;this.deactivateChildRoutes(e,n,t),jl(this.futureState.root),this.activateChildRoutes(e,n,t)},t.prototype.deactivateChildRoutes=function(t,e,n){var r=this,o=El(e);t.children.forEach(function(t){var e=t.value.outlet;r.deactivateRoutes(t,o[e],n),delete o[e]}),Fc(o,function(t,e){r.deactivateRouteAndItsChildren(t,n)})},t.prototype.deactivateRoutes=function(t,e,n){var r=t.value,o=e?e.value:null;if(r===o)if(r.component){var i=n.getContext(r.outlet);i&&this.deactivateChildRoutes(t,e,i.children)}else this.deactivateChildRoutes(t,e,n);else o&&this.deactivateRouteAndItsChildren(e,n)},t.prototype.deactivateRouteAndItsChildren=function(t,e){this.routeReuseStrategy.shouldDetach(t.value.snapshot)?this.detachAndStoreRouteSubtree(t,e):this.deactivateRouteAndOutlet(t,e)},t.prototype.detachAndStoreRouteSubtree=function(t,e){var n=e.getContext(t.value.outlet);if(n&&n.outlet){var r=n.outlet.detach(),o=n.children.onOutletDeactivated();this.routeReuseStrategy.store(t.value.snapshot,{componentRef:r,route:t,contexts:o})}},t.prototype.deactivateRouteAndOutlet=function(t,e){var n=this,r=e.getContext(t.value.outlet);if(r){var o=El(t),i=t.value.component?r.children:e;Fc(o,function(t,e){return n.deactivateRouteAndItsChildren(t,i)}),r.outlet&&(r.outlet.deactivate(),r.children.onOutletDeactivated())}},t.prototype.activateChildRoutes=function(t,e,n){var r=this,o=El(e);t.children.forEach(function(t){r.activateRoutes(t,o[t.value.outlet],n),r.forwardEvent(new Ac(t.value.snapshot))}),t.children.length&&this.forwardEvent(new Oc(t.value.snapshot))},t.prototype.activateRoutes=function(t,e,n){var r=t.value,o=e?e.value:null;if(jl(r),r===o)if(r.component){var i=n.getOrCreateContext(r.outlet);this.activateChildRoutes(t,e,i.children)}else this.activateChildRoutes(t,e,n);else if(r.component)if(i=n.getOrCreateContext(r.outlet),this.routeReuseStrategy.shouldAttach(r.snapshot)){var s=this.routeReuseStrategy.retrieve(r.snapshot);this.routeReuseStrategy.store(r.snapshot,null),i.children.onOutletReAttached(s.contexts),i.attachRef=s.componentRef,i.route=s.route.value,i.outlet&&i.outlet.attach(s.componentRef,s.route.value),vh(s.route)}else{var u=function(t){for(var e=r.snapshot.parent;e;e=e.parent){var n=e.routeConfig;if(n&&n._loadedConfig)return n._loadedConfig;if(n&&n.component)return null}return null}(),a=u?u.module.componentFactoryResolver:null;i.route=r,i.resolver=a,i.outlet&&i.outlet.activateWith(r,a),this.activateChildRoutes(t,null,i.children)}else this.activateChildRoutes(t,null,n)},t}();function vh(t){jl(t.value),t.children.forEach(vh)}var yh=function(){function t(t,e,n){var r=this;this.router=t,this.route=e,this.locationStrategy=n,this.commands=[],this.subscription=t.events.subscribe(function(t){t instanceof vc&&r.updateTargetUrlAndHref()})}return Object.defineProperty(t.prototype,"routerLink",{set:function(t){this.commands=null!=t?Array.isArray(t)?t:[t]:[]},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"preserveQueryParams",{set:function(t){tn()&&console&&console.warn&&console.warn("preserveQueryParams is deprecated, use queryParamsHandling instead."),this.preserve=t},enumerable:!0,configurable:!0}),t.prototype.ngOnChanges=function(t){this.updateTargetUrlAndHref()},t.prototype.ngOnDestroy=function(){this.subscription.unsubscribe()},t.prototype.onClick=function(t,e,n,r){if(0!==t||e||n||r)return!0;if("string"==typeof this.target&&"_self"!=this.target)return!0;var o={skipLocationChange:gh(this.skipLocationChange),replaceUrl:gh(this.replaceUrl)};return this.router.navigateByUrl(this.urlTree,o),!1},t.prototype.updateTargetUrlAndHref=function(){this.href=this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree))},Object.defineProperty(t.prototype,"urlTree",{get:function(){return this.router.createUrlTree(this.commands,{relativeTo:this.route,queryParams:this.queryParams,fragment:this.fragment,preserveQueryParams:gh(this.preserve),queryParamsHandling:this.queryParamsHandling,preserveFragment:gh(this.preserveFragment)})},enumerable:!0,configurable:!0}),t}();function gh(t){return""===t||!!t}var mh=function(){return function(){this.outlet=null,this.route=null,this.resolver=null,this.children=new bh,this.attachRef=null}}(),bh=function(){function t(){this.contexts=new Map}return t.prototype.onChildOutletCreated=function(t,e){var n=this.getOrCreateContext(t);n.outlet=e,this.contexts.set(t,n)},t.prototype.onChildOutletDestroyed=function(t){var e=this.getContext(t);e&&(e.outlet=null)},t.prototype.onOutletDeactivated=function(){var t=this.contexts;return this.contexts=new Map,t},t.prototype.onOutletReAttached=function(t){this.contexts=t},t.prototype.getOrCreateContext=function(t){var e=this.getContext(t);return e||(e=new mh,this.contexts.set(t,e)),e},t.prototype.getContext=function(t){return this.contexts.get(t)||null},t}(),_h=function(){function t(t,e,n,r,o){this.parentContexts=t,this.location=e,this.resolver=n,this.changeDetector=o,this.activated=null,this._activatedRoute=null,this.activateEvents=new Le,this.deactivateEvents=new Le,this.name=r||Pc,t.onChildOutletCreated(this.name,this)}return t.prototype.ngOnDestroy=function(){this.parentContexts.onChildOutletDestroyed(this.name)},t.prototype.ngOnInit=function(){if(!this.activated){var t=this.parentContexts.getContext(this.name);t&&t.route&&(t.attachRef?this.attach(t.attachRef,t.route):this.activateWith(t.route,t.resolver||null))}},Object.defineProperty(t.prototype,"isActivated",{get:function(){return!!this.activated},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"component",{get:function(){if(!this.activated)throw new Error("Outlet is not activated");return this.activated.instance},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"activatedRoute",{get:function(){if(!this.activated)throw new Error("Outlet is not activated");return this._activatedRoute},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"activatedRouteData",{get:function(){return this._activatedRoute?this._activatedRoute.snapshot.data:{}},enumerable:!0,configurable:!0}),t.prototype.detach=function(){if(!this.activated)throw new Error("Outlet is not activated");this.location.detach();var t=this.activated;return this.activated=null,this._activatedRoute=null,t},t.prototype.attach=function(t,e){this.activated=t,this._activatedRoute=e,this.location.insert(t.hostView)},t.prototype.deactivate=function(){if(this.activated){var t=this.component;this.activated.destroy(),this.activated=null,this._activatedRoute=null,this.deactivateEvents.emit(t)}},t.prototype.activateWith=function(t,e){if(this.isActivated)throw new Error("Cannot activate an already activated outlet");this._activatedRoute=t;var n=(e=e||this.resolver).resolveComponentFactory(t._futureSnapshot.routeConfig.component),r=this.parentContexts.getOrCreateContext(this.name).children,o=new wh(t,r,this.location.injector);this.activated=this.location.createComponent(n,this.location.length,o),this.changeDetector.markForCheck(),this.activateEvents.emit(this.activated.instance)},t}(),wh=function(){function t(t,e,n){this.route=t,this.childContexts=e,this.parent=n}return t.prototype.get=function(t,e){return t===Al?this.route:t===bh?this.childContexts:this.parent.get(t,e)},t}(),Ch=function(){},xh=function(){function t(){}return t.prototype.preload=function(t,e){return e().pipe(Zu(function(){return Eu(null)}))},t}(),Sh=function(){function t(){}return t.prototype.preload=function(t,e){return Eu(null)},t}(),Eh=function(){function t(t,e,n,r,o){this.router=t,this.injector=r,this.preloadingStrategy=o,this.loader=new ah(e,n,function(e){return t.triggerEvent(new xc(e))},function(e){return t.triggerEvent(new Sc(e))})}return t.prototype.setUpPreloading=function(){var t=this;this.subscription=this.router.events.pipe(Lu(function(t){return t instanceof vc}),Au(function(){return t.preload()})).subscribe(function(){})},t.prototype.preload=function(){var t=this.injector.get(Re);return this.processRoutes(t,this.router.config)},t.prototype.ngOnDestroy=function(){this.subscription.unsubscribe()},t.prototype.processRoutes=function(t,e){var n,r,o=[];try{for(var i=s(e),u=i.next();!u.done;u=i.next()){var a=u.value;if(a.loadChildren&&!a.canLoad&&a._loadedConfig){var c=a._loadedConfig;o.push(this.processRoutes(c.module,c.routes))}else a.loadChildren&&!a.canLoad?o.push(this.preloadConfig(t,a)):a.children&&o.push(this.processRoutes(t,a.children))}}catch(t){n={error:t}}finally{try{u&&!u.done&&(r=i.return)&&r.call(i)}finally{if(n)throw n.error}}return Q(o).pipe($(),B(function(t){}))},t.prototype.preloadConfig=function(t,e){var n=this;return this.preloadingStrategy.preload(e,function(){return n.loader.load(t.injector,e).pipe(K(function(t){return e._loadedConfig=t,n.processRoutes(t.module,t.routes)}))})},t}(),Oh=new ft("ROUTER_CONFIGURATION"),Th=new ft("ROUTER_FORROOT_GUARD"),Ah=[Fs,{provide:Yc,useClass:Jc},{provide:fh,useFactory:jh,deps:[un,Yc,bh,Fs,Dt,fn,Ce,uh,Oh,[ch,new It],[ih,new It]]},bh,{provide:Al,useFactory:Vh,deps:[fh]},{provide:fn,useClass:gn},Eh,Sh,xh,{provide:Oh,useValue:{enableTracing:!1}}];function Ph(){return new en("Router",fh)}var Ih=function(){function t(t,e){}return t.forRoot=function(e,n){return{ngModule:t,providers:[Ah,Rh(e),{provide:Th,useFactory:Nh,deps:[[fh,new It,new Nt]]},{provide:Oh,useValue:n||{}},{provide:Ls,useFactory:kh,deps:[Ds,[new Pt(Hs),new It],Oh]},{provide:Ch,useExisting:n&&n.preloadingStrategy?n.preloadingStrategy:Sh},{provide:en,multi:!0,useFactory:Ph},[Mh,{provide:pe,multi:!0,useFactory:Dh,deps:[Mh]},{provide:Lh,useFactory:Uh,deps:[Mh]},{provide:be,multi:!0,useExisting:Lh}]]}},t.forChild=function(e){return{ngModule:t,providers:[Rh(e)]}},t}();function kh(t,e,n){return void 0===n&&(n={}),n.useHash?new qs(t,e):new Bs(t,e)}function Nh(t){if(t)throw new Error("RouterModule.forRoot() called twice. Lazy loaded modules should use RouterModule.forChild() instead.");return"guarded"}function Rh(t){return[{provide:yt,multi:!0,useValue:t},{provide:uh,multi:!0,useValue:t}]}function jh(t,e,n,r,o,i,s,u,a,c,l){void 0===a&&(a={});var h=new fh(null,e,n,r,o,i,s,Lc(u));if(c&&(h.urlHandlingStrategy=c),l&&(h.routeReuseStrategy=l),a.errorHandler&&(h.errorHandler=a.errorHandler),a.enableTracing){var p=oa();h.events.subscribe(function(t){p.logGroup("Router Event: "+t.constructor.name),p.log(t.toString()),p.log(t),p.logGroupEnd()})}return a.onSameUrlNavigation&&(h.onSameUrlNavigation=a.onSameUrlNavigation),a.paramsInheritanceStrategy&&(h.paramsInheritanceStrategy=a.paramsInheritanceStrategy),h}function Vh(t){return t.routerState.root}var Mh=function(){function t(t){this.injector=t,this.initNavigation=!1,this.resultOfPreactivationDone=new rt}return t.prototype.appInitializer=function(){var t=this;return this.injector.get(Us,Promise.resolve(null)).then(function(){var e=null,n=new Promise(function(t){return e=t}),r=t.injector.get(fh),o=t.injector.get(Oh);if(t.isLegacyDisabled(o)||t.isLegacyEnabled(o))e(!0);else if("disabled"===o.initialNavigation)r.setUpLocationChangeListener(),e(!0);else{if("enabled"!==o.initialNavigation)throw new Error("Invalid initialNavigation options: '"+o.initialNavigation+"'");r.hooks.afterPreactivation=function(){return t.initNavigation?Eu(null):(t.initNavigation=!0,e(!0),t.resultOfPreactivationDone)},r.initialNavigation()}return n})},t.prototype.bootstrapListener=function(t){var e=this.injector.get(Oh),n=this.injector.get(Eh),r=this.injector.get(fh),o=this.injector.get(un);t===o.components[0]&&(this.isLegacyEnabled(e)?r.initialNavigation():this.isLegacyDisabled(e)&&r.setUpLocationChangeListener(),n.setUpPreloading(),r.resetRootComponentType(o.componentTypes[0]),this.resultOfPreactivationDone.next(null),this.resultOfPreactivationDone.complete())},t.prototype.isLegacyEnabled=function(t){return"legacy_enabled"===t.initialNavigation||!0===t.initialNavigation||void 0===t.initialNavigation},t.prototype.isLegacyDisabled=function(t){return"legacy_disabled"===t.initialNavigation||!1===t.initialNavigation},t}();function Dh(t){return t.appInitializer.bind(t)}function Uh(t){return t.bootstrapListener.bind(t)}var Lh=new ft("Router Initializer"),Hh=function(){function t(){}return Object.defineProperty(t.prototype,"loginPage",{get:function(){return"login"},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"homePage",{get:function(){return""},enumerable:!0,configurable:!0}),t.ngInjectableDef=pt({factory:function(){return new t},token:t,providedIn:"root"}),t}(),Fh=function(){function t(t){this.coreService=t,this.homePagePath="/"}return t.prototype.ngOnInit=function(){this.homePagePath=this.coreService.homePage},t}(),zh=Lr({encapsulation:0,styles:[["[_nghost-%COMP%]{padding:30px;display:block;height:100%;background-color:#f8f8f8}"]],data:{}});function qh(t){return Ti(0,[(t()(),fo(0,0,null,null,17,"app-card",[],null,null,null,yu,lu)),ni(1,114688,null,4,cu,[],null,null),gi(335544320,1,{header:0}),gi(335544320,2,{content:0}),gi(335544320,3,{actions:0}),gi(335544320,4,{footer:0}),(t()(),fo(6,0,null,null,2,"app-card-header",[],null,null,null,bu,gu)),ni(7,114688,[[1,4]],0,su,[],null,null),(t()(),Si(-1,0,[" Page not found "])),(t()(),fo(9,0,null,null,8,"app-card-content",[],null,null,null,Cu,_u)),ni(10,114688,[[2,4]],0,uu,[],null,null),(t()(),fo(11,0,null,0,1,"p",[],null,null,null,null,null)),(t()(),Si(-1,null,["The page you are looking for doesn't exist."])),(t()(),fo(13,0,null,0,4,"p",[],null,null,null,null,null)),(t()(),Si(-1,null,["Back to "])),(t()(),fo(15,0,null,null,2,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(t,e,n){var r=!0;return"click"===e&&(r=!1!==qo(t,16).onClick(n.button,n.ctrlKey,n.metaKey,n.shiftKey)&&r),r},null,null)),ni(16,671744,null,0,yh,[fh,Al,Ls],{routerLink:[0,"routerLink"]},null),(t()(),Si(-1,null,["home page"]))],function(t,e){var n=e.component;t(e,1,0),t(e,7,0),t(e,10,0),t(e,16,0,n.homePagePath)},function(t,e){t(e,15,0,qo(e,16).target,qo(e,16).href)})}var Bh=No("app-page-not-found",Fh,function(t){return Ti(0,[(t()(),fo(0,0,null,null,1,"app-page-not-found",[],null,null,null,qh,zh)),ni(1,114688,null,0,Fh,[Hh],null,null)],function(t,e){t(e,1,0)},null)},{},{},[]),Gh=function(t){function e(){return t.call(this)||this}return o(e,t),e.prototype.ngOnInit=function(){},e}(au),Wh=Lr({encapsulation:0,styles:[["[_nghost-%COMP%]   button[_ngcontent-%COMP%]{position:relative;cursor:pointer;border-radius:1.25em;border-width:1px;outline:0;box-shadow:none;height:40px;overflow:hidden;font-weight:500;font-size:1em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:flex;justify-content:center;align-items:center;transition:border-color .2s cubic-bezier(.77,0,.175,1),background-color .2s cubic-bezier(.77,0,.175,1),color .2s cubic-bezier(.77,0,.175,1);background:0 0;border:none;width:40px;padding:0}[_nghost-%COMP%]   button.primary[_ngcontent-%COMP%]{background-color:#1874ef;border-color:#1874ef}[_nghost-%COMP%]   button.accent[_ngcontent-%COMP%]{background-color:#fff;border-color:#fff}[_nghost-%COMP%]   button.secondary[_ngcontent-%COMP%]{background-color:#acacac;border-color:#acacac}[_nghost-%COMP%]   button[_ngcontent-%COMP%]:disabled, [_nghost-%COMP%]   button[_ngcontent-%COMP%]:disabled:hover{background:#babcbf;border-color:#babcbf;color:#fff;cursor:default}[_nghost-%COMP%]   button[_ngcontent-%COMP%]:hover{background-color:#3082f1;border-color:#3082f1}[_nghost-%COMP%]   button.accent[_ngcontent-%COMP%], [_nghost-%COMP%]   button.primary[_ngcontent-%COMP%], [_nghost-%COMP%]   button.secondary[_ngcontent-%COMP%]{background:0 0}[_nghost-%COMP%]   button.primary[_ngcontent-%COMP%]{color:#1874ef}[_nghost-%COMP%]   button.primary[_ngcontent-%COMP%]:hover{background-color:rgba(24,116,239,.15);border-color:rgba(24,116,239,.15)}[_nghost-%COMP%]   button.accent[_ngcontent-%COMP%]{color:#fff}[_nghost-%COMP%]   button.accent[_ngcontent-%COMP%]:hover{background-color:rgba(255,255,255,.15);border-color:rgba(255,255,255,.15)}[_nghost-%COMP%]   button.secondary[_ngcontent-%COMP%]{color:#acacac}[_nghost-%COMP%]   button.secondary[_ngcontent-%COMP%]:hover{background-color:rgba(172,172,172,.15);border-color:rgba(172,172,172,.15)}"]],data:{}});function Zh(t){return Ti(0,[(t()(),fo(0,0,null,null,3,"button",[],[[8,"type",0],[8,"disabled",0]],[[null,"click"]],function(t,e,n){var r=!0;return"click"===e&&(r=!1!==t.component.onClick(n)&&r),r},null,null)),ni(1,278528,null,0,$s,[zn,qn,pn,hn],{ngClass:[0,"ngClass"]},null),(t()(),fo(2,0,null,null,1,"i",[["class","material-icons"]],null,null,null,null,null)),Ci(null,0)],function(t,e){t(e,1,0,e.component.color)},function(t,e){var n=e.component;t(e,0,0,n.type,!1!==n.disabled)})}var Qh=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r.pending=!1,r}return o(e,t),e.prototype.schedule=function(t,e){if(void 0===e&&(e=0),this.closed)return this;this.state=t;var n=this.id,r=this.scheduler;return null!=n&&(this.id=this.recycleAsyncId(r,n,e)),this.pending=!0,this.delay=e,this.id=this.id||this.requestAsyncId(r,this.id,e),this},e.prototype.requestAsyncId=function(t,e,n){return void 0===n&&(n=0),setInterval(t.flush.bind(t,this),n)},e.prototype.recycleAsyncId=function(t,e,n){if(void 0===n&&(n=0),null!==n&&this.delay===n&&!1===this.pending)return e;clearInterval(e)},e.prototype.execute=function(t,e){if(this.closed)return new Error("executing a cancelled action");this.pending=!1;var n=this._execute(t,e);if(n)return n;!1===this.pending&&null!=this.id&&(this.id=this.recycleAsyncId(this.scheduler,this.id,null))},e.prototype._execute=function(t,e){var n=!1,r=void 0;try{this.work(t)}catch(t){n=!0,r=!!t&&t||new Error(t)}if(n)return this.unsubscribe(),r},e.prototype._unsubscribe=function(){var t=this.id,e=this.scheduler,n=e.actions,r=n.indexOf(this);this.work=null,this.state=null,this.pending=!1,this.scheduler=null,-1!==r&&n.splice(r,1),null!=t&&(this.id=this.recycleAsyncId(e,t,null)),this.delay=null},e}(function(t){function e(e,n){return t.call(this)||this}return o(e,t),e.prototype.schedule=function(t,e){return void 0===e&&(e=0),this},e}(w)),Kh=function(t){function e(e,n){var r=t.call(this,e,n)||this;return r.scheduler=e,r.work=n,r}return o(e,t),e.prototype.schedule=function(e,n){return void 0===n&&(n=0),n>0?t.prototype.schedule.call(this,e,n):(this.delay=n,this.state=e,this.scheduler.flush(this),this)},e.prototype.execute=function(e,n){return n>0||this.closed?t.prototype.execute.call(this,e,n):this._execute(e,n)},e.prototype.requestAsyncId=function(e,n,r){return void 0===r&&(r=0),null!==r&&r>0||null===r&&this.delay>0?t.prototype.requestAsyncId.call(this,e,n,r):e.flush(this)},e}(Qh),Yh=function(){function t(e,n){void 0===n&&(n=t.now),this.SchedulerAction=e,this.now=n}return t.prototype.schedule=function(t,e,n){return void 0===e&&(e=0),new this.SchedulerAction(this,t).schedule(n,e)},t.now=Date.now?Date.now:function(){return+new Date},t}(),Jh=function(t){function e(n,r){void 0===r&&(r=Yh.now);var o=t.call(this,n,function(){return e.delegate&&e.delegate!==o?e.delegate.now():r()})||this;return o.actions=[],o.active=!1,o.scheduled=void 0,o}return o(e,t),e.prototype.schedule=function(n,r,o){return void 0===r&&(r=0),e.delegate&&e.delegate!==this?e.delegate.schedule(n,r,o):t.prototype.schedule.call(this,n,r,o)},e.prototype.flush=function(t){var e=this.actions;if(this.active)e.push(t);else{var n;this.active=!0;do{if(n=t.execute(t.state,t.delay))break}while(t=e.shift());if(this.active=!1,n){for(;t=e.shift();)t.unsubscribe();throw n}}},e}(Yh),Xh=new(function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e}(Jh))(Kh);function $h(t,e){return new I(e?function(n){return e.schedule(tp,0,{error:t,subscriber:n})}:function(e){return e.error(t)})}function tp(t){t.subscriber.error(t.error)}var ep,np=function(){function t(t,e,n){this.kind=t,this.value=e,this.error=n,this.hasValue="N"===t}return t.prototype.observe=function(t){switch(this.kind){case"N":return t.next&&t.next(this.value);case"E":return t.error&&t.error(this.error);case"C":return t.complete&&t.complete()}},t.prototype.do=function(t,e,n){switch(this.kind){case"N":return t&&t(this.value);case"E":return e&&e(this.error);case"C":return n&&n()}},t.prototype.accept=function(t,e,n){return t&&"function"==typeof t.next?this.observe(t):this.do(t,e,n)},t.prototype.toObservable=function(){switch(this.kind){case"N":return Eu(this.value);case"E":return $h(this.error);case"C":return Su()}throw new Error("unexpected notification kind value")},t.createNext=function(e){return void 0!==e?new t("N",e):t.undefinedValueNotification},t.createError=function(e){return new t("E",void 0,e)},t.createComplete=function(){return t.completeNotification},t.completeNotification=new t("C"),t.undefinedValueNotification=new t("N",void 0),t}(),rp=function(t){function e(e,n,r){void 0===r&&(r=0);var o=t.call(this,e)||this;return o.scheduler=n,o.delay=r,o}return o(e,t),e.dispatch=function(t){t.notification.observe(t.destination),this.unsubscribe()},e.prototype.scheduleMessage=function(t){this.add(this.scheduler.schedule(e.dispatch,this.delay,new op(t,this.destination)))},e.prototype._next=function(t){this.scheduleMessage(np.createNext(t))},e.prototype._error=function(t){this.scheduleMessage(np.createError(t))},e.prototype._complete=function(){this.scheduleMessage(np.createComplete())},e}(S),op=function(t,e){this.notification=t,this.destination=e},ip=function(t){function e(e,n,r){void 0===e&&(e=Number.POSITIVE_INFINITY),void 0===n&&(n=Number.POSITIVE_INFINITY);var o=t.call(this)||this;return o.scheduler=r,o._events=[],o._infiniteTimeWindow=!1,o._bufferSize=e<1?1:e,o._windowTime=n<1?1:n,n===Number.POSITIVE_INFINITY?(o._infiniteTimeWindow=!0,o.next=o.nextInfiniteTimeWindow):o.next=o.nextTimeWindow,o}return o(e,t),e.prototype.nextInfiniteTimeWindow=function(e){var n=this._events;n.push(e),n.length>this._bufferSize&&n.shift(),t.prototype.next.call(this,e)},e.prototype.nextTimeWindow=function(e){this._events.push(new sp(this._getNow(),e)),this._trimBufferThenGetEvents(),t.prototype.next.call(this,e)},e.prototype._subscribe=function(t){var e,n=this._infiniteTimeWindow,r=n?this._events:this._trimBufferThenGetEvents(),o=this.scheduler,i=r.length;if(this.closed)throw new tt;if(this.isStopped||this.hasError?e=w.EMPTY:(this.observers.push(t),e=new et(this,t)),o&&t.add(t=new rp(t,o)),n)for(var s=0;s<i&&!t.closed;s++)t.next(r[s]);else for(s=0;s<i&&!t.closed;s++)t.next(r[s].value);return this.hasError?t.error(this.thrownError):this.isStopped&&t.complete(),e},e.prototype._getNow=function(){return(this.scheduler||Xh).now()},e.prototype._trimBufferThenGetEvents=function(){for(var t=this._getNow(),e=this._bufferSize,n=this._windowTime,r=this._events,o=r.length,i=0;i<o&&!(t-r[i].time<n);)i++;return o>e&&(i=Math.max(i,o-e)),i>0&&r.splice(0,i),r},e}(rt),sp=function(t,e){this.time=t,this.value=e},up=new Jh(Qh);function ap(t){return!d(t)&&t-parseFloat(t)+1>=0}function cp(t,e,n){void 0===t&&(t=0);var r=-1;return ap(e)?r=Number(e)<1?1:Number(e):N(e)&&(n=e),N(n)||(n=up),new I(function(e){var o=ap(t)?t:+t-n.now();return n.schedule(lp,o,{index:0,period:r,subscriber:e})})}function lp(t){var e=t.index,n=t.period,r=t.subscriber;if(r.next(e),!r.closed){if(-1===n)return r.complete();t.index=e+1,this.schedule(t,n)}}!function(t){t.Info="info",t.Error="error",t.Success="success"}(ep||(ep={}));var hp=function(){function t(){this.subscriptions=new w,this.closeToastSubject=new ip(1),this.closeToast$=this.closeToastSubject.asObservable(),this.message=null,this.type=ep.Info,this.lifeTimeSeconds=3,this.animationIn=!0,this.animationOut=!1}return t.prototype.ngOnInit=function(){var t=this;this.lifeTimeTimerSub=cp(1e3*this.lifeTimeSeconds).subscribe(function(){t.closeToast()}),this.subscriptions.add(this.lifeTimeTimerSub)},t.prototype.closeToast=function(){var t=this;this.animationOut=!0;var e=cp(1e3).subscribe(function(){t.closeToastSubject.next(null)});this.subscriptions.add(e)},t.prototype.ngOnDestroy=function(){this.subscriptions.unsubscribe()},t}(),pp=Lr({encapsulation:0,styles:[["[_nghost-%COMP%]{position:fixed;right:0;bottom:15px;left:0;width:650px;max-width:90%;display:flex;align-items:center;justify-content:center;margin:auto;z-index:100;height:52px;-webkit-animation-duration:.5s;animation-duration:.5s}[_nghost-%COMP%]   .toastContainer[_ngcontent-%COMP%]{position:relative;box-shadow:0 15px 50px -15px rgba(0,0,0,.75);width:100%;height:100%;margin:auto;background-color:#1874ef;color:#fff;padding:0 10px 0 25px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;border-radius:3px;border:1px #1874ef}[_nghost-%COMP%]   .toastContainer.error[_ngcontent-%COMP%]{background-color:#e73636;border-color:#e73636}[_nghost-%COMP%]   .toastContainer.success[_ngcontent-%COMP%]{background-color:#40c33c;border-color:#40c33c}"]],data:{}});function fp(t){return Ti(0,[(t()(),fo(0,0,null,null,7,"div",[["class","toastContainer"]],null,null,null,null,null)),ni(1,278528,null,0,$s,[zn,qn,pn,hn],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),(t()(),fo(2,0,null,null,1,"p",[],null,null,null,null,null)),(t()(),Si(3,null,[" "," "])),(t()(),fo(4,0,null,null,3,"app-button-icon",[["color","accent"]],null,[[null,"click"]],function(t,e,n){var r=!0,o=t.component;return"click"===e&&(r=!1!==qo(t,6).onHostClick(n)&&r),"click"===e&&(r=!1!==o.closeToast()&&r),r},Zh,Wh)),(6144,null,e=au,null,n=[Gh],ri(-1,6144,null,0,e,null,n)),ni(6,114688,null,0,Gh,[],{color:[0,"color"]},{click:"click"}),(t()(),Si(-1,0,["clear"]))],function(t,e){t(e,1,0,"toastContainer",e.component.type),t(e,6,0,"accent")},function(t,e){t(e,3,0,e.component.message)});var e,n}var dp=No("app-toast",hp,function(t){return Ti(0,[(t()(),fo(0,0,null,null,1,"app-toast",[],[[2,"animated",null],[2,"fadeInUp",null],[2,"fadeOutDown",null]],null,null,fp,pp)),ni(1,245760,null,0,hp,[],null,null)],function(t,e){t(e,1,0)},function(t,e){t(e,0,0,qo(e,1).animationIn,qo(e,1).animationIn,qo(e,1).animationOut)})},{},{},[]),vp=Lr({encapsulation:0,styles:[["[_nghost-%COMP%]{display:block;height:100%;width:100%}"]],data:{}});function yp(t){return Ti(0,[(t()(),fo(0,16777216,null,null,1,"router-outlet",[],null,null,null,null,null)),ni(1,212992,null,0,_h,[bh,_n,Ie,[8,null],wn],null,null)],function(t,e){t(e,1,0)},null)}var gp=No("app-root",Ms,function(t){return Ti(0,[(t()(),fo(0,0,null,null,1,"app-root",[],null,null,null,yp,vp)),ni(1,49152,null,0,Ms,[],null,null)],null,null)},{},{},[]),mp=function(t){function e(e,n){var r=t.call(this,e)||this;r.sources=n,r.completed=0,r.haveValues=0;var o=n.length;r.values=new Array(o);for(var i=0;i<o;i++){var s=z(r,n[i],null,i);s&&r.add(s)}return r}return o(e,t),e.prototype.notifyNext=function(t,e,n,r,o){this.values[n]=e,o._hasValue||(o._hasValue=!0,this.haveValues++)},e.prototype.notifyComplete=function(t){var e=this.destination,n=this.haveValues,r=this.values,o=r.length;t._hasValue?(this.completed++,this.completed===o&&(n===o&&e.next(r),e.complete())):e.complete()},e}(q);function bp(t){return null==t||0===t.length}var _p=/^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/,wp=function(){function t(){}return t.min=function(t){return function(e){if(bp(e.value)||bp(t))return null;var n=parseFloat(e.value);return!isNaN(n)&&n<t?{min:{min:t,actual:e.value}}:null}},t.max=function(t){return function(e){if(bp(e.value)||bp(t))return null;var n=parseFloat(e.value);return!isNaN(n)&&n>t?{max:{max:t,actual:e.value}}:null}},t.required=function(t){return bp(t.value)?{required:!0}:null},t.requiredTrue=function(t){return!0===t.value?null:{required:!0}},t.email=function(t){return bp(t.value)?null:_p.test(t.value)?null:{email:!0}},t.minLength=function(t){return function(e){if(bp(e.value))return null;var n=e.value?e.value.length:0;return n<t?{minlength:{requiredLength:t,actualLength:n}}:null}},t.maxLength=function(t){return function(e){var n=e.value?e.value.length:0;return n>t?{maxlength:{requiredLength:t,actualLength:n}}:null}},t.pattern=function(e){return e?("string"==typeof e?(r="","^"!==e.charAt(0)&&(r+="^"),r+=e,"$"!==e.charAt(e.length-1)&&(r+="$"),n=new RegExp(r)):(r=e.toString(),n=e),function(t){if(bp(t.value))return null;var e=t.value;return n.test(e)?null:{pattern:{requiredPattern:r,actualValue:e}}}):t.nullValidator;var n,r},t.nullValidator=function(t){return null},t.compose=function(t){if(!t)return null;var e=t.filter(Cp);return 0==e.length?null:function(t){return Sp(function(t,n){return e.map(function(e){return e(t)})}(t))}},t.composeAsync=function(t){if(!t)return null;var e=t.filter(Cp);return 0==e.length?null:function(t){return function t(){for(var e,n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];return"function"==typeof n[n.length-1]&&(e=n.pop()),1===n.length&&d(n[0])&&(n=n[0]),0===n.length?xu:e?t(n).pipe(B(function(t){return e.apply(void 0,t)})):new I(function(t){return new mp(t,n)})}(function(t,n){return e.map(function(e){return e(t)})}(t).map(xp)).pipe(B(Sp))}},t}();function Cp(t){return null!=t}function xp(t){var e=le(t)?Q(t):t;if(!he(e))throw new Error("Expected validator to return Promise or Observable.");return e}function Sp(t){var e=t.reduce(function(t,e){return null!=e?i({},t,e):t},{});return 0===Object.keys(e).length?null:e}function Ep(t){return t.validate?function(e){return t.validate(e)}:t}function Op(t){return t.validate?function(e){return t.validate(e)}:t}var Tp=function(){function t(){this._accessors=[]}return t.prototype.add=function(t,e){this._accessors.push([t,e])},t.prototype.remove=function(t){for(var e=this._accessors.length-1;e>=0;--e)if(this._accessors[e][1]===t)return void this._accessors.splice(e,1)},t.prototype.select=function(t){var e=this;this._accessors.forEach(function(n){e._isSameGroup(n,t)&&n[1]!==t&&n[1].fireUncheck(t.value)})},t.prototype._isSameGroup=function(t,e){return!!t[0].control&&t[0]._parent===e._control._parent&&t[1].name===e.name},t}();function Ap(t){var e,n=Ip(t)?t.validators:t;return Array.isArray(n)?null!=(e=n)?wp.compose(e.map(Ep)):null:n||null}function Pp(t,e){var n,r=Ip(e)?e.asyncValidators:t;return Array.isArray(r)?null!=(n=r)?wp.composeAsync(n.map(Op)):null:r||null}function Ip(t){return null!=t&&!Array.isArray(t)&&"object"==typeof t}var kp=function(){function t(t,e){this.validator=t,this.asyncValidator=e,this._onCollectionChange=function(){},this.pristine=!0,this.touched=!1,this._onDisabledChange=[]}return Object.defineProperty(t.prototype,"parent",{get:function(){return this._parent},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"valid",{get:function(){return"VALID"===this.status},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"invalid",{get:function(){return"INVALID"===this.status},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pending",{get:function(){return"PENDING"==this.status},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"disabled",{get:function(){return"DISABLED"===this.status},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"enabled",{get:function(){return"DISABLED"!==this.status},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"dirty",{get:function(){return!this.pristine},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"untouched",{get:function(){return!this.touched},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"updateOn",{get:function(){return this._updateOn?this._updateOn:this.parent?this.parent.updateOn:"change"},enumerable:!0,configurable:!0}),t.prototype.setValidators=function(t){this.validator=Ap(t)},t.prototype.setAsyncValidators=function(t){this.asyncValidator=Pp(t)},t.prototype.clearValidators=function(){this.validator=null},t.prototype.clearAsyncValidators=function(){this.asyncValidator=null},t.prototype.markAsTouched=function(t){void 0===t&&(t={}),this.touched=!0,this._parent&&!t.onlySelf&&this._parent.markAsTouched(t)},t.prototype.markAsUntouched=function(t){void 0===t&&(t={}),this.touched=!1,this._pendingTouched=!1,this._forEachChild(function(t){t.markAsUntouched({onlySelf:!0})}),this._parent&&!t.onlySelf&&this._parent._updateTouched(t)},t.prototype.markAsDirty=function(t){void 0===t&&(t={}),this.pristine=!1,this._parent&&!t.onlySelf&&this._parent.markAsDirty(t)},t.prototype.markAsPristine=function(t){void 0===t&&(t={}),this.pristine=!0,this._pendingDirty=!1,this._forEachChild(function(t){t.markAsPristine({onlySelf:!0})}),this._parent&&!t.onlySelf&&this._parent._updatePristine(t)},t.prototype.markAsPending=function(t){void 0===t&&(t={}),this.status="PENDING",!1!==t.emitEvent&&this.statusChanges.emit(this.status),this._parent&&!t.onlySelf&&this._parent.markAsPending(t)},t.prototype.disable=function(t){void 0===t&&(t={}),this.status="DISABLED",this.errors=null,this._forEachChild(function(e){e.disable(i({},t,{onlySelf:!0}))}),this._updateValue(),!1!==t.emitEvent&&(this.valueChanges.emit(this.value),this.statusChanges.emit(this.status)),this._updateAncestors(t),this._onDisabledChange.forEach(function(t){return t(!0)})},t.prototype.enable=function(t){void 0===t&&(t={}),this.status="VALID",this._forEachChild(function(e){e.enable(i({},t,{onlySelf:!0}))}),this.updateValueAndValidity({onlySelf:!0,emitEvent:t.emitEvent}),this._updateAncestors(t),this._onDisabledChange.forEach(function(t){return t(!1)})},t.prototype._updateAncestors=function(t){this._parent&&!t.onlySelf&&(this._parent.updateValueAndValidity(t),this._parent._updatePristine(),this._parent._updateTouched())},t.prototype.setParent=function(t){this._parent=t},t.prototype.updateValueAndValidity=function(t){void 0===t&&(t={}),this._setInitialStatus(),this._updateValue(),this.enabled&&(this._cancelExistingSubscription(),this.errors=this._runValidator(),this.status=this._calculateStatus(),"VALID"!==this.status&&"PENDING"!==this.status||this._runAsyncValidator(t.emitEvent)),!1!==t.emitEvent&&(this.valueChanges.emit(this.value),this.statusChanges.emit(this.status)),this._parent&&!t.onlySelf&&this._parent.updateValueAndValidity(t)},t.prototype._updateTreeValidity=function(t){void 0===t&&(t={emitEvent:!0}),this._forEachChild(function(e){return e._updateTreeValidity(t)}),this.updateValueAndValidity({onlySelf:!0,emitEvent:t.emitEvent})},t.prototype._setInitialStatus=function(){this.status=this._allControlsDisabled()?"DISABLED":"VALID"},t.prototype._runValidator=function(){return this.validator?this.validator(this):null},t.prototype._runAsyncValidator=function(t){var e=this;if(this.asyncValidator){this.status="PENDING";var n=xp(this.asyncValidator(this));this._asyncValidationSubscription=n.subscribe(function(n){return e.setErrors(n,{emitEvent:t})})}},t.prototype._cancelExistingSubscription=function(){this._asyncValidationSubscription&&this._asyncValidationSubscription.unsubscribe()},t.prototype.setErrors=function(t,e){void 0===e&&(e={}),this.errors=t,this._updateControlsErrors(!1!==e.emitEvent)},t.prototype.get=function(t){return function(t,e,n){return null==e?null:(e instanceof Array||(e=e.split(".")),e instanceof Array&&0===e.length?null:e.reduce(function(t,e){return t instanceof Rp?t.controls[e]||null:t instanceof jp&&t.at(e)||null},t))}(this,t)},t.prototype.getError=function(t,e){var n=e?this.get(e):this;return n&&n.errors?n.errors[t]:null},t.prototype.hasError=function(t,e){return!!this.getError(t,e)},Object.defineProperty(t.prototype,"root",{get:function(){for(var t=this;t._parent;)t=t._parent;return t},enumerable:!0,configurable:!0}),t.prototype._updateControlsErrors=function(t){this.status=this._calculateStatus(),t&&this.statusChanges.emit(this.status),this._parent&&this._parent._updateControlsErrors(t)},t.prototype._initObservables=function(){this.valueChanges=new Le,this.statusChanges=new Le},t.prototype._calculateStatus=function(){return this._allControlsDisabled()?"DISABLED":this.errors?"INVALID":this._anyControlsHaveStatus("PENDING")?"PENDING":this._anyControlsHaveStatus("INVALID")?"INVALID":"VALID"},t.prototype._anyControlsHaveStatus=function(t){return this._anyControls(function(e){return e.status===t})},t.prototype._anyControlsDirty=function(){return this._anyControls(function(t){return t.dirty})},t.prototype._anyControlsTouched=function(){return this._anyControls(function(t){return t.touched})},t.prototype._updatePristine=function(t){void 0===t&&(t={}),this.pristine=!this._anyControlsDirty(),this._parent&&!t.onlySelf&&this._parent._updatePristine(t)},t.prototype._updateTouched=function(t){void 0===t&&(t={}),this.touched=this._anyControlsTouched(),this._parent&&!t.onlySelf&&this._parent._updateTouched(t)},t.prototype._isBoxedValue=function(t){return"object"==typeof t&&null!==t&&2===Object.keys(t).length&&"value"in t&&"disabled"in t},t.prototype._registerOnCollectionChange=function(t){this._onCollectionChange=t},t.prototype._setUpdateStrategy=function(t){Ip(t)&&null!=t.updateOn&&(this._updateOn=t.updateOn)},t}(),Np=function(t){function e(e,n,r){void 0===e&&(e=null);var o=t.call(this,Ap(n),Pp(r,n))||this;return o._onChange=[],o._applyFormState(e),o._setUpdateStrategy(n),o.updateValueAndValidity({onlySelf:!0,emitEvent:!1}),o._initObservables(),o}return o(e,t),e.prototype.setValue=function(t,e){var n=this;void 0===e&&(e={}),this.value=this._pendingValue=t,this._onChange.length&&!1!==e.emitModelToViewChange&&this._onChange.forEach(function(t){return t(n.value,!1!==e.emitViewToModelChange)}),this.updateValueAndValidity(e)},e.prototype.patchValue=function(t,e){void 0===e&&(e={}),this.setValue(t,e)},e.prototype.reset=function(t,e){void 0===t&&(t=null),void 0===e&&(e={}),this._applyFormState(t),this.markAsPristine(e),this.markAsUntouched(e),this.setValue(this.value,e),this._pendingChange=!1},e.prototype._updateValue=function(){},e.prototype._anyControls=function(t){return!1},e.prototype._allControlsDisabled=function(){return this.disabled},e.prototype.registerOnChange=function(t){this._onChange.push(t)},e.prototype._clearChangeFns=function(){this._onChange=[],this._onDisabledChange=[],this._onCollectionChange=function(){}},e.prototype.registerOnDisabledChange=function(t){this._onDisabledChange.push(t)},e.prototype._forEachChild=function(t){},e.prototype._syncPendingControls=function(){return!("submit"!==this.updateOn||(this._pendingDirty&&this.markAsDirty(),this._pendingTouched&&this.markAsTouched(),!this._pendingChange)||(this.setValue(this._pendingValue,{onlySelf:!0,emitModelToViewChange:!1}),0))},e.prototype._applyFormState=function(t){this._isBoxedValue(t)?(this.value=this._pendingValue=t.value,t.disabled?this.disable({onlySelf:!0,emitEvent:!1}):this.enable({onlySelf:!0,emitEvent:!1})):this.value=this._pendingValue=t},e}(kp),Rp=function(t){function e(e,n,r){var o=t.call(this,Ap(n),Pp(r,n))||this;return o.controls=e,o._initObservables(),o._setUpdateStrategy(n),o._setUpControls(),o.updateValueAndValidity({onlySelf:!0,emitEvent:!1}),o}return o(e,t),e.prototype.registerControl=function(t,e){return this.controls[t]?this.controls[t]:(this.controls[t]=e,e.setParent(this),e._registerOnCollectionChange(this._onCollectionChange),e)},e.prototype.addControl=function(t,e){this.registerControl(t,e),this.updateValueAndValidity(),this._onCollectionChange()},e.prototype.removeControl=function(t){this.controls[t]&&this.controls[t]._registerOnCollectionChange(function(){}),delete this.controls[t],this.updateValueAndValidity(),this._onCollectionChange()},e.prototype.setControl=function(t,e){this.controls[t]&&this.controls[t]._registerOnCollectionChange(function(){}),delete this.controls[t],e&&this.registerControl(t,e),this.updateValueAndValidity(),this._onCollectionChange()},e.prototype.contains=function(t){return this.controls.hasOwnProperty(t)&&this.controls[t].enabled},e.prototype.setValue=function(t,e){var n=this;void 0===e&&(e={}),this._checkAllValuesPresent(t),Object.keys(t).forEach(function(r){n._throwIfControlMissing(r),n.controls[r].setValue(t[r],{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e)},e.prototype.patchValue=function(t,e){var n=this;void 0===e&&(e={}),Object.keys(t).forEach(function(r){n.controls[r]&&n.controls[r].patchValue(t[r],{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e)},e.prototype.reset=function(t,e){void 0===t&&(t={}),void 0===e&&(e={}),this._forEachChild(function(n,r){n.reset(t[r],{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e),this._updatePristine(e),this._updateTouched(e)},e.prototype.getRawValue=function(){return this._reduceChildren({},function(t,e,n){return t[n]=e instanceof Np?e.value:e.getRawValue(),t})},e.prototype._syncPendingControls=function(){var t=this._reduceChildren(!1,function(t,e){return!!e._syncPendingControls()||t});return t&&this.updateValueAndValidity({onlySelf:!0}),t},e.prototype._throwIfControlMissing=function(t){if(!Object.keys(this.controls).length)throw new Error("\n        There are no form controls registered with this group yet.  If you're using ngModel,\n        you may want to check next tick (e.g. use setTimeout).\n      ");if(!this.controls[t])throw new Error("Cannot find form control with name: "+t+".")},e.prototype._forEachChild=function(t){var e=this;Object.keys(this.controls).forEach(function(n){return t(e.controls[n],n)})},e.prototype._setUpControls=function(){var t=this;this._forEachChild(function(e){e.setParent(t),e._registerOnCollectionChange(t._onCollectionChange)})},e.prototype._updateValue=function(){this.value=this._reduceValue()},e.prototype._anyControls=function(t){var e=this,n=!1;return this._forEachChild(function(r,o){n=n||e.contains(o)&&t(r)}),n},e.prototype._reduceValue=function(){var t=this;return this._reduceChildren({},function(e,n,r){return(n.enabled||t.disabled)&&(e[r]=n.value),e})},e.prototype._reduceChildren=function(t,e){var n=t;return this._forEachChild(function(t,r){n=e(n,t,r)}),n},e.prototype._allControlsDisabled=function(){try{for(var t=s(Object.keys(this.controls)),e=t.next();!e.done;e=t.next())if(this.controls[e.value].enabled)return!1}catch(t){n={error:t}}finally{try{e&&!e.done&&(r=t.return)&&r.call(t)}finally{if(n)throw n.error}}return Object.keys(this.controls).length>0||this.disabled;var n,r},e.prototype._checkAllValuesPresent=function(t){this._forEachChild(function(e,n){if(void 0===t[n])throw new Error("Must supply a value for form control with name: '"+n+"'.")})},e}(kp),jp=function(t){function e(e,n,r){var o=t.call(this,Ap(n),Pp(r,n))||this;return o.controls=e,o._initObservables(),o._setUpdateStrategy(n),o._setUpControls(),o.updateValueAndValidity({onlySelf:!0,emitEvent:!1}),o}return o(e,t),e.prototype.at=function(t){return this.controls[t]},e.prototype.push=function(t){this.controls.push(t),this._registerControl(t),this.updateValueAndValidity(),this._onCollectionChange()},e.prototype.insert=function(t,e){this.controls.splice(t,0,e),this._registerControl(e),this.updateValueAndValidity()},e.prototype.removeAt=function(t){this.controls[t]&&this.controls[t]._registerOnCollectionChange(function(){}),this.controls.splice(t,1),this.updateValueAndValidity()},e.prototype.setControl=function(t,e){this.controls[t]&&this.controls[t]._registerOnCollectionChange(function(){}),this.controls.splice(t,1),e&&(this.controls.splice(t,0,e),this._registerControl(e)),this.updateValueAndValidity(),this._onCollectionChange()},Object.defineProperty(e.prototype,"length",{get:function(){return this.controls.length},enumerable:!0,configurable:!0}),e.prototype.setValue=function(t,e){var n=this;void 0===e&&(e={}),this._checkAllValuesPresent(t),t.forEach(function(t,r){n._throwIfControlMissing(r),n.at(r).setValue(t,{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e)},e.prototype.patchValue=function(t,e){var n=this;void 0===e&&(e={}),t.forEach(function(t,r){n.at(r)&&n.at(r).patchValue(t,{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e)},e.prototype.reset=function(t,e){void 0===t&&(t=[]),void 0===e&&(e={}),this._forEachChild(function(n,r){n.reset(t[r],{onlySelf:!0,emitEvent:e.emitEvent})}),this.updateValueAndValidity(e),this._updatePristine(e),this._updateTouched(e)},e.prototype.getRawValue=function(){return this.controls.map(function(t){return t instanceof Np?t.value:t.getRawValue()})},e.prototype._syncPendingControls=function(){var t=this.controls.reduce(function(t,e){return!!e._syncPendingControls()||t},!1);return t&&this.updateValueAndValidity({onlySelf:!0}),t},e.prototype._throwIfControlMissing=function(t){if(!this.controls.length)throw new Error("\n        There are no form controls registered with this array yet.  If you're using ngModel,\n        you may want to check next tick (e.g. use setTimeout).\n      ");if(!this.at(t))throw new Error("Cannot find form control at index "+t)},e.prototype._forEachChild=function(t){this.controls.forEach(function(e,n){t(e,n)})},e.prototype._updateValue=function(){var t=this;this.value=this.controls.filter(function(e){return e.enabled||t.disabled}).map(function(t){return t.value})},e.prototype._anyControls=function(t){return this.controls.some(function(e){return e.enabled&&t(e)})},e.prototype._setUpControls=function(){var t=this;this._forEachChild(function(e){return t._registerControl(e)})},e.prototype._checkAllValuesPresent=function(t){this._forEachChild(function(e,n){if(void 0===t[n])throw new Error("Must supply a value for form control at index: "+n+".")})},e.prototype._allControlsDisabled=function(){try{for(var t=s(this.controls),e=t.next();!e.done;e=t.next())if(e.value.enabled)return!1}catch(t){n={error:t}}finally{try{e&&!e.done&&(r=t.return)&&r.call(t)}finally{if(n)throw n.error}}return this.controls.length>0||this.disabled;var n,r},e.prototype._registerControl=function(t){t.setParent(this),t._registerOnCollectionChange(this._onCollectionChange)},e}(kp),Vp=new ft("NgModelWithFormControlWarning"),Mp=function(){function t(){}return t.prototype.group=function(t,e){void 0===e&&(e=null);var n=this._reduceControls(t);return new Rp(n,null!=e?e.validator:null,null!=e?e.asyncValidator:null)},t.prototype.control=function(t,e,n){return new Np(t,e,n)},t.prototype.array=function(t,e,n){var r=this,o=t.map(function(t){return r._createControl(t)});return new jp(o,e,n)},t.prototype._reduceControls=function(t){var e=this,n={};return Object.keys(t).forEach(function(r){n[r]=e._createControl(t[r])}),n},t.prototype._createControl=function(t){return t instanceof Np||t instanceof Rp||t instanceof jp?t:Array.isArray(t)?this.control(t[0],t.length>1?t[1]:null,t.length>2?t[2]:null):this.control(t)},t}(),Dp=function(){},Up=function(){},Lp=function(){function t(){}return t.withConfig=function(e){return{ngModule:t,providers:[{provide:Vp,useValue:e.warnOnNgModelWithFormControl}]}},t}(),Hp=function(){},Fp=function(){},zp=function(){function t(t){var e=this;this.normalizedNames=new Map,this.lazyUpdate=null,t?this.lazyInit="string"==typeof t?function(){e.headers=new Map,t.split("\n").forEach(function(t){var n=t.indexOf(":");if(n>0){var r=t.slice(0,n),o=r.toLowerCase(),i=t.slice(n+1).trim();e.maybeSetNormalizedName(r,o),e.headers.has(o)?e.headers.get(o).push(i):e.headers.set(o,[i])}})}:function(){e.headers=new Map,Object.keys(t).forEach(function(n){var r=t[n],o=n.toLowerCase();"string"==typeof r&&(r=[r]),r.length>0&&(e.headers.set(o,r),e.maybeSetNormalizedName(n,o))})}:this.headers=new Map}return t.prototype.has=function(t){return this.init(),this.headers.has(t.toLowerCase())},t.prototype.get=function(t){this.init();var e=this.headers.get(t.toLowerCase());return e&&e.length>0?e[0]:null},t.prototype.keys=function(){return this.init(),Array.from(this.normalizedNames.values())},t.prototype.getAll=function(t){return this.init(),this.headers.get(t.toLowerCase())||null},t.prototype.append=function(t,e){return this.clone({name:t,value:e,op:"a"})},t.prototype.set=function(t,e){return this.clone({name:t,value:e,op:"s"})},t.prototype.delete=function(t,e){return this.clone({name:t,value:e,op:"d"})},t.prototype.maybeSetNormalizedName=function(t,e){this.normalizedNames.has(e)||this.normalizedNames.set(e,t)},t.prototype.init=function(){var e=this;this.lazyInit&&(this.lazyInit instanceof t?this.copyFrom(this.lazyInit):this.lazyInit(),this.lazyInit=null,this.lazyUpdate&&(this.lazyUpdate.forEach(function(t){return e.applyUpdate(t)}),this.lazyUpdate=null))},t.prototype.copyFrom=function(t){var e=this;t.init(),Array.from(t.headers.keys()).forEach(function(n){e.headers.set(n,t.headers.get(n)),e.normalizedNames.set(n,t.normalizedNames.get(n))})},t.prototype.clone=function(e){var n=new t;return n.lazyInit=this.lazyInit&&this.lazyInit instanceof t?this.lazyInit:this,n.lazyUpdate=(this.lazyUpdate||[]).concat([e]),n},t.prototype.applyUpdate=function(t){var e=t.name.toLowerCase();switch(t.op){case"a":case"s":var n=t.value;if("string"==typeof n&&(n=[n]),0===n.length)return;this.maybeSetNormalizedName(t.name,e);var r=("a"===t.op?this.headers.get(e):void 0)||[];r.push.apply(r,a(n)),this.headers.set(e,r);break;case"d":var o=t.value;if(o){var i=this.headers.get(e);if(!i)return;0===(i=i.filter(function(t){return-1===o.indexOf(t)})).length?(this.headers.delete(e),this.normalizedNames.delete(e)):this.headers.set(e,i)}else this.headers.delete(e),this.normalizedNames.delete(e)}},t.prototype.forEach=function(t){var e=this;this.init(),Array.from(this.normalizedNames.keys()).forEach(function(n){return t(e.normalizedNames.get(n),e.headers.get(n))})},t}(),qp=function(){function t(){}return t.prototype.encodeKey=function(t){return Bp(t)},t.prototype.encodeValue=function(t){return Bp(t)},t.prototype.decodeKey=function(t){return decodeURIComponent(t)},t.prototype.decodeValue=function(t){return decodeURIComponent(t)},t}();function Bp(t){return encodeURIComponent(t).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/gi,"$").replace(/%2C/gi,",").replace(/%3B/gi,";").replace(/%2B/gi,"+").replace(/%3D/gi,"=").replace(/%3F/gi,"?").replace(/%2F/gi,"/")}var Gp=function(){function t(t){void 0===t&&(t={});var e,n,r,o=this;if(this.updates=null,this.cloneFrom=null,this.encoder=t.encoder||new qp,t.fromString){if(t.fromObject)throw new Error("Cannot specify both fromString and fromObject.");this.map=(e=t.fromString,n=this.encoder,r=new Map,e.length>0&&e.split("&").forEach(function(t){var e=t.indexOf("="),o=u(-1==e?[n.decodeKey(t),""]:[n.decodeKey(t.slice(0,e)),n.decodeValue(t.slice(e+1))],2),i=o[0],s=o[1],a=r.get(i)||[];a.push(s),r.set(i,a)}),r)}else t.fromObject?(this.map=new Map,Object.keys(t.fromObject).forEach(function(e){var n=t.fromObject[e];o.map.set(e,Array.isArray(n)?n:[n])})):this.map=null}return t.prototype.has=function(t){return this.init(),this.map.has(t)},t.prototype.get=function(t){this.init();var e=this.map.get(t);return e?e[0]:null},t.prototype.getAll=function(t){return this.init(),this.map.get(t)||null},t.prototype.keys=function(){return this.init(),Array.from(this.map.keys())},t.prototype.append=function(t,e){return this.clone({param:t,value:e,op:"a"})},t.prototype.set=function(t,e){return this.clone({param:t,value:e,op:"s"})},t.prototype.delete=function(t,e){return this.clone({param:t,value:e,op:"d"})},t.prototype.toString=function(){var t=this;return this.init(),this.keys().map(function(e){var n=t.encoder.encodeKey(e);return t.map.get(e).map(function(e){return n+"="+t.encoder.encodeValue(e)}).join("&")}).join("&")},t.prototype.clone=function(e){var n=new t({encoder:this.encoder});return n.cloneFrom=this.cloneFrom||this,n.updates=(this.updates||[]).concat([e]),n},t.prototype.init=function(){var t=this;null===this.map&&(this.map=new Map),null!==this.cloneFrom&&(this.cloneFrom.init(),this.cloneFrom.keys().forEach(function(e){return t.map.set(e,t.cloneFrom.map.get(e))}),this.updates.forEach(function(e){switch(e.op){case"a":case"s":var n=("a"===e.op?t.map.get(e.param):void 0)||[];n.push(e.value),t.map.set(e.param,n);break;case"d":if(void 0===e.value){t.map.delete(e.param);break}var r=t.map.get(e.param)||[],o=r.indexOf(e.value);-1!==o&&r.splice(o,1),r.length>0?t.map.set(e.param,r):t.map.delete(e.param)}}),this.cloneFrom=null)},t}();function Wp(t){return"undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer}function Zp(t){return"undefined"!=typeof Blob&&t instanceof Blob}function Qp(t){return"undefined"!=typeof FormData&&t instanceof FormData}var Kp=function(){function t(t,e,n,r){var o;if(this.url=e,this.body=null,this.reportProgress=!1,this.withCredentials=!1,this.responseType="json",this.method=t.toUpperCase(),function(t){switch(t){case"DELETE":case"GET":case"HEAD":case"OPTIONS":case"JSONP":return!1;default:return!0}}(this.method)||r?(this.body=void 0!==n?n:null,o=r):o=n,o&&(this.reportProgress=!!o.reportProgress,this.withCredentials=!!o.withCredentials,o.responseType&&(this.responseType=o.responseType),o.headers&&(this.headers=o.headers),o.params&&(this.params=o.params)),this.headers||(this.headers=new zp),this.params){var i=this.params.toString();if(0===i.length)this.urlWithParams=e;else{var s=e.indexOf("?");this.urlWithParams=e+(-1===s?"?":s<e.length-1?"&":"")+i}}else this.params=new Gp,this.urlWithParams=e}return t.prototype.serializeBody=function(){return null===this.body?null:Wp(this.body)||Zp(this.body)||Qp(this.body)||"string"==typeof this.body?this.body:this.body instanceof Gp?this.body.toString():"object"==typeof this.body||"boolean"==typeof this.body||Array.isArray(this.body)?JSON.stringify(this.body):this.body.toString()},t.prototype.detectContentTypeHeader=function(){return null===this.body?null:Qp(this.body)?null:Zp(this.body)?this.body.type||null:Wp(this.body)?null:"string"==typeof this.body?"text/plain":this.body instanceof Gp?"application/x-www-form-urlencoded;charset=UTF-8":"object"==typeof this.body||"number"==typeof this.body||Array.isArray(this.body)?"application/json":null},t.prototype.clone=function(e){void 0===e&&(e={});var n=e.method||this.method,r=e.url||this.url,o=e.responseType||this.responseType,i=void 0!==e.body?e.body:this.body,s=void 0!==e.withCredentials?e.withCredentials:this.withCredentials,u=void 0!==e.reportProgress?e.reportProgress:this.reportProgress,a=e.headers||this.headers,c=e.params||this.params;return void 0!==e.setHeaders&&(a=Object.keys(e.setHeaders).reduce(function(t,n){return t.set(n,e.setHeaders[n])},a)),e.setParams&&(c=Object.keys(e.setParams).reduce(function(t,n){return t.set(n,e.setParams[n])},c)),new t(n,r,i,{params:c,headers:a,reportProgress:u,responseType:o,withCredentials:s})},t}(),Yp=function(t){return t[t.Sent=0]="Sent",t[t.UploadProgress=1]="UploadProgress",t[t.ResponseHeader=2]="ResponseHeader",t[t.DownloadProgress=3]="DownloadProgress",t[t.Response=4]="Response",t[t.User=5]="User",t}({}),Jp=function(){return function(t,e,n){void 0===e&&(e=200),void 0===n&&(n="OK"),this.headers=t.headers||new zp,this.status=void 0!==t.status?t.status:e,this.statusText=t.statusText||n,this.url=t.url||null,this.ok=this.status>=200&&this.status<300}}(),Xp=function(t){function e(e){void 0===e&&(e={});var n=t.call(this,e)||this;return n.type=Yp.ResponseHeader,n}return o(e,t),e.prototype.clone=function(t){return void 0===t&&(t={}),new e({headers:t.headers||this.headers,status:void 0!==t.status?t.status:this.status,statusText:t.statusText||this.statusText,url:t.url||this.url||void 0})},e}(Jp),$p=function(t){function e(e){void 0===e&&(e={});var n=t.call(this,e)||this;return n.type=Yp.Response,n.body=void 0!==e.body?e.body:null,n}return o(e,t),e.prototype.clone=function(t){return void 0===t&&(t={}),new e({body:void 0!==t.body?t.body:this.body,headers:t.headers||this.headers,status:void 0!==t.status?t.status:this.status,statusText:t.statusText||this.statusText,url:t.url||this.url||void 0})},e}(Jp),tf=function(t){function e(e){var n=t.call(this,e,0,"Unknown Error")||this;return n.name="HttpErrorResponse",n.ok=!1,n.message=n.status>=200&&n.status<300?"Http failure during parsing for "+(e.url||"(unknown url)"):"Http failure response for "+(e.url||"(unknown url)")+": "+e.status+" "+e.statusText,n.error=e.error||null,n}return o(e,t),e}(Jp);function ef(t,e){return{body:e,headers:t.headers,observe:t.observe,params:t.params,reportProgress:t.reportProgress,responseType:t.responseType,withCredentials:t.withCredentials}}var nf=function(){function t(t){this.handler=t}return t.prototype.request=function(t,e,n){var r,o=this;if(void 0===n&&(n={}),t instanceof Kp)r=t;else{var i;i=n.headers instanceof zp?n.headers:new zp(n.headers);var s=void 0;n.params&&(s=n.params instanceof Gp?n.params:new Gp({fromObject:n.params})),r=new Kp(t,e,void 0!==n.body?n.body:null,{headers:i,params:s,reportProgress:n.reportProgress,responseType:n.responseType||"json",withCredentials:n.withCredentials})}var u=Eu(r).pipe(Au(function(t){return o.handler.handle(t)}));if(t instanceof Kp||"events"===n.observe)return u;var a=u.pipe(Lu(function(t){return t instanceof $p}));switch(n.observe||"body"){case"body":switch(r.responseType){case"arraybuffer":return a.pipe(B(function(t){if(null!==t.body&&!(t.body instanceof ArrayBuffer))throw new Error("Response is not an ArrayBuffer.");return t.body}));case"blob":return a.pipe(B(function(t){if(null!==t.body&&!(t.body instanceof Blob))throw new Error("Response is not a Blob.");return t.body}));case"text":return a.pipe(B(function(t){if(null!==t.body&&"string"!=typeof t.body)throw new Error("Response is not a string.");return t.body}));case"json":default:return a.pipe(B(function(t){return t.body}))}case"response":return a;default:throw new Error("Unreachable: unhandled observe type "+n.observe+"}")}},t.prototype.delete=function(t,e){return void 0===e&&(e={}),this.request("DELETE",t,e)},t.prototype.get=function(t,e){return void 0===e&&(e={}),this.request("GET",t,e)},t.prototype.head=function(t,e){return void 0===e&&(e={}),this.request("HEAD",t,e)},t.prototype.jsonp=function(t,e){return this.request("JSONP",t,{params:(new Gp).append(e,"JSONP_CALLBACK"),observe:"body",responseType:"json"})},t.prototype.options=function(t,e){return void 0===e&&(e={}),this.request("OPTIONS",t,e)},t.prototype.patch=function(t,e,n){return void 0===n&&(n={}),this.request("PATCH",t,ef(n,e))},t.prototype.post=function(t,e,n){return void 0===n&&(n={}),this.request("POST",t,ef(n,e))},t.prototype.put=function(t,e,n){return void 0===n&&(n={}),this.request("PUT",t,ef(n,e))},t}(),rf=function(){function t(t,e){this.next=t,this.interceptor=e}return t.prototype.handle=function(t){return this.interceptor.intercept(t,this.next)},t}(),of=new ft("HTTP_INTERCEPTORS"),sf=function(){function t(){}return t.prototype.intercept=function(t,e){return e.handle(t)},t}(),uf=/^\)\]\}',?\n/,af=function(){},cf=function(){function t(){}return t.prototype.build=function(){return new XMLHttpRequest},t}(),lf=function(){function t(t){this.xhrFactory=t}return t.prototype.handle=function(t){var e=this;if("JSONP"===t.method)throw new Error("Attempted to construct Jsonp request without JsonpClientModule installed.");return new I(function(n){var r=e.xhrFactory.build();if(r.open(t.method,t.urlWithParams),t.withCredentials&&(r.withCredentials=!0),t.headers.forEach(function(t,e){return r.setRequestHeader(t,e.join(","))}),t.headers.has("Accept")||r.setRequestHeader("Accept","application/json, text/plain, */*"),!t.headers.has("Content-Type")){var o=t.detectContentTypeHeader();null!==o&&r.setRequestHeader("Content-Type",o)}if(t.responseType){var i=t.responseType.toLowerCase();r.responseType="json"!==i?i:"text"}var s=t.serializeBody(),u=null,a=function(){if(null!==u)return u;var e=1223===r.status?204:r.status,n=r.statusText||"OK",o=new zp(r.getAllResponseHeaders()),i=function(t){return"responseURL"in t&&t.responseURL?t.responseURL:/^X-Request-URL:/m.test(t.getAllResponseHeaders())?t.getResponseHeader("X-Request-URL"):null}(r)||t.url;return u=new Xp({headers:o,status:e,statusText:n,url:i})},c=function(){var e=a(),o=e.headers,i=e.status,s=e.statusText,u=e.url,c=null;204!==i&&(c=void 0===r.response?r.responseText:r.response),0===i&&(i=c?200:0);var l=i>=200&&i<300;if("json"===t.responseType&&"string"==typeof c){var h=c;c=c.replace(uf,"");try{c=""!==c?JSON.parse(c):null}catch(t){c=h,l&&(l=!1,c={error:t,text:c})}}l?(n.next(new $p({body:c,headers:o,status:i,statusText:s,url:u||void 0})),n.complete()):n.error(new tf({error:c,headers:o,status:i,statusText:s,url:u||void 0}))},l=function(t){var e=new tf({error:t,status:r.status||0,statusText:r.statusText||"Unknown Error"});n.error(e)},h=!1,p=function(e){h||(n.next(a()),h=!0);var o={type:Yp.DownloadProgress,loaded:e.loaded};e.lengthComputable&&(o.total=e.total),"text"===t.responseType&&r.responseText&&(o.partialText=r.responseText),n.next(o)},f=function(t){var e={type:Yp.UploadProgress,loaded:t.loaded};t.lengthComputable&&(e.total=t.total),n.next(e)};return r.addEventListener("load",c),r.addEventListener("error",l),t.reportProgress&&(r.addEventListener("progress",p),null!==s&&r.upload&&r.upload.addEventListener("progress",f)),r.send(s),n.next({type:Yp.Sent}),function(){r.removeEventListener("error",l),r.removeEventListener("load",c),t.reportProgress&&(r.removeEventListener("progress",p),null!==s&&r.upload&&r.upload.removeEventListener("progress",f)),r.abort()}})},t}(),hf=new ft("XSRF_COOKIE_NAME"),pf=new ft("XSRF_HEADER_NAME"),ff=function(){},df=function(){function t(t,e,n){this.doc=t,this.platform=e,this.cookieName=n,this.lastCookieString="",this.lastToken=null,this.parseCount=0}return t.prototype.getToken=function(){if("server"===this.platform)return null;var t=this.doc.cookie||"";return t!==this.lastCookieString&&(this.parseCount++,this.lastToken=Xs(t,this.cookieName),this.lastCookieString=t),this.lastToken},t}(),vf=function(){function t(t,e){this.tokenService=t,this.headerName=e}return t.prototype.intercept=function(t,e){var n=t.url.toLowerCase();if("GET"===t.method||"HEAD"===t.method||n.startsWith("http://")||n.startsWith("https://"))return e.handle(t);var r=this.tokenService.getToken();return null===r||t.headers.has(this.headerName)||(t=t.clone({headers:t.headers.set(this.headerName,r)})),e.handle(t)},t}(),yf=function(){function t(t,e){this.backend=t,this.injector=e,this.chain=null}return t.prototype.handle=function(t){if(null===this.chain){var e=this.injector.get(of,[]);this.chain=e.reduceRight(function(t,e){return new rf(t,e)},this.backend)}return this.chain.handle(t)},t}(),gf=function(){function t(){}return t.disable=function(){return{ngModule:t,providers:[{provide:vf,useClass:sf}]}},t.withOptions=function(e){return void 0===e&&(e={}),{ngModule:t,providers:[e.cookieName?{provide:hf,useValue:e.cookieName}:[],e.headerName?{provide:pf,useValue:e.headerName}:[]]}},t}(),mf=function(){},bf=function(){function t(t,e,n){this.componentFactoryResolver=t,this.applicationRef=e,this.injector=n}return t.prototype.showToast=function(t,e){var n=this,r=this.componentFactoryResolver.resolveComponentFactory(hp).create(this.injector);this.applicationRef.attachView(r.hostView),document.body.appendChild(r.hostView.rootNodes[0]),r.instance.message=t,r.instance.type=e;var o=r.instance.closeToast$.subscribe(function(){n.applicationRef.detachView(r.hostView),r.destroy(),o.unsubscribe()});return r.instance},t.ngInjectableDef=pt({factory:function(){return new t($t(Ie),$t(un),$t(Vt))},token:t,providedIn:"root"}),t}(),_f=function(){function t(t){this.toastService=t}return t.prototype.intercept=function(t,e){var n=this;return e.handle(t).pipe(Zu(function(t){return t.error&&n.toastService.showToast(t.error,ep.Error),$h(t)}))},t}(),wf=function(){function t(t){void 0===t&&(t={}),this.apiKeys=t.apiKeys,this.username=t.username,this.password=t.password,this.accessToken=t.accessToken,this.basePath=t.basePath,this.withCredentials=t.withCredentials}return t.prototype.selectHeaderContentType=function(t){var e=this;if(0!=t.length){var n=t.find(function(t){return e.isJsonMime(t)});return void 0===n?t[0]:n}},t.prototype.selectHeaderAccept=function(t){var e=this;if(0!=t.length){var n=t.find(function(t){return e.isJsonMime(t)});return void 0===n?t[0]:n}},t.prototype.isJsonMime=function(t){var e=new RegExp("^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$","i");return null!=t&&(e.test(t)||"application/json-patch+json"===t.toLowerCase())},t}();function Cf(){var t=new wf;return t.withCredentials=!0,t.basePath="/api",t}var xf=function(){function t(t,e,n){this.httpClient=t,this.basePath="http://localhost/api",this.defaultHeaders=new zp,this.configuration=new wf,e&&(this.basePath=e),n&&(this.configuration=n,this.basePath=e||n.basePath||this.basePath)}return t.prototype.canConsumeForm=function(t){for(var e=0,n=t;e<n.length;e++)if("multipart/form-data"===n[e])return!0;return!1},t.prototype.currentUserQuery=function(t,e){void 0===t&&(t="body"),void 0===e&&(e=!1);var n=this.defaultHeaders,r=this.configuration.selectHeaderAccept([]);return void 0!=r&&(n=n.set("Accept",r)),this.httpClient.get(this.basePath+"/security/current",{withCredentials:this.configuration.withCredentials,headers:n,observe:t,reportProgress:e})},t.prototype.loginHandler=function(t,e,n){if(void 0===e&&(e="body"),void 0===n&&(n=!1),null===t||void 0===t)throw new Error("Required parameter content was null or undefined when calling loginHandler.");var r=this.defaultHeaders,o=this.configuration.selectHeaderAccept([]);void 0!=o&&(r=r.set("Accept",o));var i=this.configuration.selectHeaderContentType([]);return void 0!=i&&(r=r.set("Content-Type",i)),this.httpClient.post(this.basePath+"/security/login",t,{withCredentials:this.configuration.withCredentials,headers:r,observe:e,reportProgress:n})},t.prototype.logoutHandler=function(t,e){void 0===t&&(t="body"),void 0===e&&(e=!1);var n=this.defaultHeaders,r=this.configuration.selectHeaderAccept([]);return void 0!=r&&(n=n.set("Accept",r)),this.httpClient.get(this.basePath+"/security/logout",{withCredentials:this.configuration.withCredentials,headers:n,observe:t,reportProgress:e})},t}(),Sf=new ft("basePath"),Ef=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return o(e,t),e.prototype.encodeKey=function(e){return(e=t.prototype.encodeKey.call(this,e)).replace(/\+/gi,"%2B")},e.prototype.encodeValue=function(e){return(e=t.prototype.encodeValue.call(this,e)).replace(/\+/gi,"%2B")},e}(qp),Of=function(){function t(t,e,n){this.httpClient=t,this.basePath="http://localhost/api",this.defaultHeaders=new zp,this.configuration=new wf,e&&(this.basePath=e),n&&(this.configuration=n,this.basePath=e||n.basePath||this.basePath)}return t.prototype.canConsumeForm=function(t){for(var e=0,n=t;e<n.length;e++)if("multipart/form-data"===n[e])return!0;return!1},t.prototype.userDetailsQuery=function(t,e,n){if(void 0===e&&(e="body"),void 0===n&&(n=!1),null===t||void 0===t)throw new Error("Required parameter id was null or undefined when calling userDetailsQuery.");var r=this.defaultHeaders,o=this.configuration.selectHeaderAccept([]);return void 0!=o&&(r=r.set("Accept",o)),this.httpClient.get(this.basePath+"/users/"+encodeURIComponent(String(t)),{withCredentials:this.configuration.withCredentials,headers:r,observe:e,reportProgress:n})},t.prototype.userNewHandler=function(t,e,n){if(void 0===e&&(e="body"),void 0===n&&(n=!1),null===t||void 0===t)throw new Error("Required parameter content was null or undefined when calling userNewHandler.");var r=this.defaultHeaders,o=this.configuration.selectHeaderAccept([]);void 0!=o&&(r=r.set("Accept",o));var i=this.configuration.selectHeaderContentType([]);return void 0!=i&&(r=r.set("Content-Type",i)),this.httpClient.post(this.basePath+"/users",t,{withCredentials:this.configuration.withCredentials,headers:r,observe:e,reportProgress:n})},t.prototype.usersListQuery=function(t,e,n,r,o,i){void 0===o&&(o="body"),void 0===i&&(i=!1);var s=new Gp({encoder:new Ef});void 0!==t&&(s=s.set("page",t)),void 0!==e&&(s=s.set("count",e)),void 0!==n&&(s=s.set("sort_direction",n)),void 0!==r&&(s=s.set("sort_order",r));var u=this.defaultHeaders,a=this.configuration.selectHeaderAccept([]);return void 0!=a&&(u=u.set("Accept",a)),this.httpClient.get(this.basePath+"/users",{params:s,withCredentials:this.configuration.withCredentials,headers:u,observe:o,reportProgress:i})},t}(),Tf=function(){function t(t){if(t)throw new Error("ApiModule is already loaded. Import your base AppModule only.")}return t.forRoot=function(e){return{ngModule:t,providers:[{provide:wf,useFactory:e}]}},t}(),Af=function(){function t(t){this.securityApiService=t,this.currentUserValue=null}return Object.defineProperty(t.prototype,"currentUser",{get:function(){return this.currentUserValue?Eu(this.currentUserValue):this.getUserData()},enumerable:!0,configurable:!0}),t.prototype.setUser=function(t){this.currentUserValue=t},t.prototype.getUserData=function(){var t=this,e=new ip(1);return this.securityApiService.currentUserQuery().subscribe(function(n){t.setUser(n),e.next(t.currentUserValue)},function(){t.clearUser(),e.next(null)}),e},t.prototype.clearUser=function(){this.setUser(null)},t.prototype.checkCurrentUser=function(){var t=new ip(1);return this.currentUser.subscribe(function(e){return t.next(!!e)}),t},t.ngInjectableDef=pt({factory:function(){return new t($t(xf))},token:t,providedIn:"root"}),t}(),Pf=function(){function t(t,e,n){this.router=t,this.coreService=e,this.userService=n}return t.prototype.canActivate=function(t,e){var n=this;return this.userService.checkCurrentUser().pipe(B(function(t){return t||n.router.navigate([n.coreService.loginPage]),t}))},t}(),If=function(){function t(t,e,n){this.router=t,this.userService=e,this.coreService=n}return t.prototype.canActivate=function(t,e){var n=this;return this.userService.checkCurrentUser().pipe(B(function(t){return t&&n.router.navigate([n.coreService.homePage]),!t}))},t}(),kf=(n("zNxM"),function(){}),Nf=function(){},Rf=function(){return Nf},jf=function(){return kf},Vf=function(){},Mf=function(){},Df=function(){},Uf=function(){function t(){}return t.forRoot=function(){},t}(),Lf=function(){},Hf=function(){},Ff=function(t,e,n){return new js(Vs,[Ms],function(t){return function(t){for(var e={},n=[],r=!1,o=0;o<t.length;o++){var i=t[o];i.token===ce&&(r=!0),1073741824&i.flags&&n.push(i.token),i.index=o,e[Mr(i.token)]=i}return{factory:null,providersByKey:e,providers:t,modules:n,isRoot:r}}([xo(512,Ie,ke,[[8,[Bh,dp,gp]],[3,Ie],Re]),xo(5120,Qn,Jn,[[3,Qn]]),xo(4608,Ys,Js,[Qn,[2,Ks]]),xo(5120,de,ve,[]),xo(5120,zn,Kn,[]),xo(5120,qn,Yn,[]),xo(4608,nc,rc,[iu]),xo(6144,Cr,null,[nc]),xo(4608,Ya,Ja,[]),xo(5120,xa,function(t,e,n,r,o,i){return[new Qa(t,e),new ec(n),new Xa(r,o,i)]},[iu,He,iu,iu,Ya,_e]),xo(4608,Sa,Sa,[xa,He]),xo(135680,Ta,Ta,[iu]),xo(4608,ja,ja,[Sa,Ta]),xo(6144,cn,null,[ja]),xo(6144,Oa,null,[Ta]),xo(4608,Qe,Qe,[He]),xo(4608,va,va,[iu]),xo(4608,ba,ba,[iu]),xo(5120,Al,Vh,[fh]),xo(4608,Sh,Sh,[]),xo(6144,Ch,null,[Sh]),xo(135680,Eh,Eh,[fh,fn,Ce,Dt,Ch]),xo(4608,xh,xh,[]),xo(5120,Lh,Uh,[Mh]),xo(5120,be,function(t){return[t]},[Lh]),xo(4608,Tp,Tp,[]),xo(4608,Mp,Mp,[]),xo(4608,ff,df,[iu,me,hf]),xo(4608,vf,vf,[ff,pf]),xo(5120,of,function(t,e){return[t,new _f(e)]},[vf,bf]),xo(4608,cf,cf,[]),xo(6144,af,null,[cf]),xo(4608,lf,lf,[af]),xo(6144,Fp,null,[lf]),xo(4608,Hp,yf,[Fp,Dt]),xo(4608,nf,nf,[Hp]),xo(5120,wf,Cf,[]),xo(4608,xf,xf,[nf,[2,Sf],[2,wf]]),xo(4608,Of,Of,[nf,[2,Sf],[2,wf]]),xo(4608,Pf,Pf,[fh,Hh,Af]),xo(4608,If,If,[fh,Af,Hh]),xo(1073742336,ou,ou,[]),xo(1024,ae,hc,[]),xo(1024,en,function(){return[Ph()]},[]),xo(512,Mh,Mh,[Dt]),xo(1024,pe,function(t,e){return[(n=t,_a("probe",Ca),_a("coreTokens",i({},wa,(n||[]).reduce(function(t,e){return t[e.name]=e.token,t},{}))),function(){return Ca}),Dh(e)];var n},[[2,en],Mh]),xo(512,fe,fe,[[2,pe]]),xo(131584,un,un,[He,_e,Dt,ae,Ie,fe]),xo(1073742336,Xn,Xn,[un]),xo(1073742336,pc,pc,[[3,pc]]),xo(1024,Th,Nh,[[3,fh]]),xo(512,Yc,Jc,[]),xo(512,bh,bh,[]),xo(256,Oh,{},[]),xo(1024,Ls,kh,[Ds,[2,Hs],Oh]),xo(512,Fs,Fs,[Ls]),xo(512,Ce,Ce,[]),xo(512,fn,gn,[Ce,[2,vn]]),xo(1024,uh,function(){return[[{path:"",canActivate:[Pf],loadChildren:Rf},{path:"login",canActivate:[If],loadChildren:jf},{path:"**",component:Fh,canActivate:[Pf]}]]},[]),xo(1024,fh,jh,[un,Yc,bh,Fs,Dt,fn,Ce,uh,Oh,[2,ch],[2,ih]]),xo(1073742336,Ih,Ih,[[2,Th],[2,fh]]),xo(1073742336,Vf,Vf,[]),xo(1073742336,Dp,Dp,[]),xo(1073742336,Up,Up,[]),xo(1073742336,Lp,Lp,[]),xo(1073742336,Mf,Mf,[]),xo(1073742336,Df,Df,[]),xo(1073742336,Uf,Uf,[]),xo(1073742336,Lf,Lf,[]),xo(1073742336,Hf,Hf,[]),xo(1073742336,gf,gf,[]),xo(1073742336,mf,mf,[]),xo(1073742336,Tf,Tf,[[3,Tf]]),xo(1073742336,Vs,Vs,[]),xo(256,ce,!0,[]),xo(256,hf,"XSRF-TOKEN",[]),xo(256,pf,"X-XSRF-TOKEN",[])])})}();(function(){if(Xe)throw new Error("Cannot enable prod mode after platform setup.");Je=!1})(),lc().bootstrapModuleFactory(Ff).catch(function(t){return console.log(t)})},zrHX:function(t,e,n){"use strict";var r=n("qiMw"),o=n("R4cV"),i=n("D9en"),s=n("qIOz");e.onErrorResumeNext=function t(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];if(0===e.length)return s.EMPTY;var u=e[0],a=e.slice(1);return 1===e.length&&i.isArray(u)?t.apply(void 0,u):new r.Observable(function(e){var n=function(){return e.add(t.apply(void 0,a).subscribe(e))};return o.from(u).subscribe({next:function(t){e.next(t)},error:n,complete:n})})}}},[[6,0]]]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
+
+/***/ "../api/api.module.ts":
+/*!****************************!*\
+  !*** ../api/api.module.ts ***!
+  \****************************/
+/*! exports provided: ApiModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiModule", function() { return ApiModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./configuration */ "../api/configuration.ts");
+/* harmony import */ var _api_security_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./api/security.service */ "../api/api/security.service.ts");
+/* harmony import */ var _api_users_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./api/users.service */ "../api/api/users.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+var ApiModule = /** @class */ (function () {
+    function ApiModule(parentModule) {
+        if (parentModule) {
+            throw new Error('ApiModule is already loaded. Import your base AppModule only.');
+        }
+    }
+    ApiModule_1 = ApiModule;
+    ApiModule.forRoot = function (configurationFactory) {
+        return {
+            ngModule: ApiModule_1,
+            providers: [{ provide: _configuration__WEBPACK_IMPORTED_MODULE_3__["Configuration"], useFactory: configurationFactory }]
+        };
+    };
+    ApiModule = ApiModule_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"]],
+            declarations: [],
+            exports: [],
+            providers: [
+                _api_security_service__WEBPACK_IMPORTED_MODULE_4__["SecurityService"],
+                _api_users_service__WEBPACK_IMPORTED_MODULE_5__["UsersService"]
+            ]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"])()),
+        __metadata("design:paramtypes", [ApiModule])
+    ], ApiModule);
+    return ApiModule;
+    var ApiModule_1;
+}());
+
+
+
+/***/ }),
+
+/***/ "../api/api/api.ts":
+/*!*************************!*\
+  !*** ../api/api/api.ts ***!
+  \*************************/
+/*! exports provided: APIS, SecurityService, UsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APIS", function() { return APIS; });
+/* harmony import */ var _security_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./security.service */ "../api/api/security.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecurityService", function() { return _security_service__WEBPACK_IMPORTED_MODULE_0__["SecurityService"]; });
+
+/* harmony import */ var _users_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users.service */ "../api/api/users.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return _users_service__WEBPACK_IMPORTED_MODULE_1__["UsersService"]; });
+
+
+
+
+
+var APIS = [_security_service__WEBPACK_IMPORTED_MODULE_0__["SecurityService"], _users_service__WEBPACK_IMPORTED_MODULE_1__["UsersService"]];
+
+
+/***/ }),
+
+/***/ "../api/api/security.service.ts":
+/*!**************************************!*\
+  !*** ../api/api/security.service.ts ***!
+  \**************************************/
+/*! exports provided: SecurityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityService", function() { return SecurityService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../variables */ "../api/variables.ts");
+/* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../configuration */ "../api/configuration.ts");
+/**
+ * MEANS
+ * Api dla MEANS
+ *
+ * OpenAPI spec version: 1.0.0
+ * Contact: jarek.frydrych@gmail.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ */
+/* tslint:disable:no-unused-variable member-ordering */
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+var SecurityService = /** @class */ (function () {
+    function SecurityService(httpClient, basePath, configuration) {
+        this.httpClient = httpClient;
+        this.basePath = 'http://localhost/api';
+        this.defaultHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
+        this.configuration = new _configuration__WEBPACK_IMPORTED_MODULE_3__["Configuration"]();
+        if (basePath) {
+            this.basePath = basePath;
+        }
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = basePath || configuration.basePath || this.basePath;
+        }
+    }
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    SecurityService.prototype.canConsumeForm = function (consumes) {
+        var form = 'multipart/form-data';
+        for (var _i = 0, consumes_1 = consumes; _i < consumes_1.length; _i++) {
+            var consume = consumes_1[_i];
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    };
+    SecurityService.prototype.currentUserQuery = function (observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        return this.httpClient.get(this.basePath + "/security/current", {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    SecurityService.prototype.loginHandler = function (content, observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        if (content === null || content === undefined) {
+            throw new Error('Required parameter content was null or undefined when calling loginHandler.');
+        }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        var httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+        return this.httpClient.post(this.basePath + "/security/login", content, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    SecurityService.prototype.logoutHandler = function (observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        return this.httpClient.get(this.basePath + "/security/logout", {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    SecurityService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_variables__WEBPACK_IMPORTED_MODULE_2__["BASE_PATH"])), __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], String, _configuration__WEBPACK_IMPORTED_MODULE_3__["Configuration"]])
+    ], SecurityService);
+    return SecurityService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../api/api/users.service.ts":
+/*!***********************************!*\
+  !*** ../api/api/users.service.ts ***!
+  \***********************************/
+/*! exports provided: UsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return UsersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _encoder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../encoder */ "../api/encoder.ts");
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../variables */ "../api/variables.ts");
+/* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../configuration */ "../api/configuration.ts");
+/**
+ * MEANS
+ * Api dla MEANS
+ *
+ * OpenAPI spec version: 1.0.0
+ * Contact: jarek.frydrych@gmail.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ */
+/* tslint:disable:no-unused-variable member-ordering */
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var UsersService = /** @class */ (function () {
+    function UsersService(httpClient, basePath, configuration) {
+        this.httpClient = httpClient;
+        this.basePath = 'http://localhost/api';
+        this.defaultHeaders = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
+        this.configuration = new _configuration__WEBPACK_IMPORTED_MODULE_4__["Configuration"]();
+        if (basePath) {
+            this.basePath = basePath;
+        }
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = basePath || configuration.basePath || this.basePath;
+        }
+    }
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    UsersService.prototype.canConsumeForm = function (consumes) {
+        var form = 'multipart/form-data';
+        for (var _i = 0, consumes_1 = consumes; _i < consumes_1.length; _i++) {
+            var consume = consumes_1[_i];
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    };
+    UsersService.prototype.userDetailsQuery = function (id, observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling userDetailsQuery.');
+        }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        return this.httpClient.get(this.basePath + "/users/" + encodeURIComponent(String(id)), {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    UsersService.prototype.userNewHandler = function (content, observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        if (content === null || content === undefined) {
+            throw new Error('Required parameter content was null or undefined when calling userNewHandler.');
+        }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        var httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+        return this.httpClient.post(this.basePath + "/users", content, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    UsersService.prototype.usersListQuery = function (page, count, sortDirection, sortOrder, observe, reportProgress) {
+        if (observe === void 0) { observe = 'body'; }
+        if (reportProgress === void 0) { reportProgress = false; }
+        var queryParameters = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]({ encoder: new _encoder__WEBPACK_IMPORTED_MODULE_2__["CustomHttpUrlEncodingCodec"]() });
+        if (page !== undefined) {
+            queryParameters = queryParameters.set('page', page);
+        }
+        if (count !== undefined) {
+            queryParameters = queryParameters.set('count', count);
+        }
+        if (sortDirection !== undefined) {
+            queryParameters = queryParameters.set('sort_direction', sortDirection);
+        }
+        if (sortOrder !== undefined) {
+            queryParameters = queryParameters.set('sort_order', sortOrder);
+        }
+        var headers = this.defaultHeaders;
+        // to determine the Accept header
+        var httpHeaderAccepts = [];
+        var httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        var consumes = [];
+        return this.httpClient.get(this.basePath + "/users", {
+            params: queryParameters,
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        });
+    };
+    UsersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_variables__WEBPACK_IMPORTED_MODULE_3__["BASE_PATH"])), __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], String, _configuration__WEBPACK_IMPORTED_MODULE_4__["Configuration"]])
+    ], UsersService);
+    return UsersService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../api/configuration.ts":
+/*!*******************************!*\
+  !*** ../api/configuration.ts ***!
+  \*******************************/
+/*! exports provided: Configuration */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Configuration", function() { return Configuration; });
+var Configuration = /** @class */ (function () {
+    function Configuration(configurationParameters) {
+        if (configurationParameters === void 0) { configurationParameters = {}; }
+        this.apiKeys = configurationParameters.apiKeys;
+        this.username = configurationParameters.username;
+        this.password = configurationParameters.password;
+        this.accessToken = configurationParameters.accessToken;
+        this.basePath = configurationParameters.basePath;
+        this.withCredentials = configurationParameters.withCredentials;
+    }
+    /**
+     * Select the correct content-type to use for a request.
+     * Uses {@link Configuration#isJsonMime} to determine the correct content-type.
+     * If no content type is found return the first found type if the contentTypes is not empty
+     * @param {string[]} contentTypes - the array of content types that are available for selection
+     * @returns {string} the selected content-type or <code>undefined</code> if no selection could be made.
+     */
+    Configuration.prototype.selectHeaderContentType = function (contentTypes) {
+        var _this = this;
+        if (contentTypes.length == 0) {
+            return undefined;
+        }
+        var type = contentTypes.find(function (x) { return _this.isJsonMime(x); });
+        if (type === undefined) {
+            return contentTypes[0];
+        }
+        return type;
+    };
+    /**
+     * Select the correct accept content-type to use for a request.
+     * Uses {@link Configuration#isJsonMime} to determine the correct accept content-type.
+     * If no content type is found return the first found type if the contentTypes is not empty
+     * @param {string[]} accepts - the array of content types that are available for selection.
+     * @returns {string} the selected content-type or <code>undefined</code> if no selection could be made.
+     */
+    Configuration.prototype.selectHeaderAccept = function (accepts) {
+        var _this = this;
+        if (accepts.length == 0) {
+            return undefined;
+        }
+        var type = accepts.find(function (x) { return _this.isJsonMime(x); });
+        if (type === undefined) {
+            return accepts[0];
+        }
+        return type;
+    };
+    /**
+     * Check if the given MIME is a JSON MIME.
+     * JSON MIME examples:
+     *   application/json
+     *   application/json; charset=UTF8
+     *   APPLICATION/JSON
+     *   application/vnd.company+json
+     * @param {string} mime - MIME (Multipurpose Internet Mail Extensions)
+     * @return {boolean} True if the given MIME is JSON, false otherwise.
+     */
+    Configuration.prototype.isJsonMime = function (mime) {
+        var jsonMime = new RegExp('^(application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(;.*)?$', 'i');
+        return mime != null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
+    };
+    return Configuration;
+}());
+
+
+
+/***/ }),
+
+/***/ "../api/encoder.ts":
+/*!*************************!*\
+  !*** ../api/encoder.ts ***!
+  \*************************/
+/*! exports provided: CustomHttpUrlEncodingCodec */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomHttpUrlEncodingCodec", function() { return CustomHttpUrlEncodingCodec; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+/**
+* CustomHttpUrlEncodingCodec
+* Fix plus sign (+) not encoding, so sent as blank space
+* See: https://github.com/angular/angular/issues/11058#issuecomment-247367318
+*/
+var CustomHttpUrlEncodingCodec = /** @class */ (function (_super) {
+    __extends(CustomHttpUrlEncodingCodec, _super);
+    function CustomHttpUrlEncodingCodec() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CustomHttpUrlEncodingCodec.prototype.encodeKey = function (k) {
+        k = _super.prototype.encodeKey.call(this, k);
+        return k.replace(/\+/gi, '%2B');
+    };
+    CustomHttpUrlEncodingCodec.prototype.encodeValue = function (v) {
+        v = _super.prototype.encodeValue.call(this, v);
+        return v.replace(/\+/gi, '%2B');
+    };
+    return CustomHttpUrlEncodingCodec;
+}(_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpUrlEncodingCodec"]));
+
+
+
+/***/ }),
+
+/***/ "../api/index.ts":
+/*!***********************!*\
+  !*** ../api/index.ts ***!
+  \***********************/
+/*! exports provided: Configuration, APIS, BASE_PATH, COLLECTION_FORMATS, ApiModule, SecurityService, UsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api/api */ "../api/api/api.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "APIS", function() { return _api_api__WEBPACK_IMPORTED_MODULE_0__["APIS"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecurityService", function() { return _api_api__WEBPACK_IMPORTED_MODULE_0__["SecurityService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return _api_api__WEBPACK_IMPORTED_MODULE_0__["UsersService"]; });
+
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./variables */ "../api/variables.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BASE_PATH", function() { return _variables__WEBPACK_IMPORTED_MODULE_1__["BASE_PATH"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "COLLECTION_FORMATS", function() { return _variables__WEBPACK_IMPORTED_MODULE_1__["COLLECTION_FORMATS"]; });
+
+/* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./configuration */ "../api/configuration.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Configuration", function() { return _configuration__WEBPACK_IMPORTED_MODULE_2__["Configuration"]; });
+
+/* harmony import */ var _api_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api.module */ "../api/api.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ApiModule", function() { return _api_module__WEBPACK_IMPORTED_MODULE_3__["ApiModule"]; });
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "../api/variables.ts":
+/*!***************************!*\
+  !*** ../api/variables.ts ***!
+  \***************************/
+/*! exports provided: BASE_PATH, COLLECTION_FORMATS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BASE_PATH", function() { return BASE_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLLECTION_FORMATS", function() { return COLLECTION_FORMATS; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+
+var BASE_PATH = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('basePath');
+var COLLECTION_FORMATS = {
+    'csv': ',',
+    'tsv': '   ',
+    'ssv': ' ',
+    'pipes': '|'
+};
+
+
+/***/ }),
+
+/***/ "./src/$$_lazy_route_resource lazy recursive":
+/*!**********************************************************!*\
+  !*** ./src/$$_lazy_route_resource lazy namespace object ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncaught exception popping up in devtools
+	return Promise.resolve().then(function() {
+		var e = new Error('Cannot find module "' + req + '".');
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+
+/***/ }),
+
+/***/ "./src/app/api/api-configuration.ts":
+/*!******************************************!*\
+  !*** ./src/app/api/api-configuration.ts ***!
+  \******************************************/
+/*! exports provided: apiConfiguration */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiConfiguration", function() { return apiConfiguration; });
+/* harmony import */ var _api_configuration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../api/configuration */ "../api/configuration.ts");
+
+function apiConfiguration() {
+    var conf = new _api_configuration__WEBPACK_IMPORTED_MODULE_0__["Configuration"]();
+    conf.withCredentials = true;
+    conf.basePath = generateBasePath();
+    return conf;
+}
+function generateBasePath() {
+    return '/api';
+}
+
+
+/***/ }),
+
+/***/ "./src/app/api/api-interceptor.ts":
+/*!****************************************!*\
+  !*** ./src/app/api/api-interceptor.ts ***!
+  \****************************************/
+/*! exports provided: ApiInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiInterceptor", function() { return ApiInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/toast/toast.service */ "./src/app/core/toast/toast.service.ts");
+/* harmony import */ var _core_toast_toast_types_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/toast/toast-types.enum */ "./src/app/core/toast/toast-types.enum.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ApiInterceptor = /** @class */ (function () {
+    function ApiInterceptor(toastService) {
+        this.toastService = toastService;
+    }
+    ApiInterceptor.prototype.intercept = function (request, next) {
+        var _this = this;
+        return next
+            .handle(request)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (response) {
+            if (response.error) {
+                _this.toastService.showToast(response.error, _core_toast_toast_types_enum__WEBPACK_IMPORTED_MODULE_4__["ToastTypes"].Error);
+            }
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response);
+        }));
+    };
+    ApiInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_core_toast_toast_service__WEBPACK_IMPORTED_MODULE_3__["ToastService"]])
+    ], ApiInterceptor);
+    return ApiInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/app-routing.module.ts":
+/*!***************************************!*\
+  !*** ./src/app/app-routing.module.ts ***!
+  \***************************************/
+/*! exports provided: AppRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _security_security_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./security/security.module */ "./src/app/security/security.module.ts");
+/* harmony import */ var _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dashboard/dashboard.module */ "./src/app/dashboard/dashboard.module.ts");
+/* harmony import */ var _security_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./security/auth.guard */ "./src/app/security/auth.guard.ts");
+/* harmony import */ var _security_login_guard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./security/login.guard */ "./src/app/security/login.guard.ts");
+/* harmony import */ var _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./page-not-found/page-not-found.component */ "./src/app/page-not-found/page-not-found.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        canActivate: [_security_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]],
+        loadChildren: function () { return _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_3__["DashboardModule"]; }
+    },
+    {
+        path: 'login',
+        canActivate: [_security_login_guard__WEBPACK_IMPORTED_MODULE_5__["LoginGuard"]],
+        loadChildren: function () { return _security_security_module__WEBPACK_IMPORTED_MODULE_2__["SecurityModule"]; }
+    },
+    {
+        path: '**',
+        component: _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_6__["PageNotFoundComponent"],
+        canActivate: [_security_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]]
+    }
+];
+var AppRoutingModule = /** @class */ (function () {
+    function AppRoutingModule() {
+    }
+    AppRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], AppRoutingModule);
+    return AppRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/app.component.html":
+/*!************************************!*\
+  !*** ./src/app/app.component.html ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>\n"
+
+/***/ }),
+
+/***/ "./src/app/app.component.scss":
+/*!************************************!*\
+  !*** ./src/app/app.component.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  display: block;\n  height: 100%;\n  width: 100%; }\n"
+
+/***/ }),
+
+/***/ "./src/app/app.component.ts":
+/*!**********************************!*\
+  !*** ./src/app/app.component.ts ***!
+  \**********************************/
+/*! exports provided: AppComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AppComponent = /** @class */ (function () {
+    function AppComponent() {
+    }
+    AppComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-root',
+            template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
+            styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/app.module.ts":
+/*!*******************************!*\
+  !*** ./src/app/app.module.ts ***!
+  \*******************************/
+/*! exports provided: AppModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _security_auth_guard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./security/auth.guard */ "./src/app/security/auth.guard.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _api_api_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./api/api-interceptor */ "./src/app/api/api-interceptor.ts");
+/* harmony import */ var _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./core/toast/toast.service */ "./src/app/core/toast/toast.service.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../api */ "../api/index.ts");
+/* harmony import */ var _api_api_configuration__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./api/api-configuration */ "./src/app/api/api-configuration.ts");
+/* harmony import */ var _security_login_guard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./security/login.guard */ "./src/app/security/login.guard.ts");
+/* harmony import */ var _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./page-not-found/page-not-found.component */ "./src/app/page-not-found/page-not-found.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [
+                _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
+                _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_12__["PageNotFoundComponent"]
+            ],
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_4__["CoreModule"],
+                _api__WEBPACK_IMPORTED_MODULE_9__["ApiModule"].forRoot(_api_api_configuration__WEBPACK_IMPORTED_MODULE_10__["apiConfiguration"])
+            ],
+            providers: [
+                _security_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"],
+                _security_login_guard__WEBPACK_IMPORTED_MODULE_11__["LoginGuard"],
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                    useClass: _api_api_interceptor__WEBPACK_IMPORTED_MODULE_6__["ApiInterceptor"],
+                    multi: true,
+                    deps: [_core_toast_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"]]
+                }
+            ],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-circle/button-circle.component.html":
+/*!*************************************************************************!*\
+  !*** ./src/app/core/buttons/button-circle/button-circle.component.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<button [type]=\"type\" (click)=\"onClick($event)\" [disabled]=\"disabled !== false\" [ngClass]=\"color\">\n  <ng-content></ng-content>\n</button>"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-circle/button-circle.component.scss":
+/*!*************************************************************************!*\
+  !*** ./src/app/core/buttons/button-circle/button-circle.component.scss ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host button {\n  position: relative;\n  cursor: pointer;\n  border-style: solid;\n  border-radius: 1.25em;\n  border-width: 1px;\n  outline: none;\n  box-shadow: none;\n  height: 40px;\n  padding: 0 30px;\n  overflow: hidden;\n  font-weight: 500;\n  font-size: 1em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 9.75em;\n  transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1); }\n  :host button.primary {\n    background-color: #1874ef;\n    color: #ffffff;\n    border-color: #1874ef; }\n  :host button.accent {\n    background-color: #ffffff;\n    color: #1874ef;\n    border-color: #ffffff; }\n  :host button.secondary {\n    background-color: #acacac;\n    color: #ffffff;\n    border-color: #acacac; }\n  :host button:disabled, :host button:disabled:hover {\n    background: #BABCBF;\n    border-color: #BABCBF;\n    color: #ffffff;\n    cursor: default; }\n  :host button:hover {\n    background-color: #3082f1;\n    border-color: #3082f1; }\n  :host button {\n  width: 40px;\n  height: 40px;\n  padding: 0;\n  border-radius: 50%; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-circle/button-circle.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/core/buttons/button-circle/button-circle.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: ButtonCircleComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonCircleComponent", function() { return ButtonCircleComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _button_button_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../button/button.component */ "./src/app/core/buttons/button/button.component.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ButtonCircleComponent = /** @class */ (function (_super) {
+    __extends(ButtonCircleComponent, _super);
+    function ButtonCircleComponent() {
+        return _super.call(this) || this;
+    }
+    ButtonCircleComponent_1 = ButtonCircleComponent;
+    ButtonCircleComponent = ButtonCircleComponent_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-button-circle',
+            template: __webpack_require__(/*! ./button-circle.component.html */ "./src/app/core/buttons/button-circle/button-circle.component.html"),
+            styles: [__webpack_require__(/*! ./button-circle.component.scss */ "./src/app/core/buttons/button-circle/button-circle.component.scss")],
+            providers: [
+                {
+                    provide: _button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"], useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return ButtonCircleComponent_1; })
+                }
+            ]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ButtonCircleComponent);
+    return ButtonCircleComponent;
+    var ButtonCircleComponent_1;
+}(_button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-icon/button-icon.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/core/buttons/button-icon/button-icon.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<button [type]=\"type\" (click)=\"onClick($event)\" [disabled]=\"disabled !== false\" [ngClass]=\"color\">\n    <i class=\"material-icons\">\n        <ng-content></ng-content>\n    </i>\n</button>"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-icon/button-icon.component.scss":
+/*!*********************************************************************!*\
+  !*** ./src/app/core/buttons/button-icon/button-icon.component.scss ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host button {\n  position: relative;\n  cursor: pointer;\n  border-style: solid;\n  border-radius: 1.25em;\n  border-width: 1px;\n  outline: none;\n  box-shadow: none;\n  height: 40px;\n  padding: 0 30px;\n  overflow: hidden;\n  font-weight: 500;\n  font-size: 1em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 9.75em;\n  transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1); }\n  :host button.primary {\n    background-color: #1874ef;\n    color: #ffffff;\n    border-color: #1874ef; }\n  :host button.accent {\n    background-color: #ffffff;\n    color: #1874ef;\n    border-color: #ffffff; }\n  :host button.secondary {\n    background-color: #acacac;\n    color: #ffffff;\n    border-color: #acacac; }\n  :host button:disabled, :host button:disabled:hover {\n    background: #BABCBF;\n    border-color: #BABCBF;\n    color: #ffffff;\n    cursor: default; }\n  :host button:hover {\n    background-color: #3082f1;\n    border-color: #3082f1; }\n  :host button {\n  background: none;\n  border: none;\n  width: 40px;\n  padding: 0; }\n  :host button.primary, :host button.accent, :host button.secondary {\n    background: none; }\n  :host button.primary {\n    color: #1874ef; }\n  :host button.primary:hover {\n      background-color: rgba(24, 116, 239, 0.15);\n      border-color: rgba(24, 116, 239, 0.15); }\n  :host button.accent {\n    color: #ffffff; }\n  :host button.accent:hover {\n      background-color: rgba(255, 255, 255, 0.15);\n      border-color: rgba(255, 255, 255, 0.15); }\n  :host button.secondary {\n    color: #acacac; }\n  :host button.secondary:hover {\n      background-color: rgba(172, 172, 172, 0.15);\n      border-color: rgba(172, 172, 172, 0.15); }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button-icon/button-icon.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/core/buttons/button-icon/button-icon.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: ButtonIconComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonIconComponent", function() { return ButtonIconComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _button_button_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../button/button.component */ "./src/app/core/buttons/button/button.component.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ButtonIconComponent = /** @class */ (function (_super) {
+    __extends(ButtonIconComponent, _super);
+    function ButtonIconComponent() {
+        return _super.call(this) || this;
+    }
+    ButtonIconComponent_1 = ButtonIconComponent;
+    ButtonIconComponent.prototype.ngOnInit = function () {
+    };
+    ButtonIconComponent = ButtonIconComponent_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-button-icon',
+            template: __webpack_require__(/*! ./button-icon.component.html */ "./src/app/core/buttons/button-icon/button-icon.component.html"),
+            styles: [__webpack_require__(/*! ./button-icon.component.scss */ "./src/app/core/buttons/button-icon/button-icon.component.scss")],
+            providers: [
+                {
+                    provide: _button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"], useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return ButtonIconComponent_1; })
+                }
+            ]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ButtonIconComponent);
+    return ButtonIconComponent;
+    var ButtonIconComponent_1;
+}(_button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button/button.component.html":
+/*!***********************************************************!*\
+  !*** ./src/app/core/buttons/button/button.component.html ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<button [type]=\"type\" (click)=\"onClick($event)\" [disabled]=\"disabled !== false\" [ngClass]=\"color\">\n    <ng-content></ng-content>\n</button>"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button/button.component.scss":
+/*!***********************************************************!*\
+  !*** ./src/app/core/buttons/button/button.component.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host button {\n  position: relative;\n  cursor: pointer;\n  border-style: solid;\n  border-radius: 1.25em;\n  border-width: 1px;\n  outline: none;\n  box-shadow: none;\n  height: 40px;\n  padding: 0 30px;\n  overflow: hidden;\n  font-weight: 500;\n  font-size: 1em;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 9.75em;\n  transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1); }\n  :host button.primary {\n    background-color: #1874ef;\n    color: #ffffff;\n    border-color: #1874ef; }\n  :host button.accent {\n    background-color: #ffffff;\n    color: #1874ef;\n    border-color: #ffffff; }\n  :host button.secondary {\n    background-color: #acacac;\n    color: #ffffff;\n    border-color: #acacac; }\n  :host button:disabled, :host button:disabled:hover {\n    background: #BABCBF;\n    border-color: #BABCBF;\n    color: #ffffff;\n    cursor: default; }\n  :host button:hover {\n    background-color: #3082f1;\n    border-color: #3082f1; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/button/button.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/core/buttons/button/button.component.ts ***!
+  \*********************************************************/
+/*! exports provided: ButtonComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return ButtonComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ButtonComponent = /** @class */ (function () {
+    function ButtonComponent() {
+        this.type = 'button';
+        this.disabled = false;
+        this.color = 'primary';
+        this.clicked = false;
+        this.click = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    ButtonComponent.prototype.onHostClick = function (event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+    ButtonComponent.prototype.onClick = function (event) {
+        var _this = this;
+        event.preventDefault();
+        event.stopPropagation();
+        this.click.emit(null);
+        this.clicked = true;
+        setTimeout(function () {
+            _this.clicked = false;
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], ButtonComponent.prototype, "type", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], ButtonComponent.prototype, "disabled", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], ButtonComponent.prototype, "color", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('click', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], ButtonComponent.prototype, "onHostClick", null);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('click'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], ButtonComponent.prototype, "click", void 0);
+    ButtonComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-button',
+            template: __webpack_require__(/*! ./button.component.html */ "./src/app/core/buttons/button/button.component.html"),
+            styles: [__webpack_require__(/*! ./button.component.scss */ "./src/app/core/buttons/button/button.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ButtonComponent);
+    return ButtonComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/buttons/buttons.module.ts":
+/*!************************************************!*\
+  !*** ./src/app/core/buttons/buttons.module.ts ***!
+  \************************************************/
+/*! exports provided: ButtonsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonsModule", function() { return ButtonsModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _button_button_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button/button.component */ "./src/app/core/buttons/button/button.component.ts");
+/* harmony import */ var _button_circle_button_circle_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./button-circle/button-circle.component */ "./src/app/core/buttons/button-circle/button-circle.component.ts");
+/* harmony import */ var _button_icon_button_icon_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./button-icon/button-icon.component */ "./src/app/core/buttons/button-icon/button-icon.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var COMPONENTS = [
+    _button_button_component__WEBPACK_IMPORTED_MODULE_2__["ButtonComponent"],
+    _button_circle_button_circle_component__WEBPACK_IMPORTED_MODULE_3__["ButtonCircleComponent"],
+    _button_icon_button_icon_component__WEBPACK_IMPORTED_MODULE_4__["ButtonIconComponent"]
+];
+var ButtonsModule = /** @class */ (function () {
+    function ButtonsModule() {
+    }
+    ButtonsModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            exports: COMPONENTS.slice()
+        })
+    ], ButtonsModule);
+    return ButtonsModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-actions/card-actions.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/core/card/card-actions/card-actions.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-template #actionsContent>\n    <ng-content></ng-content>\n</ng-template>\n"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-actions/card-actions.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/core/card/card-actions/card-actions.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-actions/card-actions.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-actions/card-actions.component.ts ***!
+  \******************************************************************/
+/*! exports provided: CardActionsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardActionsComponent", function() { return CardActionsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _buttons_button_button_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../buttons/button/button.component */ "./src/app/core/buttons/button/button.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CardActionsComponent = /** @class */ (function () {
+    function CardActionsComponent() {
+    }
+    CardActionsComponent.prototype.ngOnInit = function () {
+    };
+    CardActionsComponent.prototype.ngAfterContentInit = function () {
+        this.buttons
+            .map(function (button) {
+            button.color = 'secondary';
+            return button;
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('actionsContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], CardActionsComponent.prototype, "actionsContent", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"])(_buttons_button_button_component__WEBPACK_IMPORTED_MODULE_1__["ButtonComponent"]),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
+    ], CardActionsComponent.prototype, "buttons", void 0);
+    CardActionsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-card-actions',
+            template: __webpack_require__(/*! ./card-actions.component.html */ "./src/app/core/card/card-actions/card-actions.component.html"),
+            styles: [__webpack_require__(/*! ./card-actions.component.scss */ "./src/app/core/card/card-actions/card-actions.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CardActionsComponent);
+    return CardActionsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-content/card-content.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/core/card/card-content/card-content.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-template #contentContent>\n    <ng-content></ng-content>\n</ng-template>\n"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-content/card-content.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/core/card/card-content/card-content.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-content/card-content.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-content/card-content.component.ts ***!
+  \******************************************************************/
+/*! exports provided: CardContentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardContentComponent", function() { return CardContentComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CardContentComponent = /** @class */ (function () {
+    function CardContentComponent() {
+    }
+    CardContentComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('contentContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], CardContentComponent.prototype, "contentContent", void 0);
+    CardContentComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-card-content',
+            template: __webpack_require__(/*! ./card-content.component.html */ "./src/app/core/card/card-content/card-content.component.html"),
+            styles: [__webpack_require__(/*! ./card-content.component.scss */ "./src/app/core/card/card-content/card-content.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CardContentComponent);
+    return CardContentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-footer/card-footer.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-footer/card-footer.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-template #footerContent>\n    <ng-content></ng-content>\n</ng-template>\n"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-footer/card-footer.component.scss":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-footer/card-footer.component.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-footer/card-footer.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/core/card/card-footer/card-footer.component.ts ***!
+  \****************************************************************/
+/*! exports provided: CardFooterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardFooterComponent", function() { return CardFooterComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CardFooterComponent = /** @class */ (function () {
+    function CardFooterComponent() {
+    }
+    CardFooterComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('footerContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], CardFooterComponent.prototype, "footerContent", void 0);
+    CardFooterComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-card-footer',
+            template: __webpack_require__(/*! ./card-footer.component.html */ "./src/app/core/card/card-footer/card-footer.component.html"),
+            styles: [__webpack_require__(/*! ./card-footer.component.scss */ "./src/app/core/card/card-footer/card-footer.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CardFooterComponent);
+    return CardFooterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-header/card-header.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-header/card-header.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-template #headerContent>\n    <ng-content></ng-content>\n</ng-template>"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-header/card-header.component.scss":
+/*!******************************************************************!*\
+  !*** ./src/app/core/card/card-header/card-header.component.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/card/card-header/card-header.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/core/card/card-header/card-header.component.ts ***!
+  \****************************************************************/
+/*! exports provided: CardHeaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardHeaderComponent", function() { return CardHeaderComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CardHeaderComponent = /** @class */ (function () {
+    function CardHeaderComponent() {
+    }
+    CardHeaderComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('headerContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], CardHeaderComponent.prototype, "headerContent", void 0);
+    CardHeaderComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-card-header',
+            template: __webpack_require__(/*! ./card-header.component.html */ "./src/app/core/card/card-header/card-header.component.html"),
+            styles: [__webpack_require__(/*! ./card-header.component.scss */ "./src/app/core/card/card-header/card-header.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CardHeaderComponent);
+    return CardHeaderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card.module.ts":
+/*!******************************************!*\
+  !*** ./src/app/core/card/card.module.ts ***!
+  \******************************************/
+/*! exports provided: CardModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardModule", function() { return CardModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _card_card_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./card/card.component */ "./src/app/core/card/card/card.component.ts");
+/* harmony import */ var _card_header_card_header_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./card-header/card-header.component */ "./src/app/core/card/card-header/card-header.component.ts");
+/* harmony import */ var _card_content_card_content_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./card-content/card-content.component */ "./src/app/core/card/card-content/card-content.component.ts");
+/* harmony import */ var _card_actions_card_actions_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./card-actions/card-actions.component */ "./src/app/core/card/card-actions/card-actions.component.ts");
+/* harmony import */ var _card_footer_card_footer_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./card-footer/card-footer.component */ "./src/app/core/card/card-footer/card-footer.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var COMPONENTS = [
+    _card_card_component__WEBPACK_IMPORTED_MODULE_2__["CardComponent"],
+    _card_header_card_header_component__WEBPACK_IMPORTED_MODULE_3__["CardHeaderComponent"],
+    _card_content_card_content_component__WEBPACK_IMPORTED_MODULE_4__["CardContentComponent"],
+    _card_actions_card_actions_component__WEBPACK_IMPORTED_MODULE_5__["CardActionsComponent"],
+    _card_footer_card_footer_component__WEBPACK_IMPORTED_MODULE_6__["CardFooterComponent"]
+];
+var CardModule = /** @class */ (function () {
+    function CardModule() {
+    }
+    CardModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            exports: COMPONENTS.slice()
+        })
+    ], CardModule);
+    return CardModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/card/card/card.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/core/card/card/card.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"cardContainer\">\n    <header *ngIf=\"header || actions\">\n        <h2 *ngIf=\"header\">\n            <ng-container [ngTemplateOutlet]=\"header.headerContent\"></ng-container>\n        </h2>\n\n        <div class=\"actions\" *ngIf=\"actions\">\n            <ng-container [ngTemplateOutlet]=\"actions.actionsContent\"></ng-container>\n        </div>\n    </header>\n    <div class=\"content\" *ngIf=\"content\">\n        <ng-container [ngTemplateOutlet]=\"content.contentContent\"></ng-container>\n    </div>\n    <footer *ngIf=\"footer\">\n        <ng-container [ngTemplateOutlet]=\"footer.footerContent\"></ng-container>\n    </footer>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card/card.component.scss":
+/*!****************************************************!*\
+  !*** ./src/app/core/card/card/card.component.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host .cardContainer {\n  background-color: #ffffff;\n  padding: 10px 30px 25px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: #e5e6eb;\n  border-radius: 3px; }\n  :host .cardContainer header {\n    display: flex;\n    align-items: center;\n    justify-content: space-between; }\n  :host .cardContainer footer {\n    display: flex;\n    align-items: center;\n    justify-content: flex-end; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/card/card/card.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/core/card/card/card.component.ts ***!
+  \**************************************************/
+/*! exports provided: CardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardComponent", function() { return CardComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _card_header_card_header_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../card-header/card-header.component */ "./src/app/core/card/card-header/card-header.component.ts");
+/* harmony import */ var _card_content_card_content_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../card-content/card-content.component */ "./src/app/core/card/card-content/card-content.component.ts");
+/* harmony import */ var _card_actions_card_actions_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../card-actions/card-actions.component */ "./src/app/core/card/card-actions/card-actions.component.ts");
+/* harmony import */ var _card_footer_card_footer_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../card-footer/card-footer.component */ "./src/app/core/card/card-footer/card-footer.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CardComponent = /** @class */ (function () {
+    function CardComponent() {
+    }
+    CardComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"])(_card_header_card_header_component__WEBPACK_IMPORTED_MODULE_1__["CardHeaderComponent"]),
+        __metadata("design:type", _card_header_card_header_component__WEBPACK_IMPORTED_MODULE_1__["CardHeaderComponent"])
+    ], CardComponent.prototype, "header", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"])(_card_content_card_content_component__WEBPACK_IMPORTED_MODULE_2__["CardContentComponent"]),
+        __metadata("design:type", _card_content_card_content_component__WEBPACK_IMPORTED_MODULE_2__["CardContentComponent"])
+    ], CardComponent.prototype, "content", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"])(_card_actions_card_actions_component__WEBPACK_IMPORTED_MODULE_3__["CardActionsComponent"]),
+        __metadata("design:type", _card_actions_card_actions_component__WEBPACK_IMPORTED_MODULE_3__["CardActionsComponent"])
+    ], CardComponent.prototype, "actions", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"])(_card_footer_card_footer_component__WEBPACK_IMPORTED_MODULE_4__["CardFooterComponent"]),
+        __metadata("design:type", _card_footer_card_footer_component__WEBPACK_IMPORTED_MODULE_4__["CardFooterComponent"])
+    ], CardComponent.prototype, "footer", void 0);
+    CardComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-card',
+            template: __webpack_require__(/*! ./card.component.html */ "./src/app/core/card/card/card.component.html"),
+            styles: [__webpack_require__(/*! ./card.component.scss */ "./src/app/core/card/card/card.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CardComponent);
+    return CardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/core.module.ts":
+/*!*************************************!*\
+  !*** ./src/app/core/core.module.ts ***!
+  \*************************************/
+/*! exports provided: CoreModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreModule", function() { return CoreModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _form_form_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form/form.module */ "./src/app/core/form/form.module.ts");
+/* harmony import */ var _toast_toast_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toast/toast.module */ "./src/app/core/toast/toast.module.ts");
+/* harmony import */ var _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./buttons/buttons.module */ "./src/app/core/buttons/buttons.module.ts");
+/* harmony import */ var _card_card_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./card/card.module */ "./src/app/core/card/card.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+var MODULES = [
+    _form_form_module__WEBPACK_IMPORTED_MODULE_2__["FormModule"],
+    _toast_toast_module__WEBPACK_IMPORTED_MODULE_3__["ToastModule"],
+    _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_4__["ButtonsModule"],
+    _card_card_module__WEBPACK_IMPORTED_MODULE_5__["CardModule"]
+];
+var COMPONENTS = [];
+var CoreModule = /** @class */ (function () {
+    function CoreModule() {
+    }
+    CoreModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+            ].concat(MODULES),
+            declarations: COMPONENTS.slice(),
+            exports: MODULES.concat(COMPONENTS)
+        })
+    ], CoreModule);
+    return CoreModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/core.service.ts":
+/*!**************************************!*\
+  !*** ./src/app/core/core.service.ts ***!
+  \**************************************/
+/*! exports provided: CoreService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreService", function() { return CoreService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CoreService = /** @class */ (function () {
+    function CoreService() {
+    }
+    Object.defineProperty(CoreService.prototype, "loginPage", {
+        get: function () {
+            return 'login';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CoreService.prototype, "homePage", {
+        get: function () {
+            return '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CoreService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], CoreService);
+    return CoreService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/form/base-form-control/base-form-control.component.css":
+/*!*****************************************************************************!*\
+  !*** ./src/app/core/form/base-form-control/base-form-control.component.css ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/form/base-form-control/base-form-control.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/core/form/base-form-control/base-form-control.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  base-form-control works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/core/form/base-form-control/base-form-control.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/core/form/base-form-control/base-form-control.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: BaseFormControlComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseFormControlComponent", function() { return BaseFormControlComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var BaseFormControlComponent = /** @class */ (function () {
+    function BaseFormControlComponent() {
+        this.value = null;
+        this.isFocused = false;
+        this.onChange = function () {
+        };
+        this.onTouched = function () {
+        };
+    }
+    BaseFormControlComponent.prototype.ngOnInit = function () {
+    };
+    BaseFormControlComponent.prototype.writeValue = function (value) {
+        this.value = value;
+    };
+    BaseFormControlComponent.prototype.registerOnChange = function (fn) {
+        this.onChange = fn;
+    };
+    BaseFormControlComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    BaseFormControlComponent.prototype.onBlur = function () {
+        this.isFocused = true;
+    };
+    BaseFormControlComponent.prototype.onFocus = function () {
+        this.isFocused = false;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], BaseFormControlComponent.prototype, "formControlName", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"])('class.focus'),
+        __metadata("design:type", Boolean)
+    ], BaseFormControlComponent.prototype, "isFocused", void 0);
+    BaseFormControlComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-base-form-control',
+            template: __webpack_require__(/*! ./base-form-control.component.html */ "./src/app/core/form/base-form-control/base-form-control.component.html"),
+            styles: [__webpack_require__(/*! ./base-form-control.component.css */ "./src/app/core/form/base-form-control/base-form-control.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], BaseFormControlComponent);
+    return BaseFormControlComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/form/form.module.ts":
+/*!******************************************!*\
+  !*** ./src/app/core/form/form.module.ts ***!
+  \******************************************/
+/*! exports provided: FormModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModule", function() { return FormModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _base_form_control_base_form_control_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base-form-control/base-form-control.component */ "./src/app/core/form/base-form-control/base-form-control.component.ts");
+/* harmony import */ var _input_input_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./input/input.component */ "./src/app/core/form/input/input.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _label_label_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./label/label.component */ "./src/app/core/form/label/label.component.ts");
+/* harmony import */ var _form_form_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./form/form.component */ "./src/app/core/form/form/form.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var COMPONENTS = [
+    _input_input_component__WEBPACK_IMPORTED_MODULE_3__["InputComponent"],
+    _base_form_control_base_form_control_component__WEBPACK_IMPORTED_MODULE_2__["BaseFormControlComponent"],
+    _label_label_component__WEBPACK_IMPORTED_MODULE_5__["LabelComponent"],
+    _form_form_component__WEBPACK_IMPORTED_MODULE_6__["FormComponent"]
+];
+var FormModule = /** @class */ (function () {
+    function FormModule() {
+    }
+    FormModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            exports: COMPONENTS.slice()
+        })
+    ], FormModule);
+    return FormModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/form/form/form.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/core/form/form/form.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form [formGroup]=\"formGroup\" (submit)=\"onFormSubmit()\">\n    <ng-content></ng-content>\n</form>"
+
+/***/ }),
+
+/***/ "./src/app/core/form/form/form.component.scss":
+/*!****************************************************!*\
+  !*** ./src/app/core/form/form/form.component.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/core/form/form/form.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/core/form/form/form.component.ts ***!
+  \**************************************************/
+/*! exports provided: FormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormComponent", function() { return FormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var FormComponent = /** @class */ (function () {
+    function FormComponent() {
+        this.submit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    FormComponent.prototype.onFormSubmit = function () {
+        this.submit.emit(null);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('formGroup'),
+        __metadata("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"])
+    ], FormComponent.prototype, "formGroup", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('submit'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], FormComponent.prototype, "submit", void 0);
+    FormComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-form',
+            template: __webpack_require__(/*! ./form.component.html */ "./src/app/core/form/form/form.component.html"),
+            styles: [__webpack_require__(/*! ./form.component.scss */ "./src/app/core/form/form/form.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FormComponent);
+    return FormComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/form/input/input.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/core/form/input/input.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<input [type]=\"type\" class=\"formInput\" [placeholder]=\"placeholder\" [formControl]=\"control\" [name]=\"formControlName\" (focus)=\"onFocus()\"\n       (blur)=\"onBlur()\">"
+
+/***/ }),
+
+/***/ "./src/app/core/form/input/input.component.scss":
+/*!******************************************************!*\
+  !*** ./src/app/core/form/input/input.component.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host input {\n  height: 30px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: #e5e6eb;\n  border-radius: 3px;\n  width: 250px;\n  max-width: 100%;\n  margin-bottom: 15px;\n  padding: 0 10px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/form/input/input.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/core/form/input/input.component.ts ***!
+  \****************************************************/
+/*! exports provided: InputComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputComponent", function() { return InputComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _base_form_control_base_form_control_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../base-form-control/base-form-control.component */ "./src/app/core/form/base-form-control/base-form-control.component.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+var InputComponent = /** @class */ (function (_super) {
+    __extends(InputComponent, _super);
+    function InputComponent(controlContainer) {
+        var _this = _super.call(this) || this;
+        _this.controlContainer = controlContainer;
+        _this.type = 'text';
+        _this.placeholder = '';
+        return _this;
+    }
+    InputComponent_1 = InputComponent;
+    InputComponent.prototype.ngOnInit = function () {
+        if (this.controlContainer) {
+            if (this.formControlName) {
+                this.control = this.controlContainer.control.get(this.formControlName);
+            }
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], InputComponent.prototype, "type", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], InputComponent.prototype, "placeholder", void 0);
+    InputComponent = InputComponent_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-input',
+            template: __webpack_require__(/*! ./input.component.html */ "./src/app/core/form/input/input.component.html"),
+            styles: [__webpack_require__(/*! ./input.component.scss */ "./src/app/core/form/input/input.component.scss")],
+            providers: [
+                { provide: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NG_VALUE_ACCESSOR"], useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(function () { return InputComponent_1; }), multi: true }
+            ]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"])()), __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"])()),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ControlContainer"]])
+    ], InputComponent);
+    return InputComponent;
+    var InputComponent_1;
+}(_base_form_control_base_form_control_component__WEBPACK_IMPORTED_MODULE_2__["BaseFormControlComponent"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/form/label/label.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/core/form/label/label.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<label *ngIf=\"label\">{{label}}: </label><ng-content></ng-content>"
+
+/***/ }),
+
+/***/ "./src/app/core/form/label/label.component.scss":
+/*!******************************************************!*\
+  !*** ./src/app/core/form/label/label.component.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  display: flex; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/form/label/label.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/core/form/label/label.component.ts ***!
+  \****************************************************/
+/*! exports provided: LabelComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LabelComponent", function() { return LabelComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LabelComponent = /** @class */ (function () {
+    function LabelComponent() {
+        this.label = null;
+    }
+    LabelComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('label'),
+        __metadata("design:type", String)
+    ], LabelComponent.prototype, "label", void 0);
+    LabelComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-label',
+            template: __webpack_require__(/*! ./label.component.html */ "./src/app/core/form/label/label.component.html"),
+            styles: [__webpack_require__(/*! ./label.component.scss */ "./src/app/core/form/label/label.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LabelComponent);
+    return LabelComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast-types.enum.ts":
+/*!************************************************!*\
+  !*** ./src/app/core/toast/toast-types.enum.ts ***!
+  \************************************************/
+/*! exports provided: ToastTypes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastTypes", function() { return ToastTypes; });
+var ToastTypes;
+(function (ToastTypes) {
+    ToastTypes["Info"] = "info";
+    ToastTypes["Error"] = "error";
+    ToastTypes["Success"] = "success";
+})(ToastTypes || (ToastTypes = {}));
+
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast.component.html":
+/*!*************************************************!*\
+  !*** ./src/app/core/toast/toast.component.html ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"toastContainer\" [ngClass]=\"type\">\n    <p>\n        {{message}}\n    </p>\n    <app-button-icon (click)=\"closeToast()\" color=\"accent\">clear</app-button-icon>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast.component.scss":
+/*!*************************************************!*\
+  !*** ./src/app/core/toast/toast.component.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  position: fixed;\n  right: 0;\n  bottom: 15px;\n  left: 0;\n  width: 650px;\n  max-width: 90%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: auto;\n  z-index: 100;\n  height: 52px;\n  -webkit-animation-duration: 500ms;\n          animation-duration: 500ms; }\n  :host .toastContainer {\n    position: relative;\n    box-shadow: 0 15px 50px -15px rgba(0, 0, 0, 0.75);\n    width: 100%;\n    height: 100%;\n    margin: auto;\n    background-color: #1874ef;\n    color: #ffffff;\n    padding: 0 10px 0 25px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    overflow: hidden;\n    border-radius: 3px;\n    border-style: none;\n    border-color: #1874ef;\n    border-width: 1px; }\n  :host .toastContainer.error {\n      background-color: #e73636;\n      border-color: #e73636; }\n  :host .toastContainer.success {\n      background-color: #40c33c;\n      border-color: #40c33c; }\n"
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast.component.ts":
+/*!***********************************************!*\
+  !*** ./src/app/core/toast/toast.component.ts ***!
+  \***********************************************/
+/*! exports provided: ToastComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastComponent", function() { return ToastComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _toast_types_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toast-types.enum */ "./src/app/core/toast/toast-types.enum.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ToastComponent = /** @class */ (function () {
+    function ToastComponent() {
+        this.subscriptions = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subscription"]();
+        this.closeToastSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
+        this.closeToast$ = this.closeToastSubject.asObservable();
+        this.message = null;
+        this.type = _toast_types_enum__WEBPACK_IMPORTED_MODULE_2__["ToastTypes"].Info;
+        this.lifeTimeSeconds = 3;
+        this.animationIn = true;
+        this.animationOut = false;
+    }
+    ToastComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.lifeTimeTimerSub = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(this.lifeTimeSeconds * 1000)
+            .subscribe(function () {
+            _this.closeToast();
+        });
+        this.subscriptions.add(this.lifeTimeTimerSub);
+    };
+    ToastComponent.prototype.closeToast = function () {
+        var _this = this;
+        this.animationOut = true;
+        var closeToastAnimationTimer = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000)
+            .subscribe(function () {
+            _this.closeToastSubject.next(null);
+        });
+        this.subscriptions.add(closeToastAnimationTimer);
+    };
+    ToastComponent.prototype.ngOnDestroy = function () {
+        this.subscriptions.unsubscribe();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"])('class.animated'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"])('class.fadeInUp'),
+        __metadata("design:type", Boolean)
+    ], ToastComponent.prototype, "animationIn", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"])('class.fadeOutDown'),
+        __metadata("design:type", Boolean)
+    ], ToastComponent.prototype, "animationOut", void 0);
+    ToastComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-toast',
+            template: __webpack_require__(/*! ./toast.component.html */ "./src/app/core/toast/toast.component.html"),
+            styles: [__webpack_require__(/*! ./toast.component.scss */ "./src/app/core/toast/toast.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ToastComponent);
+    return ToastComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast.module.ts":
+/*!********************************************!*\
+  !*** ./src/app/core/toast/toast.module.ts ***!
+  \********************************************/
+/*! exports provided: ToastModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastModule", function() { return ToastModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _toast_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toast.component */ "./src/app/core/toast/toast.component.ts");
+/* harmony import */ var _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../buttons/buttons.module */ "./src/app/core/buttons/buttons.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var COMPONENTS = [_toast_component__WEBPACK_IMPORTED_MODULE_2__["ToastComponent"]];
+var ToastModule = /** @class */ (function () {
+    function ToastModule() {
+    }
+    ToastModule.forRoot = function () {
+    };
+    ToastModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _buttons_buttons_module__WEBPACK_IMPORTED_MODULE_3__["ButtonsModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            entryComponents: COMPONENTS.slice(),
+            exports: COMPONENTS.slice()
+        })
+    ], ToastModule);
+    return ToastModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/core/toast/toast.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/core/toast/toast.service.ts ***!
+  \*********************************************/
+/*! exports provided: ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _toast_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toast.component */ "./src/app/core/toast/toast.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ToastService = /** @class */ (function () {
+    function ToastService(componentFactoryResolver, applicationRef, injector) {
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.applicationRef = applicationRef;
+        this.injector = injector;
+    }
+    ToastService.prototype.showToast = function (message, type) {
+        var _this = this;
+        var componentRef = this.componentFactoryResolver
+            .resolveComponentFactory(_toast_component__WEBPACK_IMPORTED_MODULE_1__["ToastComponent"])
+            .create(this.injector);
+        this.applicationRef.attachView(componentRef.hostView);
+        var domElem = componentRef.hostView
+            .rootNodes[0];
+        document.body.appendChild(domElem);
+        componentRef.instance.message = message;
+        componentRef.instance.type = type;
+        var closeToastSub = componentRef.instance.closeToast$
+            .subscribe(function () {
+            _this.applicationRef.detachView(componentRef.hostView);
+            componentRef.destroy();
+            closeToastSub.unsubscribe();
+        });
+        return componentRef.instance;
+    };
+    ToastService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ApplicationRef"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"]])
+    ], ToastService);
+    return ToastService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dashboard-routing.module.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/dashboard/dashboard-routing.module.ts ***!
+  \*******************************************************/
+/*! exports provided: DashboardRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardRoutingModule", function() { return DashboardRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home/home.component */ "./src/app/dashboard/home/home.component.ts");
+/* harmony import */ var _dashboard_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var _users_users_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./users/users.module */ "./src/app/dashboard/users/users.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"],
+        children: [
+            {
+                path: 'home',
+                component: _home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"]
+            },
+            {
+                path: 'users',
+                loadChildren: function () { return _users_users_module__WEBPACK_IMPORTED_MODULE_4__["UsersModule"]; }
+            },
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            }
+        ]
+    }
+];
+var DashboardRoutingModule = /** @class */ (function () {
+    function DashboardRoutingModule() {
+    }
+    DashboardRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)
+            ],
+            exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]
+            ]
+        })
+    ], DashboardRoutingModule);
+    return DashboardRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dashboard.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/dashboard/dashboard.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-top-bar></app-top-bar>\n<app-menu>\n    <app-menu-item path=\"/home\" label=\"Dashboard\" icon=\"dashboard\"></app-menu-item>\n    <app-menu-item path=\"/users\" label=\"Users\" icon=\"group\"></app-menu-item>\n</app-menu>\n<div id=\"content\" [class.menu-closed]=\"menuService.menuOpen$ | async\">\n    <div class=\"contentContainer\">\n        <router-outlet></router-outlet>\n    </div>\n</div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dashboard.component.scss":
+/*!****************************************************!*\
+  !*** ./src/app/dashboard/dashboard.component.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host #content {\n  height: 100%;\n  min-height: 100%;\n  transition: padding 500ms ease;\n  padding-top: 100px;\n  padding-left: 250px; }\n  :host #content.menu-closed {\n    padding-left: 75px; }\n  :host #content .contentContainer {\n    background-color: #f8f8f8;\n    padding: 25px 50px;\n    min-height: 100%; }\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dashboard.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/dashboard/dashboard.component.ts ***!
+  \**************************************************/
+/*! exports provided: DashboardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _layout_menu_menu_menu_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layout/menu/menu/menu.service */ "./src/app/dashboard/layout/menu/menu/menu.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/core.service */ "./src/app/core/core.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var DashboardComponent = /** @class */ (function () {
+    function DashboardComponent(menuService, coreService, router) {
+        this.menuService = menuService;
+        this.coreService = coreService;
+        this.router = router;
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        if (this.router.url === '/') {
+            this.router.navigate([this.coreService.homePage]);
+        }
+    };
+    DashboardComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dashboard',
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/dashboard/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/dashboard/dashboard.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_layout_menu_menu_menu_service__WEBPACK_IMPORTED_MODULE_1__["MenuService"],
+            _core_core_service__WEBPACK_IMPORTED_MODULE_3__["CoreService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], DashboardComponent);
+    return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dashboard.module.ts":
+/*!***********************************************!*\
+  !*** ./src/app/dashboard/dashboard.module.ts ***!
+  \***********************************************/
+/*! exports provided: DashboardModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardModule", function() { return DashboardModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home/home.component */ "./src/app/dashboard/home/home.component.ts");
+/* harmony import */ var _layout_layout_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layout/layout.module */ "./src/app/dashboard/layout/layout.module.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _dashboard_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dashboard-routing.module */ "./src/app/dashboard/dashboard-routing.module.ts");
+/* harmony import */ var _dashboard_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var DashboardModule = /** @class */ (function () {
+    function DashboardModule() {
+    }
+    DashboardModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _dashboard_routing_module__WEBPACK_IMPORTED_MODULE_5__["DashboardRoutingModule"],
+                _layout_layout_module__WEBPACK_IMPORTED_MODULE_3__["LayoutModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_4__["CoreModule"]
+            ],
+            declarations: [
+                _home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
+                _dashboard_component__WEBPACK_IMPORTED_MODULE_6__["DashboardComponent"]
+            ]
+        })
+    ], DashboardModule);
+    return DashboardModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/home/home.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/dashboard/home/home.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-card>\n    <app-card-header>\n        Dashboard\n    </app-card-header>\n    <app-card-content>\n        Hello!\n    </app-card-content>\n</app-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/home/home.component.scss":
+/*!****************************************************!*\
+  !*** ./src/app/dashboard/home/home.component.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/dashboard/home/home.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/dashboard/home/home.component.ts ***!
+  \**************************************************/
+/*! exports provided: HomeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var HomeComponent = /** @class */ (function () {
+    function HomeComponent() {
+    }
+    HomeComponent.prototype.ngOnInit = function () {
+    };
+    HomeComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-home',
+            template: __webpack_require__(/*! ./home.component.html */ "./src/app/dashboard/home/home.component.html"),
+            styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/dashboard/home/home.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], HomeComponent);
+    return HomeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/layout.module.ts":
+/*!***************************************************!*\
+  !*** ./src/app/dashboard/layout/layout.module.ts ***!
+  \***************************************************/
+/*! exports provided: LayoutModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayoutModule", function() { return LayoutModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _menu_menu_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./menu/menu.module */ "./src/app/dashboard/layout/menu/menu.module.ts");
+/* harmony import */ var _top_bar_top_bar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./top-bar/top-bar.component */ "./src/app/dashboard/layout/top-bar/top-bar.component.ts");
+/* harmony import */ var _security_user_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../security/user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../core/core.module */ "./src/app/core/core.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+var COMPONENTS = [
+    _top_bar_top_bar_component__WEBPACK_IMPORTED_MODULE_3__["TopBarComponent"]
+];
+var LayoutModule = /** @class */ (function () {
+    function LayoutModule() {
+    }
+    LayoutModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _menu_menu_module__WEBPACK_IMPORTED_MODULE_2__["MenuModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_5__["CoreModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            exports: COMPONENTS.concat([
+                _menu_menu_module__WEBPACK_IMPORTED_MODULE_2__["MenuModule"]
+            ]),
+            providers: [
+                _security_user_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"]
+            ]
+        })
+    ], LayoutModule);
+    return LayoutModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu-item/menu-item.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.scss":
+/*!**************************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu-item/menu-item.component.scss ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu-item/menu-item.component.ts ***!
+  \************************************************************************/
+/*! exports provided: MenuItemComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuItemComponent", function() { return MenuItemComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MenuItemComponent = /** @class */ (function () {
+    function MenuItemComponent() {
+        this.path = '';
+        this.label = '';
+        this.icon = '';
+    }
+    MenuItemComponent_1 = MenuItemComponent;
+    MenuItemComponent.prototype.ngOnInit = function () {
+    };
+    MenuItemComponent.prototype.ngAfterContentInit = function () {
+        this.menuItems = this.menuItemsContent.filter(function (item, index) {
+            return index > 0;
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], MenuItemComponent.prototype, "path", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], MenuItemComponent.prototype, "label", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], MenuItemComponent.prototype, "icon", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('menuItemContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], MenuItemComponent.prototype, "menuItemContent", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('subMenuItemsContent'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], MenuItemComponent.prototype, "subMenuItemsContent", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"])(MenuItemComponent_1),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
+    ], MenuItemComponent.prototype, "menuItemsContent", void 0);
+    MenuItemComponent = MenuItemComponent_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-menu-item',
+            template: __webpack_require__(/*! ./menu-item.component.html */ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.html"),
+            styles: [__webpack_require__(/*! ./menu-item.component.scss */ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], MenuItemComponent);
+    return MenuItemComponent;
+    var MenuItemComponent_1;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu.module.ts":
+/*!******************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu.module.ts ***!
+  \******************************************************/
+/*! exports provided: MenuModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuModule", function() { return MenuModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _menu_menu_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./menu/menu.component */ "./src/app/dashboard/layout/menu/menu/menu.component.ts");
+/* harmony import */ var _menu_item_menu_item_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu-item/menu-item.component */ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var COMPONENTS = [
+    _menu_menu_component__WEBPACK_IMPORTED_MODULE_2__["MenuComponent"],
+    _menu_item_menu_item_component__WEBPACK_IMPORTED_MODULE_3__["MenuItemComponent"]
+];
+var MenuModule = /** @class */ (function () {
+    function MenuModule() {
+    }
+    MenuModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            exports: COMPONENTS.slice()
+        })
+    ], MenuModule);
+    return MenuModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu/menu.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu/menu.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"menu\" [class.closed]=\"menuService.menuOpen$ | async\">\n    <div class=\"logo\">\n        <span>DD</span>Managment\n    </div>\n    <nav>\n        <div class=\"marker\" [ngStyle]=\"{'transform': 'translate3d(0, ' + markerOffset + 'px, 0)'}\"\n             [class.markerActive]=\"markerActive\" #marker></div>\n        <ul>\n            <li *ngFor=\"let menuItem of menuItems\" routerLinkActive=\"active\" #link>\n                <a [routerLink]=\"parentPath + menuItem.path\"><i class=\"material-icons\">{{menuItem.icon}}</i>{{menuItem.label}}</a>\n\n                <ul *ngIf=\"menuItem.menuItems.length\">\n                    <li *ngFor=\"let subItem of menuItem.menuItems\">\n                        <a [routerLink]=\"parentPath + subItem.path\">{{subItem.label}}</a>\n\n                        <ul *ngIf=\"subItem.menuItems.length\">\n                            <li *ngFor=\"let subSubItem of subItem.menuItems\">\n                                <a [routerLink]=\"parentPath + subSubItem.path\">{{subSubItem.label}}</a>\n\n                                <ul *ngIf=\"subSubItem.menuItems.length\">\n                                    <li *ngFor=\"let subSubSubItem of subSubItem.menuItems\">\n                                        <a [routerLink]=\"parentPath + subSubSubItem.path\">{{subSubSubItem.label}}</a>\n                                    </li>\n                                </ul>\n                            </li>\n                        </ul>\n                    </li>\n                </ul>\n            </li>\n        </ul>\n    </nav>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu/menu.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu/menu.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host #menu {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 250px;\n  padding-top: 100px;\n  background-color: #ffffff;\n  z-index: 99;\n  overflow: hidden;\n  transition: width 500ms ease;\n  border-right-style: solid;\n  border-right-width: 1px;\n  border-right-color: #e5e6eb; }\n  :host #menu.closed {\n    width: 75px; }\n  :host #menu .logo {\n    position: absolute;\n    top: 0;\n    right: -1px;\n    left: 0;\n    height: 100px;\n    background-color: #1874ef;\n    color: #ffffff;\n    font-weight: 500;\n    font-size: 1.5rem;\n    display: flex;\n    align-items: center;\n    justify-content: center; }\n  :host #menu .logo span {\n      font-weight: 700; }\n  :host #menu nav {\n    display: block;\n    position: relative; }\n  :host #menu nav .marker {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 2rem;\n      width: 4px;\n      background-color: #1874ef;\n      opacity: 0; }\n  :host #menu nav .marker.markerActive {\n        transition: all 250ms ease;\n        opacity: 1; }\n  :host #menu nav ul {\n      display: block;\n      list-style: none;\n      padding-top: 10px;\n      padding-left: 0; }\n  :host #menu nav ul li {\n        display: block;\n        padding: 0;\n        margin: 0;\n        line-height: 50px;\n        font-weight: 500; }\n  :host #menu nav ul li.active a {\n          color: #1874ef; }\n  :host #menu nav ul li a {\n          display: flex;\n          align-items: center;\n          padding-left: 30px;\n          transition: all 250ms ease;\n          color: #acacac; }\n  :host #menu nav ul li a .material-icons {\n            width: 25px;\n            margin-top: -5px;\n            margin-right: 15px; }\n  :host #menu nav ul li a:hover {\n            color: #1874ef; }\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu/menu.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu/menu.component.ts ***!
+  \**************************************************************/
+/*! exports provided: MenuComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuComponent", function() { return MenuComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _menu_item_menu_item_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../menu-item/menu-item.component */ "./src/app/dashboard/layout/menu/menu-item/menu-item.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/index */ "../../node_modules/rxjs/index.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_index__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _menu_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu.service */ "./src/app/dashboard/layout/menu/menu/menu.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var MenuComponent = /** @class */ (function () {
+    function MenuComponent(router, menuService) {
+        this.router = router;
+        this.menuService = menuService;
+        this.parentPath = '';
+        this.markerOffset = 0;
+        this.markerActive = false;
+        this.routerEventSubscription = new rxjs_index__WEBPACK_IMPORTED_MODULE_3__["Subscription"]();
+    }
+    MenuComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.routerEventSubscription = this.router.events
+            .subscribe(function (routerEvent) {
+            _this.onRouterEvent(routerEvent);
+        });
+    };
+    MenuComponent.prototype.ngAfterViewInit = function () {
+        this.handleActiveElement();
+    };
+    MenuComponent.prototype.onRouterEvent = function (routerEvent) {
+        if (routerEvent instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"] ||
+            routerEvent instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationCancel"] ||
+            routerEvent instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationError"]) {
+            this.handleActiveElement();
+        }
+    };
+    MenuComponent.prototype.handleActiveElement = function () {
+        var _this = this;
+        setTimeout(function () {
+            var activeElement = _this.linkElements
+                .find(function (element) {
+                return element.nativeElement.classList.contains('active');
+            });
+            if (!activeElement) {
+                activeElement = _this.linkElements.first;
+                _this.markerActive = false;
+                return;
+            }
+            _this.markerOffset = _this.getMarkerOffset(activeElement.nativeElement);
+            setTimeout(function () {
+                _this.markerActive = true;
+            });
+        });
+    };
+    MenuComponent.prototype.getMarkerOffset = function (target) {
+        return target.offsetTop + (target.offsetHeight / 2) - this.marker.nativeElement.clientHeight / 2;
+    };
+    MenuComponent.prototype.ngOnDestroy = function () {
+        if (this.routerEventSubscription) {
+            this.routerEventSubscription.unsubscribe();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('parentPath'),
+        __metadata("design:type", String)
+    ], MenuComponent.prototype, "parentPath", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"])(_menu_item_menu_item_component__WEBPACK_IMPORTED_MODULE_1__["MenuItemComponent"]),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
+    ], MenuComponent.prototype, "menuItems", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('marker'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], MenuComponent.prototype, "marker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChildren"])('link'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
+    ], MenuComponent.prototype, "linkElements", void 0);
+    MenuComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-menu',
+            template: __webpack_require__(/*! ./menu.component.html */ "./src/app/dashboard/layout/menu/menu/menu.component.html"),
+            styles: [__webpack_require__(/*! ./menu.component.scss */ "./src/app/dashboard/layout/menu/menu/menu.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _menu_service__WEBPACK_IMPORTED_MODULE_4__["MenuService"]])
+    ], MenuComponent);
+    return MenuComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/menu/menu/menu.service.ts":
+/*!************************************************************!*\
+  !*** ./src/app/dashboard/layout/menu/menu/menu.service.ts ***!
+  \************************************************************/
+/*! exports provided: MenuService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuService", function() { return MenuService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/index */ "../../node_modules/rxjs/index.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_index__WEBPACK_IMPORTED_MODULE_1__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MenuService = /** @class */ (function () {
+    function MenuService() {
+        this.menuOpenSubject = new rxjs_index__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](false);
+        this.menuOpen$ = this.menuOpenSubject.asObservable();
+    }
+    MenuService.prototype.toggleMenu = function () {
+        this.menuOpenSubject.next(!this.menuOpenSubject.getValue());
+    };
+    MenuService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], MenuService);
+    return MenuService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/top-bar/top-bar.component.html":
+/*!*****************************************************************!*\
+  !*** ./src/app/dashboard/layout/top-bar/top-bar.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"top-bar\" [class.menu-closed]=\"menuService.menuOpen$ | async\">\n    <app-button-icon class=\"menu-toggle\" (click)=\"menuToggle()\" color=\"secondary\">arrow_back</app-button-icon>\n\n    <button class=\"user-profile-button\" (click)=\"userProfileDropdownToggle()\" #userProfileButton>\n        <span class=\"initials\">\n            {{initials}}\n        </span>\n        <i class=\"material-icons\">keyboard_arrow_down</i>\n    </button>\n\n    <div class=\"user-profile-dropdown animated fadeIn\" *ngIf=\"userProfileDropdownVisible\" #userProfileDropdown>\n        <app-button (click)=\"logout()\">\n            Logout\n        </app-button>\n    </div>\n</div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/top-bar/top-bar.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/dashboard/layout/top-bar/top-bar.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host #top-bar {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  height: 100px;\n  z-index: 98;\n  padding-left: 250px;\n  background-color: #ffffff;\n  display: flex;\n  align-items: center;\n  justify-content: flex-end;\n  padding-right: 50px;\n  transition: padding 500ms ease;\n  border-bottom-style: solid;\n  border-bottom-width: 1px;\n  border-bottom-color: #e5e6eb; }\n  :host #top-bar.menu-closed {\n    padding-left: 75px; }\n  :host #top-bar.menu-closed .menu-toggle {\n      -webkit-transform: scale(-1, 1);\n              transform: scale(-1, 1); }\n  :host #top-bar .menu-toggle {\n    margin-right: auto;\n    margin-left: 10px;\n    transition: all 250ms ease; }\n  :host #top-bar .user-profile-button {\n    background: none;\n    display: flex;\n    align-items: center;\n    border-style: none;\n    cursor: pointer;\n    margin-right: -30px; }\n  :host #top-bar .user-profile-button .initials {\n      width: 40px;\n      height: 40px;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      padding: 0;\n      position: relative;\n      background-color: #1874ef;\n      color: #ffffff;\n      border-style: solid;\n      border-radius: 50%;\n      border-width: 1px;\n      border-color: #1874ef;\n      outline: none;\n      box-shadow: none;\n      overflow: hidden;\n      font-weight: 500;\n      font-size: 1em;\n      -webkit-user-select: none;\n         -moz-user-select: none;\n          -ms-user-select: none;\n              user-select: none;\n      transition: border-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1), color 0.2s cubic-bezier(0.77, 0, 0.175, 1); }\n  :host #top-bar .user-profile-button .material-icons {\n      color: #acacac;\n      font-size: 1.3em;\n      width: 30px;\n      display: flex;\n      justify-content: flex-end; }\n  :host #top-bar .user-profile-button:hover .initials {\n      background-color: #3082f1;\n      border-color: #3082f1; }\n  :host #top-bar .user-profile-dropdown {\n    position: absolute;\n    top: 90px;\n    box-shadow: 0 20px 80px -25px rgba(0, 0, 0, 0.75);\n    right: 30px;\n    width: 300px;\n    padding: 30px;\n    background-color: #ffffff;\n    display: flex;\n    justify-content: flex-end;\n    -webkit-animation-duration: 500ms;\n            animation-duration: 500ms;\n    border-color: #e5e6eb;\n    border-width: 1px;\n    border-style: solid;\n    border-radius: 3px; }\n  :host #top-bar .user-profile-dropdown:before, :host #top-bar .user-profile-dropdown:after {\n      position: absolute;\n      content: '';\n      width: 0;\n      height: 0;\n      border-style: solid;\n      border-color: transparent transparent #ffffff transparent; }\n  :host #top-bar .user-profile-dropdown:before {\n      border-color: transparent transparent #e5e6eb transparent;\n      border-width: 10px;\n      right: 37px;\n      top: -20px; }\n  :host #top-bar .user-profile-dropdown:after {\n      border-color: transparent transparent #ffffff transparent;\n      border-width: 11px;\n      right: 36px;\n      top: -20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/layout/top-bar/top-bar.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/dashboard/layout/top-bar/top-bar.component.ts ***!
+  \***************************************************************/
+/*! exports provided: TopBarComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopBarComponent", function() { return TopBarComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _security_security_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../security/security.service */ "./src/app/security/security.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _security_user_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../security/user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/index */ "../../node_modules/rxjs/index.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_index__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _menu_menu_menu_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../menu/menu/menu.service */ "./src/app/dashboard/layout/menu/menu/menu.service.ts");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../core/core.service */ "./src/app/core/core.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var TopBarComponent = /** @class */ (function () {
+    function TopBarComponent(securityService, userService, router, coreService, menuService) {
+        this.securityService = securityService;
+        this.userService = userService;
+        this.router = router;
+        this.coreService = coreService;
+        this.menuService = menuService;
+        this.initials = null;
+        this.subscriptions = new rxjs_index__WEBPACK_IMPORTED_MODULE_4__["Subscription"]();
+        this.userProfileDropdownVisible = false;
+    }
+    TopBarComponent.prototype.onDocumentClick = function (event) {
+        if (!this.userProfileDropdownVisible || this.userProfileButton.nativeElement.contains(event.target)) {
+            return;
+        }
+        if (!this.userProfileDropdown.nativeElement.contains(event.target)) {
+            this.userProfileDropdownHide();
+        }
+    };
+    TopBarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var currentUserSub = this.userService.currentUser
+            .subscribe(function (user) {
+            _this.setUserInitials(user);
+        });
+        this.subscriptions.add(currentUserSub);
+    };
+    TopBarComponent.prototype.logout = function () {
+        var _this = this;
+        this.userProfileDropdownHide();
+        var logoutHandlerSub = this.securityService.logoutHandler()
+            .subscribe(function () {
+            _this.router.navigate([_this.coreService.loginPage]);
+        });
+        this.subscriptions.add(logoutHandlerSub);
+    };
+    TopBarComponent.prototype.setUserInitials = function (user) {
+        if (user.firstname && user.surname) {
+            this.initials = user.firstname.charAt(0) + user.surname.charAt(0);
+        }
+        else {
+            this.initials = user.username.substring(0, 2);
+        }
+        this.initials.toUpperCase();
+    };
+    TopBarComponent.prototype.menuToggle = function () {
+        this.menuService.toggleMenu();
+    };
+    TopBarComponent.prototype.userProfileDropdownToggle = function () {
+        this.userProfileDropdownVisible = !this.userProfileDropdownVisible;
+    };
+    TopBarComponent.prototype.userProfileDropdownHide = function () {
+        this.userProfileDropdownVisible = false;
+    };
+    TopBarComponent.prototype.ngOnDestroy = function () {
+        this.subscriptions.unsubscribe();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('userProfileDropdown'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], TopBarComponent.prototype, "userProfileDropdown", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('userProfileButton'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], TopBarComponent.prototype, "userProfileButton", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('document:click', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], TopBarComponent.prototype, "onDocumentClick", null);
+    TopBarComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-top-bar',
+            template: __webpack_require__(/*! ./top-bar.component.html */ "./src/app/dashboard/layout/top-bar/top-bar.component.html"),
+            styles: [__webpack_require__(/*! ./top-bar.component.scss */ "./src/app/dashboard/layout/top-bar/top-bar.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_security_security_service__WEBPACK_IMPORTED_MODULE_1__["SecurityService"],
+            _security_user_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _core_core_service__WEBPACK_IMPORTED_MODULE_6__["CoreService"],
+            _menu_menu_menu_service__WEBPACK_IMPORTED_MODULE_5__["MenuService"]])
+    ], TopBarComponent);
+    return TopBarComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-edit/users-edit.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-edit/users-edit.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-card>\n  <app-card-header>\n    Edit user\n  </app-card-header>\n  <app-card-content>\n    <app-form [formGroup]=\"formGroup\">\n      <app-label label=\"Username\">\n        <app-input formControlName=\"username\"></app-input>\n      </app-label>\n      <app-label label=\"Password\">\n        <app-input formControlName=\"password\" type=\"password\"></app-input>\n      </app-label>\n      <app-label label=\"Firstname\">\n        <app-input formControlName=\"firstname\"></app-input>\n      </app-label>\n      <app-label label=\"Surname\">\n        <app-input formControlName=\"surname\"></app-input>\n      </app-label>\n    </app-form>\n  </app-card-content>\n  <app-card-footer>\n    <app-button (click)=\"saveUser()\">Save</app-button>\n  </app-card-footer>\n</app-card>"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-edit/users-edit.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-edit/users-edit.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-edit/users-edit.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-edit/users-edit.component.ts ***!
+  \********************************************************************/
+/*! exports provided: UsersEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersEditComponent", function() { return UsersEditComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UsersEditComponent = /** @class */ (function () {
+    function UsersEditComponent(formBuilder) {
+        this.formBuilder = formBuilder;
+    }
+    UsersEditComponent.prototype.ngOnInit = function () {
+        this.formGroup = this.formBuilder.group({
+            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, { validators: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required }),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, { validators: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required }),
+            firstname: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, {}),
+            surname: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, {}),
+        });
+    };
+    UsersEditComponent.prototype.saveUser = function () {
+    };
+    UsersEditComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-users-edit',
+            template: __webpack_require__(/*! ./users-edit.component.html */ "./src/app/dashboard/users/users-edit/users-edit.component.html"),
+            styles: [__webpack_require__(/*! ./users-edit.component.scss */ "./src/app/dashboard/users/users-edit/users-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
+    ], UsersEditComponent);
+    return UsersEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-list/users-list.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-list/users-list.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-card>\n    <app-card-header>\n        Users\n    </app-card-header>\n    <app-card-actions>\n        <app-button-icon routerLink=\"/users/new\">\n            add\n        </app-button-icon>\n    </app-card-actions>\n    <app-card-content>\n        <ul>\n            <li *ngFor=\"let user of usersList | async\">\n                <a routerLink=\"/users/{{user.id}}\">{{user.username}} | {{user.firstname}} | {{user.surname}}</a>\n            </li>\n        </ul>\n    </app-card-content>\n</app-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-list/users-list.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-list/users-list.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-list/users-list.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-list/users-list.component.ts ***!
+  \********************************************************************/
+/*! exports provided: UsersListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersListComponent", function() { return UsersListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _users_list_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users-list.service */ "./src/app/dashboard/users/users-list/users-list.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UsersListComponent = /** @class */ (function () {
+    function UsersListComponent(usersListService) {
+        this.usersListService = usersListService;
+    }
+    UsersListComponent.prototype.ngOnInit = function () {
+        this.usersList = this.usersListService.getUsersList();
+    };
+    UsersListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-users-list',
+            template: __webpack_require__(/*! ./users-list.component.html */ "./src/app/dashboard/users/users-list/users-list.component.html"),
+            styles: [__webpack_require__(/*! ./users-list.component.scss */ "./src/app/dashboard/users/users-list/users-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_users_list_service__WEBPACK_IMPORTED_MODULE_1__["UsersListService"]])
+    ], UsersListComponent);
+    return UsersListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-list/users-list.service.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/dashboard/users/users-list/users-list.service.ts ***!
+  \******************************************************************/
+/*! exports provided: UsersListService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersListService", function() { return UsersListService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../api */ "../api/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UsersListService = /** @class */ (function () {
+    function UsersListService(usersService) {
+        this.usersService = usersService;
+    }
+    UsersListService.prototype.getUsersList = function (page, count, sortDirection, sortOrder) {
+        return this.usersService.usersListQuery(page, count, sortDirection, sortOrder);
+    };
+    UsersListService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_api__WEBPACK_IMPORTED_MODULE_1__["UsersService"]])
+    ], UsersListService);
+    return UsersListService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-new/users-new.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-new/users-new.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-card>\n    <app-card-header>\n        Add new user\n    </app-card-header>\n    <app-card-content>\n        <app-form [formGroup]=\"formGroup\">\n            <app-label label=\"Username\">\n                <app-input formControlName=\"username\"></app-input>\n            </app-label>\n            <app-label label=\"Password\">\n                <app-input formControlName=\"password\" type=\"password\"></app-input>\n            </app-label>\n            <app-label label=\"Firstname\">\n                <app-input formControlName=\"firstname\"></app-input>\n            </app-label>\n            <app-label label=\"Surname\">\n                <app-input formControlName=\"surname\"></app-input>\n            </app-label>\n        </app-form>\n    </app-card-content>\n    <app-card-footer>\n        <app-button (click)=\"saveUser()\">Save</app-button>\n    </app-card-footer>\n</app-card>"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-new/users-new.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/dashboard/users/users-new/users-new.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-new/users-new.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/dashboard/users/users-new/users-new.component.ts ***!
+  \******************************************************************/
+/*! exports provided: UsersNewComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersNewComponent", function() { return UsersNewComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _users_new_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users-new.service */ "./src/app/dashboard/users/users-new/users-new.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../core/toast/toast.service */ "./src/app/core/toast/toast.service.ts");
+/* harmony import */ var _core_toast_toast_types_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../core/toast/toast-types.enum */ "./src/app/core/toast/toast-types.enum.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var UsersNewComponent = /** @class */ (function () {
+    function UsersNewComponent(formBuilder, usersNewService, router, toastService) {
+        this.formBuilder = formBuilder;
+        this.usersNewService = usersNewService;
+        this.router = router;
+        this.toastService = toastService;
+    }
+    UsersNewComponent.prototype.ngOnInit = function () {
+        this.formGroup = this.formBuilder.group({
+            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, { validators: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required }),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, { validators: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required }),
+            firstname: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, {}),
+            surname: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, {}),
+        });
+    };
+    UsersNewComponent.prototype.saveUser = function () {
+        var _this = this;
+        this.usersNewService.saveUser(this.formGroup.getRawValue())
+            .subscribe(function () {
+            _this.router.navigate(['/users']);
+            _this.toastService.showToast('User created', _core_toast_toast_types_enum__WEBPACK_IMPORTED_MODULE_5__["ToastTypes"].Success);
+        });
+    };
+    UsersNewComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-users-new',
+            template: __webpack_require__(/*! ./users-new.component.html */ "./src/app/dashboard/users/users-new/users-new.component.html"),
+            styles: [__webpack_require__(/*! ./users-new.component.scss */ "./src/app/dashboard/users/users-new/users-new.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _users_new_service__WEBPACK_IMPORTED_MODULE_2__["UsersNewService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
+    ], UsersNewComponent);
+    return UsersNewComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-new/users-new.service.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/dashboard/users/users-new/users-new.service.ts ***!
+  \****************************************************************/
+/*! exports provided: UsersNewService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersNewService", function() { return UsersNewService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../api */ "../api/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UsersNewService = /** @class */ (function () {
+    function UsersNewService(usersService) {
+        this.usersService = usersService;
+    }
+    UsersNewService.prototype.saveUser = function (content) {
+        return this.usersService.userNewHandler(content);
+    };
+    UsersNewService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_api__WEBPACK_IMPORTED_MODULE_1__["UsersService"]])
+    ], UsersNewService);
+    return UsersNewService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users-routing.module.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/dashboard/users/users-routing.module.ts ***!
+  \*********************************************************/
+/*! exports provided: UsersRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersRoutingModule", function() { return UsersRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _users_list_users_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users-list/users-list.component */ "./src/app/dashboard/users/users-list/users-list.component.ts");
+/* harmony import */ var _users_new_users_new_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./users-new/users-new.component */ "./src/app/dashboard/users/users-new/users-new.component.ts");
+/* harmony import */ var _users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./users-edit/users-edit.component */ "./src/app/dashboard/users/users-edit/users-edit.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _users_list_users_list_component__WEBPACK_IMPORTED_MODULE_2__["UsersListComponent"]
+    },
+    {
+        path: 'new',
+        component: _users_new_users_new_component__WEBPACK_IMPORTED_MODULE_3__["UsersNewComponent"]
+    },
+    {
+        path: ':id',
+        component: _users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_4__["UsersEditComponent"]
+    }
+];
+var UsersRoutingModule = /** @class */ (function () {
+    function UsersRoutingModule() {
+    }
+    UsersRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], UsersRoutingModule);
+    return UsersRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/users/users.module.ts":
+/*!*************************************************!*\
+  !*** ./src/app/dashboard/users/users.module.ts ***!
+  \*************************************************/
+/*! exports provided: UsersModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersModule", function() { return UsersModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _users_list_users_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users-list/users-list.component */ "./src/app/dashboard/users/users-list/users-list.component.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _users_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./users-routing.module */ "./src/app/dashboard/users/users-routing.module.ts");
+/* harmony import */ var _users_new_users_new_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./users-new/users-new.component */ "./src/app/dashboard/users/users-new/users-new.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./users-edit/users-edit.component */ "./src/app/dashboard/users/users-edit/users-edit.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+var COMPONENTS = [
+    _users_list_users_list_component__WEBPACK_IMPORTED_MODULE_2__["UsersListComponent"],
+    _users_new_users_new_component__WEBPACK_IMPORTED_MODULE_5__["UsersNewComponent"],
+    _users_edit_users_edit_component__WEBPACK_IMPORTED_MODULE_7__["UsersEditComponent"]
+];
+var UsersModule = /** @class */ (function () {
+    function UsersModule() {
+    }
+    UsersModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_3__["CoreModule"],
+                _users_routing_module__WEBPACK_IMPORTED_MODULE_4__["UsersRoutingModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsModule"]
+            ],
+            declarations: COMPONENTS.slice()
+        })
+    ], UsersModule);
+    return UsersModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/page-not-found/page-not-found.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/page-not-found/page-not-found.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<app-card>\n  <app-card-header>\n    Page not found\n  </app-card-header>\n  <app-card-content>\n    <p>The page you are looking for doesn't exist.</p>\n    <p>Back to <a [routerLink]=\"homePagePath\">home page</a></p>\n  </app-card-content>\n</app-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/page-not-found/page-not-found.component.scss":
+/*!**************************************************************!*\
+  !*** ./src/app/page-not-found/page-not-found.component.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  padding: 30px;\n  display: block;\n  height: 100%;\n  background-color: #f8f8f8; }\n"
+
+/***/ }),
+
+/***/ "./src/app/page-not-found/page-not-found.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/page-not-found/page-not-found.component.ts ***!
+  \************************************************************/
+/*! exports provided: PageNotFoundComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNotFoundComponent", function() { return PageNotFoundComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/core.service */ "./src/app/core/core.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PageNotFoundComponent = /** @class */ (function () {
+    function PageNotFoundComponent(coreService) {
+        this.coreService = coreService;
+        this.homePagePath = '/';
+    }
+    PageNotFoundComponent.prototype.ngOnInit = function () {
+        this.homePagePath = this.coreService.homePage;
+    };
+    PageNotFoundComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-page-not-found',
+            template: __webpack_require__(/*! ./page-not-found.component.html */ "./src/app/page-not-found/page-not-found.component.html"),
+            styles: [__webpack_require__(/*! ./page-not-found.component.scss */ "./src/app/page-not-found/page-not-found.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_core_core_service__WEBPACK_IMPORTED_MODULE_1__["CoreService"]])
+    ], PageNotFoundComponent);
+    return PageNotFoundComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/auth.guard.ts":
+/*!****************************************!*\
+  !*** ./src/app/security/auth.guard.ts ***!
+  \****************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../core/core.service */ "./src/app/core/core.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(router, coreService, userService) {
+        this.router = router;
+        this.coreService = coreService;
+        this.userService = userService;
+    }
+    AuthGuard.prototype.canActivate = function (route, state) {
+        var _this = this;
+        return this.userService.checkCurrentUser()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) {
+            if (!value) {
+                _this.router.navigate([_this.coreService.loginPage]);
+            }
+            return value;
+        }));
+    };
+    AuthGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            provideIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _core_core_service__WEBPACK_IMPORTED_MODULE_4__["CoreService"],
+            _user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/login.guard.ts":
+/*!*****************************************!*\
+  !*** ./src/app/security/login.guard.ts ***!
+  \*****************************************/
+/*! exports provided: LoginGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginGuard", function() { return LoginGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../core/core.service */ "./src/app/core/core.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var LoginGuard = /** @class */ (function () {
+    function LoginGuard(router, userService, coreService) {
+        this.router = router;
+        this.userService = userService;
+        this.coreService = coreService;
+    }
+    LoginGuard.prototype.canActivate = function (route, state) {
+        var _this = this;
+        return this.userService.checkCurrentUser()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (value) {
+            if (value) {
+                _this.router.navigate([_this.coreService.homePage]);
+            }
+            return !value;
+        }));
+    };
+    LoginGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"],
+            _core_core_service__WEBPACK_IMPORTED_MODULE_3__["CoreService"]])
+    ], LoginGuard);
+    return LoginGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/login/login.component.html":
+/*!*****************************************************!*\
+  !*** ./src/app/security/login/login.component.html ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"logo\">\n    <span>DD</span>Managment\n</div>\n\n<div class=\"login-container\">\n    <app-form [formGroup]=\"formGroup\" [ngClass]=\"{'animated shake': wrongCredentials}\">\n        <h2>Hello!</h2>\n        <app-label>\n            <app-input placeholder=\"username\" formControlName=\"username\"></app-input>\n        </app-label>\n        <app-label>\n            <app-input type=\"password\" placeholder=\"password\" formControlName=\"password\"></app-input>\n        </app-label>\n        <div>\n            <app-button type=\"submit\" (click)=\"onFormSubmit()\" [disabled]=\"!formGroup.valid\">Sign In</app-button>\n        </div>\n    </app-form>\n</div>\n\n<div class=\"copyright\">\n    Photo by Adam Chang on Unsplash\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/security/login/login.component.scss":
+/*!*****************************************************!*\
+  !*** ./src/app/security/login/login.component.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  background-image: url('adam-chang-231299-unsplash.jpg');\n  background-color: #f8f8f8;\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-content: flex-end;\n  align-content: center;\n  align-items: center; }\n  :host .logo {\n    position: absolute;\n    top: 25px;\n    left: 25px;\n    font-weight: 500;\n    font-size: 1.5rem;\n    color: #ffffff;\n    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35); }\n  :host .logo span {\n      color: #1874ef;\n      font-weight: 700; }\n  :host .copyright {\n    position: absolute;\n    bottom: 15px;\n    left: 20px;\n    font-size: .75rem; }\n  :host .login-container {\n    order: 0;\n    flex: 0 1 50%;\n    align-self: auto;\n    display: flex;\n    align-content: center;\n    align-items: center;\n    justify-content: center; }\n  :host .login-container app-form {\n      -webkit-animation-duration: 750ms;\n              animation-duration: 750ms;\n      background-color: #ffffff;\n      padding: 10px 40px 30px;\n      box-shadow: 0 20px 80px -25px rgba(0, 0, 0, 0.75);\n      border-style: solid;\n      border-width: 1px;\n      border-color: #e5e6eb;\n      border-radius: 3px; }\n  :host .login-container app-form h2 {\n        padding: 0 10px; }\n  :host .login-container app-form /deep/ app-input input {\n        border-top: none;\n        border-right: none;\n        border-left: none;\n        border-radius: 3; }\n"
+
+/***/ }),
+
+/***/ "./src/app/security/login/login.component.ts":
+/*!***************************************************!*\
+  !*** ./src/app/security/login/login.component.ts ***!
+  \***************************************************/
+/*! exports provided: LoginComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _security_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../security.service */ "./src/app/security/security.service.ts");
+/* harmony import */ var _core_core_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../core/core.service */ "./src/app/core/core.service.ts");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/index */ "../../node_modules/rxjs/index.js");
+/* harmony import */ var rxjs_index__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(rxjs_index__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../core/toast/toast.service */ "./src/app/core/toast/toast.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent(formBuilder, securityService, userService, router, toastService, coreService) {
+        this.formBuilder = formBuilder;
+        this.securityService = securityService;
+        this.userService = userService;
+        this.router = router;
+        this.toastService = toastService;
+        this.coreService = coreService;
+        this.wrongCredentials = false;
+        this.loginHandlerSubsription = new rxjs_index__WEBPACK_IMPORTED_MODULE_6__["Subscription"]();
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.formGroup = this.formBuilder.group({
+            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required)
+        });
+    };
+    LoginComponent.prototype.onFormSubmit = function () {
+        var _this = this;
+        this.wrongCredentials = false;
+        this.loginHandlerSubsription = this.securityService.loginHandler(this.formGroup.getRawValue())
+            .subscribe(function () {
+            _this.userService.checkCurrentUser()
+                .subscribe(function (value) {
+                if (value) {
+                    _this.toastService.showToast('Welcome back! You have been logged in.');
+                    _this.router.navigate([_this.coreService.homePage]);
+                }
+            });
+        }, function (err) {
+            if (err.status === 403) {
+                _this.wrongCredentials = true;
+            }
+        });
+    };
+    LoginComponent.prototype.ngOnDestroy = function () {
+        if (this.loginHandlerSubsription) {
+            this.loginHandlerSubsription.unsubscribe();
+        }
+    };
+    LoginComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-login',
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/security/login/login.component.html"),
+            styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/security/login/login.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _security_service__WEBPACK_IMPORTED_MODULE_4__["SecurityService"],
+            _user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _core_toast_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"],
+            _core_core_service__WEBPACK_IMPORTED_MODULE_5__["CoreService"]])
+    ], LoginComponent);
+    return LoginComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/security-routing.module.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/security/security-routing.module.ts ***!
+  \*****************************************************/
+/*! exports provided: SecurityRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityRoutingModule", function() { return SecurityRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _security_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./security.component */ "./src/app/security/security.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login/login.component */ "./src/app/security/login/login.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _security_component__WEBPACK_IMPORTED_MODULE_2__["SecurityComponent"],
+        children: [
+            {
+                path: '',
+                component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"]
+            }
+        ]
+    }
+];
+var SecurityRoutingModule = /** @class */ (function () {
+    function SecurityRoutingModule() {
+    }
+    SecurityRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)
+            ],
+            exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]
+            ]
+        })
+    ], SecurityRoutingModule);
+    return SecurityRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/security.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/security/security.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>\n"
+
+/***/ }),
+
+/***/ "./src/app/security/security.component.scss":
+/*!**************************************************!*\
+  !*** ./src/app/security/security.component.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  display: block;\n  width: 100%;\n  height: 100%; }\n"
+
+/***/ }),
+
+/***/ "./src/app/security/security.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/security/security.component.ts ***!
+  \************************************************/
+/*! exports provided: SecurityComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityComponent", function() { return SecurityComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SecurityComponent = /** @class */ (function () {
+    function SecurityComponent() {
+    }
+    SecurityComponent.prototype.ngOnInit = function () {
+    };
+    SecurityComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-security',
+            template: __webpack_require__(/*! ./security.component.html */ "./src/app/security/security.component.html"),
+            styles: [__webpack_require__(/*! ./security.component.scss */ "./src/app/security/security.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], SecurityComponent);
+    return SecurityComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/security.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/security/security.module.ts ***!
+  \*********************************************/
+/*! exports provided: SecurityModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityModule", function() { return SecurityModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login/login.component */ "./src/app/security/login/login.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../api */ "../api/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _security_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./security.component */ "./src/app/security/security.component.ts");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user/user.service */ "./src/app/security/user/user.service.ts");
+/* harmony import */ var _security_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./security.service */ "./src/app/security/security.service.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _security_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./security-routing.module */ "./src/app/security/security-routing.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+var COMPONENTS = [
+    _login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"],
+    _security_component__WEBPACK_IMPORTED_MODULE_6__["SecurityComponent"]
+];
+var SecurityModule = /** @class */ (function () {
+    function SecurityModule() {
+    }
+    SecurityModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _security_routing_module__WEBPACK_IMPORTED_MODULE_10__["SecurityRoutingModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_9__["CoreModule"]
+            ],
+            declarations: COMPONENTS.slice(),
+            providers: [
+                _api__WEBPACK_IMPORTED_MODULE_4__["SecurityService"],
+                _user_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"],
+                _security_service__WEBPACK_IMPORTED_MODULE_8__["SecurityService"]
+            ],
+            exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"]
+            ]
+        })
+    ], SecurityModule);
+    return SecurityModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/security.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/security/security.service.ts ***!
+  \**********************************************/
+/*! exports provided: SecurityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityService", function() { return SecurityService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../api */ "../api/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user/user.service */ "./src/app/security/user/user.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SecurityService = /** @class */ (function () {
+    function SecurityService(securityApiService, userService) {
+        this.securityApiService = securityApiService;
+        this.userService = userService;
+    }
+    SecurityService.prototype.loginHandler = function (content) {
+        return this.securityApiService.loginHandler(content);
+    };
+    SecurityService.prototype.logoutHandler = function () {
+        var subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["ReplaySubject"](1);
+        this.userService.clearUser();
+        this.securityApiService.logoutHandler()
+            .subscribe(function () {
+            subject.next(null);
+        }, function () {
+            subject.next(null);
+        });
+        return subject;
+    };
+    SecurityService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_api__WEBPACK_IMPORTED_MODULE_1__["SecurityService"],
+            _user_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
+    ], SecurityService);
+    return SecurityService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/user/user.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/security/user/user.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../api */ "../api/index.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(securityApiService) {
+        this.securityApiService = securityApiService;
+        this.currentUserValue = null;
+    }
+    Object.defineProperty(UserService.prototype, "currentUser", {
+        get: function () {
+            if (this.currentUserValue) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(this.currentUserValue);
+            }
+            return this.getUserData();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    UserService.prototype.setUser = function (userData) {
+        this.currentUserValue = userData;
+    };
+    UserService.prototype.getUserData = function () {
+        var _this = this;
+        var subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["ReplaySubject"](1);
+        this.securityApiService.currentUserQuery()
+            .subscribe(function (userData) {
+            _this.setUser(userData);
+            subject.next(_this.currentUserValue);
+        }, function () {
+            _this.clearUser();
+            subject.next(null);
+        });
+        return subject;
+    };
+    UserService.prototype.clearUser = function () {
+        this.setUser(null);
+    };
+    UserService.prototype.checkCurrentUser = function () {
+        var subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["ReplaySubject"](1);
+        this.currentUser
+            .subscribe(function (user) {
+            if (user) {
+                return subject.next(true);
+            }
+            return subject.next(false);
+        });
+        return subject;
+    };
+    UserService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_api__WEBPACK_IMPORTED_MODULE_1__["SecurityService"]])
+    ], UserService);
+    return UserService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.ts":
+/*!*****************************************!*\
+  !*** ./src/environments/environment.ts ***!
+  \*****************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+var environment = {
+    production: false
+};
+/*
+ * In development mode, to ignore zone related error stack frames such as
+ * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
+ * import the following file, but please comment it out in production mode
+ * because it will have performance impact when throw error
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "./src/main.ts":
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+}
+Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
+    .catch(function (err) { return console.log(err); });
+
+
+/***/ }),
+
+/***/ 0:
+/*!***************************!*\
+  !*** multi ./src/main.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/jarek/Projects/means/frontend/dashboard/src/main.ts */"./src/main.ts");
+
+
+/***/ })
+
+},[[0,"runtime","vendor"]]]);
+//# sourceMappingURL=main.js.map

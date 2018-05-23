@@ -35,16 +35,16 @@ class Server {
         this.app.use(express.static('public'));
     }
     routes() {
-        this.homeRoute();
-        this.dashboardRoute();
         this.router.use((req, res, next) => {
             console.log(`I sense a disturbance in the force on url ${req.url}...`);
             next();
         });
         this.app.use(this.router);
+        this.dashboardRoute();
+        this.homeRoute();
     }
     homeRoute() {
-        this.router.get(app_config_1.AppConfig.BASE_PATH, (req, res) => {
+        this.router.get('/', (req, res) => {
             res.render('index', {
                 title: app_config_1.AppConfig.TITLE,
                 basePath: app_config_1.AppConfig.BASE_PATH
@@ -52,7 +52,7 @@ class Server {
         });
     }
     dashboardRoute() {
-        this.router.get(app_config_1.AppConfig.DASHBOARD_PATH, (req, res) => {
+        this.router.get(app_config_1.AppConfig.DASHBOARD_PATH + '/*', (req, res) => {
             res.render('dashboard', {
                 title: app_config_1.AppConfig.TITLE_DASHBOARD,
                 basePath: app_config_1.AppConfig.DASHBOARD_PATH

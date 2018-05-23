@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dashboard",
+            "outputPath": "public/dashboard",
             "index": "frontend/dashboard/src/index.html",
             "main": "frontend/dashboard/src/main.ts",
             "polyfills": "frontend/dashboard/src/polyfills.ts",
@@ -112,7 +112,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "public",
             "index": "frontend/client/src/index.html",
             "main": "frontend/client/src/main.ts",
             "polyfills": "frontend/client/src/polyfills.ts",
