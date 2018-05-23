@@ -8,7 +8,7 @@
     "backend:build": "gulp build",
     "ng": "ng",
     "frontend:dashboard": "ng serve --proxy-config proxy.conf.js --project=dashboard --port=4200",
-    "frontend:dashboard:build": "ng build --output-hashing none --prod --project=dashboard",
+    "frontend:dashboard:build": "ng build --base-href /dashboard/ --output-hashing none --project=dashboard --prod",
     "frontend:client": "ng serve --proxy-config proxy.conf.js --project=client --port=4201",
     "frontend:client:build": "ng build --output-hashing none --prod --project=client",
     "build": "npm run backend:build & npm run frontend:dashboard:build & npm run frontend:client:build",

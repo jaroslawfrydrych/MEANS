@@ -37,10 +37,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.wrongCredentials = false;
         this.loginHandlerSubsription = this.securityService.loginHandler(this.formGroup.getRawValue())
             .subscribe(() => {
-                this.userService.checkCurrentUser()
-                    .subscribe(value => {
-                        if (value) {
-                            this.toastService.showToast('Welcome back! You have been logged in.');
+                this.userService.currentUser
+                    .subscribe(user => {
+                        if (user) {
+                            const userName = user.firstname && user.surname ? user.firstname + ' ' + user.surname : user.username;
+                            this.toastService.showToast(`Welcome back, ${userName}! You have been logged in.`);
                             this.router.navigate([this.coreService.homePage]);
                         }
                     });

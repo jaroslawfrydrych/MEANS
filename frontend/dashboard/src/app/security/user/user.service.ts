@@ -17,7 +17,6 @@ export class UserService {
         }
 
         return this.getUserData();
-
     }
 
     private setUser(userData: CurrentUserView) {
@@ -43,7 +42,7 @@ export class UserService {
         this.setUser(null);
     }
 
-    public checkCurrentUser(): Observable<boolean> {
+    public checkCurrentUser(): Observable<boolean > {
         const subject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
         this.currentUser

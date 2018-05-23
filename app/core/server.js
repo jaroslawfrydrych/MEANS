@@ -17,6 +17,8 @@ class Server {
         this.swaggerSpec = fs.readFileSync(path.join(__dirname, '../../swagger/swagger.yaml'), 'utf8');
         this.swaggerDoc = jsyaml.safeLoad(this.swaggerSpec);
         this.app = express();
+        this.dashboardPath = Server.escapeRegExp(app_config_1.AppConfig.DASHBOARD_PATH);
+        this.apiPath = Server.escapeRegExp(this.swaggerDoc.basePath + '/');
         this.config();
         this.routes();
         this.swagger();
@@ -40,19 +42,29 @@ class Server {
             next();
         });
         this.app.use(this.router);
-        this.dashboardRoute();
         this.homeRoute();
+        this.dashboardRoute();
+    }
+    static escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     }
     homeRoute() {
-        this.router.get('/', (req, res) => {
-            res.render('index', {
-                title: app_config_1.AppConfig.TITLE,
-                basePath: app_config_1.AppConfig.BASE_PATH
-            });
+        const regexPattern = `^(${this.apiPath}|${this.dashboardPath})`;
+        const regex = new RegExp(regexPattern);
+        this.router.get('*', (req, res, next) => {
+            if (regex.test(req.url)) {
+                next();
+            }
+            else {
+                res.render('index', {
+                    title: app_config_1.AppConfig.TITLE,
+                    basePath: app_config_1.AppConfig.BASE_PATH
+                });
+            }
         });
     }
     dashboardRoute() {
-        this.router.get(app_config_1.AppConfig.DASHBOARD_PATH + '/*', (req, res) => {
+        this.router.get(app_config_1.AppConfig.DASHBOARD_PATH + '*', (req, res) => {
             res.render('dashboard', {
                 title: app_config_1.AppConfig.TITLE_DASHBOARD,
                 basePath: app_config_1.AppConfig.DASHBOARD_PATH

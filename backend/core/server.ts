@@ -17,9 +17,13 @@ class Server {
     private router: express.Router = express.Router();
     private swaggerSpec = fs.readFileSync(path.join(__dirname, '../../swagger/swagger.yaml'), 'utf8');
     private swaggerDoc = jsyaml.safeLoad(this.swaggerSpec);
+    private dashboardPath: string;
+    private apiPath: string;
 
     constructor() {
         this.app = express();
+        this.dashboardPath = Server.escapeRegExp(AppConfig.DASHBOARD_PATH);
+        this.apiPath = Server.escapeRegExp(this.swaggerDoc.basePath + '/');
         this.config();
         this.routes();
         this.swagger();
@@ -41,27 +45,39 @@ class Server {
     }
 
     private routes(): void {
+
         this.router.use((req, res, next) => {
             console.log(`I sense a disturbance in the force on url ${req.url}...`); // DEBUG
             next();
         });
 
         this.app.use(this.router);
-        this.dashboardRoute();
         this.homeRoute();
+        this.dashboardRoute();
+    }
+
+    private static escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     }
 
     private homeRoute(): void {
-        this.router.get('/', (req, res) => {
-            res.render('index', {
-                title: AppConfig.TITLE,
-                basePath: AppConfig.BASE_PATH
-            });
+        const regexPattern = `^(${this.apiPath}|${this.dashboardPath})`;
+        const regex = new RegExp(regexPattern);
+
+        this.router.get('*', (req, res, next) => {
+            if (regex.test(req.url)) {
+                next();
+            } else {
+                res.render('index', {
+                    title: AppConfig.TITLE,
+                    basePath: AppConfig.BASE_PATH
+                });
+            }
         });
     }
 
     private dashboardRoute(): void {
-        this.router.get(AppConfig.DASHBOARD_PATH + '/*', (req, res) => {
+        this.router.get(AppConfig.DASHBOARD_PATH + '*', (req, res) => {
             res.render('dashboard', {
                 title: AppConfig.TITLE_DASHBOARD,
                 basePath: AppConfig.DASHBOARD_PATH
